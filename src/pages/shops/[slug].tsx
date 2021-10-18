@@ -43,7 +43,7 @@ const ShopPage = ({ data }: any) => {
 };
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
   const { data } = await fetch(
-    `${process.env.NEXT_PUBLIC_REST_API_ENDPOINT}all-shop?is_active=1`
+    `${process.env.NEXT_PUBLIC_REST_API_ENDPOINT}/all-shop?is_active=1`
   ).then((res) => res.json());
   const paths = data?.flatMap((shop: any) =>
     locales?.map((locale) => ({ params: { slug: shop.slug }, locale }))
