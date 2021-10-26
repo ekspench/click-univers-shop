@@ -23,6 +23,8 @@ export const API_ENDPOINTS: Record<string, string> = {
   ADDRESS: "address",
   SHOPS: "all-shop",
   STRIPE_CREATE:"stripe-create",
-  SHIPPINGS:"shippings"
+  SHIPPINGS:"shippings",
+  TICKET:"ticket",
+  NOTICE:"notices",
   
 };

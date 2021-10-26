@@ -28,14 +28,24 @@ const Navbar = () => {
         <Logo className="mx-auto lg:mx-0" />
         <ul className="hidden lg:flex items-center space-s-8">
           {isAuthorize ? (
-            <li key="track-orders">
-              <Link
-                href={ROUTES.ORDERS}
-                className="font-semibold text-heading flex items-center transition duration-200 no-underline hover:text-accent focus:text-accent"
-              >
-                {t("nav-menu-track-order")}
-              </Link>
-            </li>
+            <>
+              <li key="track-orders">
+                <Link
+                  href={ROUTES.ORDERS}
+                  className="font-semibold text-heading flex items-center transition duration-200 no-underline hover:text-accent focus:text-accent"
+                >
+                  {t("nav-menu-track-order")}
+                </Link>
+              </li>
+              <li key="supports">
+                <Link
+                  href={ROUTES.SUPPORTS}
+                  className="font-semibold text-heading flex items-center transition duration-200 no-underline hover:text-accent focus:text-accent"
+                >
+                  {t("nav-menu-support")}
+                </Link>
+              </li>
+            </>
           ) : null}
           {siteSettings.headerLinks.map(({ href, label, icon }) => (
             <li key={`${href}${label}`}>

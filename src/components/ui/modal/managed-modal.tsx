@@ -16,6 +16,9 @@ const CreateOrUpdateAddressForm = dynamic(
 const AddressDeleteView = dynamic(
   () => import("@components/address/address-delete-view")
 );
+const AddTicket = dynamic(() => import("@components/ticket/ticket-form"));
+
+const ProductAvis=dynamic(()=>import("@components/order/product-avis-form"));
 
 const ManagedModal = () => {
   const { isOpen, view, data } = useModalState();
@@ -38,6 +41,8 @@ const ManagedModal = () => {
           className="!flex flex-col !w-screen !h-screen !rounded-none"
         />
       )}
+      {view === "ADD_TICKET" && <AddTicket />}
+      {view==="PRODUCT_AVIS"&&<ProductAvis/>}
     </Modal>
   );
 };

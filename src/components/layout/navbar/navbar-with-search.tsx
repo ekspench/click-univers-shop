@@ -77,6 +77,7 @@ const NavbarWithSearch = () => {
             </div>
             <ul className="hidden lg:flex items-center flex-shrink-0 space-s-10">
               {isAuthorize ? (
+                <>
                 <li key="track-orders">
                   <Link
                     href={ROUTES.ORDERS}
@@ -85,6 +86,16 @@ const NavbarWithSearch = () => {
                     {t("nav-menu-track-order")}
                   </Link>
                 </li>
+                <li key="supports">
+                  <Link
+                    href={ROUTES.SUPPORTS}
+                    className="font-semibold text-heading flex items-center transition duration-200 no-underline hover:text-accent focus:text-accent"
+                  >
+                    {t("nav-menu-support")}
+                  </Link>
+                </li>
+                </>
+                
               ) : null}
               {siteSettings.headerLinks.map(({ href, label, icon }) => (
                 <li key={`${href}${label}`}>

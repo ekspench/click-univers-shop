@@ -30,9 +30,7 @@ export default function CheckoutPage() {
             <Address
               id={data?.me?.id!}
               heading="text-billing-address"
-              addresses={data?.me?.address?.filter(
-                (address: any) => address.type === "billing"
-              )}
+              addresses={data?.me?.address}
               count={1}
               type="billing"
             />
@@ -41,9 +39,7 @@ export default function CheckoutPage() {
             <Address
               id={data?.me?.id!}
               heading="text-shipping-address"
-              addresses={data?.me?.address?.filter(
-                (address: any) => address.type === "shipping"
-              )}
+              addresses={data?.me?.address}
               count={2}
               type="shipping"
             />

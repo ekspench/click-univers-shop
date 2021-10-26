@@ -21,6 +21,7 @@ import Badge from "@components/ui/badge";
 import { CheckMark } from "@components/icons/checkmark";
 import { Table } from "@components/ui/table";
 import { OrderItems } from "@components/order/order-items-table";
+import AddNewTicket from "@components/ticket/add-new-ticket";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -107,17 +108,26 @@ export default function OrderPage() {
     },
     {
       title: "",
-      dataIndex: "tracking_number",
-      key: "tracking_number",
+      dataIndex: "ref",
+      key: "ref",
       align: alignRight,
       // width: 100,
-      render: (tracking_number: string) => (
+      render: (ref: string) => (
         <Link
-          href={`${ROUTES.ORDERS}/${tracking_number}`}
+          href={`${ROUTES.ORDERS}/${ref}`}
           className="inline-flex items-center justify-center flex-shrink-0 font-semibold leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow bg-gray-700 text-light border border-transparent hover:bg-gray-900 px-4 py-0 h-10 text-sm"
         >
           {t("text-view")}
         </Link>
+      ),
+    },
+    {
+      title: "",
+      key: "id",
+      align: alignRight,
+      // width: 100,
+      render: (order:any) => (
+     <AddNewTicket order={order}/>
       ),
     },
   ];

@@ -65,7 +65,9 @@ export const siteSettings = {
     { href: ROUTES.PROFILE, label: "auth-menu-profile" },
     { href: ROUTES.CHECKOUT, label: "auth-menu-checkout" },
     { href: ROUTES.ORDERS, label: "auth-menu-my-orders" },
+    { href: ROUTES.SUPPORTS, label: "auth-menu-support" },
     { href: ROUTES.LOGOUT, label: "auth-menu-logout" },
+
   ],
   dashboardSidebarMenu: [
     {
@@ -83,6 +85,10 @@ export const siteSettings = {
     {
       href: ROUTES.HELP,
       menulabel: "profile-sidebar-help",
+    },
+    {
+      href: ROUTES.SUPPORTS,
+      menulabel: "auth-menu-support",
     },
     {
       href: ROUTES.LOGOUT,

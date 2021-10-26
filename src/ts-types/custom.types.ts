@@ -8,6 +8,10 @@ export type CategoriesQueryOptionsType = {
   status?: string;
   limit?: number;
 };
+export type NoticesQueryOptionsType={
+  product_id:string;
+  limit?: number;
+}
 export type ProductsQueryOptionsType = {
   type?: string;
   text?: string;
@@ -87,6 +91,13 @@ export declare type Variation = {
   id: string;
   options?: any;
 };
+
+export declare type Notice={
+  id:string;
+  star:number;
+  comment:string;
+}
+
 export declare type Product = {
   id?: number | string;
   name?: string;
@@ -114,6 +125,7 @@ export declare type Product = {
   max_price?: number;
   related_products?: Product[];
   quantity?: number;
+  notice?:Notice;
   unit?: string;
   created_at?: Date;
   updated_at?: Date;
@@ -142,6 +154,7 @@ export declare type Order = {
   total: number;
   paid_total: number;
   payment_id?: string;
+  shipping?:ShippingType;
   payment_gateway?: string;
   coupon?: Coupon;
   discount?: number;

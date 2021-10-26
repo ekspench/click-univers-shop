@@ -122,7 +122,7 @@
   "token-label": "Mettez votre jeton que vous avez reçu par email",
   "text-reset-password": "Renitialiser le mot de passe",
   "text-back": "Retour",
-  "text-back-to": "Retour à ",
+  "text-back-to": "Retour ",
   "text-back-to-home": "Retour à la page d'accueil",
   "text-forgot-password": "Mot de passe oublié",
   "text-visit-site": "Visité ce site",
@@ -130,7 +130,7 @@
   "text-questions-comments": "Question, commentaire ou préoccupation ?",
   "text-name": "Nom",
   "text-password": "Mot de passe",
-  "text-email": "Courriel",
+  "text-email": "E-mail",
   "text-subject": "Sujet",
   "text-description": "Description",
   "text-contact-number": "Numéro de contact",
@@ -237,6 +237,9 @@
   "PICKBAZAR_MESSAGE.EMAIL_SENT_SUCCESSFUL": "E-mail envoyé avec succès",
   "text-more-info": "Plus d'infos",
   "text-price": "Prix",
-  "text-no-order-found": "Désolé, aucune commande n'a été trouvée :("
-
+  "text-no-order-found": "Désolé, aucune commande n'a été trouvée :(",
+  "profile-sidebar-ticket":"Mes litiges",
+  "textsub-orders":"Sous commande",
+  "auth-menu-support":"Supports",
+  "nav-menu-support":"Supports"
 }

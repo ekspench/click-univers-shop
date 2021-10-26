@@ -11,7 +11,6 @@ interface ICardItem {
   title: string;
   description: string;
   address?: any;
-
   // default: boolean;
 }
 interface Props {
@@ -19,7 +18,6 @@ interface Props {
   heading: string;
   addActionText?: string;
   items: ICardItem[] | undefined;
-  shipping_class:number|string|null;
   onSelect: (item: any) => void;
   onAdd?: () => void;
   onEdit?: (item: any) => void;
@@ -31,7 +29,6 @@ const SectionWithCardGroup = ({
   heading,
   addActionText,
   items,
-  shipping_class,
   onAdd,
   onEdit,
   onDelete,
@@ -78,8 +75,8 @@ const SectionWithCardGroup = ({
               className={cn(
                 "relative p-4 rounded border cursor-pointer group hover:border-accent",
                 {
-                  "border-accent shadow-sm": shipping_class === item.id,
-                  "bg-gray-100 border-transparent": shipping_class !== item.id,
+                  "border-accent shadow-sm": selected === idx,
+                  "bg-gray-100 border-transparent": selected !== idx,
                 }
               )}
               onClick={() => select(item, idx)}
@@ -115,7 +112,7 @@ const SectionWithCardGroup = ({
             </div>
           ))
         ) : (
-          <div className="relative px-5 py-6 text-body text-center bg-gray-100 rounded border border-border-200">
+          <div className="relative px-5 py-6 text-base text-center bg-gray-100 rounded border border-border-200">
             {t("text-no-address")}
           </div>
         )}

@@ -3,10 +3,12 @@ import usePrice from "@utils/use-price";
 import { siteSettings } from "@settings/site.settings";
 import { useTranslation } from "next-i18next";
 import { useIsRTL } from "@utils/locals";
+import { useModalAction } from "@components/ui/modal/modal.context";
 
 export const OrderItems = ({ products }: { products: any }) => {
   const { t } = useTranslation("common");
   const { alignLeft, alignRight } = useIsRTL();
+  const {openModal}=useModalAction();
 
   const orderTableColumns = [
     {
@@ -78,6 +80,15 @@ export const OrderItems = ({ products }: { products: any }) => {
           amount: +pivot.subtotal,
         });
         return <p>{price}</p>;
+      },
+    },
+    {
+      dataIndex: "id",
+      key: "id",
+      align: alignRight,
+      width: 50,
+      render: (id: any) => {
+        return <button onClick={()=>openModal("PRODUCT_AVIS",{product_id:id})} className="bg-green-400 p-2 hover:bg-green-600 rounded-full">Avis</button>;
       },
     },
   ];

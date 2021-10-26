@@ -9,6 +9,7 @@ import { ROUTES } from "@utils/routes";
 import { Eye } from "@components/icons/eye-icon";
 import { OrderItems } from "./order-items-table";
 import isEmpty from "lodash/isEmpty";
+import AddNewTicket from "@components/ticket/add-new-ticket";
 
 interface Props {
   order: any;
@@ -56,8 +57,9 @@ const OrderDetails = ({ order }: Props) => {
               className="font-semibold text-sm text-accent flex items-center transition duration-200 no-underline hover:text-accent-hover focus:text-accent-hover"
             >
               <Eye width={20} className="me-2" />
-              {t("text-sub-orders")}
+              {t("textsub-orders")}
             </Link>
+         
           </div>
 
           <div className="flex flex-col sm:flex-row border-b border-border-200">

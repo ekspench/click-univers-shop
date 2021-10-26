@@ -1,3 +1,5 @@
+import { Shop } from "./custom.types";
+
 export declare type Maybe<T> = T | null;
 export declare type Exact<
   T extends {
@@ -160,6 +162,28 @@ export declare type UserAddress = {
   city?: Maybe<Scalars["String"]>;
   state?: Maybe<Scalars["String"]>;
   zip?: Maybe<Scalars["String"]>;
+};
+export declare type Message={
+  __typename?:"Message";
+  id?:Scalars["ID"];
+  text:Scalars["String"];
+  user?:Maybe<User>;
+  created_at?: Scalars["DateTime"];
+  updated_at?: Scalars["DateTime"];
+}
+export declare type Ticket = {
+  __typename?: "Ticket";
+  id: Scalars["ID"];
+  subject: Scalars["String"];
+  description: Scalars["String"];
+  priority:Scalars["Int"];
+  status:Scalars["Boolean"];
+  order?:Maybe<Order>;
+  shop:Maybe<Shop>;
+  customer:Maybe<User>;
+  messages:Array<Message>;
+  created_at: Scalars["DateTime"];
+  updated_at: Scalars["DateTime"];
 };
 export declare type User = {
   __typename?: "User";

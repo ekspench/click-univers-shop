@@ -8,6 +8,8 @@ export type ParamsType = {
   status?: string;
   is_active?: string;
   shop_id?: string;
+  product_id?:string;
+  user_id?:string;
   limit?: number;
 };
 export class CoreApi {
@@ -36,7 +38,9 @@ export class CoreApi {
       status,
       is_active,
       shop_id,
+      product_id,
       limit = 30,
+      user_id,
     } = params;
     const searchString = this.stringifySearchQuery({
       type,
@@ -44,9 +48,10 @@ export class CoreApi {
       category,
       status,
       shop_id,
+      product_id,
       is_active,
     });
-    const queryString = `?search=${searchString}&searchJoin=and&limit=${limit}`;
+    const queryString = `?search=${searchString}&searchJoin=and&limit=${limit}&userId=${user_id}`;
     return this.http.get(this._base_path + queryString);
   }
   findAll() {

@@ -313,11 +313,11 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
 
                   {quantity! > 0 ? (
                     <>
-                      {isEmpty(variations) && (
+                      {/*isEmpty(variations) && (
                         <span className="text-base text-body whitespace-nowrap ms-7">
                           {quantity} {t("text-pieces-available")}
                         </span>
-                      )}
+                      )*/}
                       {!isEmpty(selectedVariation) && (
                         <span className="text-base text-body whitespace-nowrap ms-7">
                           {selectedVariation?.is_disable ||

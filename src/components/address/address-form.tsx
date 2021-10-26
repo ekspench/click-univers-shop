@@ -1,7 +1,7 @@
 import Button from "@components/ui/button";
 import Input from "@components/ui/input";
-import Label from "@components/ui/label";
-import Radio from "@components/ui/radio/radio";
+//import Label from "@components/ui/label";
+//import Radio from "@components/ui/radio/radio";
 import TextArea from "@components/ui/text-area";
 import { useState } from "react";
 import { useUpdateCustomerMutation } from "@data/customer/use-update-customer.mutation";
@@ -14,8 +14,7 @@ import {
   useModalAction,
   useModalState,
 } from "@components/ui/modal/modal.context";
-import AsyncSelect from 'react-select/async';
-import SelectAutoComplete from "../ui/SelectAutoComplete";
+import SelectAutoComplete from "@components/ui/SelectAutoComplete";
 
 type FormValues = {
   title: string;
@@ -62,8 +61,7 @@ const CreateOrUpdateAddressForm = () => {
     defaultValues: {
       title: address?.title ?? "",
       
-      type: address?.type ?? type,
-     
+      type:"standard" /*address?.type ?? type*/,
       /*...(address?.address && address),*/
       address:{
         ...address,
@@ -85,7 +83,7 @@ const CreateOrUpdateAddressForm = () => {
       setFieldValue("lat", data.centre.coordinates[1]);*/
       /*setFieldValue("placeId", i.value);*/
 
-    }).catch(err => console.log("erreur"));
+    }).catch(err => console.log("erreur",err));
 
   }
 
@@ -151,7 +149,9 @@ const CreateOrUpdateAddressForm = () => {
         className="grid grid-cols-2 gap-5 h-full"
       >
         <div>
-          <Label>{t("text-type")}</Label>
+         {/**
+          * 
+          *  <Label>{t("text-type")}</Label>
 
           <div className="space-s-4 flex items-center">
             <Radio
@@ -170,6 +170,7 @@ const CreateOrUpdateAddressForm = () => {
               label={t("text-shipping")}
             />
           </div>
+          */}
         </div>
 
         <Input

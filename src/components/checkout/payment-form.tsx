@@ -17,9 +17,16 @@ import {
   calculatePaidTotal,
   calculateTotal,
 } from "@contexts/quick-cart/cart.utils";
-import { CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import {
+  CardCvcElement,
+  CardExpiryElement,
+  CardNumberElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import { useCreateStripe } from "@data/stripe/use-stripe-mutation";
+import { useCustomerQuery } from "@data/customer/use-customer.query";
 interface FormValues {
   email: string;
   contact: string;
@@ -32,18 +39,19 @@ const paymentSchema = Yup.object().shape({
   email: Yup.string().email().required("error-email-required"),
 });
 
-
 const PaymentForm = () => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const { mutate: createOrder, isLoading: loading } = useCreateStripe();
+
+  const { data: userData, refetch } = useCustomerQuery();
   const { data: orderStatusData } = useOrderStatusesQuery();
-  const { register, handleSubmit, setValue, watch, formState: { errors }, } = useForm<FormValues>({ resolver: yupResolver(paymentSchema) });
-  const [clientSecret, setClientSecret] = useState<string>('');
-  const [error, setError] = useState<null | string>('');
+
+  const [clientSecret, setClientSecret] = useState<string>("");
+  const [error, setError] = useState<null | string>("");
   const [processing, setProcessing] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-  const [ref,setRef]=useState<string>('');
+  const [ref, setRef] = useState<string>("");
   const stripe: any = useStripe();
 
   const elements: any = useElements();
@@ -72,71 +80,80 @@ const PaymentForm = () => {
     discount
   );
 
-  useEffect(() => { // Create PaymentIntent as soon as the page loads
-    createOrder({
-      products: available_items?.map((item) => formatOrderedProduct(item)),
-      status: orderStatusData?.order_statuses?.data[0]?.id ?? 1,
-      amount: subtotal,
-      coupon_id: coupon?.id,
-      discount: discount ?? 0,
-      paid_total: total,
-      total,
-      sales_tax: checkoutData?.total_tax,
-      delivery_fee: checkoutData?.shipping_charge,
-      delivery_time: delivery_time?.description,
-      shipping_class_id:shipping_class,
-      billing_address: {
-        ...(billing_address?.address && billing_address.address),
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: yupResolver(paymentSchema),
+  });
+  
+  useEffect(()=>{
+  setValue("contact",userData?.me?.profile?.contact);
+  setValue("email",userData?.me?.email);
+  },[userData]);
+
+  useEffect(() => {
+    // Create PaymentIntent as soon as the page loads
+    createOrder(
+      {
+        products: available_items?.map((item) => formatOrderedProduct(item)),
+        status: orderStatusData?.order_statuses?.data[0]?.id ?? 1,
+        amount: subtotal,
+        coupon_id: coupon?.id,
+        discount: discount ?? 0,
+        paid_total: total,
+        total,
+        sales_tax: checkoutData?.total_tax,
+        delivery_fee: checkoutData?.shipping_charge,
+        delivery_time: delivery_time?.description,
+        shipping_class_id: shipping_class,
+        billing_address: {
+          ...(billing_address?.address && billing_address.address),
+        },
+        shipping_address: {
+          ...(shipping_address?.address && shipping_address.address),
+        },
       },
-      shipping_address: {
-        ...(shipping_address?.address && shipping_address.address),
-      },
-    }, {
-      onSuccess: (data: any) => {
-        setClientSecret(data.clientSecret);
-        setRef(data.stripeSession.data.orderInput.ref);
-      },
-      onError: (error: any) => {
-        console.log(error?.response?.data?.message);
-      },
-    });
+      {
+        onSuccess: (data: any) => {
+          setClientSecret(data.clientSecret);
+          setRef(data.stripeSession.data.orderInput.ref);
+        },
+        onError: (error: any) => {
+          console.log(error?.response?.data?.message);
+        },
+      }
+    );
   }, []);
   async function onSubmit(values: FormValues) {
     setProcessing(true);
     let payload = await stripe.confirmCardPayment(clientSecret, {
-
       payment_method: {
-
         card: elements.getElement(CardNumberElement),
         billing_details: {
           address: {
             city: billing_address.address.city,
-            country: 'FR',
+            country: "FR",
             line1: billing_address.address.street_address,
             postal_code: billing_address.address.zip,
-            state: billing_address.address.state
+            state: billing_address.address.state,
           },
           email: values.email,
           name: billing_address.title,
-          phone: values.contact
-
+          phone: values.contact,
         },
-
       },
       receipt_email: values.email,
-
     });
 
-
-
     if (payload.error) {
-
       setError(`Payment failed ${payload.error.message}`);
 
       setProcessing(false);
-
     } else {
-
       setError(null);
 
       setProcessing(false);
@@ -144,12 +161,9 @@ const PaymentForm = () => {
       setSuccess(true);
       router.push(`${ROUTES.ORDERS}/${ref}`);
     }
-
   }
   if (loading) {
-    return <div>
-      Chargement ....
-    </div>
+    return <div>Chargement ....</div>;
   }
   return (
     <form
