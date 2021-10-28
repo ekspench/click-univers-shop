@@ -18,8 +18,8 @@ export const fetchTicket = async ({
   queryKey,
   pageParam,
 }: QueryParamsType): Promise<PaginatedTicket> => {
-    let ticketData  = await TicketService.fetchTicket();
-  return { data:ticketData, paginatorInfo: mapPaginatorData({ /*...rest*/ }) };
+    let {data,...rest}  = await TicketService.fetchTicket();
+  return { data, paginatorInfo: mapPaginatorData({ ...rest }) };
 };
 
 export const useTicketsQuery = (

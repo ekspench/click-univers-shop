@@ -44,7 +44,6 @@ const ProductAvisForm = ({ product_id }: { product_id: string }) => {
   };
   const notice = notices?.notices?.data[0];
   useEffect(() => {
-    console.log("notice", notice);
     if (notice !== undefined) {
       setValue(notice.star);
       setComment(notice?.comment);
