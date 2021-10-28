@@ -41,7 +41,7 @@
   "text-phone": "Téléphone",
   "text-website": "Site web",
   "text-status": "Status",
-  "text-sub-orders": "Sous commande",
+  "text-sub-orders": "Detail",
   "text-quantity": "Quantité",
   "textext-price": "Prix",
   "text-apply": "Appliquer ",
@@ -239,7 +239,7 @@
   "text-price": "Prix",
   "text-no-order-found": "Désolé, aucune commande n'a été trouvée :(",
   "profile-sidebar-ticket":"Mes litiges",
-  "textsub-orders":"Sous commande",
+  "textsub-orders":"Detail",
   "auth-menu-support":"Supports",
   "nav-menu-support":"Supports"
 }

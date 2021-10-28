@@ -41,6 +41,7 @@ const OrderDetails = ({ order }: Props) => {
   const { price: sales_tax } = usePrice({
     amount: order?.sales_tax,
   });
+  console.log("order",order);
 
   return (
     <div className="flex flex-col w-full lg:w-2/3 border border-border-200">
@@ -119,7 +120,7 @@ const OrderDetails = ({ order }: Props) => {
           {/* Order Table */}
           <div>
             <div className="w-full flex justify-center items-center px-6">
-              <OrderStatus status={status?.serial} />
+              <OrderStatus status={order?.children.length===1?order.children[0]?.status?.serial:status.serial} />
             </div>
             <OrderItems products={products} />
           </div>
