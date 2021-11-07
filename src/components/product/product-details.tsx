@@ -15,6 +15,7 @@ import VariationPrice from "./product-details/product-variant-price";
 import ProductAttributes from "./product-details/product-attributes";
 import { useRouter } from "next/router";
 import { ROUTES } from "@utils/routes";
+import NoticeView from "./notice-view";
 
 type Props = {
   product: any;
@@ -119,8 +120,12 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
 
             {description && (
               <div className="mt-3 md:mt-4 text-body text-sm leading-7">
-                <Truncate character={450} onClick={scrollDetails} buttonText="En savoir plus" >
-                  {description.replace(/<[^>]*>?/gm, '')}
+                <Truncate
+                  character={450}
+                  onClick={scrollDetails}
+                  buttonText="En savoir plus"
+                >
+                  {description.replace(/<[^>]*>?/gm, "")}
                 </Truncate>
               </div>
             )}
@@ -211,23 +216,29 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
               </button>
             </div>
           )}
+             <div>
+                        <NoticeView product_id={product?.id as string}/>
+                      </div>
         </div>
+      
       </div>
 
       <Element
         name="details"
-        className="py-4 px-5 lg:px-16 lg:py-14 border-b border-border-200 border-opacity-70"
+        className="py-4 mx-auto px-5 lg:px-16 lg:py-14 border-b border-border-200 border-opacity-70 lg:w-3/4"
       >
         <h2 className="text-lg text-heading tracking-tight font-semibold mb-4 md:mb-6">
           {t("text-details")}
         </h2>
-       {/** <p className="text-sm text-body">{description}</p>*/} 
-        <div
-          className="html-content"
-          dangerouslySetInnerHTML={{
-            __html: description,
-          }}
-        />
+        {/** <p className="text-sm text-body">{description}</p>*/}
+        <div className="">
+          <div
+            className="html-content"
+            dangerouslySetInnerHTML={{
+              __html: description,
+            }}
+          />
+        </div>
       </Element>
     </article>
   );

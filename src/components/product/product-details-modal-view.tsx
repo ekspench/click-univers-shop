@@ -20,6 +20,7 @@ import VariationPrice from "./product-details/product-variant-price";
 import { useTranslation } from "next-i18next";
 import { useModalAction } from "@components/ui/modal/modal.context";
 import { ROUTES } from "@utils/routes";
+import NoticeView from "./notice-view";
 const RelatedProducts = dynamic(
   () => import("./product-details/related-products")
 );
@@ -300,7 +301,9 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
                     setAttributes={setAttributes}
                   />
                 </div>
-
+                      <div>
+                        <NoticeView product_id={data?.id as string}/>
+                      </div>
                 <div className="mt-4 md:mt-6 flex flex-col lg:flex-row items-center">
                   <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
                     <AddToCart

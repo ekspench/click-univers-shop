@@ -22,12 +22,11 @@ const Banner: React.FC<BannerProps> = ({ banner, className }) => {
   };
   return (
     <div className={cn("hidden lg:block relative", className)}>
-      <div className="min-h-140 overflow-hidden -z-1">
-        <Image
+      <div className=" w-full h-full overflow-hidden -z-1">
+        <img
           alt={banner?.heading}
           src={banner?.image ?? "/banner/univers.jpg"}
-          layout="fill"
-          objectFit="cover"
+          className="w-full h-full"
         />
       </div>
       <div className="p-5 mt-8 absolute inset-0 w-full flex flex-col items-center justify-center text-center">
