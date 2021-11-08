@@ -41,6 +41,7 @@ const Address = ({ id, addresses, heading, count, type }: Props) => {
   }
   function handleSelect(item: any) {
     if (type === "billing") {
+      console.log("item on set address",item);
       updateBillingAddress(item);
     } else {
       updateShippingAddress(item);

@@ -105,10 +105,10 @@ const PaymentForm = () => {
       delivery_time: delivery_time?.description,
       payment_gateway: values.payment_gateway,
       billing_address: {
-        ...(billing_address?.address && billing_address.address),
+        ...billing_address,
       },
       shipping_address: {
-        ...(shipping_address?.address && shipping_address.address),
+        ...shipping_address,
       },
     };
     if (values.payment_gateway !== "cod") {
@@ -124,7 +124,6 @@ const PaymentForm = () => {
 
     createOrder(input, {
       onSuccess: (data: any) => {
-        console.log("data",data);
        /* if (order?.tracking_number) {
           router.push(`${ROUTES.ORDERS}/${order?.tracking_number}`);
         }*/

@@ -37,10 +37,10 @@ const VerifyCheckout = () => {
             shipping_class_id:shipping_class,
             products: items?.map((item) => formatOrderedProduct(item)),
             billing_address: {
-              ...(billing_address?.address && billing_address.address),
+              ...(billing_address),
             },
             shipping_address: {
-              ...(shipping_address?.address && shipping_address.address),
+              ...(shipping_address),
             },
             
           },

@@ -72,6 +72,7 @@ function checkoutReducer(state: State, action: Action) {
       };
     }
     case "UPDATE_SHIPPING_ADDRESS": {
+     
       return {
         ...state,
         shipping_address: action.payload,

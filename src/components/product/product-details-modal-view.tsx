@@ -153,7 +153,7 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
                   <VariationPrice
                     selectedVariation={selectedVariation}
                     minPrice={min_price}
-                    maxPrice={max_price}
+                    maxPrice={0}
                   />
                 )}
               </span>

@@ -87,7 +87,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Banner banner={getPageData?.banner} className="min-h-screen" />
+      <Banner banner={getPageData?.banner} className="" />
       <PromotionSlider />
       <FilterBar />
       <Element
