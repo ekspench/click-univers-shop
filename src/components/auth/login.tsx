@@ -129,7 +129,7 @@ const LoginForm = () => {
 
       <div className="grid grid-cols-1 gap-4 mt-2">
         {/* Uncomment below code to use facebook login */}
-        {/* <Button
+        <Button
           className="w-full !bg-social-facebook hover:!bg-social-facebook-hover"
           // loading={loading}
           disabled={loading}
@@ -139,8 +139,8 @@ const LoginForm = () => {
         >
           <FacebookIcon className="w-4 h-4 mr-3" />
           {t("text-login-facebook")}
-        </Button> */}
-        <Button
+        </Button>
+        {/*   <Button
           className="!bg-social-google hover:!bg-social-google-hover"
           // loading={loading}
           disabled={loading}
@@ -150,7 +150,7 @@ const LoginForm = () => {
         >
           <GoogleIcon className="w-4 h-4 mr-3" />
           {t("text-login-google")}
-        </Button>
+        </Button> */}
       </div>
 
       <div className="flex flex-col items-center justify-center relative text-sm text-heading mt-8 sm:mt-11 mb-6 sm:mb-8">

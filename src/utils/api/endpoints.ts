@@ -26,5 +26,6 @@ export const API_ENDPOINTS: Record<string, string> = {
   SHIPPINGS:"shippings",
   TICKET:"ticket",
   NOTICE:"notices",
+  ARTICLE:"articles",
   
 };

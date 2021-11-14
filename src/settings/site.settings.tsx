@@ -57,15 +57,15 @@ export const siteSettings = {
   },
   headerLinks: [
     { href: ROUTES.SHOPS, icon: null, label: "nav-menu-shops" },
-    { href: ROUTES.OFFERS, icon: null, label: "nav-menu-offer" },
+    /*{ href: ROUTES.OFFERS, icon: null, label: "nav-menu-offer" },
     { href: ROUTES.HELP, label: "nav-menu-faq" },
-    { href: ROUTES.CONTACT, label: "nav-menu-contact" },
+    { href: ROUTES.CONTACT, label: "nav-menu-contact" },*/
   ],
   authorizedLinks: [
     { href: ROUTES.PROFILE, label: "auth-menu-profile" },
     { href: ROUTES.CHECKOUT, label: "auth-menu-checkout" },
     { href: ROUTES.ORDERS, label: "auth-menu-my-orders" },
-    { href: ROUTES.SUPPORTS, label: "auth-menu-support" },
+   /* { href: ROUTES.SUPPORTS, label: "auth-menu-support" },*/
     { href: ROUTES.LOGOUT, label: "auth-menu-logout" },
 
   ],

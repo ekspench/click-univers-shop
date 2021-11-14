@@ -10,6 +10,7 @@ import { Eye } from "@components/icons/eye-icon";
 import { OrderItems } from "./order-items-table";
 import isEmpty from "lodash/isEmpty";
 import AddNewTicket from "@components/ticket/add-new-ticket";
+import { CheckMark } from "@components/icons/checkmark";
 
 interface Props {
   order: any;
@@ -24,6 +25,7 @@ const OrderDetails = ({ order }: Props) => {
     billing_address,
     tracking_number,
     ref,
+    relay_point,
   } = order ?? {};
 
   const { price: amount } = usePrice({
@@ -41,7 +43,7 @@ const OrderDetails = ({ order }: Props) => {
   const { price: sales_tax } = usePrice({
     amount: order?.sales_tax,
   });
-  console.log("order",order);
+  console.log("order", order);
 
   return (
     <div className="flex flex-col w-full lg:w-2/3 border border-border-200">
@@ -49,8 +51,7 @@ const OrderDetails = ({ order }: Props) => {
         <>
           <div className="flex flex-col md:flex-row items-center md:justify-between p-5 border-b border-border-200">
             <h2 className="flex font-semibold text-sm md:text-xl text-heading mb-2">
-              {t("text-order-details")} <span className="px-2">-</span>{" "}
-              {ref}
+              {t("text-order-details")} <span className="px-2">-</span> {ref}
             </h2>
 
             <Link
@@ -60,7 +61,6 @@ const OrderDetails = ({ order }: Props) => {
               <Eye width={20} className="me-2" />
               {t("textsub-orders")}
             </Link>
-         
           </div>
 
           <div className="flex flex-col sm:flex-row border-b border-border-200">
@@ -114,14 +114,43 @@ const OrderDetails = ({ order }: Props) => {
                 </span>
                 <span className="text-sm font-bold text-heading">{total}</span>
               </div>
+              
             </div>
           </div>
 
           {/* Order Table */}
           <div>
-            <div className="w-full flex justify-center items-center px-6">
-              <OrderStatus status={order?.children.length===1?order.children[0]?.status?.serial:status.serial} />
-            </div>
+            {order?.children.length === 1 ? (
+              <div className="w-full flex justify-center items-center px-6 ">
+                <OrderStatus
+                  status={
+                    order?.children.length === 1
+                      ? order.children[0]?.status?.serial
+                      : status.serial
+                  }
+                />
+              </div>
+            ) : (
+              <>
+                <div className="flex items-start border border-gray-700 rounded p-4 mx-4 my-8">
+                  <span className="w-4 h-4 px-2 rounded-sm bg-dark flex items-center justify-center me-3 mt-0.5">
+                    <CheckMark className="w-2 h-2 text-light flex-shrink-0" />
+                  </span>
+                  <p className="text-heading text-sm">
+                    <span className="font-bold">{t("text-note")}:</span>{" "}
+                    {t("message-sub-order")}
+                    <Link
+                      href={`${ROUTES.ORDERS}/${ref}`}
+                      className="mt-2font-semibold text-sm text-accent flex items-center transition duration-200 no-underline hover:text-accent-hover focus:text-accent-hover"
+                    >
+                      <Eye width={20} className="me-2" />
+                      Voir le detail
+                    </Link>
+                  </p>
+                </div>
+              </>
+            )}
+
             <OrderItems products={products} />
           </div>
         </>

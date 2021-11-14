@@ -46,6 +46,11 @@ export default function ProfilePage() {
           </Card>
         </div>
       )}
+      <div>
+        <iframe src="https://www.remove.bg/fr/upload">
+
+        </iframe>
+      </div>
     </div>
   );
 }

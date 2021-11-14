@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "next-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import axios from 'axios'
+import axios from "axios";
 import {
   useModalAction,
   useModalState,
@@ -40,8 +40,6 @@ const addressSchema = yup.object().shape({
   }),
 });
 
-
-
 const CreateOrUpdateAddressForm = () => {
   const { t } = useTranslation();
   const [listAddresses, setListAddresses] = useState([]);
@@ -56,38 +54,44 @@ const CreateOrUpdateAddressForm = () => {
     handleSubmit,
     setValue,
     formState: { errors },
+    watch,
   } = useForm<FormValues>({
     resolver: yupResolver(addressSchema),
     defaultValues: {
       title: address?.title ?? "",
-      
-      type:"standard" /*address?.type ?? type*/,
+
+      type: "standard" /*address?.type ?? type*/,
       /*...(address?.address && address),*/
-      address:{
+      address: {
         ...address,
-        country:"France"
-      }
-     
+        country: "France",
+      },
     },
   });
 
-  const selectAddress = (i: { value: string; }) => {
-
-    axios.get("https://geo.api.gouv.fr/communes/" + i.value + "?fields=nom,code,codesPostaux,centre,codeDepartement,departement,codeRegion,region,population&format=json&geometry=centre").then(response => {
-      const data = response.data;
-      console.log(response.data);
-      setValue("address.city", data.nom.toUpperCase());
-      setValue("address.zip", data.codesPostaux[0]);
-      setValue('address.state',data.departement.nom)
-     /* setFieldValue("lng", data.codesPostaux[0]);
+  const selectAddress = (i: { value: string }) => {
+    axios
+      .get(
+        "https://geo.api.gouv.fr/communes/" +
+          i.value +
+          "?fields=nom,code,codesPostaux,centre,codeDepartement,departement,codeRegion,region,population&format=json&geometry=centre"
+      )
+      .then((response) => {
+        const data = response.data;
+        console.log(response.data);
+        setValue("address.city", data.nom.toUpperCase());
+        setValue("address.zip", data.codesPostaux[0]);
+        setValue("address.state", data.departement.nom);
+        /* setFieldValue("lng", data.codesPostaux[0]);
       setFieldValue("lat", data.centre.coordinates[1]);*/
-      /*setFieldValue("placeId", i.value);*/
+        /*setFieldValue("placeId", i.value);*/
+      })
+      .catch((err) => console.log("erreur", err));
+  };
 
-    }).catch(err => console.log("erreur",err));
-
-  }
-
-  const loadOptions = (val: string | any[] | ((prevState: never[]) => never[])) => {
+  const loadOptions = (
+    val: string | any[] | ((prevState: never[]) => never[])
+  ) => {
     setListAddresses([]);
     let params = "";
     let find = false;
@@ -97,22 +101,26 @@ const CreateOrUpdateAddressForm = () => {
         find = true;
       }
     } else {
-
       params = "codePostal";
       if (val.length >= 5) {
         find = true;
       }
     }
     if (find) {
-      return axios.get("https://geo.api.gouv.fr/communes?" + params + "=" + val).then(
-        response => {
-          return response.data.map((item: { nom: string; codesPostaux: string[]; code: any; }) => {
-            return {
-              'label': item.nom.toUpperCase() + " (" + item.codesPostaux[0] + ")",
-              'value': item.code
+      return axios
+        .get("https://geo.api.gouv.fr/communes?" + params + "=" + val)
+        .then((response) => {
+          return response.data.map(
+            (item: { nom: string; codesPostaux: string[]; code: any }) => {
+              return {
+                label:
+                  item.nom.toUpperCase() + " (" + item.codesPostaux[0] + ")",
+                value: item.code,
+              };
             }
-          });
-        }).catch(err => console.log(err));
+          );
+        })
+        .catch((err) => console.log(err));
     }
     setAddressSearch(val);
   };
@@ -128,9 +136,6 @@ const CreateOrUpdateAddressForm = () => {
         ...values.address,
       },
     };
-
-
-
 
     updateProfile({
       id: customerId,
@@ -149,7 +154,7 @@ const CreateOrUpdateAddressForm = () => {
         className="grid grid-cols-2 gap-5 h-full"
       >
         <div>
-         {/**
+          {/**
           * 
           *  <Label>{t("text-type")}</Label>
 
@@ -182,37 +187,44 @@ const CreateOrUpdateAddressForm = () => {
         />
         <div className="col-span-2">
           <SelectAutoComplete
+          placeholder="Code postal"
             loadOptions={loadOptions}
             onChange={selectAddress}
           />
         </div>
+
         <Input
           label={t("text-country")}
           {...register("address.country")}
           error={t(errors.address?.country?.message!)}
           variant="outline"
         />
+        {watch("address.city") && (
+          <Input
+            label={t("text-city")}
+            {...register("address.city")}
+            error={t(errors.address?.city?.message!)}
+            variant="outline"
+          />
+        )}
 
-        <Input
-          label={t("text-city")}
-          {...register("address.city")}
-          error={t(errors.address?.city?.message!)}
-          variant="outline"
-        />
+        {watch("address.state") && (
+          <Input
+            label={t("text-state")}
+            {...register("address.state")}
+            error={t(errors.address?.state?.message!)}
+            variant="outline"
+          />
+        )}
 
-        <Input
-          label={t("text-state")}
-          {...register("address.state")}
-          error={t(errors.address?.state?.message!)}
-          variant="outline"
-        />
-
-        <Input
-          label={t("text-zip")}
-          {...register("address.zip")}
-          error={t(errors.address?.zip?.message!)}
-          variant="outline"
-        />
+        {watch("address.zip") && (
+          <Input
+            label={t("text-zip")}
+            {...register("address.zip")}
+            error={t(errors.address?.zip?.message!)}
+            variant="outline"
+          />
+        )}
 
         <TextArea
           label={t("text-street-address")}

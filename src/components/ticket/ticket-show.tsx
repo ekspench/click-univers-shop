@@ -10,8 +10,8 @@ import Truncate from "@components/ui/truncate-scroll";
 import Button from "@components/ui/button";
 type TIcketProps = {
   id: string;
-  isMobile:boolean;
-  go_back:any
+  isMobile: boolean;
+  go_back: any;
 };
 type MessageProps = {
   message: Message;
@@ -19,23 +19,24 @@ type MessageProps = {
 };
 
 const MessageItem = ({ message, user }: MessageProps) => {
-
-    var relativeTime = require('dayjs/plugin/relativeTime')
-dayjs.extend(relativeTime);
-  if (user.id === message.user?.id) {
+  var relativeTime = require("dayjs/plugin/relativeTime");
+  dayjs.extend(relativeTime);
+  if (user.id !== message.user?.id) {
     return (
       <div className="chat-message">
         <div className="flex items-end">
           <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
             <div>
-              <span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
-               {message.text}
-              </span>
+              <div className="px-4 py-2 rounded-lg flex flex-col inline-block rounded-bl-none bg-white ">
+                <span className="font-bold mb-2">{user.name}</span>
+                <span className="text-gray-600"></span>
+                {message.text}
+              </div>
             </div>
           </div>
           <Image
             className="relative cursor-pointer w-1 h-1 overflow-hidden rounded-full border border-border-100"
-               src={
+            src={
               message?.user?.profile?.avatar?.thumbnail ??
               "/avatar-placeholder.svg"
             }
@@ -55,10 +56,12 @@ dayjs.extend(relativeTime);
           <div className="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
             <div>
               <span className="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white ">
-              {message.text}
+                {message.text}
               </span>
             </div>
-            <span className="text-sm text-gray-400">{dayjs(message.created_at).fromNow()}</span>
+            <span className="text-sm text-gray-400">
+              {dayjs(message.created_at).fromNow()}
+            </span>
           </div>
           <Image
             className="relative cursor-pointer w-1 h-1 overflow-hidden rounded-full border border-border-100"
@@ -73,17 +76,16 @@ dayjs.extend(relativeTime);
             loading="eager"
           />
         </div>
-       
       </div>
     );
   }
 };
 
-const TicketShow = ({ id,isMobile,go_back }: TIcketProps) => {
+const TicketShow = ({ id, isMobile, go_back }: TIcketProps) => {
   const {
     data,
     isFetching: fetchingTicket,
-  
+
     refetch,
   } = useTicketQuery({ ref: id });
   const ticket = data?.ticket;
@@ -92,31 +94,37 @@ const TicketShow = ({ id,isMobile,go_back }: TIcketProps) => {
   const [text, setText] = useState<string>("");
   const handleAddMessage = () => {
     if (ticket?.id) {
-      addMessage({
-        ticket_id: ticket.id,
-        message: {
-          text: text,
+      addMessage(
+        {
+          ticket_id: ticket.id,
+          message: {
+            text: text,
+          },
         },
-      },{
-          onSuccess(){
+        {
+          onSuccess() {
             refetch();
             setText("");
-          }
-      });
+          },
+        }
+      );
     }
   };
   return (
     <div className="w-full p:2 sm:p-6 justify-start flex flex-col h-full">
-        <Button className="item-end" onClick={go_back} variant="outline" >Fermer</Button>
-      <div className="flex items-center justify-between py-3 border-b-2 border-gray-200">
-        <div className="flex items-center space-x-4">
+      <Button className="item-end" onClick={go_back} variant="outline">
+        Fermer
+      </Button>
+      <div className="flex items-center justify-between  border-b-2 border-gray-200 bg-white my-2 p-4 rounded">
+        <div className="flex items-center space-x-4 ">
           <div className="flex flex-col leading-tight">
             <div className="text-2xl mt-1 flex items-center">
               <span className="text-gray-700 mr-3">{ticket?.subject}</span>
               <span className="text-green-500"> </span>
-      
             </div>
-         <span className="text-sm text-gray-600"><Truncate buttonText="plus"  >{ticket?.description??""}</Truncate></span> 
+            <span className="text-sm text-gray-600">
+              <Truncate buttonText="plus">{ticket?.description ?? ""}</Truncate>
+            </span>
           </div>
         </div>
         {/** 
@@ -186,7 +194,7 @@ const TicketShow = ({ id,isMobile,go_back }: TIcketProps) => {
         className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
       >
         {ticket?.messages.map((message) => (
-          <MessageItem user={me} message={message} />
+          <MessageItem user={me.me} message={message} />
         ))}
       </div>
       <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
@@ -219,7 +227,7 @@ const TicketShow = ({ id,isMobile,go_back }: TIcketProps) => {
             value={text}
             onChange={(e) => setText(e.currentTarget.value)}
             placeholder="Ecricre quelque chose"
-            className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3"
+            className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-white rounded-full py-3"
           />
           <div className="absolute right-0 items-center inset-y-0 hidden sm:flex">
             {/*

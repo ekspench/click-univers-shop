@@ -20,7 +20,7 @@ const data = [
     title: "banner:promotion-slide-three",
     bannerUrl: "/promotion/offer-3.png",
   },
-  {
+  /*{
     id: 4,
     title: "banner:promotion-slide-four",
     bannerUrl: "/promotion/offer-4.png",
@@ -29,7 +29,7 @@ const data = [
     id: 5,
     title: "banner:promotion-slide-five",
     bannerUrl: "/promotion/offer-5.png",
-  },
+  },*/
 ];
 
 const offerSliderBreakpoints = {
@@ -59,7 +59,8 @@ export default function PromotionSlider() {
       <div className="relative">
         <Swiper
           id="offer"
-          // loop={true}
+          
+          loop={true}
           breakpoints={offerSliderBreakpoints}
           navigation={{
             nextEl: ".next",
@@ -67,7 +68,7 @@ export default function PromotionSlider() {
           }}
         >
           {data?.map((d) => (
-            <SwiperSlide key={d.id}>
+            <SwiperSlide  key={d.id}>
               <img
                 className="w-full h-auto"
                 src={d.bannerUrl}

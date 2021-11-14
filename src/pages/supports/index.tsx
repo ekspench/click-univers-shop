@@ -44,7 +44,7 @@ export default function SupportPage() {
 const isMobile=useWindowSize().width<860;
 console.log(isMobile);
   return (
-    <div className="w-full bg-light">
+    <div className="w-full ">
       <div className="flex flex-col xl:flex-row items-start max-w-1920 w-full mx-auto py-10 px-5 xl:py-14 xl:px-8 2xl:px-14  min-h-screen">
         <ProfileSidebar className="flex-shrink-0 hidden xl:block xl:w-80 me-8" />
         {/* End of sidebar navigation */}
@@ -60,7 +60,7 @@ console.log(isMobile);
                 {t("profile-sidebar-ticket")}
               </h3>
               <Scrollbar
-                className="w-full "
+                className="w-full px-4"
                 style={{ height: "calc(100% - 80px)" }}
               >
                 <ul className="p-2">

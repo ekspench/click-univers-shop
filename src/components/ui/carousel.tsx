@@ -1,15 +1,16 @@
 import ChevronLeft from "@components/icons/chevron-left";
 import ChevronRight from "@components/icons/chevron-right";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Thumbs, Navigation } from "swiper";
+import SwiperCore, { Thumbs, Navigation, Pagination, Zoom } from "swiper";
 import "swiper/swiper-bundle.min.css";
+import 'swiper/components/zoom/zoom.min.css';
 import Image from "next/image";
 import { useState } from "react";
 
 interface Props {
   gallery: any[];
 }
-SwiperCore.use([Thumbs, Navigation]);
+SwiperCore.use([Thumbs, Navigation, Pagination,Zoom]);
 // product gallery breakpoints
 const galleryCarouselBreakpoints = {
   320: {
@@ -33,6 +34,8 @@ export const ThumbsCarousel: React.FC<Props> = ({ gallery }) => {
       <Swiper
         id="productGallery"
         thumbs={{ swiper: thumbsSwiper }}
+        zoom
+        navigation
         spaceBetween={0}
         slidesPerView={1}
       >
@@ -40,12 +43,14 @@ export const ThumbsCarousel: React.FC<Props> = ({ gallery }) => {
           <SwiperSlide
             key={`product-gallery-${item.id}`}
             className="flex items-center justify-center"
+
           >
             <Image
               src={item?.original ?? "/product-placeholder.svg"}
               alt={`Product gallery ${item.id}`}
               width={450}
               height={450}
+
               // className="product-image"
             />
           </SwiperSlide>

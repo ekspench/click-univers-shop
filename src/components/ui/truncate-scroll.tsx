@@ -2,7 +2,7 @@ type ReadMoreProps = {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   buttonText?: string;
   character: number;
-  children: string;
+  children: any;
   hideButton?: boolean;
   
 };

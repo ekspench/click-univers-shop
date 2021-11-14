@@ -9,7 +9,9 @@ type MODAL_VIEWS =
   | "PRODUCT_DETAILS"
   | "ADD_TICKET"
   |"PRODUCT_AVIS"
-  | "SHOP_INFO";
+  | "SHOP_INFO"
+  |"STRIPE_PAYMENT_FORM"
+  |"DELIVERY_RELAY_POINT";
 
 interface State {
   view?: MODAL_VIEWS;

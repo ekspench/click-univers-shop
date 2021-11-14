@@ -97,6 +97,20 @@ export declare type Notice={
   star:number;
   comment:string;
 }
+export declare type items_article={
+  id?:number|string;
+  title:string;
+  content:string;
+}
+
+export declare type Article={
+  id?: number | string;
+  title:string;
+  slug:string;
+  items:items_article[];
+  created_at?: Date;
+  updated_at?: Date;
+}
 
 export declare type Product = {
   id?: number | string;

@@ -37,4 +37,8 @@ module.exports = withPWA({
   typescript: {
     ignoreBuildErrors: true,
   },
+  experimental: {
+    urlImports: ['https://widget.mondialrelay.com/parcelshop-picker/jquery.plugin.mondialrelay.parcelshoppicker.min.js'],
+  },
+
 });

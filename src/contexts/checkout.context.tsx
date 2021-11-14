@@ -6,7 +6,13 @@ export interface State {
   billing_address: UserAddress | null;
   shipping_address: UserAddress | null;
   delivery_time: any;
-  shipping_class:number|string
+  shipping_class: number | string;
+  relay_point: {
+    Nom: string;
+    Address: string;
+    Ville: string;
+    CP: string;
+  };
   checkoutData: {
     total_tax: number;
     shipping_charge: number;
@@ -20,6 +26,7 @@ const defaultState = {
   billing_address: null,
   shipping_address: null,
   checkoutData: null,
+  relay_point:null,
   delivery_time: "",
   discount: 0,
   coupon: null,
@@ -40,7 +47,8 @@ type Action =
   | {
       type: "UPDATE_DELIVERY_TIME";
       payload: any;
-    } | {
+    }
+  | {
       type: "SET_SHIPPING_CLASS";
       payload: any;
     }
@@ -57,7 +65,12 @@ type Action =
     }
   | {
       type: "REMOVE_COUPON";
-    };
+    }
+    | {
+      type: "SET_RELAY_POINT";
+      payload: any;
+    } 
+    ;
 
 export const CheckoutContext = React.createContext<State | any>(initialState);
 
@@ -72,7 +85,6 @@ function checkoutReducer(state: State, action: Action) {
       };
     }
     case "UPDATE_SHIPPING_ADDRESS": {
-     
       return {
         ...state,
         shipping_address: action.payload,
@@ -94,6 +106,12 @@ function checkoutReducer(state: State, action: Action) {
       return {
         ...state,
         delivery_time: action.payload,
+      };
+    }
+    case "SET_RELAY_POINT": {
+      return {
+        ...state,
+        relay_point: action.payload,
       };
     }
     case "CLEAR_CHECKOUT": {
@@ -136,10 +154,12 @@ export const CheckoutProvider: FC = (props) => {
     dispatch({ type: "UPDATE_BILLING_ADDRESS", payload });
   const updateShippingAddress = (payload: UserAddress) =>
     dispatch({ type: "UPDATE_SHIPPING_ADDRESS", payload });
-    const setShippingClass = (payload: any) =>
+  const setShippingClass = (payload: any) =>
     dispatch({ type: "SET_SHIPPING_CLASS", payload });
   const updateDeliveryTime = (payload: any) =>
     dispatch({ type: "UPDATE_DELIVERY_TIME", payload });
+    const setRelayPoint = (payload: any) =>
+    dispatch({ type: "SET_RELAY_POINT", payload });
   const setCheckoutData = (payload: any) =>
     dispatch({ type: "SET_CHECKOUT_DATA", payload });
   const applyCoupon = (payload: any) =>
@@ -157,10 +177,11 @@ export const CheckoutProvider: FC = (props) => {
       updateShippingAddress,
       updateDeliveryTime,
       setCheckoutData,
+      setRelayPoint,
       applyCoupon,
       removeCoupon,
       clearCheckoutData,
-      setShippingClass
+      setShippingClass,
     }),
     [state]
   );

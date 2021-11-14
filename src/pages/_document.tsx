@@ -28,6 +28,8 @@ export default class CustomDocument extends Document {
           <Main />
           <NextScript />
         </body>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://widget.mondialrelay.com/parcelshop-picker/jquery.plugin.mondialrelay.parcelshoppicker.min.js"></script>   
       </Html>
     );
   }

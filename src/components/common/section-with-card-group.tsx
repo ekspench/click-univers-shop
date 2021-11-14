@@ -22,6 +22,7 @@ interface Props {
   onAdd?: () => void;
   onEdit?: (item: any) => void;
   onDelete?: (item: any) => void;
+  defaultChecked?:number;
 }
 
 const SectionWithCardGroup = ({
@@ -33,9 +34,11 @@ const SectionWithCardGroup = ({
   onEdit,
   onDelete,
   onSelect,
+  defaultChecked
 }: Props) => {
   const { t } = useTranslation("common");
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(defaultChecked);
+  console.log("default checked",defaultChecked);
   function select(item: any, idx: number) {
     setSelected(idx);
     onSelect(item);

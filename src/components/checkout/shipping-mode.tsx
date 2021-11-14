@@ -1,5 +1,6 @@
 import SectionWithCardGroup from "@components/common/section-with-card-group";
 import { useCheckout } from "@contexts/checkout.context";
+import { useCart } from "@contexts/quick-cart/cart.context";
 import { useShippingQuery } from "@data/shipping/use-shippings.query";
 import { siteSettings } from "@settings/site.settings";
 import { useEffect } from "react";
@@ -15,6 +16,7 @@ const ShippingMode = ({ count }: Props) => {
   }, []);
 
   const {data, isFetching: loading,}=useShippingQuery();
+  const {  total } = useCart();
   function handleSelect(item: any) {
     setShippingClass(item);
   }
@@ -23,13 +25,13 @@ const ShippingMode = ({ count }: Props) => {
       Chargement...
     </div>
   }
-  console.log("shipping",shipping_class);
+
   return (
     <SectionWithCardGroup
       count={count}
-      shipping_class={shipping_class}
+      defaultChecked={data?.shippings.findIndex(s=>s.id==shipping_class)}
       heading="text-delivery-schedule"
-      items={data?.shippings.map(s=>({id:s.id,title:s.name,description:`à partir de ${s.amount} €`}))}
+      items={data?.shippings.map((s:any)=>({id:s.id,title:s.name,description:(total>35||s.type==="free_shipping")?"Gratuit":`à partir de ${s.amount} €`}))}
       onSelect={(handleSelect)}
     />
   );

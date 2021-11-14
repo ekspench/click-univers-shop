@@ -6,6 +6,7 @@ import "@assets/main.css";
 import "react-toastify/dist/ReactToastify.css";
 //import '@assets/card.css';
 import '@assets/form_checkout.css'
+import  '@components/payment/card.css';
 import { UIProvider, useUI } from "@contexts/ui.context";
 import { SearchProvider } from "@contexts/search.context";
 import { CheckoutProvider } from "@contexts/checkout.context";

@@ -16,10 +16,8 @@ const Address = ({ id, addresses, heading, count, type }: Props) => {
   const { openModal } = useModalAction();
   const { updateBillingAddress, updateShippingAddress } = useCheckout();
   useEffect(() => {
-    if (addresses && type === "billing") {
+    if (addresses) {
       updateBillingAddress(addresses[0]);
-    }
-    if (addresses && type === "shipping") {
       updateShippingAddress(addresses[0]);
     }
   }, [addresses]);
@@ -40,12 +38,14 @@ const Address = ({ id, addresses, heading, count, type }: Props) => {
     });
   }
   function handleSelect(item: any) {
-    if (type === "billing") {
+    /* if (type === "billing") {
       console.log("item on set address",item);
       updateBillingAddress(item);
     } else {
       updateShippingAddress(item);
-    }
+    }*/
+    updateBillingAddress(item);
+    updateShippingAddress(item);
   }
   return (
     <SectionWithCardGroup

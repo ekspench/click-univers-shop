@@ -95,7 +95,9 @@ const NavbarWithTypes: React.FC = () => {
                   {t("nav-menu-track-order")}
                 </Link>
               </li>
-              <li key="supports">
+             {/**
+              * 
+              * <li key="supports">
                   <Link
                     href={ROUTES.SUPPORTS}
                     className="font-semibold text-heading flex items-center transition duration-200 no-underline hover:text-accent focus:text-accent"
@@ -103,6 +105,7 @@ const NavbarWithTypes: React.FC = () => {
                     {t("nav-menu-support")}
                   </Link>
                 </li>
+              */} 
               </>
             ) : null}
             {siteSettings.headerLinks.map(({ href, icon, label }) => (

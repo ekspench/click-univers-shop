@@ -22,6 +22,7 @@ import { CheckMark } from "@components/icons/checkmark";
 import { Table } from "@components/ui/table";
 import { OrderItems } from "@components/order/order-items-table";
 import AddNewTicket from "@components/ticket/add-new-ticket";
+import OrderStatus from "@components/order/order-status";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -68,8 +69,8 @@ export default function OrderPage() {
   const orderTableColumns = [
     {
       title: t("text-tracking-number"),
-      dataIndex: "tracking_number",
-      key: "tracking_number",
+      dataIndex: "ref",
+      key: "ref",
       align: alignLeft,
     },
     {
@@ -117,7 +118,7 @@ export default function OrderPage() {
           href={`${ROUTES.ORDERS}/${ref}`}
           className="inline-flex items-center justify-center flex-shrink-0 font-semibold leading-none rounded outline-none transition duration-300 ease-in-out focus:outline-none focus:shadow bg-gray-700 text-light border border-transparent hover:bg-gray-900 px-4 py-0 h-10 text-sm"
         >
-          {t("text-view")}
+          Detail
         </Link>
       ),
     },
@@ -126,9 +127,7 @@ export default function OrderPage() {
       key: "id",
       align: alignRight,
       // width: 100,
-      render: (order:any) => (
-     <AddNewTicket order={order}/>
-      ),
+      render: (order: any) => <AddNewTicket order={order} />,
     },
   ];
 
@@ -161,9 +160,7 @@ export default function OrderPage() {
             <h3 className="mb-2 text-sm text-heading font-semibold">
               {t("text-order-ref")}
             </h3>
-            <p className="text-sm text-body-dark">
-              {data?.order?.ref}
-            </p>
+            <p className="text-sm text-body-dark">{data?.order?.ref}</p>
           </div>
           <div className="py-4 px-5 border border-border-200 rounded shadow-sm">
             <h3 className="mb-2 text-sm  text-heading font-semibold">
@@ -181,13 +178,36 @@ export default function OrderPage() {
           </div>
           <div className="py-4 px-5 border border-border-200 rounded shadow-sm">
             <h3 className="mb-2 text-sm  text-heading font-semibold">
-             Mode de livraison
+              Mode de livraison
             </h3>
             <p className="text-sm text-body-dark">
               {data?.order?.shipping?.name ?? "N/A"}
             </p>
           </div>
+          {data?.order?.relay_point && (
+            <div className="py-4 px-5 border border-border-200 rounded shadow-sm">
+              <h3 className="mb-2 text-sm  text-heading font-semibold">
+                Point de relais: <span>{data?.order?.relay_point?.nom}</span>
+              </h3>
+              <p className="text-sm text-body-dark">
+                {data?.order?.relay_point?.address},{" "}
+                {data?.order?.relay_point?.zip}-{data?.order?.relay_point?.city}
+              </p>
+            </div>
+          )}
         </div>
+        {data?.order?.children.length === 1 ||
+          (data?.order?.children.length === 0 && (
+            <div className="w-full flex justify-center items-center ">
+              <OrderStatus
+                status={
+                  data?.order?.children.length
+                    ? data?.order.children[0]?.status?.serial
+                    : data?.order?.status.serial
+                }
+              />
+            </div>
+          ))}
         {/* end of order received  */}
 
         <div className="flex flex-col lg:flex-row">
@@ -287,17 +307,20 @@ export default function OrderPage() {
               {t("text-sub-orders")}
             </h2>
             <div>
-              <div className="flex items-start border border-gray-700 rounded p-4 mb-12">
-                <span className="w-4 h-4 px-2 rounded-sm bg-dark flex items-center justify-center me-3 mt-0.5">
-                  <CheckMark className="w-2 h-2 text-light flex-shrink-0" />
-                </span>
-                <p className="text-heading text-sm">
-                  <span className="font-bold">{t("text-note")}:</span>{" "}
-                  {t("message-sub-order")}
-                </p>
-              </div>
+              {data?.order?.children.length !== 1 && (
+                <div className="flex items-start border border-gray-700 rounded p-4 mb-12">
+                  <span className="w-4 h-4 px-2 rounded-sm bg-dark flex items-center justify-center me-3 mt-0.5">
+                    <CheckMark className="w-2 h-2 text-light flex-shrink-0" />
+                  </span>
+                  <p className="text-heading text-sm">
+                    <span className="font-bold">{t("text-note")}:</span>{" "}
+                    {t("message-sub-order")}
+                  </p>
+                </div>
+              )}
+
               {Array.isArray(data?.order?.children) &&
-                data?.order?.children.length && (
+                data?.order?.children.length > 1 && (
                   <div className="">
                     <Table
                       //@ts-ignore

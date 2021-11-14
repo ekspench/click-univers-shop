@@ -18,6 +18,7 @@ export default function SignOut() {
     Cookies.remove("auth_token");
     Cookies.remove("auth_permissions");
     router.push("/");
+    router.reload();
   }, []);
 
   return (

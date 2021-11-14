@@ -1,19 +1,105 @@
 import Address from "@components/address/address";
-import Schedule from "@components/checkout/schedule";
 import Layout from "@components/layout/layout";
-import VerifyCheckout from "@components/checkout/verify-checkout";
 import { useEffect } from "react";
 import { useUI } from "@contexts/ui.context";
 import { useCustomerQuery } from "@data/customer/use-customer.query";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useModalAction } from "@components/ui/modal/modal.context";
 import ShippingMode from "@components/checkout/shipping-mode";
+import PaymentGroup from "@components/payment/payement-group";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { loggedIn } from "@utils/is-loggedin";
+import { useCheckout } from "@contexts/checkout.context";
+import { useVerifyCheckoutMutation } from "@data/order/use-checkout-verify.mutation";
+import { useCart } from "@contexts/quick-cart/cart.context";
+import { formatOrderedProduct } from "@utils/format-ordered-product";
+import Button from "@components/ui/button";
+import {
+  calculatePaidTotal,
+  calculateTotal,
+} from "@contexts/quick-cart/cart.utils";
+import OrderInformation from "@components/order/order-information";
+import { useOrderStatusesQuery } from "@data/order/use-order-statuses.query";
+import { useRouter } from "next/router";
+import { ROUTES } from "@utils/routes";
+import Edit from "@components/icons/edit";
+import { PlusIcon } from "@components/icons/plus-icon";
 
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC as string
+);
 export default function CheckoutPage() {
+  const router = useRouter();
   const { data, refetch } = useCustomerQuery();
+  const {
+    billing_address,
+    shipping_address,
+    shipping_class,
+    setCheckoutData,
+    checkoutData,
+    coupon,
+    relay_point,
+    discount,
+    delivery_time,
+  } = useCheckout();
 
+  console.log("shipping", shipping_class);
+  const { items, total, isEmpty } = useCart();
   const { isAuthorize } = useUI();
   const { openModal } = useModalAction();
+  const { mutate: verifyCheckout, isLoading: loading } =
+    useVerifyCheckoutMutation();
+  const { data: orderStatusData } = useOrderStatusesQuery();
+
+  async function handleVerifyCheckout() {
+    if (loggedIn()) {
+      if (billing_address && shipping_address) {
+        verifyCheckout(
+          {
+            amount: total,
+            shipping_class_id: shipping_class,
+            products: items?.map((item) => formatOrderedProduct(item)),
+            billing_address: {
+              ...billing_address,
+            },
+            shipping_address: {
+              ...shipping_address,
+            },
+          },
+          {
+            onSuccess: (data) => {
+              setCheckoutData(data);
+            },
+            onError: (error) => {
+              console.log(error, "error");
+            },
+          }
+        );
+      }
+      if (shipping_class === 3) {
+        if (!relay_point) {
+          openModal("DELIVERY_RELAY_POINT");
+        }
+      }
+    }
+  }
+  useEffect(() => {
+    handleVerifyCheckout();
+  }, [billing_address, shipping_address, shipping_class]);
+
+  const available_items = items?.filter(
+    (item: any) => !checkoutData?.unavailable_products?.includes(item.id)
+  );
+  const subtotal = calculateTotal(available_items);
+  const totalF = calculatePaidTotal(
+    {
+      totalAmount: subtotal,
+      tax: checkoutData?.total_tax!,
+      shipping_charge: checkoutData?.shipping_charge!,
+    },
+    discount
+  );
   useEffect(() => {
     if (!isAuthorize) {
       return openModal("LOGIN_VIEW");
@@ -22,6 +108,36 @@ export default function CheckoutPage() {
       refetch();
     }
   }, [isAuthorize]);
+  const dataCreateOrder = () => {
+    return {
+      orderInput: {
+        status: orderStatusData?.order_statuses?.data[0]?.id ?? 1,
+        amount: subtotal,
+        coupon_id: coupon?.id,
+        discount: discount ?? 0,
+        paid_total: totalF,
+        total,
+        sales_tax: checkoutData?.total_tax,
+        delivery_fee: checkoutData?.shipping_charge,
+        delivery_time: delivery_time?.description,
+        shipping_class_id: shipping_class,
+        relay_point:relay_point,
+        billing_address: {
+          title: billing_address?.title,
+          address: billing_address?.address && billing_address.address,
+        },
+        shipping_address: {
+          title: shipping_address?.title,
+          address: shipping_address?.address && shipping_address.address,
+        },
+      },
+      products: available_items?.map((item) => formatOrderedProduct(item)),
+    };
+  };
+  const onPaySuccess = (data: any) => {
+    router.push(`${ROUTES.ORDERS}/${data.orderInput.ref}`);
+  };
+
   return (
     <div className="py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20">
       <div className="flex flex-col lg:flex-row items-center lg:items-start m-auto lg:space-s-8 w-full max-w-5xl">
@@ -35,21 +151,87 @@ export default function CheckoutPage() {
               type="billing"
             />
           </div>
-          <div className="shadow-700 bg-light p-5 md:p-8">
-            <Address
+          {/**
+           * <Address
               id={data?.me?.id!}
               heading="text-shipping-address"
               addresses={data?.me?.address}
               count={2}
               type="shipping"
             />
-          </div>
+           */}
           <div className="shadow-700 bg-light p-5 md:p-8">
             <ShippingMode count={3} />
+            {shipping_class === 3 && (
+              <div>
+                <div>
+                  <ul className="list-unstyled font-size-sm mt-2 border p-4">
+                    <li className="text-left">
+                      <span className="text-right text-size-md">
+                        Information sur le point de relais
+                      </span>
+                    </li>
+
+                    {relay_point && (
+                      <>
+                        <li className="text-left">
+                          <span className="text-right text-muted">
+                            Nom du point de relay:&nbsp;{relay_point?.nom}
+                          </span>
+                        </li>
+                        <li className="text-left">
+                          <span className=" text-right text-muted">
+                            Adresse:&nbsp;{relay_point?.address}
+                          </span>
+                        </li>
+                        <li className="text-left">
+                          <span className=" text-right text-muted">
+                            Code postal:&nbsp;{relay_point?.zip}
+                          </span>
+                        </li>
+                      </>
+                    )}
+                    <div className="flex justify-end -mt-10">
+                      <Button
+                        size="small"
+                        className="mt-2"
+                        onClick={() => {
+                          openModal("DELIVERY_RELAY_POINT");
+                        }}
+                      >
+                        {relay_point ? (
+                          <Edit width="16" height="16" />
+                        ) : (
+                          <PlusIcon width="16" height="16" />
+                        )}
+                      </Button>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+            )}
           </div>
+          {billing_address &&
+            shipping_address &&
+            isAuthorize &&
+            shipping_class && 
+            (shipping_class===3&&relay_point)&&(
+              <div className="shadow-700 bg-light p-5 md:p-8">
+                <Elements stripe={stripePromise}>
+                  <PaymentGroup
+                    onPaySuccess={onPaySuccess}
+                    data={{
+                      action: "create_order_payment",
+                      data: dataCreateOrder(),
+                    }}
+                    amount={total}
+                  />
+                </Elements>
+              </div>
+            )}
         </div>
         <div className="w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
-          <VerifyCheckout />
+          <OrderInformation />
         </div>
       </div>
     </div>

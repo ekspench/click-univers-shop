@@ -10,6 +10,7 @@ type SelectProps = {
   labelPosition?: 'top' | 'bottom' | 'left' | 'right';
   loadOptions: any;
   onChange: any;
+  placeholder?:string;
   props?: any;
 };
 
@@ -18,6 +19,7 @@ const SelectAutoComplete: React.FC<SelectProps> = ({
   labelText,
   labelPosition,
   loadOptions,
+  placeholder,
   onChange,
 
   ...props
@@ -52,6 +54,7 @@ const SelectAutoComplete: React.FC<SelectProps> = ({
         classNamePrefix="select"
         loadOptions={loadOptions}
         onChange={onChange}
+        placeholder={placeholder}
         {...props}
       />
       {position === 'bottom' && LabelField}
