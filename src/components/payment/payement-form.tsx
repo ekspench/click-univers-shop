@@ -15,6 +15,7 @@ import { useState } from "react";
 import Input from "@components/ui/input";
 import { useModalAction } from "@components/ui/modal/modal.context";
 import Button from "@components/ui/button";
+import { Lock } from "@components/icons/lock";
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC as string
 );
@@ -78,7 +79,7 @@ const StripeForm = () => {
       >
         <div className="w-full pt-1 pb-5">
           <div className="bg-indigo-500 text-white overflow-hidden rounded-full w-20 h-20 -mt-16 mx-auto shadow-lg flex justify-center items-center">
-            <i className="mdi mdi-credit-card-outline text-3xl" />
+           <Lock width="48" heigth="48"/>
           </div>
         </div>
         <div className="mb-2">

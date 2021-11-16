@@ -13,3 +13,8 @@ export function formatAddress(address: UserAddress) {
   const formattedAddress = removeFalsy(temp);
   return Object.values(formattedAddress).join(", ");
 }
+
+export function formatAddressPointDeRelay(data:any){
+  if(!data)return;
+  return "okokok"
+}

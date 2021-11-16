@@ -23,7 +23,7 @@ export default function VariationPrice({
       <ins className="text-2xl md:text-3xl font-semibold text-accent no-underline">
         {!isEmpty(selectedVariation)
           ? `${basePrice ? basePrice : price}`
-          : /*`${min_price} - ${max_price}`}*/min_price}
+          : `${min_price} - ${max_price}`}
       </ins>
       {discount && (
         <del className="text-sm md:text-base font-normal text-muted ms-2">

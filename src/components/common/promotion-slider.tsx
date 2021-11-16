@@ -55,12 +55,14 @@ SwiperCore.use([Navigation]);
 export default function PromotionSlider() {
   const { t } = useTranslation();
   return (
-    <div className="px-6 py-5 md:px-8 xl:px-12 md:py-10 border-t border-border-200">
-      <div className="relative">
+    <div className="px-6 py-5 md:px-8 xl:px-12  md:py-10 border-t border-border-200">
+      <div className="relative" style={{margin:"0 auto"}}>
         <Swiper
           id="offer"
-          
-          loop={true}
+          slidesPerView={'auto'}
+          centeredSlides={true}
+          initialSlide={1}
+          loop={false}
           breakpoints={offerSliderBreakpoints}
           navigation={{
             nextEl: ".next",
@@ -70,7 +72,7 @@ export default function PromotionSlider() {
           {data?.map((d) => (
             <SwiperSlide  key={d.id}>
               <img
-                className="w-full h-auto"
+                className="w-full h-auto border rounded overflow-hidden "
                 src={d.bannerUrl}
                 alt={t(d.title)}
                 width="430"

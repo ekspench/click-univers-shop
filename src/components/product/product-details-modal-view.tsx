@@ -103,7 +103,7 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
     );
 
   return (
-    <article className="bg-light w-full max-w-6xl relative z-[51]">
+    <article className="bg-light w-full w-6xl max-w-6xl relative z-[51]">
       {/* Sticky bar */}
       <div
         className={cn(
@@ -153,7 +153,7 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
                   <VariationPrice
                     selectedVariation={selectedVariation}
                     minPrice={min_price}
-                    maxPrice={0}
+                    maxPrice={max_price}
                   />
                 )}
               </span>
@@ -264,8 +264,12 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
 
                 {description && (
                   <div className="mb-5 md:mb-10 mt-3 md:mt-4 text-body text-sm leading-7">
-                    <Truncate character={400} onClick={() => handleTitleClick(`/products/${slug}`)} buttonText="En savoir plusç  ">
-                      {description.replace(/<[^>]*>?/gm, '')}
+                    <Truncate
+                      character={400}
+                      onClick={() => handleTitleClick(`/products/${slug}`)}
+                      buttonText="En savoir plusç  "
+                    >
+                      {description.replace(/<[^>]*>?/gm, "")}
                     </Truncate>
                   </div>
                 )}
@@ -301,17 +305,19 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
                     setAttributes={setAttributes}
                   />
                 </div>
-                      <div>
-                        <NoticeView product_id={data?.id as string}/>
-                      </div>
+                <div>
+                  <NoticeView product_id={data?.id as string} />
+                </div>
                 <div className="mt-4 md:mt-6 flex flex-col lg:flex-row items-center">
                   <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
-                    <AddToCart
-                      data={data}
-                      variant="big"
-                      variation={selectedVariation}
-                      disabled={selectedVariation?.is_disable || !isSelected}
-                    />
+                    {quantity! > 0 && (
+                      <AddToCart
+                        data={data}
+                        variant="big"
+                        variation={selectedVariation}
+                        disabled={selectedVariation?.is_disable || !isSelected}
+                      />
+                    )}
                   </div>
 
                   {quantity! > 0 ? (

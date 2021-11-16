@@ -5,6 +5,7 @@ import { siteSettings } from "@settings/site.settings";
 import { AddToCart } from "@components/product/add-to-cart/add-to-cart";
 import { useTranslation } from "next-i18next";
 import { useModalAction } from "@components/ui/modal/modal.context";
+import VariationPrice from "../product-details/product-variant-price";
 
 type HeliumProps = {
   product: any;
@@ -20,10 +21,16 @@ const Helium: React.FC<HeliumProps> = ({ product, className }) => {
     baseAmount: product.sale_price,
   });
 
+  const { price: min_price } = usePrice({
+    amount: +product.min_price,
+  });
+  const { price: max_price } = usePrice({
+    amount: product.max_price,
+  });
+
   function handleProductQuickView() {
     return openModal("PRODUCT_DETAILS", product.slug);
   }
-
   return (
     <article
       className={cn(
@@ -70,14 +77,20 @@ const Helium: React.FC<HeliumProps> = ({ product, className }) => {
                 {price}
               </del>
             )}
-            <span className="text-accent text-sm md:text-base font-semibold">
-              {basePrice ? basePrice : price}
-            </span>
+            {product.product_type === "simple" ? (
+              <span className="text-accent text-sm md:text-base font-semibold">
+                {basePrice ? basePrice : price}
+              </span>
+            ) : (
+              <span className="text-accent text-sm md:text-base font-semibold">
+                {`${min_price}-${max_price}`}
+              </span>
+            )}
           </div>
           {/* End of product price */}
 
           {quantity > 0 ? (
-            <AddToCart data={product} variant="single" />
+            <AddToCart data={product} variant="single" isCard={true} />
           ) : (
             <div className="bg-red-500 rounded text-xs text-light px-2 py-1">
               {t("text-out-stock")}

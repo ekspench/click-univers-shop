@@ -19,7 +19,7 @@ const Coupon = () => {
   const { mutate: verifyCoupon, isLoading: loading } =
     useVerifyCouponMutation();
   const { applyCoupon, coupon } = useCheckout();
-  if (!hasCoupon && !coupon) {
+  /*if (!hasCoupon && !coupon) {
     return (
       <p
         role="button"
@@ -29,7 +29,7 @@ const Coupon = () => {
         {t("text-have-coupon")}
       </p>
     );
-  }
+  }*/
   async function onSubmit({ code }: { code: string }) {
     verifyCoupon(
       {

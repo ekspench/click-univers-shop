@@ -16,7 +16,7 @@ export default function HelpPage() {
       </header>
       <div className="max-w-screen-lg w-full mx-auto">
         {loading?<div>Chargement...</div>:
-           <Accordion items={data} translatorNS="faq" />
+           <Accordion items={data.data} translatorNS="faq" />
         }
      
       </div>

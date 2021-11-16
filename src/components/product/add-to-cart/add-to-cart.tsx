@@ -3,6 +3,7 @@ import AddToCartBtn from "@components/product/add-to-cart/add-to-cart-btn";
 import { cartAnimation } from "@utils/cart-animation";
 import { useCart } from "@contexts/quick-cart/cart.context";
 import { generateCartItem } from "@contexts/quick-cart/generate-cart-item";
+import { useModalAction } from "@components/ui/modal/modal.context";
 
 interface Props {
   data: any;
@@ -17,6 +18,7 @@ interface Props {
   counterClass?: string;
   variation?: any;
   disabled?: boolean;
+  isCard: boolean;
 }
 
 export const AddToCart = ({
@@ -26,6 +28,7 @@ export const AddToCart = ({
   counterClass,
   variation,
   disabled,
+  isCard = false,
 }: Props) => {
   const {
     addItemToCart,
@@ -34,14 +37,19 @@ export const AddToCart = ({
     getItemFromCart,
     isInCart,
   } = useCart();
+  const { openModal } = useModalAction();
   const item = generateCartItem(data, variation);
   const handleAddClick = (
     e: React.MouseEvent<HTMLButtonElement | MouseEvent>
   ) => {
     e.stopPropagation();
-    addItemToCart(item, 1);
-    if (!isInCart(item.id)) {
-      cartAnimation(e);
+    if (isCard && data.product_type !== "simple") {
+      openModal("PRODUCT_DETAILS", data.slug);
+    } else {
+      addItemToCart(item, 1);
+      if (!isInCart(item.id)) {
+        cartAnimation(e);
+      }
     }
   };
   const handleRemoveClick = (e: any) => {

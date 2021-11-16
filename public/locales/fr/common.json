@@ -4,7 +4,7 @@
   "404-back-home": "Page d'accueil",
   "nav-menu-track-order": "Suvie de commande",
   "nav-menu-offer": "Offre",
-  "nav-menu-faq": "Centre d'aide",
+  "nav-menu-faq": "Centre d'aides",
   "nav-menu-contact": "Contact",
   "user-avatar": "user avatar",
   "auth-menu-profile": "Profile",
@@ -62,6 +62,7 @@
   "text-shipping": "Livraison",
   "text-billing": "Facturation ",
   "text-billing-address": "Adresse de facturation ",
+  "text-delivery-address": "Adresse de  livraison ",
   "text-sub-total": "Sous Total",
   "text-discount": "Remise",
   "text-delivery-fee": "Livraison gratuite",
@@ -240,7 +241,7 @@
   "text-price": "Prix",
   "text-no-order-found": "Désolé, aucune commande n'a été trouvée :(",
   "profile-sidebar-ticket": "Mes litiges",
-  "textsub-orders": "Detail",
+  "textsub-orders": "Détails",
   "auth-menu-support": "Support",
   "nav-menu-support": "Support"
 }

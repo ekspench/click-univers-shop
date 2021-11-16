@@ -11,6 +11,7 @@ import { OrderItems } from "./order-items-table";
 import isEmpty from "lodash/isEmpty";
 import AddNewTicket from "@components/ticket/add-new-ticket";
 import { CheckMark } from "@components/icons/checkmark";
+import RelayPointCard from "@components/common/relay-point-card";
 
 interface Props {
   order: any;
@@ -71,10 +72,13 @@ const OrderDetails = ({ order }: Props) => {
                 </span>
 
                 <span className="text-sm text-body">
-                  {formatAddress(shipping_address)}
+                  {relay_point ? 
+                    <RelayPointCard data={relay_point}/>: 
+                   formatAddress(shipping_address)
+                  }
                 </span>
               </div>
-
+              {/** 
               <div>
                 <span className="text-sm text-heading font-bold mb-2 block">
                   {t("text-billing-address")}
@@ -83,7 +87,7 @@ const OrderDetails = ({ order }: Props) => {
                 <span className="text-sm text-body">
                   {formatAddress(billing_address)}
                 </span>
-              </div>
+              </div>*/}
             </div>
 
             <div className="w-full md:w-2/5 flex flex-col px-5 py-4">
@@ -114,7 +118,6 @@ const OrderDetails = ({ order }: Props) => {
                 </span>
                 <span className="text-sm font-bold text-heading">{total}</span>
               </div>
-              
             </div>
           </div>
 
@@ -144,7 +147,7 @@ const OrderDetails = ({ order }: Props) => {
                       className="mt-2font-semibold text-sm text-accent flex items-center transition duration-200 no-underline hover:text-accent-hover focus:text-accent-hover"
                     >
                       <Eye width={20} className="me-2" />
-                      Voir le detail
+                      Voir le détails
                     </Link>
                   </p>
                 </div>

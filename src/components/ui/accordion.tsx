@@ -65,7 +65,12 @@ const Collapse: React.FC<CollapseProps> = ({
             variants={heightCollapse()}
           >
             <div className="md:pt-1 pb-4 px-5 leading-7 text-sm md:text-base md:leading-loose text-body-dark">
-              {t(content)}
+            <div
+            className="html-content"
+            dangerouslySetInnerHTML={{
+              __html: content,
+            }}
+          />
             </div>
           </motion.div>
         )}

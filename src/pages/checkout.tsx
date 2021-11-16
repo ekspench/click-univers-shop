@@ -121,7 +121,7 @@ export default function CheckoutPage() {
         delivery_fee: checkoutData?.shipping_charge,
         delivery_time: delivery_time?.description,
         shipping_class_id: shipping_class,
-        relay_point:relay_point,
+        relay_point: relay_point,
         billing_address: {
           title: billing_address?.title,
           address: billing_address?.address && billing_address.address,
@@ -138,18 +138,82 @@ export default function CheckoutPage() {
     router.push(`${ROUTES.ORDERS}/${data.orderInput.ref}`);
   };
 
+  const showPay=()=>{
+    if(billing_address &&shipping_address &&shipping_class){
+      if(shipping_class===3&&!relay_point){
+        return false;
+      }
+      return true;
+    } 
+  }
+
   return (
     <div className="py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20">
       <div className="flex flex-col lg:flex-row items-center lg:items-start m-auto lg:space-s-8 w-full max-w-5xl">
         <div className="lg:max-w-2xl w-full space-y-6">
           <div className="shadow-700 bg-light p-5 md:p-8">
-            <Address
-              id={data?.me?.id!}
-              heading="text-billing-address"
-              addresses={data?.me?.address}
-              count={1}
-              type="billing"
-            />
+            {shipping_class === 3 ? (
+              <div>
+                <div className="flex items-center space-s-3 md:space-s-4">
+                  <span className="rounded-full w-8 h-8 bg-accent flex items-center justify-center text-base lg:text-xl text-light">
+                    1
+                  </span>
+                  <p className="text-lg lg:text-xl text-heading capitalize">
+                    Livraison en point relais
+                  </p>
+                </div>
+                <ul className="list-unstyled font-size-sm mt-2 border p-4">
+                  <li className="text-left">
+                    <span className="text-right text-size-md">
+                      Information sur le point de relais
+                    </span>
+                  </li>
+
+                  {relay_point && (
+                    <>
+                      <li className="text-left">
+                        <span className="text-right text-muted">
+                          Nom du point de relay:&nbsp;{relay_point?.nom}
+                        </span>
+                      </li>
+                      <li className="text-left">
+                        <span className=" text-right text-muted">
+                          Adresse:&nbsp;{relay_point?.address}
+                        </span>
+                      </li>
+                      <li className="text-left">
+                        <span className=" text-right text-muted">
+                          Code postal:&nbsp;{relay_point?.zip}
+                        </span>
+                      </li>
+                    </>
+                  )}
+                  <div className="flex justify-end -mt-10">
+                    <Button
+                      size="small"
+                      className="mt-2"
+                      onClick={() => {
+                        openModal("DELIVERY_RELAY_POINT");
+                      }}
+                    >
+                      {relay_point ? (
+                        <Edit width="16" height="16" />
+                      ) : (
+                        <PlusIcon width="16" height="16" />
+                      )}
+                    </Button>
+                  </div>
+                </ul>
+              </div>
+            ) : (
+              <Address
+                id={data?.me?.id!}
+                heading="text-delivery-address"
+                addresses={data?.me?.address}
+                count={1}
+                type="billing"
+              />
+            )}
           </div>
           {/**
            * <Address
@@ -162,7 +226,7 @@ export default function CheckoutPage() {
            */}
           <div className="shadow-700 bg-light p-5 md:p-8">
             <ShippingMode count={3} />
-            {shipping_class === 3 && (
+            {/*shipping_class === 3 && (
               <div>
                 <div>
                   <ul className="list-unstyled font-size-sm mt-2 border p-4">
@@ -209,13 +273,9 @@ export default function CheckoutPage() {
                   </ul>
                 </div>
               </div>
-            )}
+                        )*/}
           </div>
-          {billing_address &&
-            shipping_address &&
-            isAuthorize &&
-            shipping_class && 
-            (shipping_class===3&&relay_point)&&(
+          {showPay()&& (
               <div className="shadow-700 bg-light p-5 md:p-8">
                 <Elements stripe={stripePromise}>
                   <PaymentGroup

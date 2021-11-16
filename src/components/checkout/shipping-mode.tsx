@@ -10,29 +10,35 @@ interface Props {
 }
 
 const ShippingMode = ({ count }: Props) => {
-  const { updateDeliveryTime,setShippingClass,shipping_class } = useCheckout();
+  const { updateDeliveryTime, setShippingClass, shipping_class } =
+    useCheckout();
   useEffect(() => {
     updateDeliveryTime(siteSettings.deliverySchedule[0]);
   }, []);
 
-  const {data, isFetching: loading,}=useShippingQuery();
-  const {  total } = useCart();
+  const { data, isFetching: loading } = useShippingQuery();
+  const { total } = useCart();
   function handleSelect(item: any) {
     setShippingClass(item);
   }
-  if(!data||loading){
-    return<div>
-      Chargement...
-    </div>
+  if (!data || loading) {
+    return <div>Chargement...</div>;
   }
 
   return (
     <SectionWithCardGroup
       count={count}
-      defaultChecked={data?.shippings.findIndex(s=>s.id==shipping_class)}
+      defaultChecked={data?.shippings.findIndex((s) => s.id == shipping_class)}
       heading="text-delivery-schedule"
-      items={data?.shippings.map((s:any)=>({id:s.id,title:s.name,description:(total>35||s.type==="free_shipping")?"Gratuit":`à partir de ${s.amount} €`}))}
-      onSelect={(handleSelect)}
+      items={data?.shippings.map((s: any) => ({
+        id: s.id,
+        title: s.name,
+        description:
+          (total > 35 && s.id == 2) || s.type === "free_shipping"
+            ? "Gratuit"
+            : `à partir de ${s.amount} €`,
+      }))}
+      onSelect={handleSelect}
     />
   );
 };
