@@ -71,22 +71,22 @@ const Helium: React.FC<HeliumProps> = ({ product, className }) => {
         {/* End of product info */}
 
         <div className="flex items-center justify-between min-h-6 mt-7 md:mt-8 relative">
-          <div className="relative">
+        {quantity > 0 && <div className="relative">
             {discount && (
               <del className="text-xs text-muted text-opacity-75 absolute -top-4 md:-top-5 italic">
                 {price}
               </del>
             )}
             {product.product_type === "simple" ? (
-              <span className="text-accent text-sm md:text-base font-semibold">
+              <span className="text-accent text-sm md:text-base font-semibold mr-1 ">
                 {basePrice ? basePrice : price}
               </span>
             ) : (
-              <span className="text-accent text-sm md:text-base font-semibold">
-                {`${min_price}-${max_price}`}
+              <span className="text-accent text-sm md:text-base font-semibold mr-1">
+                {`${min_price}`}
               </span>
             )}
-          </div>
+          </div>}
           {/* End of product price */}
 
           {quantity > 0 ? (

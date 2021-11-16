@@ -267,7 +267,7 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
                     <Truncate
                       character={400}
                       onClick={() => handleTitleClick(`/products/${slug}`)}
-                      buttonText="En savoir plusç  "
+                      buttonText="En savoir plus"
                     >
                       {description.replace(/<[^>]*>?/gm, "")}
                     </Truncate>
