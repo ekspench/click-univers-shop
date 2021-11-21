@@ -103,7 +103,7 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
     );
 
   return (
-    <article className="bg-light w-full w-6xl max-w-6xl relative z-[51]">
+    <article className="bg-light w-full md=min-w-5xl max-w-5xl relative z-[51]">
       {/* Sticky bar */}
       <div
         className={cn(
@@ -118,7 +118,7 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
         <div className="flex items-center">
           <div
             className={cn(
-              "border border-border-200 border-opacity-70 rounded relative flex items-center justify-center overflow-hidden flex-shrink-0",
+              "border border-border-200 border-opacity-70 w-full rounded relative flex items-center justify-center overflow-hidden flex-shrink-0",
               {
                 "w-28 h-28": isEmpty(variations),
                 "w-40 lg:w-52 h-40 lg:h-52": !isEmpty(variations),
@@ -134,7 +134,7 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
             />
           </div>
 
-          <div className="px-8 flex flex-col justify-center me-auto overflow-hidden">
+          <div className="px-8 flex w-full flex-col justify-center me-auto overflow-hidden">
             <h3
               className="font-semibold text-lg lg:text-xl tracking-tight text-heading truncate cursor-pointer transition-colors hover:text-accent"
               onClick={() => handleTitleClick(`/products/${slug}`)}

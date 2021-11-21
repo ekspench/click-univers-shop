@@ -166,6 +166,7 @@ export declare type Order = {
   children: Order[];
   sales_tax: number;
   total: number;
+  mode_click_collect:string;
   paid_total: number;
   payment_id?: string;
   shipping?:ShippingType;

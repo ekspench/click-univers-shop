@@ -5,6 +5,7 @@ export function formatOrderedProduct(product: any) {
       ? { variation_option_id: product.variationId }
       : {}),
     order_quantity: product.quantity,
+    click_collect:product.active_click_collect,
     unit_price: product.price,
     subtotal: product.itemTotal,
   };

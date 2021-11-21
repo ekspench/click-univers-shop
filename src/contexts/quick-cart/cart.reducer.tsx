@@ -10,6 +10,9 @@ import {
   calculateItemTotals,
   calculateTotalItems,
   calculateTotal,
+  setClickCollect,
+  calculTotalClickCollectItem,
+  calculTotalClickCollectActiveItem,
 } from "./cart.utils";
 
 interface Metadata {
@@ -22,12 +25,16 @@ type Action =
   | { type: "ADD_ITEM"; id: Item["id"]; item: Item }
   | { type: "UPDATE_ITEM"; id: Item["id"]; item: UpdateItemInput }
   | { type: "REMOVE_ITEM"; id: Item["id"] }
+  | { type: "SET_CLICK_COLLECT_ITEM"; id: Item["id"] }
   | { type: "RESET_CART" };
+
 
 export interface State {
   items: Item[];
   isEmpty: boolean;
   totalItems: number;
+  totalClickCollect:number;
+  totalClickCollectActive:number;
   totalUniqueItems: number;
   total: number;
   meta?: Metadata | null;
@@ -36,6 +43,8 @@ export const initialState: State = {
   items: [],
   isEmpty: true,
   totalItems: 0,
+  totalClickCollect:0,
+  totalClickCollectActive:0,
   totalUniqueItems: 0,
   total: 0,
   meta: null,
@@ -70,6 +79,10 @@ export function cartReducer(state: State, action: Action): State {
       const items = updateItem(state.items, action.id, action.item);
       return generateFinalState(state, items);
     }
+    case "SET_CLICK_COLLECT_ITEM":{
+      const items = setClickCollect(state.items, action.id);
+      return generateFinalState(state, items);
+    }
     case "RESET_CART":
       return initialState;
     default:
@@ -82,6 +95,8 @@ const generateFinalState = (state: State, items: Item[]) => {
   return {
     ...state,
     items: calculateItemTotals(items),
+    totalClickCollect:calculTotalClickCollectItem(items),
+    totalClickCollectActive:calculTotalClickCollectActiveItem(items),
     totalItems: calculateTotalItems(items),
     totalUniqueItems,
     total: calculateTotal(items),

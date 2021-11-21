@@ -16,7 +16,6 @@ const NoticeView = ({ product_id }: Props) => {
   if (data) {
     star = star / data?.notices.data.length;
   }
-  console.log("star", star);
 
   for (var i = 0; i < 5; i++) {
     indents.push(

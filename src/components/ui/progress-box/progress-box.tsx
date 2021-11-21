@@ -6,9 +6,10 @@ import styles from "./progress-box.module.css";
 type ProgressProps = {
   data: any[] | undefined;
   status: number;
+  type:number;
 };
 
-const ProgressBox: React.FC<ProgressProps> = ({ status, data }) => {
+const ProgressBox: React.FC<ProgressProps> = ({ status, data,type }) => {
   return (
     <Scrollbar
       className="w-full h-full"
@@ -19,7 +20,7 @@ const ProgressBox: React.FC<ProgressProps> = ({ status, data }) => {
       }}
     >
       <div className="flex flex-col py-7 md:items-start md:justify-start w-full md:flex-row">
-        {data?.map((item: any) => (
+        {data?.map((item: any) =>{if(item.type===type) {return (
           <div className={styles.progress_container} key={item.id}>
             <div
               className={cn(
@@ -47,7 +48,7 @@ const ProgressBox: React.FC<ProgressProps> = ({ status, data }) => {
               )}
             </div>
           </div>
-        ))}
+        )}})}
       </div>
     </Scrollbar>
   );

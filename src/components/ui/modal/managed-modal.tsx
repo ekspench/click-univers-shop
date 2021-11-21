@@ -21,7 +21,7 @@ const AddTicket = dynamic(() => import("@components/ticket/ticket-form"));
 const ProductAvis=dynamic(()=>import("@components/order/product-avis-form"));
 const PaymentForm = dynamic(() => import("@components/payment/payement-form"));
 const DeliveryRelayPoint=dynamic(()=>import("@components/checkout/delivery-relay-point"));
-
+const  NoticeList=dynamic(()=>import("@components/product/notice-list"));
 const ManagedModal = () => {
   const { isOpen, view, data } = useModalState();
   const { closeModal } = useModalAction();
@@ -47,6 +47,7 @@ const ManagedModal = () => {
       {view==="PRODUCT_AVIS"&&<ProductAvis/>}
       {view === "STRIPE_PAYMENT_FORM" && <PaymentForm />}
       {view=== "DELIVERY_RELAY_POINT" && <DeliveryRelayPoint/>}
+      {view==="NOTICE_LIST"&&<NoticeList/>}
 
     </Modal>
   );

@@ -5,13 +5,14 @@ import { useOrderStatusesQuery } from "@data/order/use-order-statuses.query";
 
 interface Props {
   status: number;
+  type:number;
 }
 
-const OrderStatus = ({ status }: Props) => {
+const OrderStatus = ({ status,type }: Props) => {
   const { data, isLoading: loading, error } = useOrderStatusesQuery();
   if (loading) return <Spinner showText={false} />;
   if (error) return <ErrorMessage message={error.message} />;
-  return <ProgressBox data={data?.order_statuses?.data} status={status} />;
+  return <ProgressBox data={data?.order_statuses?.data} status={status} type={type} />;
 };
 
 export default OrderStatus;

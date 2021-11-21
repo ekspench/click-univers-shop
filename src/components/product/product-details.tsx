@@ -16,6 +16,7 @@ import ProductAttributes from "./product-details/product-attributes";
 import { useRouter } from "next/router";
 import { ROUTES } from "@utils/routes";
 import NoticeView from "./notice-view";
+import { useModalAction } from "@components/ui/modal/modal.context";
 
 type Props = {
   product: any;
@@ -36,6 +37,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
     shop,
   } = product ?? {};
 
+  const { openModal } = useModalAction();
   const { t } = useTranslation("common");
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
   const { price, basePrice, discount } = usePrice({
@@ -173,7 +175,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                 <>
                   {isEmpty(variations) && (
                     <span className="text-base text-body whitespace-nowrap lg:ms-7">
-                      {quantity} {t("text-pieces-available")}
+                      {quantity} {/*t("text-pieces-available")*/}
                     </span>
                   )}
                   {!isEmpty(selectedVariation) && (
@@ -216,11 +218,16 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
               </button>
             </div>
           )}
-             <div>
-                        <NoticeView product_id={product?.id as string}/>
-                      </div>
+          <div>
+            <NoticeView product_id={product?.id as string} />
+            <button
+              className="text-sm text-accent tracking-wider transition underline hover:text-accent-hover hover:no-underline"
+              onClick={() => openModal("NOTICE_LIST",{productId:product.id})}
+            >
+              Voir les avis
+            </button>
+          </div>
         </div>
-      
       </div>
 
       <Element

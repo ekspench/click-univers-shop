@@ -4,6 +4,7 @@ import { siteSettings } from "@settings/site.settings";
 import { useTranslation } from "next-i18next";
 import { useIsRTL } from "@utils/locals";
 import { useModalAction } from "@components/ui/modal/modal.context";
+import Badge from "@components/ui/badge";
 
 export const OrderItems = ({ products }: { products: any }) => {
   const { t } = useTranslation("common");
@@ -55,6 +56,8 @@ export const OrderItems = ({ products }: { products: any }) => {
                 {price}
               </span>
             </div>
+
+            {record.pivot.status==="delivered"&&<Badge className="ml-2" text="Delivrée"/>}
           </div>
         );
       },

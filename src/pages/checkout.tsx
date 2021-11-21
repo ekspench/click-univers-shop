@@ -25,6 +25,8 @@ import { useRouter } from "next/router";
 import { ROUTES } from "@utils/routes";
 import Edit from "@components/icons/edit";
 import { PlusIcon } from "@components/icons/plus-icon";
+import OrderProductClickCollectList from "@components/order/order-product-click-collect-list";
+import ModeClickCollectCard from "@components/common/mode-click-collect-card";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC as string
@@ -43,9 +45,7 @@ export default function CheckoutPage() {
     discount,
     delivery_time,
   } = useCheckout();
-
-  console.log("shipping", shipping_class);
-  const { items, total, isEmpty } = useCart();
+  const { items, total, isEmpty, totalClickCollectActive,totalItems,totalClickCollect} = useCart();
   const { isAuthorize } = useUI();
   const { openModal } = useModalAction();
   const { mutate: verifyCheckout, isLoading: loading } =
@@ -86,7 +86,7 @@ export default function CheckoutPage() {
   }
   useEffect(() => {
     handleVerifyCheckout();
-  }, [billing_address, shipping_address, shipping_class]);
+  }, [billing_address, shipping_address, shipping_class,totalClickCollectActive]);
 
   const available_items = items?.filter(
     (item: any) => !checkoutData?.unavailable_products?.includes(item.id)
@@ -138,14 +138,17 @@ export default function CheckoutPage() {
     router.push(`${ROUTES.ORDERS}/${data.orderInput.ref}`);
   };
 
-  const showPay=()=>{
-    if(billing_address &&shipping_address &&shipping_class){
-      if(shipping_class===3&&!relay_point){
+  const showPay = () => {
+    if (billing_address && shipping_address && shipping_class) {
+      if(totalClickCollect>0&&totalClickCollectActive===totalItems){
+        return true;
+      }
+      if (shipping_class === 3 && !relay_point) {
         return false;
       }
       return true;
-    } 
-  }
+    }
+  };
 
   return (
     <div className="py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20">
@@ -225,7 +228,8 @@ export default function CheckoutPage() {
             />
            */}
           <div className="shadow-700 bg-light p-5 md:p-8">
-            <ShippingMode count={3} />
+            {(totalItems>0&&totalItems===totalClickCollectActive)?  <ModeClickCollectCard count={2}/>:<ShippingMode count={2} />}
+          
             {/*shipping_class === 3 && (
               <div>
                 <div>
@@ -275,20 +279,25 @@ export default function CheckoutPage() {
               </div>
                         )*/}
           </div>
-          {showPay()&& (
-              <div className="shadow-700 bg-light p-5 md:p-8">
-                <Elements stripe={stripePromise}>
-                  <PaymentGroup
-                    onPaySuccess={onPaySuccess}
-                    data={{
-                      action: "create_order_payment",
-                      data: dataCreateOrder(),
-                    }}
-                    amount={total}
-                  />
-                </Elements>
-              </div>
-            )}
+          {totalClickCollect>0 && (
+            <div className="shadow-700 bg-light p-5 md:p-8">
+              <OrderProductClickCollectList count={3} />
+            </div>
+          )}
+          {showPay() && (
+            <div className="shadow-700 bg-light p-5 md:p-8">
+              <Elements stripe={stripePromise}>
+                <PaymentGroup
+                  onPaySuccess={onPaySuccess}
+                  data={{
+                    action: "create_order_payment",
+                    data: dataCreateOrder(),
+                  }}
+                  amount={total}
+                />
+              </Elements>
+            </div>
+          )}
         </div>
         <div className="w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
           <OrderInformation />

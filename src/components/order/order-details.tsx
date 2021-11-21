@@ -12,6 +12,7 @@ import isEmpty from "lodash/isEmpty";
 import AddNewTicket from "@components/ticket/add-new-ticket";
 import { CheckMark } from "@components/icons/checkmark";
 import RelayPointCard from "@components/common/relay-point-card";
+import { Children } from "react";
 
 interface Props {
   order: any;
@@ -27,7 +28,7 @@ const OrderDetails = ({ order }: Props) => {
     tracking_number,
     ref,
     relay_point,
-  } = order ?? {};
+  } = order?.children?.length === 1 ? order?.children[0] : order ?? {};
 
   const { price: amount } = usePrice({
     amount: order?.amount,
@@ -44,7 +45,6 @@ const OrderDetails = ({ order }: Props) => {
   const { price: sales_tax } = usePrice({
     amount: order?.sales_tax,
   });
-  console.log("order", order);
 
   return (
     <div className="flex flex-col w-full lg:w-2/3 border border-border-200">
@@ -72,10 +72,11 @@ const OrderDetails = ({ order }: Props) => {
                 </span>
 
                 <span className="text-sm text-body">
-                  {relay_point ? 
-                    <RelayPointCard data={relay_point}/>: 
-                   formatAddress(shipping_address)
-                  }
+                  {relay_point ? (
+                    <RelayPointCard data={relay_point} />
+                  ) : (
+                    formatAddress(shipping_address)
+                  )}
                 </span>
               </div>
               {/** 
@@ -126,6 +127,7 @@ const OrderDetails = ({ order }: Props) => {
             {order?.children.length === 1 ? (
               <div className="w-full flex justify-center items-center px-6 ">
                 <OrderStatus
+                  type={order?.canceled ? 2 : 1}
                   status={
                     order?.children.length === 1
                       ? order.children[0]?.status?.serial

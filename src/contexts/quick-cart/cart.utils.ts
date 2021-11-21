@@ -61,6 +61,14 @@ export function updateItem(
     existingItem.id === id ? { ...existingItem, ...item } : existingItem
   );
 }
+export function setClickCollect(
+  items: Item[],
+  id: Item["id"],
+) {
+  return items.map((existingItem) =>
+    existingItem.id === id ? { ...existingItem, active_click_collect:!existingItem.active_click_collect } : existingItem
+  );
+}
 
 export function removeItem(items: Item[], id: Item["id"]) {
   return items.filter((existingItem) => existingItem.id !== id);
@@ -75,8 +83,13 @@ export const calculateItemTotals = (items: Item[]) =>
     ...item,
     itemTotal: item.price * item.quantity!,
   }));
+export const calculTotalClickCollectItem=(items:Item[])=>
+  items.reduce((sum, item) => sum + item.click_collect?1:0, 0);
+  export const   calculTotalClickCollectActiveItem=(items:Item[])=>
+  items.reduce((sum, item) => sum + item.active_click_collect?1:0, 0);
 
 export const calculateTotal = (items: Item[]) =>
+
   items.reduce((total, item) => total + item.quantity! * item.price, 0);
 
 export const calculateTotalItems = (items: Item[]) =>

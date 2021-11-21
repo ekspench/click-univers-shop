@@ -21,12 +21,14 @@ interface Variation {
   [key: string]: unknown;
 }
 export function generateCartItem(item: Item, variation: Variation) {
-  const { id, name, slug, image, price, sale_price, quantity, unit } = item;
+  const { id, name, slug, image, price, sale_price, quantity, unit,click_collect } = item;
   if (!isEmpty(variation)) {
     return {
       id: `${id}.${variation.id}`,
       productId: id,
       name: `${name} - ${variation.title}`,
+      active_click_collect:false,
+      click_collect,
       slug,
       unit,
       stock: variation.quantity,
@@ -40,6 +42,8 @@ export function generateCartItem(item: Item, variation: Variation) {
     name,
     slug,
     unit,
+    active_click_collect:false,
+    click_collect,
     image: image?.thumbnail,
     stock: quantity,
     price: sale_price ? sale_price : price,

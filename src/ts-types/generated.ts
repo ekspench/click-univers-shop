@@ -252,6 +252,7 @@ export declare type Order = {
   sales_tax: Scalars["Float"];
   total: Scalars["Float"];
   paid_total: Scalars["Float"];
+  mode_click_collect: Scalars["String"];
   payment_id?: Maybe<Scalars["String"]>;
   payment_gateway?: Maybe<Scalars["String"]>;
   coupon?: Maybe<Coupon>;
