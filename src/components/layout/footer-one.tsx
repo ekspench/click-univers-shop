@@ -25,17 +25,17 @@ const FooterOne = () => {
         Commence à vendre
       </a>
       <div className="flex  ">
-        <Link href={ROUTES.OFFERS} className="text-white mx-2">
-          Offre{" "}
+        <Link href="https://admin.click-univers.com" className="text-white mx-2">
+          Portail Vendeur
         </Link>
         <Link href={ROUTES.HELP} className="text-white mx-2">
           Centre d'aide
         </Link>
         <Link href={ROUTES.CONTACT} className="text-white mx-2">
-          Contact{" "}
+          Contact
         </Link>
         <Link href={"/terms"} className="text-white mx-2">
-          CGV & CGU{" "}
+          CGV & CGU
         </Link>
       </div>
       <div className="grid grid-cols-8 gap-4 w-max">

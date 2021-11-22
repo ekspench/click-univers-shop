@@ -3,6 +3,7 @@ import Button from "@components/ui/button";
 import Checkbox from "@components/ui/checkbox/checkbox";
 import { useCheckout } from "@contexts/checkout.context";
 import { useCart } from "@contexts/quick-cart/cart.context";
+import { formatAddress } from "@utils/format-address";
 import { AnimateSharedLayout, motion } from "framer-motion";
 import { useState } from "react";
 
@@ -15,6 +16,7 @@ const OrderProductClickCollectList = ({ count }: any) => {
     totalClickCollectActive,
   } = useCart();
   const [show, setShow] = useState(false);
+  console.log(items);
   return (
     <>
       <div className="flex items-center justify-between mb-5 md:mb-8">
@@ -25,13 +27,13 @@ const OrderProductClickCollectList = ({ count }: any) => {
             </span>
           )}
           <p className="text-lg lg:text-xl text-heading capitalize">
-            PRODUIT EN MODE CLICK COLLECT
+          Produit(s) disponible en Click&Collect
           </p>
         </div>
       </div>
       <p className="text-small text-center text-gray-600">
         {show
-          ? "Veuillez sélectionner les produits à retirer en mode click collect"
+          ? " Veuillez sélectionner les produits à retirer en click collect"
           : "Certains de vos produits sont disponibles en mode click collect"}
       </p>{" "}
       <AnimateSharedLayout>
@@ -57,10 +59,10 @@ const OrderProductClickCollectList = ({ count }: any) => {
                           <div>
                             <span className="absolute" aria-hidden="true" />
                             <p className="text-sm font-medium text-gray-900">
-                              {item.name}
+                              {item.name} x {item.quantity}
                             </p>
                             <p className="text-sm text-gray-500 truncate">
-                              quantité {item.quantity}
+                              Adresse du magasin: {formatAddress(item.shop.address)}
                             </p>
                           </div>
                         </div>

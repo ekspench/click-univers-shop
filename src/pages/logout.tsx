@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { signOut as socialLoginSignOut } from "next-auth/client";
 import Cookies from "js-cookie";
@@ -10,17 +10,22 @@ import { useTranslation } from "next-i18next";
 export default function SignOut() {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const { mutate } = useLogoutMutation();
-
+  const { mutate,isLoading } = useLogoutMutation();
+  const [logout,setLogout]=useState(false);
   useEffect(() => {
     socialLoginSignOut({ redirect: false });
     mutate();
     Cookies.remove("auth_token");
     Cookies.remove("auth_permissions");
-    router.push("/");
-    router.reload();
+   setLogout(true);
   }, []);
+  useEffect(()=>{
 
+    if(logout&&!isLoading){
+      router.push("/"); 
+      router.reload();
+    }
+  },[logout,isLoading])
   return (
     <div className="min-h-screen grid place-items-center">
       <div className="text-center">

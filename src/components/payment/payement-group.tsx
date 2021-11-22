@@ -14,7 +14,7 @@ type Props={
 }
 const PaymentGroup = ({amount,data,onPaySuccess}:Props) => {
 
-  const { data: cards, isLoading:fetchingCard } = useStripeCardsQuery();
+  const { data: cards, isLoading:fetchingCard,isFetching,refetch} = useStripeCardsQuery();
   const { openModal } = useModalAction();
   const [card_active, setCardActive] = useState<string|undefined>();
   const [processing,setProcessing]=useState<boolean>(false);
@@ -58,9 +58,9 @@ const PaymentGroup = ({amount,data,onPaySuccess}:Props) => {
       <div className="flex justify-center my-4">
       <h1 className="text-center">Veuillez selectioner une carte pour effectuer le paiement</h1>
       </div>
-      {fetchingCard?<div className="justify-center">Chargement ...</div>:
+      {(fetchingCard||isFetching)?<div className="justify-center">Chargement ...</div>:
       <div className="flex justify-center flex-wrap">
-        {cards &&
+        {!fetchingCard&&cards &&
           cards.map((card: any) => (
             <PaymentCard
               active={card_active===card.id}
@@ -77,7 +77,7 @@ const PaymentGroup = ({amount,data,onPaySuccess}:Props) => {
            <div className="space-y-16 m-2">
           <Button className="w-52 h-32  rounded-xl relative shadow-2xl transition-transform transform  hover:scale-105 cursor-pointer "
           onClick={() => {
-            openModal("STRIPE_PAYMENT_FORM");
+            openModal("STRIPE_PAYMENT_FORM",{refetch});
           }}
           >
             <div className="flex-col  align-center flex justify-center items-center content-center">

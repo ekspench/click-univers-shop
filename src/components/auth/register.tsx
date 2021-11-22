@@ -95,21 +95,8 @@ const RegisterForm = () => {
       <div className="flex justify-center">
         <Logo />
       </div>
-      <p className="text-center text-sm md:text-base leading-relaxed px-2 sm:px-0 text-body mt-4 sm:mt-5 mb-7 sm:mb-10">
-        {t("registration-helper")}
-        <span
-          onClick={() => handleNavigate("terms")}
-          className="mx-1 underline cursor-pointer text-accent hover:no-underline"
-        >
-          {t("text-terms")}
-        </span>
-        &
-        <span
-          onClick={() => handleNavigate("terms")}
-          className="ms-1 underline cursor-pointer text-accent hover:no-underline"
-        >
-          {t("text-policy")}
-        </span>
+      <p className="text-center text-sm md:text-base leading-relaxed px-2 sm:px-0 text-body mt-2 sm:mt-5 mb-2 sm:mb-10">
+        Enregistrer un nouveau compte
       </p>
       {errorMsg && (
         <Alert
@@ -144,6 +131,22 @@ const RegisterForm = () => {
           variant="outline"
           className="mb-5"
         />
+        <p className="text-center text-sm md:text-base leading-relaxed px-2 sm:px-0 text-body mt-4 sm:mt-5 mb-2 sm:mb-10">
+          {t("registration-helper")}
+          <span
+            onClick={() => handleNavigate("terms")}
+            className="mx-1 underline cursor-pointer text-accent hover:no-underline"
+          >
+            {t("text-terms")}
+          </span>
+          &
+          <span
+            onClick={() => handleNavigate("terms")}
+            className="ms-1 underline cursor-pointer text-accent hover:no-underline"
+          >
+            {t("text-policy")}
+          </span>
+        </p>
         <div className="mt-8">
           <Button className="w-full h-12" loading={loading} disabled={loading}>
             {t("text-register")}
