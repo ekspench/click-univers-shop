@@ -45,14 +45,16 @@ export const ThumbsCarousel: React.FC<Props> = ({ gallery }) => {
             className="flex items-center justify-center"
 
           >
+            <div style={{ position: "relative", width: "100%", height:"350px", paddingBottom: "20%" }}>
             <Image
               src={item?.original ?? "/product-placeholder.svg"}
               alt={`Product gallery ${item.id}`}
-              width={450}
-              height={450}
+              layout="fill"
+              objectFit="contain"
 
               // className="product-image"
             />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

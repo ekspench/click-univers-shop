@@ -332,9 +332,9 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
                           {selectedVariation?.is_disable ||
                           selectedVariation.quantity === 0
                             ? "Out Of Stock"
-                            : `${selectedVariation.quantity} ${t(
+                            : /*`${selectedVariation.quantity} ${t(
                                 "text-pieces-available"
-                              )}`}
+                            )}`*/""}
                         </span>
                       )}
                     </>

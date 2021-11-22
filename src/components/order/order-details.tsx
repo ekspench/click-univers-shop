@@ -75,7 +75,11 @@ const OrderDetails = ({ order }: Props) => {
                   {relay_point ? (
                     <RelayPointCard data={relay_point} />
                   ) : (
-                    formatAddress(shipping_address)
+                    <>
+                    <span>{shipping_address.title}</span>, 
+                    <span>{formatAddress(shipping_address.address)}</span>
+                 
+                    </>
                   )}
                 </span>
               </div>

@@ -46,23 +46,9 @@ export const ContactPage = () => {
             />
           </div>
 
-          <div className="flex flex-col mb-8">
-            <span className="font-semibold text-heading mb-3">
-              {t("text-address")}
-            </span>
-            <span className="text-sm text-body">
-              {siteSettings.author.address}
-            </span>
-          </div>
+         
 
-          <div className="flex flex-col mb-8">
-            <span className="font-semibold text-heading mb-3">
-              {t("text-phone")}
-            </span>
-            <span className="text-sm text-body">
-              {siteSettings.author.phone}
-            </span>
-          </div>
+         
 
           <div className="flex flex-col mb-8">
             <span className="font-semibold text-heading mb-3">

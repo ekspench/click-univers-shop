@@ -48,11 +48,11 @@ export const siteSettings = {
         icon: <TwitterIcon width="16px" height="16px" />,
         hoverClass: "text-social-twitter",
       },
-      {
+     /* {
         link: "https://www.youtube.com",
         icon: <YouTubeIcon width="16px" height="16px" />,
         hoverClass: "text-social-youtube",
-      },
+      },*/
     ],
   },
   headerLinks: [

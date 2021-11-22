@@ -67,7 +67,7 @@ const Helium: React.FC<HeliumProps> = ({ product, className }) => {
         >
           {name}
         </h3>
-        <p className="text-muted text-xs">{unit}</p>
+       {/** <p className="text-muted text-xs">{unit}</p> */}
         {/* End of product info */}
 
         <div className="flex items-center justify-between min-h-6 mt-7 md:mt-8 relative">
