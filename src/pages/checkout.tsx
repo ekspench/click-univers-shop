@@ -137,6 +137,7 @@ export default function CheckoutPage() {
   const onPaySuccess = (data: any) => {
     router.push(`${ROUTES.ORDERS}/${data.orderInput.ref}`);
   };
+  console.log(items);
 
   const showPay = () => {
     if (billing_address && shipping_address && shipping_class) {
@@ -148,6 +149,7 @@ export default function CheckoutPage() {
       }
       return true;
     }
+    return false;
   };
 
   return (
@@ -175,17 +177,17 @@ export default function CheckoutPage() {
                   {relay_point && (
                     <>
                       <li className="text-left">
-                        <span className="text-right text-muted">
+                        <span className="text-right text-gray-700">
                           Nom du point de relay:&nbsp;{relay_point?.nom}
                         </span>
                       </li>
                       <li className="text-left">
-                        <span className=" text-right text-muted">
+                        <span className=" text-right text-gray-700">
                           Adresse:&nbsp;{relay_point?.address}
                         </span>
                       </li>
                       <li className="text-left">
-                        <span className=" text-right text-muted">
+                        <span className=" text-right text-gray-700">
                           Code postal:&nbsp;{relay_point?.zip}
                         </span>
                       </li>
@@ -229,55 +231,6 @@ export default function CheckoutPage() {
            */}
           <div className="shadow-700 bg-light p-5 md:p-8">
             {(totalItems>0&&totalItems===totalClickCollectActive)?  <ModeClickCollectCard count={2}/>:<ShippingMode count={2} />}
-          
-            {/*shipping_class === 3 && (
-              <div>
-                <div>
-                  <ul className="list-unstyled font-size-sm mt-2 border p-4">
-                    <li className="text-left">
-                      <span className="text-right text-size-md">
-                        Information sur le point de relais
-                      </span>
-                    </li>
-
-                    {relay_point && (
-                      <>
-                        <li className="text-left">
-                          <span className="text-right text-muted">
-                            Nom du point de relay:&nbsp;{relay_point?.nom}
-                          </span>
-                        </li>
-                        <li className="text-left">
-                          <span className=" text-right text-muted">
-                            Adresse:&nbsp;{relay_point?.address}
-                          </span>
-                        </li>
-                        <li className="text-left">
-                          <span className=" text-right text-muted">
-                            Code postal:&nbsp;{relay_point?.zip}
-                          </span>
-                        </li>
-                      </>
-                    )}
-                    <div className="flex justify-end -mt-10">
-                      <Button
-                        size="small"
-                        className="mt-2"
-                        onClick={() => {
-                          openModal("DELIVERY_RELAY_POINT");
-                        }}
-                      >
-                        {relay_point ? (
-                          <Edit width="16" height="16" />
-                        ) : (
-                          <PlusIcon width="16" height="16" />
-                        )}
-                      </Button>
-                    </div>
-                  </ul>
-                </div>
-              </div>
-                        )*/}
           </div>
           {totalClickCollect>0 && (
             <div className="shadow-700 bg-light p-5 md:p-8">

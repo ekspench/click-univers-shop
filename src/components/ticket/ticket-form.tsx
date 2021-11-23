@@ -55,7 +55,7 @@ const TicketForm = () => {
         name="subject"
         control={control}
         options={[
-          { value: "Commande non reçu", label: "Commande non reçu" },
+          { value: "Commande non reçue", label: "Commande non reçue" },
           { value: "Autres", label: "Autres" },
         ]}
         className="my-6"

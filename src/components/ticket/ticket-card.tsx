@@ -14,7 +14,7 @@ dayjs.extend(relativeTime);
 dayjs.locale("fr");
 const TicketCard = ({ ticket,setActive,ticketActive}: TicketCardPrps) => {
   return (
-    <li className={`flex shadow  justify-between bg-white hover:scale-105 overflow-hidden w-full items-center mt-2 p-2 hover:shadow-sm rounded cursor-pointer border-2 border-transparent  transition  ${ticket.id===ticketActive&&"!bg-accent text-white"} `}
+    <li key={ticket.id} className={`flex shadow  justify-between bg-white hover:scale-105 overflow-hidden w-full items-center mt-2 p-2 hover:shadow-sm rounded cursor-pointer border-2 border-transparent  transition  ${ticket.id===ticketActive&&"!bg-accent text-white"} `}
     onClick={()=>setActive(ticket.id)}
     >
       <div className="flex ml-2">

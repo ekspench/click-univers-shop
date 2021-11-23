@@ -230,6 +230,7 @@
   "PICKBAZAR_ERROR.ACTION_NOT_VALID": "Action non valide",
   "PICKBAZAR_ERROR.SHOP_NOT_APPROVED": "Magasin non approuvé",
   "PICKBAZAR_MESSAGE.NOT_FOUND": "Non trouvé",
+  "PICKBAZAR_MESSAGE.EMAIL.NOT_FOUND":"Aucun email trouvé",
   "PICKBAZAR_MESSAGE.CHECK_INBOX_FOR_PASSWORD_RESET_EMAIL": "Vérifier la boîte de réception pour l'e-mail de réinitialisation du mot de passe",
   "PICKBAZAR_MESSAGE.SOMETHING_WENT_WRONG": "Une erreur s'est produite",
   "PICKBAZAR_MESSAGE.TOKEN_IS_VALID": "Le jeton est valide",

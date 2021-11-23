@@ -194,7 +194,7 @@ const TicketShow = ({ id, isMobile, go_back }: TIcketProps) => {
         className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
       >
         {ticket?.messages.map((message) => (
-          <MessageItem user={me.me} message={message} />
+          <MessageItem key={message.id} user={me.me} message={message} />
         ))}
       </div>
       <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">

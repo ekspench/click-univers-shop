@@ -14,6 +14,9 @@ const ShippingMode = ({ count }: Props) => {
     useCheckout();
   useEffect(() => {
     updateDeliveryTime(siteSettings.deliverySchedule[0]);
+    if(!shipping_class){
+      setShippingClass(data?.shippings[0]);
+    }
   }, []);
 
   const { data, isFetching: loading } = useShippingQuery();
