@@ -31,7 +31,7 @@ const CartSidebarView = () => {
         <div className="flex text-accent font-semibold">
           <CartCheckBagIcon className="flex-shrink-0" width={24} height={22} />
           <span className="flex ms-2">
-            {formatString(totalUniqueItems, /*t("text-item")*/ "")}
+    {totalUniqueItems}
           </span>
         </div>
         <button

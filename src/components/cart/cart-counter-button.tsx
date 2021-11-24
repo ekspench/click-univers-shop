@@ -24,7 +24,7 @@ const CartCounterButton = () => {
       <span className="flex pb-0.5">
         <CartCheckBagIcon className="flex-shrink-0" width={14} height={16} />
         <span className="flex ms-2">
-          {formatString(totalUniqueItems, /*t("common:text-item")*/"")}
+          {totalUniqueItems}
         </span>
       </span>
       <span className="bg-light rounded w-full py-2 px-2 text-accent mt-3">
