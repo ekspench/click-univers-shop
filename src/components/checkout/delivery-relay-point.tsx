@@ -26,7 +26,7 @@ const DeliveryRelayPoint = () => {
       //
       // Code given by Mondial Relay, 8 characters (padding right with spaces)
       // BDTEST is used for development only => a warning appears
-      Brand: "88Ar8ND0  ",
+      Brand: "CC21X65L  ",
       // Delivery mode (Standard [24R], XL [24L], XXL [24X], Drive [DRI])
       ColLivMod: "24R",
       // Number of parcelshops requested (must be less than 20)
