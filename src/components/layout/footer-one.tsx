@@ -21,7 +21,7 @@ const FooterItems = ({ children, title, description, Icon }: PropsFooter) => (
 const FooterOne = () => {
   return (
     <div className="flex flex-col items-center content-center  bg-black w-full py-8 px-4">
-      <a className="text-white mb-4 bg-accent p-2 rounded" href="https://admin.click-univers.com">
+      <a className="text-white mb-4 bg-accent p-2 rounded" href="/portal-vendor">
       Vendre sur Click Univers
       </a>
       <div className="flex  ">

@@ -26,11 +26,7 @@ const DeliveryRelayPoint = () => {
       //
       // Code given by Mondial Relay, 8 characters (padding right with spaces)
       // BDTEST is used for development only => a warning appears
-      Brand: "BDTEST  ",
-      // Default Country (2 letters) used for search at loading
-      Country: "FR",
-      // Default postal Code used for search at loading
-      PostCode: "75001",
+      Brand: "88Ar8ND0  ",
       // Delivery mode (Standard [24R], XL [24L], XXL [24X], Drive [DRI])
       ColLivMod: "24R",
       // Number of parcelshops requested (must be less than 20)

@@ -12,14 +12,15 @@ interface Props {
 const ShippingMode = ({ count }: Props) => {
   const { updateDeliveryTime, setShippingClass, shipping_class } =
     useCheckout();
+    const { data, isFetching: loading } = useShippingQuery();
   useEffect(() => {
     updateDeliveryTime(siteSettings.deliverySchedule[0]);
-    if(!shipping_class){
+    if(!shipping_class&&data?.shippings){
       setShippingClass(data?.shippings[0]);
     }
-  }, []);
+  }, [data]);
 
-  const { data, isFetching: loading } = useShippingQuery();
+
   const { total } = useCart();
   function handleSelect(item: any) {
     setShippingClass(item);

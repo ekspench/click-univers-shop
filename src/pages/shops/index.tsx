@@ -3,15 +3,18 @@ import { fetchShops, useShopsQuery } from "@data/shop/use-shops.query";
 import ShopPageLayout from "@components/layout/shop-layout";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { GetStaticProps } from "next";
 import { fetchSettings } from "@data/settings/use-settings.query";
 import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
+import ShopSearch from "@components/shops/shop-search";
 
 const ShopsPage = () => {
+  const [shopName,setShopName]=useState<any>("")
   const { data } = useShopsQuery({
     is_active: 1,
+    text:shopName,
   });
   const { t } = useTranslation("common");
 
@@ -22,7 +25,7 @@ const ShopsPage = () => {
           <h3 className="text-2xl text-heading font-bold mb-8">
             {t("text-all-shops")}
           </h3>
-
+          <ShopSearch setShopName={setShopName}/>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {data?.pages?.map((page, idx) => {
               return (

@@ -24,7 +24,7 @@ const EnterNewPasswordView = ({ onSubmit, loading }: Props) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <PasswordInput
-        label="text-password"
+        label={t("text-new-password")}
         {...register("password")}
         error={errors.password?.message}
         variant="outline"

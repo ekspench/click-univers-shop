@@ -23,6 +23,7 @@ export type ProductsQueryOptionsType = {
 
 export type ShopsQueryOptionsType = {
   text?: string;
+  name?:string;
   category?: string;
   status?: string;
   limit?: number;
