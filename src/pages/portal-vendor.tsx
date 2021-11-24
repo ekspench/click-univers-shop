@@ -1,15 +1,11 @@
 import { CheckMark } from "@components/icons/checkmark";
 import Layout from "@components/layout/layout";
 import Items from "@components/portal-vendor/Items";
-import { parseContextCookie } from "@utils/parse-cookie";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const cookies = parseContextCookie(context?.req?.headers?.cookie);
-  if (!cookies?.auth_token) {
-    return { redirect: { destination: "/", permanent: false } };
-  }
+
   return {
     props: {
       ...(await serverSideTranslations(context.locale!, ["common"])),
