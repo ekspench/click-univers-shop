@@ -20,6 +20,7 @@ import { fetchTypes } from "@data/type/use-types.query";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchSettings } from "@data/settings/use-settings.query";
 import FooterOne from "@components/layout/footer-one";
+import { NextSeo } from "next-seo";
 
 const CartCounterButton = dynamic(
   () => import("@components/cart/cart-counter-button"),
@@ -30,7 +31,7 @@ const CartCounterButton = dynamic(
 /*export async function getStaticPaths({ locales }: GetStaticPathsContext) {
   /*const { types } = await fetchTypes();*/
 
- /* const paths = types
+/* const paths = types
     ?.filter((t: any) => t.slug !== "bakery")
     .flatMap((type: any) =>
       locales?.map((locale) => ({ params: { type: type.slug }, locale }))
@@ -88,6 +89,10 @@ export default function HomePage() {
 
   return (
     <>
+      <NextSeo
+        title="Simple Usage Example"
+        description="A short description goes here."
+      />
       <Banner banner={getPageData?.banner} className="miiiin-h-screen" />
       <PromotionSlider />
       <FilterBar />
@@ -98,7 +103,7 @@ export default function HomePage() {
         <CategoryDropdownSidebar />
         <main className="flex-1">
           <ProductFeed />
-          <FooterOne/>
+          <FooterOne />
         </main>
       </Element>
       {width > 1023 && <CartCounterButton />}
