@@ -79,7 +79,7 @@ export default function PortalVendor() {
         <div className="flex flex-col pt-16 pb-32 overflow-hidden">
           <div className="">
             <div className="lg:grid lg:grid-cols-2 lg:grid-flow-col-dense lg:gap-24">
-              <div className="px-4 max-w-xl mx-auto sm:px-6 lg:py-16 lg:max-w-none lg:mx-0 lg:px-0">
+              <div className="px-4 max-w-xl mx-auto sm:px-6 lg:max-w-none lg:mx-0 lg:px-0">
                 <div>
                   <div>
                     <span className="h-12 w-12 rounded-md flex items-center justify-center bg-accent">
@@ -102,14 +102,7 @@ export default function PortalVendor() {
                         <Items title={item.title} content={item.content} />
                       ))}
                     </div>
-                    <div className="mt-6">
-                      <a
-                        href="https://admin.click-univers.com/register"
-                        className="inline-flex bg-accent to-accent-600 bg-origin-border px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white hover:from-purple-700 hover:to-accent-700"
-                      >
-                        Commencer
-                      </a>
-                    </div>
+                
                   </div>
                 </div>
                 <div className="mt-8 border-t border-gray-200 pt-6"></div>
@@ -204,9 +197,9 @@ export default function PortalVendor() {
         <div className="bg-white">
           <div className="max-w-4xl mx-auto py-16 px-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 lg:flex lg:items-center lg:justify-between">
             <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-              <span className="block">Prêt à commencer?</span>
-              <span className="block bg-accent to-accent-600 bg-clip-text text-transparent">
-                Contactez-nous ou créez un compte.
+              <span className="block"> Commencez à vendre avec Click Univers</span>
+              <span className="block">
+               dès aujourd'hui
               </span>
             </h2>
             <div className="mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
