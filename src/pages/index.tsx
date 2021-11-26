@@ -21,6 +21,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchSettings } from "@data/settings/use-settings.query";
 import FooterOne from "@components/layout/footer-one";
 import { NextSeo } from "next-seo";
+import { SEO } from "@components/seo";
 
 const CartCounterButton = dynamic(
   () => import("@components/cart/cart-counter-button"),
@@ -89,9 +90,9 @@ export default function HomePage() {
 
   return (
     <>
-      <NextSeo
-        title="Simple Usage Example"
-        description="A short description goes here."
+      <SEO
+      title="Marketplace "
+      description=""
       />
       <Banner banner={getPageData?.banner} className="miiiin-h-screen" />
       <PromotionSlider />
