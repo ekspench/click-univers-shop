@@ -12,6 +12,7 @@ import { QueryClient } from "react-query";
 import { fetchProducts } from "@data/product/use-products.query";
 import { fetchSettings } from "@data/settings/use-settings.query";
 import { dehydrate } from "react-query/hydration";
+import { SEO } from "@components/seo";
 
 const CartCounterButton = dynamic(
   () => import("@components/cart/cart-counter-button"),
@@ -23,6 +24,8 @@ const ShopPage = ({ data }: any) => {
   const { width } = useWindowSize();
 
   return (
+  <>
+     <SEO title={data.name}/>
     <div className="bg-gray-100 flex flex-col md:flex-row md:items-start md:p-8">
       <ShopProfileCard data={data} className="sticky top-24 lg:top-28" />
 
@@ -39,6 +42,7 @@ const ShopPage = ({ data }: any) => {
       </div>
       {width > 1023 && <CartCounterButton />}
     </div>
+    </>
   );
 };
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {

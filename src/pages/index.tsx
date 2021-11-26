@@ -92,7 +92,6 @@ export default function HomePage() {
     <>
       <SEO
       title="Marketplace "
-      description=""
       />
       <Banner banner={getPageData?.banner} className="miiiin-h-screen" />
       <PromotionSlider />

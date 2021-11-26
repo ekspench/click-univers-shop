@@ -11,6 +11,7 @@ import { useTranslation } from "next-i18next";
 import { useCart } from "@contexts/quick-cart/cart.context";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { SEO } from "@components/seo";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -48,6 +49,10 @@ const OrderPage = () => {
   }
   const promise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC}`);
   return (
+    <>
+          <SEO
+      title="Commande"
+      />
     <div className="py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20">
       <div className="flex flex-col lg:flex-row items-center lg:items-start m-auto lg:space-s-8 w-full max-w-5xl">
         <div className="lg:max-w-2xl w-full space-y-6 order-2 lg:order-1">
@@ -62,6 +67,7 @@ const OrderPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 type SeoProps = {
   title: string;
-  description: string;
+  description?: string;
   canonical?: string;
   css?: string;
   js?: string;
@@ -12,7 +12,7 @@ type SeoProps = {
 
 export const SEO: React.FC<SeoProps> = ({
   title,
-  description,
+  description="Marketplace Français | Achat et vente en ligne parmi des milliers d’articles | Click&Collect et livraison gratuite à partir de 35€ | Click sur ton Univers",
   canonical,
   css,
   js,
@@ -32,7 +32,7 @@ export const SEO: React.FC<SeoProps> = ({
       property="og:description"
       content={description}
     />
-    <meta property="og:site_name" content="Proper Noun" />
+    <meta property="og:site_name" content="Click Univers" />
     <meta property="og:url" content={`${canonical}`} />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={"Click Univers | "+title} />

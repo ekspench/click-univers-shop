@@ -9,6 +9,7 @@ import { fetchSettings } from "@data/settings/use-settings.query";
 import { QueryClient } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import ShopSearch from "@components/shops/shop-search";
+import { SEO } from "@components/seo";
 
 const ShopsPage = () => {
   const [shopName,setShopName]=useState<any>("")
@@ -19,6 +20,8 @@ const ShopsPage = () => {
   const { t } = useTranslation("common");
 
   return (
+    <>
+          <SEO title="Boutiques" />
     <div className="bg-light min-h-screen ">
       <div className="w-full max-w-6xl mx-auto flex flex-col p-8 pt-32 md:pt-40">
         <div className="pt-12">
@@ -40,6 +43,7 @@ const ShopsPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

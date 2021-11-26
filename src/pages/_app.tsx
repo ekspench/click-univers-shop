@@ -103,7 +103,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
                 <CheckoutProvider>
                   <SearchProvider>
                     <Layout {...pageProps}>
-                  
+                
                       <Component {...pageProps} />
                     </Layout>
                     <ToastContainer autoClose={2000} />

@@ -1,6 +1,7 @@
 import { CheckMark } from "@components/icons/checkmark";
 import Layout from "@components/layout/layout";
 import Items from "@components/portal-vendor/Items";
+import { SEO } from "@components/seo";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
@@ -68,6 +69,8 @@ const Item3=[
 ]
 export default function PortalVendor() {
   return (
+    <>
+     <SEO  title="Mentions légales "/>
     <div className="bg-white p-4 lg:px-48">
       <main>
         {/* Hero section */}
@@ -218,6 +221,7 @@ export default function PortalVendor() {
         </div>
       </main>
     </div>
+    </>
   );
 }
 

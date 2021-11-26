@@ -13,7 +13,7 @@ export default function HelpPage() {
   const { t } = useTranslation();
   return (
     <>
-    <SEO title="ok" description="o"/>
+ <SEO title="Centre d’aide"/>
     <section className="py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20">
       <header className="text-center mb-8">
         <h1 className="font-bold text-xl md:text-2xl xl:text-3xl">

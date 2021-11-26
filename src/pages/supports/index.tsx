@@ -15,6 +15,7 @@ import { useTicketQuery } from "@data/ticket/use-ticket.query";
 import TicketShow from "@components/ticket/ticket-show";
 import { useState } from "react";
 import { useWindowSize } from "@utils/use-window-size";
+import { SEO } from "@components/seo";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -42,8 +43,9 @@ export default function SupportPage() {
   
   
 const isMobile=useWindowSize().width<860;
-console.log(isMobile);
   return (
+    <>
+          <SEO title="Supports" />
     <div className="w-full ">
       <div className="flex flex-col xl:flex-row items-start max-w-1920 w-full mx-auto py-10 px-5 xl:py-14 xl:px-8 2xl:px-14  min-h-screen">
         <ProfileSidebar className="flex-shrink-0 hidden xl:block xl:w-80 me-8" />
@@ -86,6 +88,7 @@ console.log(isMobile);
         </div>
       </div>
     </div>
+    </>
   );
 }
 SupportPage.Layout = Layout;

@@ -9,6 +9,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { SEO } from "@components/seo";
 
 const contactFormSchema = yup.object().shape({
   name: yup.string().required("error-name-required"),
@@ -34,6 +35,8 @@ export const ContactPage = () => {
     reset();
   }
   return (
+    <>
+     <SEO title="Contact"/>
     <div className="w-full bg-gray-100">
       <div className="flex flex-col md:flex-row max-w-7xl w-full mx-auto py-10 px-5 xl:py-14 xl:px-8 2xl:px-14">
         {/* sidebar */}
@@ -131,6 +134,7 @@ export const ContactPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 ContactPage.Layout = Layout;

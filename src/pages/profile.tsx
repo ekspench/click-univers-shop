@@ -9,6 +9,7 @@ import { GetServerSideProps } from "next";
 import { parseContextCookie } from "@utils/parse-cookie";
 import Spinner from "@components/ui/loaders/spinner/spinner";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { SEO } from "@components/seo";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -26,32 +27,33 @@ export default function ProfilePage() {
   const { isLoading: loading, data, error } = useCustomerQuery();
   if (error) return <ErrorMessage message={error.message} />;
   return (
-    <div className="flex flex-col xl:flex-row items-start max-w-1920 w-full mx-auto py-10 px-8 xl:py-14 xl:px-16 2xl:px-20 bg-gray-100">
-      <ProfileSidebar className="flex-shrink-0 hidden xl:block xl:w-80 me-10" />
-      {/* End of sidebar navigation */}
-      {loading ? (
-        <Spinner showText={false} />
-      ) : (
-        <div className="w-full overflow-hidden">
-          <div className="mb-8">
-            <ProfileForm user={data?.me} />
+    <>
+      <SEO title="Profil" />
+      <div className="flex flex-col xl:flex-row items-start max-w-1920 w-full mx-auto py-10 px-8 xl:py-14 xl:px-16 2xl:px-20 bg-gray-100">
+        <ProfileSidebar className="flex-shrink-0 hidden xl:block xl:w-80 me-10" />
+        {/* End of sidebar navigation */}
+        {loading ? (
+          <Spinner showText={false} />
+        ) : (
+          <div className="w-full overflow-hidden">
+            <div className="mb-8">
+              <ProfileForm user={data?.me} />
+            </div>
+            <Card className="w-full">
+              <Address
+                id={data?.me?.id!}
+                addresses={data?.me?.address!}
+                heading="text-addresses"
+                type="billing"
+              />
+            </Card>
           </div>
-          <Card className="w-full">
-            <Address
-              id={data?.me?.id!}
-              addresses={data?.me?.address!}
-              heading="text-addresses"
-              type="billing"
-            />
-          </Card>
+        )}
+        <div>
+          <iframe src="https://www.remove.bg/fr/upload"></iframe>
         </div>
-      )}
-      <div>
-        <iframe src="https://www.remove.bg/fr/upload">
-
-        </iframe>
       </div>
-    </div>
+    </>
   );
 }
 

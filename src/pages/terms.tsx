@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { useArticlesQuery } from "@data/article/use-articles.query";
 import { Article } from "@ts-types/custom.types";
 import ArticleDetail from "@components/article/article-detail";
+import { SEO } from "@components/seo";
 
 function makeTitleToDOMId(title: string) {
   return title.toLowerCase().split(" ").join("_");
@@ -27,6 +28,8 @@ export default function TermsPage() {
     }
   }, [articles]);
   return (
+    <>
+     <SEO title="Mentions légales "/>
     <section className="max-w-1920 w-full mx-auto py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20">
       <div className="flex">
         {articles &&
@@ -44,6 +47,7 @@ export default function TermsPage() {
       {/* End of page header */}
       {terms && <ArticleDetail id={terms?.id} />}
     </section>
+    </>
   );
 }
 

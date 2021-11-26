@@ -10,6 +10,7 @@ import RelatedProducts from "@components/product/product-details/related-product
 import { QueryClient } from "react-query";
 import { fetchSettings } from "@data/settings/use-settings.query";
 import { dehydrate } from "react-query/hydration";
+import { SEO } from "@components/seo";
 const CartCounterButton = dynamic(
   () => import("@components/cart/cart-counter-button"),
   { ssr: false }
@@ -53,6 +54,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 export default function ProductSinglePage({ product }: any) {
   return (
     <>
+    <SEO title={product.name} image={product.image.thumbnail}/>
       <div className="bg-light min-h-screen">
         <ProductDetails product={product} />
 
