@@ -55,7 +55,7 @@ const Items2 = [
 ];
 export default function PortalVendor() {
   return (
-    <div className="bg-white p-8">
+    <div className="bg-white p-4 lg:px-48">
       <main>
         {/* Hero section */}
 
@@ -117,7 +117,7 @@ export default function PortalVendor() {
             <div className="mt-12 sm:mt-16 lg:mt-0">
                 <div className="pl-4 -mr-48 sm:pl-6 md:-mr-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
                   <img
-                    className="w-full rounded-xl shadow-xl border-gray-500 ring-1 ring-black ring-opacity-5 lg:absolute  "
+                    className="w-full rounded-xl shadow-xl border-gray-500  ring-black ring-opacity-5 lg:absolute  "
                     src="/portal-vendor/image-3.png"
                     alt="Inbox user interface"
                   />

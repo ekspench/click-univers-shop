@@ -22,21 +22,18 @@ const ModeClickCollectCard = ({ count }: Props) => {
               {count}
             </span>
           )}
-          <p className="text-lg lg:text-xl text-heading capitalize">
-            Mode de livraison
-          </p>
+          <p className="text-lg lg:text-xl text-heading">Mode de livraison</p>
         </div>
       </div>
       <div className="flex justify-center">
-      <div className="relative p-4 rounded border cursor-pointer group hover:border-accent border-accent shadow-sm">
-        <p className="text-sm text-heading font-semibold mb-3 capitalize">
-        CLICK&COLLECT
-        </p>
-        <p className="text-sm text-sub-heading">Gratuit</p>
-        <div className="absolute top-4 end-4 flex space-s-2 opacity-0 group-hover:opacity-100" />
+        <div className="relative p-4 rounded border cursor-pointer group hover:border-accent border-accent shadow-sm">
+          <p className="text-sm text-heading font-semibold mb-3 capitalize">
+            CLICK&COLLECT
+          </p>
+          <p className="text-sm text-sub-heading">Gratuit</p>
+          <div className="absolute top-4 end-4 flex space-s-2 opacity-0 group-hover:opacity-100" />
+        </div>
       </div>
-      </div>
-     
     </>
   );
 };

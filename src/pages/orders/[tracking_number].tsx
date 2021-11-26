@@ -135,7 +135,8 @@ export default function OrderPage() {
     return <Spinner showText={false} />;
   }
 
-  const order=data?.order?.children.length===1?data?.order?.children[0]:data?.order
+  const order =
+    data?.order?.children.length === 1 ? data?.order?.children[0] : data?.order;
   return (
     <div className="p-4 sm:p-8">
       <div className="p-6 sm:p-8 lg:p-12 max-w-screen-lg w-full mx-auto bg-light rounded border shadow-sm">
@@ -182,8 +183,9 @@ export default function OrderPage() {
               Mode de livraison
             </h3>
             <p className="text-sm text-body-dark">
-              {data?.order?.mode_click_collect==="full"?"CLICK&COLLECT":
-              data?.order?.shipping?.name ?? "N/A"}
+              {data?.order?.mode_click_collect === "full"
+                ? "CLICK&COLLECT"
+                : data?.order?.shipping?.name ?? "N/A"}
             </p>
           </div>
           {data?.order?.relay_point && (
@@ -202,7 +204,7 @@ export default function OrderPage() {
           (data?.order?.children.length === 0 && (
             <div className="w-full flex justify-center items-center ">
               <OrderStatus
-                type={data?.order?.canceled?2:1}
+                type={data?.order?.canceled ? 2 : 1}
                 status={
                   data?.order?.children.length
                     ? data?.order.children[0]?.status?.serial
@@ -292,7 +294,7 @@ export default function OrderPage() {
                 </strong>
                 :
                 <span className="w-7/12 sm:w-8/12 ps-4 text-sm">
-                  <span>{data?.order?.shipping_address.title}</span>,{" "}  
+                  <span>{data?.order?.shipping_address.title}</span>,{" "}
                   {formatAddress(data?.order?.shipping_address.address!)}
                 </span>
               </p>
@@ -304,8 +306,16 @@ export default function OrderPage() {
         <div className="mt-12">
           <OrderItems products={data?.order?.products} />
         </div>
-        {(data?.order?.children?.length===1||data?.order?.children.length===0)&&
-      <AddNewTicket order={data?.order?.children?.length===1?data?.order?.children[0]:data?.order}/> }
+        {(data?.order?.children?.length === 1 ||
+          data?.order?.children.length === 0) && (
+          <AddNewTicket
+            order={
+              data?.order?.children?.length === 1
+                ? data?.order?.children[0]
+                : data?.order
+            }
+          />
+        )}
         {data?.order?.children?.length ? (
           <div>
             <h2 className="text-xl font-bold text-heading mt-12 mb-6">
@@ -342,7 +352,6 @@ export default function OrderPage() {
           </div>
         ) : null}
       </div>
-    
     </div>
   );
 }

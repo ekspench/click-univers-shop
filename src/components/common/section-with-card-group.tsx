@@ -53,7 +53,7 @@ const SectionWithCardGroup = ({
               {count}
             </span>
           )}
-          <p className="text-lg lg:text-xl text-heading capitalize">
+          <p className="text-lg lg:text-xl text-heading">
             {t(heading)}
           </p>
         </div>

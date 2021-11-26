@@ -145,7 +145,7 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
 
             {unit && isEmpty(variations) ? (
               <span className="text-sm font-normal text-body mt-2 block">
-                {unit}
+                {/*unit*/}
               </span>
             ) : (
               <span className="flex items-center mt-2">
@@ -258,7 +258,7 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
 
                 {unit && isEmpty(variations) && (
                   <span className="text-sm font-normal text-body mt-2 md:mt-3 block">
-                    {unit}
+                    {/*unit*/}
                   </span>
                 )}
 

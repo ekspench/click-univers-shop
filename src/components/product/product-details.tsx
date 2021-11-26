@@ -116,7 +116,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
 
             {unit && isEmpty(variations) && (
               <span className="text-sm font-normal text-body mt-2 md:mt-3 block">
-                {unit}
+                {/*unit*/}
               </span>
             )}
 
