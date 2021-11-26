@@ -9,7 +9,7 @@ export const useCreateTicket = () => {
     (input: TicketType) => TicketService.createTicket(input),
     {
       onSuccess: () => {
-        toast.success("Votre ticket en envoyé");
+        toast.success("Votre ticket est envoyé");
       },
       onSettled: () => {
        
