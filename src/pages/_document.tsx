@@ -23,7 +23,7 @@ export default class CustomDocument extends Document {
 
     return (
       <Html>
-        <Head />
+        
         <body dir={dir}>
           <Main />
           <NextScript />
