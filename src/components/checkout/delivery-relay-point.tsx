@@ -53,8 +53,8 @@ const DeliveryRelayPoint = () => {
     showMap();
   });
   return (
-    <div className="flex flex-col bg-white">
-      <div id="Zone_Widget"></div>
+    <div className="flex flex-col bg-white h-96">
+      <div className="h-96" id="Zone_Widget"></div>
       <input type="hidden" ref={(el) => ($el = ref)} id="Target_Widget" />
      {dataRelayPoint&& <Button onClick={handleValid} className="my-4 mx-4">
         Valider

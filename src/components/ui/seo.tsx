@@ -12,15 +12,15 @@ const Seo = () => {
           content: "width=device-width, initial-scale=1 maximum-scale=1",
         },
       ]}
-      title={settings?.siteTitle ?? "PickBazar"}
-      titleTemplate={`%s | ${settings?.seo?.metaTitle ?? "E-Commerce"}`}
+      title={settings?.siteTitle ?? "Click Univers "}
+      titleTemplate={`%s | ${settings?.seo?.metaTitle ?? "Marketplace"}`}
       description={settings?.seo?.metaDescription || settings?.siteSubtitle}
       canonical={settings?.seo?.canonicalUrl}
       openGraph={{
         title: settings?.seo?.ogTitle,
         description: settings?.seo?.ogDescription,
         type: "website",
-        locale: "en_US",
+        locale: "fr_FR",
         site_name: settings?.siteTitle,
         images: [
           {

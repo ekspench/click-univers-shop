@@ -53,6 +53,19 @@ const Items2 = [
       "Si notre algorithme détecte votre produit comme un produit gagnant nous le promouvons pour vous et cela gratuitement vous n'avez rien à faire on s'occupe de tout"
   },
 ];
+
+const Item3=[
+  {
+    id:1,
+    title:"Gestion des stocks",
+    content:"Gérez l'ensemble de vos stocks avec Click Univers. Faites le suivi des comptages et arrêtez automatiquement de vendre des produits qui tombent en rupture de stock.",
+  },
+  {
+    id:2,
+    title:"Collaborations ",
+    content:"Assignez à vos collaborateurs la gestion d’une ou plusieurs boutiques, ont leurs attribuons la gestion des commandes, retour, remboursement  ou bien du marketing. ",
+  },
+]
 export default function PortalVendor() {
   return (
     <div className="bg-white p-4 lg:px-48">
@@ -117,7 +130,7 @@ export default function PortalVendor() {
             <div className="mt-12 sm:mt-16 lg:mt-0">
                 <div className="pl-4 -mr-48 sm:pl-6 md:-mr-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
                   <img
-                    className="w-full rounded-xl shadow-xl border-gray-500  ring-black ring-opacity-5 lg:absolute  "
+                    className="w-full rounded-xl shadow-xl border-gray-500  ring-black ring-opacity-5  "
                     src="/portal-vendor/image-3.png"
                     alt="Inbox user interface"
                   />
@@ -151,6 +164,35 @@ export default function PortalVendor() {
                 
               </div>
            
+            </div>
+          </div>
+          <div className="">
+            <div className="lg:grid lg:grid-cols-2 lg:grid-flow-col-dense lg:gap-24">
+              <div className="px-4 max-w-xl mx-auto sm:px-6 flex justify-end lg:py-8  lg:max-w-none lg:mx-0 lg:px-0">
+                <div className="mt-auto">
+                  
+                  <div className="mt-auto">
+
+                    <div className="sm:grid sm:grid-cols-2 sm:gap-px mt-8">
+                      {Item3.map((item) => (
+                        <Items title={item.title} content={item.content} />
+                      ))}
+                    </div>
+                   
+                  </div>
+                </div>
+                <div className="mt-8 border-t border-gray-200 pt-6"></div>
+              </div>
+              <div className="mt-12 sm:mt-16 lg:mt-0">
+                <div className="pl-4  sm:pl-6 md:-mr-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
+                  <img
+                    className="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 "
+                    src="/portal-vendor/image-4.png"
+                    alt="Inbox user interface"
+                  />
+                </div>
+              </div>
+              <div className="mt-8 border-t border-gray-200 pt-6"></div>
             </div>
           </div>
         </div>

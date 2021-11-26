@@ -59,7 +59,7 @@ const CartSidebarView = () => {
             >
               <EmptyCartIcon width={140} height={176} />
               <h4 className="mt-6 text-base font-semibold">
-                {t("text-no-products")}
+                {t("text-no-cart")}
               </h4>
             </motion.div>
           )}

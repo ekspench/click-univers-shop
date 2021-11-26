@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { siteSettings } from "@settings/site.settings";
-
+type Action = { type: "SET_SEO",payload:any };
 type State = typeof initialState;
 
 const initialState = {
@@ -37,6 +37,20 @@ const initialState = {
     pageId: "",
   },
 };
+function uiReducer(state: State, action: Action) {
+  switch (action.type) {
+    case "SET_SEO": {
+      
+      return {
+        ...state,
+        seo:{
+          ...state.seo,
+          metaTitle:action?.payload?.metaTitle ?? state.seo.metaTitle,
+        }
+      };
+    }
+  }
+}
 
 export const SettingsContext = React.createContext<State | any>(initialState);
 
@@ -46,9 +60,21 @@ export const SettingsProvider: React.FC<{ initialValue: any }> = ({
   initialValue,
   ...props
 }) => {
-  const [state] = React.useState(initialValue ?? initialState);
-  return <SettingsContext.Provider value={state} {...props} />;
+  const [state, dispatch] = React.useReducer(
+    uiReducer,
+    initialValue ?? initialState
+  );
+  const setSeo = (payload:any) => dispatch({ type: "SET_SEO",payload:payload });
+  const value = useMemo(
+    () => ({
+      ...state,
+      setSeo,
+    }),
+    [state]
+  );
+  return <SettingsContext.Provider value={value} {...props} />;
 };
+
 
 export const useSettings = () => {
   const context = React.useContext(SettingsContext);
