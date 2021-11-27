@@ -6,7 +6,6 @@ import { useCart } from "@contexts/quick-cart/cart.context";
 import { formatAddress } from "@utils/format-address";
 import { AnimateSharedLayout, motion } from "framer-motion";
 import { useState } from "react";
-
 const OrderProductClickCollectList = ({ count }: any) => {
   const {
     items,
@@ -62,8 +61,12 @@ const OrderProductClickCollectList = ({ count }: any) => {
                               {item.name} x {item.quantity}
                             </p>
                             <p className="text-sm text-gray-500 truncate">
-                              Adresse du magasin: {formatAddress(item.shop.address)}
+                              Boutique: {formatAddress(item.shop.nane)}
                             </p>
+                            {item.shop.telephone&& <p className="text-sm text-gray-500 truncate">
+                              Boutique: {formatAddress(item.shop.telephone)}
+                            </p>}
+                           
                           </div>
                         </div>
                         <Button

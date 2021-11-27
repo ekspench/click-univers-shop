@@ -6,7 +6,8 @@ export type LoginInputType = {
 	password: string;
 };
 export type RegisterUserInputType = {
-	name: string;
+	first_name:string;
+	last_name:string;
 	email: string;
 	password: string;
 };

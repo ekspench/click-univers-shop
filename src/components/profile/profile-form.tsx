@@ -17,6 +17,8 @@ interface Props {
 
 type UserFormValues = {
   name?: User["name"];
+  last_name?: User["name"];
+  first_name?: User["name"];
   profile?: User["profile"];
 };
 
@@ -28,6 +30,8 @@ const ProfileForm = ({ user }: Props) => {
         ...(user &&
           pick(user, [
             "name",
+            "first_name",
+            "last_name",
             "profile.bio",
             "profile.contact",
             "profile.avatar",
@@ -38,11 +42,12 @@ const ProfileForm = ({ user }: Props) => {
   const { mutate: updateProfile, isLoading: loading } =
     useUpdateCustomerMutation();
   function onSubmit(values: any) {
-    console.log("values",values);
+    console.log("values", values);
     updateProfile(
       {
         id: user.id,
-        name: values.name,
+        first_name: values.first_name,
+        last_name: values.last_name,
         profile: {
           id: user?.profile?.id,
           ...values.profile,
@@ -68,7 +73,13 @@ const ProfileForm = ({ user }: Props) => {
             <Input
               className="flex-1"
               label={t("text-name")}
-              {...register("name")}
+              {...register("first_name")}
+              variant="outline"
+            />
+            <Input
+              className="flex-1"
+              label={t("text-last-name")}
+              {...register("last_name")}
               variant="outline"
             />
             <Input

@@ -15,13 +15,14 @@ import * as yup from "yup";
 import { useModalAction } from "@components/ui/modal/modal.context";
 
 type FormValues = {
-  name: string;
+  first_name: string;
+  last_name:string;
   email: string;
   password: string;
 };
 
 const registerFormSchema = yup.object().shape({
-  name: yup.string().required("error-name-required"),
+  first_name: yup.string().required("error-name-required"),
   email: yup
     .string()
     .email("error-email-format")
@@ -56,10 +57,11 @@ const RegisterForm = () => {
     router.push(`/${path}`);
     closeModal();
   }
-  function onSubmit({ name, email, password }: FormValues) {
+  function onSubmit({ first_name,last_name, email, password }: FormValues) {
     mutate(
       {
-        name,
+        first_name,
+        last_name,
         email,
         password,
       },
@@ -110,11 +112,19 @@ const RegisterForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Input
           label={t("text-name")}
-          {...register("name")}
+          {...register("first_name")}
           type="text"
           variant="outline"
           className="mb-5"
-          error={t(errors.name?.message!)}
+          error={t(errors.first_name?.message!)}
+        />
+           <Input
+          label={t("text-last-name")}
+          {...register("last_name")}
+          type="text"
+          variant="outline"
+          className="mb-5"
+          error={t(errors.last_name?.message!)}
         />
         <Input
           label={t("text-email")}

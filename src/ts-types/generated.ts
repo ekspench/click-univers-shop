@@ -189,6 +189,8 @@ export declare type User = {
   __typename?: "User";
   id: Scalars["ID"];
   name: Scalars["String"];
+  first_name: Scalars["String"];
+  last_name: Scalars["String"];
   siret: Scalars["String"];
   email: Scalars["String"];
   created_at: Scalars["DateTime"];
