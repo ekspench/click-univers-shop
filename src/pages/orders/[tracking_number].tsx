@@ -318,9 +318,12 @@ export default function OrderPage() {
         )}
         {data?.order?.children?.length ? (
           <div>
-            <h2 className="text-xl font-bold text-heading mt-12 mb-6">
-              {t("text-sub-orders")}
-            </h2>
+            {data?.order?.children.length > 1 && (
+              <h2 className="text-xl font-bold text-heading mt-12 mb-6">
+                {t("text-sub-orders")}
+              </h2>
+            )}
+
             <div>
               {data?.order?.children.length !== 1 && (
                 <div className="flex items-start border border-gray-700 rounded p-4 mb-12">
