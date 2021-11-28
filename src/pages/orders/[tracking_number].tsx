@@ -316,7 +316,7 @@ export default function OrderPage() {
             }
           />
         )}
-        {data?.order?.children?.length ? (
+        {data?.order?.children?.length!==1 ? (
           <div>
             <h2 className="text-xl font-bold text-heading mt-12 mb-6">
               {t("text-sub-orders")}
