@@ -25,7 +25,7 @@ const OrderProductClickCollectList = ({ count }: any) => {
               {count}
             </span>
           )}
-          <p className="text-lg lg:text-xl text-heading capitalize">
+          <p className="text-lg lg:text-xl text-heading">
           Produit(s) disponible en Click&Collect
           </p>
         </div>
