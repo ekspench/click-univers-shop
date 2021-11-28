@@ -21,6 +21,8 @@ import { useTranslation } from "next-i18next";
 import { useModalAction } from "@components/ui/modal/modal.context";
 import { ROUTES } from "@utils/routes";
 import NoticeView from "./notice-view";
+import DeliveryOptionView from "./delivery-option-view";
+import Badge from "@components/ui/badge";
 const RelatedProducts = dynamic(
   () => import("./product-details/related-products")
 );
@@ -40,6 +42,7 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
     slug,
     image,
     description,
+    is_used,
     unit,
     categories,
     gallery,
@@ -248,6 +251,7 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
           >
             <div className="flex flex-col items-start overflow-hidden">
               <div className="w-full">
+                <div className="flex justify-between">
                 <h1
                   className="font-semibold text-lg md:text-xl xl:text-2xl tracking-tight text-heading cursor-pointer transition-colors hover:text-accent"
                   onClick={() => handleTitleClick(`/products/${slug}`)}
@@ -255,7 +259,14 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
                 >
                   {name}
                 </h1>
-
+                <div className="ml-2">
+                  {is_used ? (
+                    <Badge text="Occasion" color="bg-yellow-700"></Badge>
+                  ) : (
+                    <Badge text="Neuf" color="bg-green-700"></Badge>
+                  )}
+                </div>
+                  </div>
                 {unit && isEmpty(variations) && (
                   <span className="text-sm font-normal text-body mt-2 md:mt-3 block">
                     {/*unit*/}
@@ -273,7 +284,7 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
                     </Truncate>
                   </div>
                 )}
-
+                <DeliveryOptionView product={data} />
                 <div className="mb-5 md:mb-10 flex items-center">
                   {!isEmpty(variations) ? (
                     <VariationPrice
@@ -334,7 +345,7 @@ const ProductDetailsModalView = ({ productSlug }: { productSlug: string }) => {
                             ? "Out Of Stock"
                             : /*`${selectedVariation.quantity} ${t(
                                 "text-pieces-available"
-                            )}`*/""}
+                            )}`*/ ""}
                         </span>
                       )}
                     </>

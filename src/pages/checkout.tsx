@@ -151,11 +151,12 @@ export default function CheckoutPage() {
     }
     return false;
   };
-
+const isFullClickCollect=(totalItems>0&&totalItems===totalClickCollectActive);
   return (
     <div className="py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20">
       <div className="flex flex-col lg:flex-row items-center lg:items-start m-auto lg:space-s-8 w-full max-w-5xl">
         <div className="lg:max-w-2xl w-full space-y-6">
+          {(totalItems>0&&totalItems===totalClickCollectActive)?null:
           <div className="shadow-700 bg-light p-5 md:p-8">
             {shipping_class === 3 ? (
               <div>
@@ -219,7 +220,7 @@ export default function CheckoutPage() {
                 type="billing"
               />
             )}
-          </div>
+          </div>}
           {/**
            * <Address
               id={data?.me?.id!}
@@ -230,11 +231,11 @@ export default function CheckoutPage() {
             />
            */}
           <div className="shadow-700 bg-light p-5 md:p-8">
-            {(totalItems>0&&totalItems===totalClickCollectActive)?  <ModeClickCollectCard count={2}/>:<ShippingMode count={2} />}
+            {(totalItems>0&&totalItems===totalClickCollectActive)?  <ModeClickCollectCard count={1}/>:<ShippingMode count={2} />}
           </div>
           {totalClickCollect>0 && (
             <div className="shadow-700 bg-light p-5 md:p-8">
-              <OrderProductClickCollectList count={3} />
+              <OrderProductClickCollectList count={isFullClickCollect?2:3} />
             </div>
           )}
           {showPay() && (

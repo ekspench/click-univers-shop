@@ -12,6 +12,7 @@ import { useArticlesQuery } from "@data/article/use-articles.query";
 import { Article } from "@ts-types/custom.types";
 import ArticleDetail from "@components/article/article-detail";
 import { SEO } from "@components/seo";
+import FooterOne from "@components/layout/footer-one";
 
 function makeTitleToDOMId(title: string) {
   return title.toLowerCase().split(" ").join("_");
@@ -47,6 +48,7 @@ export default function TermsPage() {
       {/* End of page header */}
       {terms && <ArticleDetail id={terms?.id} />}
     </section>
+    <FooterOne/>
     </>
   );
 }

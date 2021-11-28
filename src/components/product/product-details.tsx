@@ -17,6 +17,8 @@ import { useRouter } from "next/router";
 import { ROUTES } from "@utils/routes";
 import NoticeView from "./notice-view";
 import { useModalAction } from "@components/ui/modal/modal.context";
+import DeliveryOptionView from "./delivery-option-view";
+import Badge from "@components/ui/badge";
 
 type Props = {
   product: any;
@@ -110,10 +112,18 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
 
         <div className="flex flex-col items-start md:w-1/2 p-5 lg:p-14 xl:p-16">
           <div className="w-full">
-            <h1 className="font-semibold text-lg md:text-xl xl:text-2xl tracking-tight text-heading">
-              {name}
-            </h1>
-
+            <div className="flex">
+              <h1 className="font-semibold text-lg md:text-xl xl:text-2xl tracking-tight text-heading">
+                {name}
+              </h1>
+              <div className="ml-8">
+                {product.is_used ? (
+                  <Badge text="Occasion" color="bg-yellow-700"></Badge>
+                ) : (
+                  <Badge text="Neuf" color="bg-green-700"></Badge>
+                )}
+              </div>
+            </div>
             {unit && isEmpty(variations) && (
               <span className="text-sm font-normal text-body mt-2 md:mt-3 block">
                 {/*unit*/}
@@ -160,7 +170,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                 setAttributes={setAttributes}
               />
             </div>
-
+            <DeliveryOptionView product={product} />
             <div className="mt-4 md:mt-6 flex flex-col lg:flex-row items-center">
               <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
                 <AddToCart
@@ -185,7 +195,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                         ? t("text-out-stock")
                         : /*`${selectedVariation.quantity} ${t(
                             "text-pieces-available"
-                        )}`*/""}
+                        )}`*/ ""}
                     </span>
                   )}
                 </>
@@ -222,7 +232,9 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
             <NoticeView product_id={product?.id as string} />
             <button
               className="text-sm text-accent tracking-wider transition underline hover:text-accent-hover hover:no-underline"
-              onClick={() => openModal("NOTICE_LIST",{productId:product.id})}
+              onClick={() =>
+                openModal("NOTICE_LIST", { productId: product.id })
+              }
             >
               Voir les avis
             </button>

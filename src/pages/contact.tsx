@@ -10,6 +10,7 @@ import { useTranslation } from "next-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { SEO } from "@components/seo";
+import FooterOne from "@components/layout/footer-one";
 
 const contactFormSchema = yup.object().shape({
   name: yup.string().required("error-name-required"),
@@ -134,6 +135,7 @@ export const ContactPage = () => {
         </div>
       </div>
     </div>
+    <FooterOne/>
     </>
   );
 };

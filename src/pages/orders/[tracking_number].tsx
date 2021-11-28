@@ -210,6 +210,7 @@ export default function OrderPage() {
                     ? data?.order.children[0]?.status?.serial
                     : data?.order?.status.serial
                 }
+                mode={data?.order?.relay_point?"relay_point":data?.order?.mode_click_collect === "full"?"click_collect":"standard"}
               />
             </div>
           ))}

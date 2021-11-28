@@ -1,4 +1,5 @@
 import { CheckMark } from "@components/icons/checkmark";
+import FooterOne from "@components/layout/footer-one";
 import Layout from "@components/layout/layout";
 import Items from "@components/portal-vendor/Items";
 import { SEO } from "@components/seo";
@@ -196,22 +197,23 @@ export default function PortalVendor() {
         {/* CTA Section */}
         <div className="bg-white">
           <div className="max-w-4xl mx-auto py-16 px-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 lg:flex lg:items-center lg:justify-between">
-            <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="text-4xl font-extrabold tracking-tight text-gray-600 sm:text-4xl">
               <span className="block">Commencez à vendre avec Click Univers</span>
               <span className="block"> dès aujourd'hui</span>
             </h2>
             <div className="mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
               <a
                 href="https://admin.click-univers.com/admin"
-                className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm bg-accent"
+                className="flex items-center justify-center px-4 py-3 border border-transparent text-white text-base text font-bold rounded-md shadow-sm bg-accent"
               >
-                Commencer
+                Démarrer
               </a>
             </div>
           </div>
         </div>
       </main>
     </div>
+    <FooterOne/>
     </>
   );
 }

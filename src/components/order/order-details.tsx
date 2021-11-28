@@ -83,6 +83,17 @@ const OrderDetails = ({ order }: Props) => {
                   )}
                 </span>
               </div>
+              <div className="mb-4">
+                <span className="text-sm text-heading font-bold mb-2 block">
+                Mode de livraison
+                </span>
+
+                <span className="text-sm text-body">
+                {order?.mode_click_collect === "full"
+                ? "CLICK&COLLECT"
+                : relay_point?"Point de relais":order?.shipping?.name ?? "N/A"}
+                </span>
+              </div>
               {/** 
               <div>
                 <span className="text-sm text-heading font-bold mb-2 block">
@@ -137,6 +148,7 @@ const OrderDetails = ({ order }: Props) => {
                       ? order.children[0]?.status?.serial
                       : status.serial
                   }
+                  mode={relay_point ?"relay_point":order?.mode_click_collect === "full"?"click_collect":"standard"}
                 />
               </div>
             ) : (
