@@ -6,6 +6,7 @@ import { AddToCart } from "@components/product/add-to-cart/add-to-cart";
 import { useTranslation } from "next-i18next";
 import { useModalAction } from "@components/ui/modal/modal.context";
 import VariationPrice from "../product-details/product-variant-price";
+import { useRouter } from "next/router";
 
 type HeliumProps = {
   product: any;
@@ -27,9 +28,10 @@ const Helium: React.FC<HeliumProps> = ({ product, className }) => {
   const { price: max_price } = usePrice({
     amount: product.max_price,
   });
-
+  const router = useRouter();
   function handleProductQuickView() {
-    return openModal("PRODUCT_DETAILS", product.slug);
+   // return openModal("PRODUCT_DETAILS", product.slug);
+   router.push(`/products/${product.slug}`);
   }
   return (
     <article

@@ -60,6 +60,12 @@ const FooterOne = () => {
           Icon={<CardIcon width="32" height="32" />}
         ></FooterItems>
       </div>
+      <div>
+      <img className="w-full h-8  rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 "
+                    src="/card.png"
+                    alt="Inbox user interface"
+                  />
+      </div>
     </div>
   );
 };

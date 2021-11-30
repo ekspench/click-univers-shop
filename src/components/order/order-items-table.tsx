@@ -9,7 +9,7 @@ import Badge from "@components/ui/badge";
 export const OrderItems = ({ products }: { products: any }) => {
   const { t } = useTranslation("common");
   const { alignLeft, alignRight } = useIsRTL();
-  const {openModal}=useModalAction();
+  const { openModal } = useModalAction();
 
   const orderTableColumns = [
     {
@@ -57,7 +57,9 @@ export const OrderItems = ({ products }: { products: any }) => {
               </span>
             </div>
 
-            {record.pivot.status==="delivered"&&<Badge className="ml-2" text="Delivrée"/>}
+            {record.pivot.status === "delivered" && (
+              <Badge className="ml-2" text="Delivrée" />
+            )}
           </div>
         );
       },
@@ -91,7 +93,20 @@ export const OrderItems = ({ products }: { products: any }) => {
       align: alignRight,
       width: 50,
       render: (id: any) => {
-        return <button onClick={()=>openModal("PRODUCT_AVIS",{product_id:id})} className="bg-green-400 p-2 hover:bg-green-600 rounded-full">Avis</button>;
+        return (
+          <button
+            onClick={() => openModal("PRODUCT_AVIS", { product_id: id })}
+            className=" p-2 rounded-full"
+          >
+            <svg
+              className={`mx-1 w-4 h-4 fill-current cursor-pointer  hover:text-yellow-600 ${"text-yellow-500"} `}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+            </svg>
+          </button>
+        );
       },
     },
   ];

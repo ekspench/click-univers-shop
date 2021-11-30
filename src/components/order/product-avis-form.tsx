@@ -1,4 +1,5 @@
 import Button from "@components/ui/button";
+import Input from "@components/ui/input";
 import {
   useModalAction,
   useModalState,
@@ -15,6 +16,7 @@ type MyProps = {
 const ProductAvisForm = ({ product_id }: { product_id: string }) => {
   const [value, setValue] = useState<number>(0);
   const [comment, setComment] = useState("");
+  const [pseudo, setPseduo] = useState("");
   const { mutate: addNotice, isLoading } = useCreateNoticeMutation();
   const data = useModalState();
 
@@ -27,11 +29,11 @@ const ProductAvisForm = ({ product_id }: { product_id: string }) => {
 
   var indents = [];
 
-  console.log("data", data);
   const handleSend = () => {
     addNotice(
       {
         star: value,
+        pseudo:pseudo,
         comment: comment,
         product_id: data?.data?.product_id,
       },
@@ -86,12 +88,20 @@ const ProductAvisForm = ({ product_id }: { product_id: string }) => {
               ? "Merci d'avoir donnez votre avis sur ce produit"
               : "Donnez votre avis sur ce produit"}
           </h4>
-
+         
           <div className="flex justify-center items-center">
             <div className="flex items-center mt-2 mb-4">
               {indents.map((i) => i)}
             </div>
           </div>
+          <Input
+          name="pseudo"
+          label="Pseudo"
+          value={pseudo}
+          readOnly={notice !== undefined}
+          onChange={e=>setPseduo(e.currentTarget.value)}
+          required={true}
+          />
 
           <TextArea
             onChange={(e) => setComment(e.currentTarget.value)}

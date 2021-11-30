@@ -203,7 +203,7 @@ export default function PortalVendor() {
             </h2>
             <div className="mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
               <a
-                href="https://admin.click-univers.com/admin"
+                href="https://admin.click-univers.com/register"
                 className="flex items-center justify-center px-4 py-3 border border-transparent text-white text-base text font-bold rounded-md shadow-sm bg-accent"
               >
                 Démarrer

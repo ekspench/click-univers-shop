@@ -65,9 +65,9 @@ const ProfileForm = ({ user }: Props) => {
     <form noValidate onSubmit={handleSubmit(onSubmit)}>
       <div className="flex mb-8">
         <Card className="w-full">
-          <div className="mb-8">
+         {/***  <div className="mb-8">
             <FileInput control={control} name="profile.avatar" />
-          </div>
+          </div>*/}
 
           <div className="flex flex-col sm:flex-row sm:space-s-4 mb-6">
             <Input
@@ -95,13 +95,13 @@ const ProfileForm = ({ user }: Props) => {
             />
           </div>
 
-          <TextArea
+         {/** <TextArea
             label={t("text-bio")}
             //@ts-ignore
             {...register("profile.bio")}
             variant="outline"
             className="mb-6"
-          />
+          /> */}
 
           <div className="flex">
             <Button className="ms-auto" loading={loading} disabled={loading}>

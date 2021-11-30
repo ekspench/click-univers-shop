@@ -45,7 +45,19 @@ const OrderDetails = ({ order }: Props) => {
   const { price: sales_tax } = usePrice({
     amount: order?.sales_tax,
   });
-
+  const my_order=order?.children?.length===1?order?.children[0]:order;
+  let mode="standard";
+  let address=my_order?.shipping_address?.address;
+  let addressTitle=my_order?.shipping_address?.title;
+  if(my_order?.relay_point){
+    mode="relay_point";
+    address=my_order?.relay_point?.address;
+  }else if(my_order?.mode_click_collect==="full"){
+    mode="click_collect";
+    addressTitle=my_order?.shop?.name;
+    address=my_order?.shop?.address;
+  }
+console.log("my_order",my_order);
   return (
     <div className="flex flex-col w-full lg:w-2/3 border border-border-200">
       {!isEmpty(order) ? (
@@ -68,15 +80,17 @@ const OrderDetails = ({ order }: Props) => {
             <div className="w-full md:w-3/5 flex flex-col px-5 py-4 border-b sm:border-b-0 sm:border-r border-border-200">
               <div className="mb-4">
                 <span className="text-sm text-heading font-bold mb-2 block">
-                  {t("text-shipping-address")}
+                {mode==="standard"&&t("text-shipping-address")}
+                  {mode==="relay_point"&&t("Adresse de point de relais")}
+                  {mode==="click_collect"&&"Adresse de retrait"}
                 </span>
 
-                <span className="text-sm text-body">
+                <span className="text-sm text-body flex flex-col">
                   {relay_point ? (
                     <RelayPointCard data={relay_point} />
                   ) : (
                     <>
-                    <span>{shipping_address.title}</span>, 
+                    <span>{addressTitle},</span>
                     <span>{formatAddress(shipping_address.address)}</span>
                  
                     </>
@@ -142,11 +156,9 @@ const OrderDetails = ({ order }: Props) => {
             {order?.children.length === 1 ? (
               <div className="w-full flex justify-center items-center px-6 ">
                 <OrderStatus
-                  type={order?.canceled ? 2 : 1}
+                  type={my_order?.canceled ? 2 : 1}
                   status={
-                    order?.children.length === 1
-                      ? order.children[0]?.status?.serial
-                      : status.serial
+                   my_order.status.serial
                   }
                   mode={relay_point ?"relay_point":order?.mode_click_collect === "full"?"click_collect":"standard"}
                 />

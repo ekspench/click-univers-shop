@@ -3,6 +3,7 @@ import { CoreApi } from "@utils/api/core.api";
 
 export type NoticeType = {
   star: number;
+  pseudo:string;
   comment: string;
   product_id?:string;
 };

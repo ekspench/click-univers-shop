@@ -219,6 +219,8 @@
   "text-login-facebook": "Connectez-vous avec Facebook",
   "text-login-google": "Connectez-vous avec Google",
   "texte-note": "Note",
+  "button-cancel":"Annuler",
+  "button-delete":"Supprimer",
   "error-min-contact": "Le numéro de contact doit comporter au moins 8 chiffres",
   "PICKBAZAR_ERROR.NOT_FOUND": "Non trouvé",
   "PICKBAZAR_ERROR.NOT_AUTHORIZED": "Non autorisé",

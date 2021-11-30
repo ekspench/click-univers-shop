@@ -134,9 +134,17 @@ export default function OrderPage() {
   if (loading) {
     return <Spinner showText={false} />;
   }
-
-  const order =
-    data?.order?.children.length === 1 ? data?.order?.children[0] : data?.order;
+  let mode="standard";
+  let address=data?.order?.shipping_address?.address;
+  let addressTitle=data?.order?.shipping_address?.title;
+  if(data?.order?.relay_point){
+    mode="relay_point";
+    address=data?.order?.relay_point?.address;
+  }else if(data?.order?.mode_click_collect==="full"){
+    mode="click_collect";
+    addressTitle=data?.order?.shop?.name;
+    address=data?.order?.shop?.address;
+  }
   return (
     <div className="p-4 sm:p-8">
       <div className="p-6 sm:p-8 lg:p-12 max-w-screen-lg w-full mx-auto bg-light rounded border shadow-sm">
@@ -291,12 +299,15 @@ export default function OrderPage() {
               </p>
               <p className="flex text-body-dark mt-5">
                 <strong className="w-5/12 sm:w-4/12 text-sm  text-heading font-semibold">
-                  {t("text-shipping-address")}
+                
+                  {mode==="standard"&&t("text-shipping-address")}
+                  {mode==="relay_point"&&t("Adresse de point de relais")}
+                  {mode==="click_collect"&&"Adresse de retrait"}
                 </strong>
                 :
-                <span className="w-7/12 sm:w-8/12 ps-4 text-sm">
-                  <span>{data?.order?.shipping_address.title}</span>,{" "}
-                  {formatAddress(data?.order?.shipping_address.address!)}
+                <span className="w-7/12 sm:w-8/12 ps-4 text-sm flex flex-col">
+                  <span>{addressTitle},</span>
+                 <span> {formatAddress(address)}</span>
                 </span>
               </p>
             </div>

@@ -32,6 +32,8 @@ import {
   ModalProvider,
   useModalAction,
 } from "@components/ui/modal/modal.context";
+import { useRouter } from "next/router";
+import { pageview } from "@utils/ga";
 
 const Noop: React.FC = ({ children }) => <>{children}</>;
 
@@ -92,6 +94,22 @@ function CustomApp({ Component, pageProps }: AppProps) {
   if (!queryClientRef.current) {
     queryClientRef.current = new QueryClient();
   }
+  const router=useRouter();
+
+useEffect(() => {
+  const handleRouteChange = (url) => {
+    pageview(url)
+  }
+  //When the component is mounted, subscribe to router changes
+  //and log those page views
+  router.events.on('routeChangeComplete', handleRouteChange)
+
+  // If the component is unmounted, unsubscribe
+  // from the event with the `off` method
+  return () => {
+    router.events.off('routeChangeComplete', handleRouteChange)
+  }
+}, [router.events])
   const Layout = (Component as any).Layout || Noop;
   return (
     <QueryClientProvider client={queryClientRef.current}>

@@ -19,6 +19,8 @@ import NoticeView from "./notice-view";
 import { useModalAction } from "@components/ui/modal/modal.context";
 import DeliveryOptionView from "./delivery-option-view";
 import Badge from "@components/ui/badge";
+import Tab from "@components/common/tab";
+import NoticeList from "./notice-list";
 
 type Props = {
   product: any;
@@ -230,35 +232,41 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
           )}
           <div>
             <NoticeView product_id={product?.id as string} />
-            <button
+           {/** <button
               className="text-sm text-accent tracking-wider transition underline hover:text-accent-hover hover:no-underline"
               onClick={() =>
                 openModal("NOTICE_LIST", { productId: product.id })
               }
             >
               Voir les avis
-            </button>
+            </button>*/} 
           </div>
         </div>
       </div>
-
-      <Element
-        name="details"
-        className="py-4 mx-auto px-5 lg:px-16 lg:py-14 border-b border-border-200 border-opacity-70 lg:w-3/4"
-      >
-        <h2 className="text-lg text-heading tracking-tight font-semibold mb-4 md:mb-6">
-          {t("text-details")}
-        </h2>
-        {/** <p className="text-sm text-body">{description}</p>*/}
-        <div className="">
-          <div
-            className="html-content"
-            dangerouslySetInnerHTML={{
-              __html: description,
-            }}
-          />
+      <Tab tabs={[{ name: "My Account", href: "#", current: true }]}>
+        <div title="Detail">
+          <Element
+            name="details"
+            className="py-4 mx-auto px-5 lg:px-16 lg:py-14 border-b border-border-200 border-opacity-70 lg:w-3/4"
+          >
+            <h2 className="text-lg text-heading tracking-tight font-semibold mb-4 md:mb-6">
+              {t("text-details")}
+            </h2>
+            {/** <p className="text-sm text-body">{description}</p>*/}
+            <div className="">
+              <div
+                className="html-content"
+                dangerouslySetInnerHTML={{
+                  __html: description,
+                }}
+              />
+            </div>
+          </Element>
         </div>
-      </Element>
+        <div title="Avis des clients" className="container mx-auto">
+              <NoticeList productId={product.id}/>
+        </div>
+      </Tab>
     </article>
   );
 };

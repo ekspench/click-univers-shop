@@ -105,8 +105,9 @@ const StripeForm = () => {
         </div>
         <Card
           name={name}
+          placeholders={{name:'NOM Prénom'}}
           number="*** **** **** ***"
-          expiry="**/**"
+          expiry="MM/AA"
           cvc="***"
           preview={preview}
           issuer={issuer}
