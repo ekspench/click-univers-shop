@@ -51,7 +51,7 @@ export default function NoticeList({ productId }: any) {
               </div>
               <div className="border-t border-gray-200  w-full ">
                 <h3 className="font-medium text-gray-900">
-                  {notice.customer.name}
+                  {notice?.pseudo ?? notice.customer.name}
                 </h3>
                 <p>
                   <time dateTime={notice.created_at}>
