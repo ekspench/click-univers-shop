@@ -96,11 +96,18 @@ function CustomApp({ Component, pageProps }: AppProps) {
   }
   const router = useRouter();
   useEffect(() => {
-    const ReactPixel = require("react-facebook-pixel");
-    ReactPixel.default.init(`${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL}`);
+
+    const advancedMatching = { em: "some@email.com" }; // optional, more info: https://developers.facebook.com/docs/facebook-pixel/advanced/advanced-matching
+    const options = {
+      autoConfig: true, // set pixel's autoConfig. More info: https://developers.facebook.com/docs/facebook-pixel/advanced/
+      debug: false, // enable logs
+    };
+    const ReactPixel=require("react-facebook-pixel").default;
+    ReactPixel.init(`${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL}`);
     router.events.on("routeChangeComplete", () => {
+      console.log("we are hre",ReactPixel);
       ReactPixel.pageView();
-    });
+    }); 
   }, [router.events]);
 
   useEffect(() => {

@@ -8,14 +8,12 @@ export declare type Exact<
 > = {
   [K in keyof T]: T[K];
 };
-export declare type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  {
-    [SubKey in K]?: Maybe<T[SubKey]>;
-  };
-export declare type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  {
-    [SubKey in K]: Maybe<T[SubKey]>;
-  };
+export declare type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export declare type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export declare type Scalars = {
   ID: string;
@@ -163,25 +161,25 @@ export declare type UserAddress = {
   state?: Maybe<Scalars["String"]>;
   zip?: Maybe<Scalars["String"]>;
 };
-export declare type Message={
-  __typename?:"Message";
-  id?:Scalars["ID"];
-  text:Scalars["String"];
-  user?:Maybe<User>;
+export declare type Message = {
+  __typename?: "Message";
+  id?: Scalars["ID"];
+  text: Scalars["String"];
+  user?: Maybe<User>;
   created_at?: Scalars["DateTime"];
   updated_at?: Scalars["DateTime"];
-}
+};
 export declare type Ticket = {
   __typename?: "Ticket";
   id: Scalars["ID"];
   subject: Scalars["String"];
   description: Scalars["String"];
-  priority:Scalars["Int"];
-  status:Scalars["Boolean"];
-  order?:Maybe<Order>;
-  shop:Maybe<Shop>;
-  customer:Maybe<User>;
-  messages:Array<Message>;
+  priority: Scalars["Int"];
+  status: Scalars["Boolean"];
+  order?: Maybe<Order>;
+  shop: Maybe<Shop>;
+  customer: Maybe<User>;
+  messages: Array<Message>;
   created_at: Scalars["DateTime"];
   updated_at: Scalars["DateTime"];
 };
@@ -1087,6 +1085,13 @@ export declare type Analytics = {
 export declare type TotalYearSaleByMonth = {
   total?: Maybe<Scalars["Float"]>;
   month?: Maybe<Scalars["String"]>;
+};
+
+export declare type Refund = {
+  amount: Scalars["Int"];
+  reason: Scalars["String"];
+  order: Maybe<Order>;
+  customer: Maybe<User>;
 };
 // export declare type ProductsQuery = {
 //   __typename?: "Query";

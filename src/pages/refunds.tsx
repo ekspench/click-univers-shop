@@ -10,6 +10,8 @@ import { parseContextCookie } from "@utils/parse-cookie";
 import Spinner from "@components/ui/loaders/spinner/spinner";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { SEO } from "@components/seo";
+import { useRefundsQuery } from "@data/refund/use-tickets.query";
+import { RefundList } from "@components/Refund/refund-list";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -23,12 +25,13 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   };
 };
 
-export default function ProfilePage() {
-  const { isLoading: loading, data, error } = useCustomerQuery();
+export default function Refunds() {
+  const { isLoading: loading, data, error } = useRefundsQuery();
+  console.log("data",data);
   if (error) return <ErrorMessage message={error.message} />;
   return (
     <>
-      <SEO title="Profil" />
+      <SEO title="Refund" />
       <div className="flex flex-col xl:flex-row items-start max-w-1920 w-full mx-auto py-10 px-8 xl:py-14 xl:px-16 2xl:px-20 bg-gray-100">
         <ProfileSidebar className="flex-shrink-0 hidden xl:block xl:w-80 me-10" />
         {/* End of sidebar navigation */}
@@ -36,23 +39,16 @@ export default function ProfilePage() {
           <Spinner showText={false} />
         ) : (
           <div className="w-full overflow-hidden">
-            <div className="mb-8">
-              <ProfileForm user={data?.me} />
-            </div>
-            <Card className="w-full">
-              <Address
-                id={data?.me?.id!}
-                addresses={data?.me?.address!}
-                heading="text-addresses"
-                type="billing"
-              />
-            </Card>
+              <h3 className="text-xl font-semibold py-5 text-heading px-5">
+                  Remboursement
+              </h3>
+           <RefundList refunds={data?.pages[0].data}/>
           </div>
         )}
-      
+       
       </div>
     </>
   );
 }
 
-ProfilePage.Layout = Layout;
+Refunds.Layout = Layout;

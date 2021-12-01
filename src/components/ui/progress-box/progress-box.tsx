@@ -42,7 +42,7 @@ const ProgressBox: React.FC<ProgressProps> = ({ status, data,type }) => {
 
             <div className="flex flex-col items-start ms-5 md:items-center md:ms-0">
               {item && (
-                <span className="text-base text-body-dark capitalize font-semibold text-start md:text-center md:px-2">
+                <span className="text-base text-body-dark  font-semibold text-start md:text-center md:px-2">
                   {item?.name}
                 </span>
               )}

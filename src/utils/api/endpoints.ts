@@ -27,5 +27,6 @@ export const API_ENDPOINTS: Record<string, string> = {
   TICKET:"ticket",
   NOTICE:"notices",
   ARTICLE:"articles",
+  REFUND:"refunds",
   
 };

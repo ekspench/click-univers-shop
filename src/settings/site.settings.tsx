@@ -83,6 +83,10 @@ export const siteSettings = {
       menulabel: "profile-sidebar-orders",
     },
     {
+      href: ROUTES.REFUND,
+      menulabel: "profile-sidebar-refund",
+    },
+    {
       href: ROUTES.HELP,
       menulabel: "profile-sidebar-help",
     },
