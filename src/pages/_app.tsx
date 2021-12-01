@@ -5,8 +5,8 @@ import "@fontsource/open-sans/700.css";
 import "@assets/main.css";
 import "react-toastify/dist/ReactToastify.css";
 //import '@assets/card.css';
-import '@assets/form_checkout.css'
-import  '@components/payment/card.css';
+import "@assets/form_checkout.css";
+import "@components/payment/card.css";
 import { UIProvider, useUI } from "@contexts/ui.context";
 import { SearchProvider } from "@contexts/search.context";
 import { CheckoutProvider } from "@contexts/checkout.context";
@@ -94,22 +94,29 @@ function CustomApp({ Component, pageProps }: AppProps) {
   if (!queryClientRef.current) {
     queryClientRef.current = new QueryClient();
   }
-  const router=useRouter();
+  const router = useRouter();
+  useEffect(() => {
+    const ReactPixel = require("react-facebook-pixel");
+    ReactPixel.default.init(`${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL}`);
+    router.events.on("routeChangeComplete", () => {
+      ReactPixel.pageView();
+    });
+  }, [router.events]);
 
-useEffect(() => {
-  const handleRouteChange = (url) => {
-    pageview(url)
-  }
-  //When the component is mounted, subscribe to router changes
-  //and log those page views
-  router.events.on('routeChangeComplete', handleRouteChange)
+  useEffect(() => {
+    const handleRouteChange = (url: any) => {
+      pageview(url);
+    };
+    //When the component is mounted, subscribe to router changes
+    //and log those page views
+    router.events.on("routeChangeComplete", handleRouteChange);
 
-  // If the component is unmounted, unsubscribe
-  // from the event with the `off` method
-  return () => {
-    router.events.off('routeChangeComplete', handleRouteChange)
-  }
-}, [router.events])
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
   const Layout = (Component as any).Layout || Noop;
   return (
     <QueryClientProvider client={queryClientRef.current}>
@@ -121,7 +128,6 @@ useEffect(() => {
                 <CheckoutProvider>
                   <SearchProvider>
                     <Layout {...pageProps}>
-                
                       <Component {...pageProps} />
                     </Layout>
                     <ToastContainer autoClose={2000} />
