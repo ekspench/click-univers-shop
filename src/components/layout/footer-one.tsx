@@ -61,7 +61,7 @@ const FooterOne = () => {
         ></FooterItems>
       </div>
       <div>
-      <img className="w-full h-8  rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 "
+      <img style={{height:"32px", width:"auto"}}
                     src="/card.png"
                     alt="Inbox user interface"
                   />
