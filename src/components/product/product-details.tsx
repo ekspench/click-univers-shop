@@ -263,7 +263,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
             </div>
           </Element>
         </div>
-        <div title="Avis des clients" className="container mx-auto">
+        <div title="Avis" className="container mx-auto">
               <NoticeList productId={product.id}/>
         </div>
       </Tab>

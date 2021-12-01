@@ -63,9 +63,9 @@ const SectionWithCardGroup = ({
             onClick={onAdd}
           >
             <PlusIcon className="w-4 h-4 stroke-2 me-0.5" />
-            {t("text-add")}{" "}
-            <span className="hidden sm:inline-block sm:ms-1">
-              {t(addActionText!)}
+            {t("text-add")}
+            <span className="hidden sm:inline-block sm:ms-1 lowercase">
+            {" une "}{t(addActionText!)}
             </span>
           </button>
         )}

@@ -37,7 +37,7 @@ const tabs=children.map((child: any,index:number)=>({name:child.props.title, id:
                   tab.current
                     ? "border-indigo-500 text-indigo-600"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
-                  "w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm"
+                  "w-1/6 py-4 px-1 text-center border-b-2 font-medium text-sm"
                 )}
                 aria-current={tab.current ? "page" : undefined}
               >

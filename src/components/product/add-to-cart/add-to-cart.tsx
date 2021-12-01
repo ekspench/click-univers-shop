@@ -46,7 +46,12 @@ export const AddToCart = ({
     if (isCard && data.product_type !== "simple") {
       openModal("PRODUCT_DETAILS", data.slug);
     } else {
+      const ReactPixel=require("react-facebook-pixel").default;
+      
+      ReactPixel.trackSingle(`${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL}`,'Purchase',{currency:"EUR",value:item.price});
       addItemToCart(item, 1);
+
+
       if (!isInCart(item.id)) {
         cartAnimation(e);
       }

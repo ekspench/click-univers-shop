@@ -28,11 +28,10 @@ export default function NoticeList({ productId }: any) {
   const notices = data?.notices?.data;
 
   return (
-    <div className="bg-white w-[450px] p-8">
-      <div className="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
-        <h3 className="text-lg leading-6 font-medium text-gray-900">
-          Avis des client
-        </h3>
+    <div className="bg-white  p-8">
+      
+      <div className="pb-5 border-gray-200 sm:flex sm:items-center sm:justify-between">
+    
       </div>
 
       <div className="my-10">
@@ -42,26 +41,27 @@ export default function NoticeList({ productId }: any) {
               key={notice.id}
               className="flex w-full text-sm text-gray-500 space-x-4"
             >
-              <div className="flex-none py-10">
+            {/* <div className="flex-none py-10">
                 <img
                   src={notice?.customer?.profile?.avatar?.thumbnail}
                   alt=""
                   className="w-10 h-10 bg-gray-100 rounded-full"
                 />
-              </div>
-              <div className="border-t border-gray-200  w-full ">
+              </div>* */} 
+              <div className="border-b border-gray-200  w-full ">
+              <div className="flex items-center mt-4">
+                  <RenderStart star={notice.star} />
+                </div>
                 <h3 className="font-medium text-gray-900">
                   {notice?.pseudo ?? notice.customer.name}
                 </h3>
                 <p>
                   <time dateTime={notice.created_at}>
-                    {dayjs(notice.created_at).format("DD/MM/YYYY")}
+                    {/*dayjs(notice.created_at).format("DD/MM/YYYY")*/}
                   </time>
                 </p>
 
-                <div className="flex items-center mt-4">
-                  <RenderStart star={notice.star} />
-                </div>
+               
                 <p className="sr-only">{notice.star} out of 5 stars</p>
 
                 <div className="mt-4 prose prose-sm max-w-none text-gray-500">

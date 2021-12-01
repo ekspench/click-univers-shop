@@ -29,7 +29,7 @@ const TicketForm = () => {
   } = useForm({ resolver: yupResolver(TicketFormSchema) });
   const {mutate:addTicket}=useCreateTicket();
   const onSubmit = (values:any) => {
-      addTicket({subject:values.subject.value+"#"+data.data?.order?.ref,description:values.description},{
+      addTicket({subject:values.subject.value+"#"+data.data?.order?.ref,description:values.description,shop_id:data?.data?.order?.shop_id,order_id:data.data?.order?.id},{
         onSuccess:()=>{
             closeModal();
         }

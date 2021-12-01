@@ -2,11 +2,14 @@ import { useUI } from "@contexts/ui.context";
 import ProductTypeMenu from "@components/layout/navbar/product-type-menu";
 import { FilterIcon } from "@components/icons/filter-icon";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 
 export default function FilterBar() {
   const { t } = useTranslation("common");
   const { openSidebar, setSidebarView } = useUI();
+  const router=useRouter();
   function handleSidebar() {
+    return router.push('/shops');
     setSidebarView("FILTER_VIEW");
     return openSidebar();
   }
