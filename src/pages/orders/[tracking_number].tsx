@@ -131,7 +131,7 @@ export default function OrderPage() {
     },
   ];
 
-  if (loading) {
+  if (loading&&!data) {
     return <Spinner showText={false} />;
   }
   let mode="standard";

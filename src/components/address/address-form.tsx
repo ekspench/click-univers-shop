@@ -187,6 +187,7 @@ const CreateOrUpdateAddressForm = () => {
         <div className="col-span-2">
           <SelectAutoComplete
           placeholder="Code postal"
+          noOptionsMessage={()=>"saisir le code postal "}
             loadOptions={loadOptions}
             onChange={selectAddress}
           />
