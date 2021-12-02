@@ -145,7 +145,7 @@ const CreateOrUpdateAddressForm = () => {
   return (
     <div className="p-5 sm:p-8 bg-light">
       <h1 className="text-heading font-semibold text-lg text-center mb-4 sm:mb-6">
-        {address ? t("text-update") : "Ajouter une adresse"
+        {address ? t("text-update") : "Ajouter une adresse"}
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
