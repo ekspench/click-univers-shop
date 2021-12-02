@@ -54,7 +54,6 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
   }, [cards]);
   const handlePay = () => {
     if (stripe) {
-      CardElement.update({disabled:true})
       setProcessing(true);
       http
         .post("/stripe/create/payment", {
