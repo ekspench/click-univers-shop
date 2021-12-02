@@ -259,7 +259,7 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
             />
           </>
         )}
-        {cards?.length && (
+        {cards?.length>0 && (
           <Checkbox
             name="newCard"
             value={newCard ? 1 : 0}

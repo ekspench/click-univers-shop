@@ -244,7 +244,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
         </div>
       </div>
       <Tab tabs={[{ name: "My Account", href: "#", current: true }]}>
-        <div title="Détail">
+        <div title="Détails">
           <Element
             name="details"
             className="py-4 mx-auto px-5 lg:px-16 lg:py-14 border-b border-border-200 border-opacity-70 lg:w-3/4"
