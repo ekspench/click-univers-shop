@@ -148,6 +148,8 @@ export default function CheckoutPage() {
     };
   };
   const onPaySuccess = (data: any) => {
+    const ReactPixel=require("react-facebook-pixel").default;
+    ReactPixel.trackSingle(`${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL}`,'Purchase',{currency:"EUR",value:total});
     router.push(`${ROUTES.ORDERS}/${data.orderInput.ref}`);
   };
 
@@ -227,6 +229,7 @@ export default function CheckoutPage() {
               ) : (
                 <Address
                   id={data?.me?.id!}
+                  me={data?.me}
                   heading="text-delivery-address"
                   addresses={data?.me?.address}
                   count={1}
@@ -266,7 +269,7 @@ export default function CheckoutPage() {
                   action: "create_order_payment",
                   data: dataCreateOrder(),
                 }}
-                amount={total}
+                amount={totalF}
               />
               {/**<div className="shadow-700 bg-light p-5 md:p-8">
            <Elements stripe={stripePromise}>

@@ -192,12 +192,12 @@ const CreateOrUpdateAddressForm = () => {
           />
         </div>
 
-        <Input
+        {watch("address.city")&& <Input
           label={t("text-country")}
           {...register("address.country")}
           error={t(errors.address?.country?.message!)}
           variant="outline"
-        />
+        />}
         {watch("address.city") && (
           <Input
             label={t("text-city")}

@@ -70,6 +70,8 @@ const RegisterForm = () => {
           if (data?.token && data?.permissions?.length) {
             Cookies.set("auth_token", data.token);
             Cookies.set("auth_permissions", data.permissions);
+            const ReactPixel=require("react-facebook-pixel").default;
+            ReactPixel.trackSingle(`${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL}`,'Subscribe',null);
             authorize();
             closeModal();
             return;
