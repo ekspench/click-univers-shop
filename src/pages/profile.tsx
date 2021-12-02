@@ -41,6 +41,7 @@ export default function ProfilePage() {
             </div>
             <Card className="w-full">
               <Address
+                me={data?.me}
                 id={data?.me?.id!}
                 addresses={data?.me?.address!}
                 heading="text-addresses"

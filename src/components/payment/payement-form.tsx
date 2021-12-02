@@ -11,51 +11,126 @@ import {
 import Card from "react-credit-cards";
 import { loadStripe } from "@stripe/stripe-js";
 import http from "@utils/api/http";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "@components/ui/input";
-import { useModalAction, useModalState } from "@components/ui/modal/modal.context";
+import Loader from "@components/ui/loaders/spinner/spinner";
 import Button from "@components/ui/button";
 import { Lock } from "@components/icons/lock";
+import Checkbox from "@components/ui/checkbox/checkbox";
+import usePrice from "@utils/use-price";
+import { useStripeCardsQuery } from "@data/stripe/use-stripe-cards.query";
+import PaymentList from "./payment-list";
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC as string
 );
-const StripeForm = () => {
+type Iprops = {
+  amount: number;
+  data: any;
+  onPaySuccess?: any;
+};
+const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
   const stripe = useStripe();
   const elements = useElements();
-  const [succeeded, setSucceeded] = useState(false);
+  const [future_use, setFutureUse] = useState(false);
   const [preview, setpreview] = useState(false);
   const [issuer, setissuer] = useState("");
-  const [expire, setexpire] = useState("");
   const [name, setname] = useState("");
   const [focused, setfocused] = useState("number");
-  const [futureUse, setfutureUse] = useState(false);
-  const { closeModal } = useModalAction();
-  const {data:{refetch}}=useModalState();
-  const [error, setError] = useState(null);
-
+  const [error, setError] = useState<string | null>(null);
+  const [newCard, setNewCard] = useState<boolean>(true);
+  const [card_active, setCardActive] = useState<string | undefined>();
+  const {
+    data: cards,
+    isLoading: fetchingCard,
+    isFetching,
+    refetch,
+  } = useStripeCardsQuery();
   const [processing, setProcessing] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const handleSubmit = async () => {
-    setProcessing(true);
-    if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.CardNumberElement
-      return;
+  useEffect(() => {
+    if (cards) {
+      setNewCard(!cards.length);
     }
+  }, [cards]);
+  const handlePay = () => {
+    if (stripe) {
+      CardElement.update({disabled:true})
+      setProcessing(true);
+      http
+        .post("/stripe/create/payment", {
+          ...data,
+          new_card: newCard,
+          payment_id: card_active,
+        })
+        .then(async (response) => {
+          const intent = response.data.paymentIntent;
+          let payload: any;
+          if (!newCard && card_active) {
+            if (intent.last_payment_error) {
+              stripe
+                .confirmCardPayment(intent.client_secret, {
+                  payment_method: intent.last_payment_error.payment_method.id,
+                })
+                .then(function (result) {
+                  if (result.error) {
+                    // Show error to your customer
 
-    // Pass the Element directly to other Stripe.js methods:
-    // e.g. createToken - https://stripe.com/docs/js/tokens_sources/create_token?type=cardElement
-    const { token } = await stripe.createToken(
-      elements.getElement(CardNumberElement),
-      { name: name }
-    );
-    await http
-      .post("/stripe/card/save/" + token?.id, { name: name })
-      .then((response) => {
-        setProcessing(false);
-        refetch();
-        closeModal();
-      });
+                    setProcessing(false);
+                  } else {
+                    if (result.paymentIntent.status === "succeeded") {
+                      payload = result.paymentIntent;
+                    }
+                  }
+                });
+            } else {
+              payload = intent;
+            }
+          } else if (future_use) {
+            payload = await stripe.confirmCardPayment(intent.client_secret, {
+              payment_method: {
+                card: elements.getElement(CardNumberElement),
+                billing_details: {
+                  name: name,
+                },
+              },
+              setup_future_usage: future_use ? "off_session" : "on_session",
+            });
+          } else {
+            payload = await stripe.confirmCardPayment(intent.client_secret, {
+              payment_method: {
+                card: elements.getElement(CardNumberElement),
+                billing_details: {
+                  name: name,
+                },
+              },
+            });
+          }
+          if (payload.error) {
+            setError(`Payment failed ${payload.error.message}`);
+
+            setProcessing(false);
+          } else {
+            setError(null);
+
+            setProcessing(false);
+            onPaySuccess(response.data.stripe_session.data);
+
+            // requests.get('/stripe/payement/basket/success', true).then(response => history.push('/payement/success/' + response.data.id)
+            // );
+          }
+        });
+    }
+  };
+  const showButtonPay = () => {
+    if (cards) {
+      if (!newCard) {
+        return card_active ? true : false;
+      } else {
+        return true;
+      }
+    } else {
+      return true;
+    }
   };
   const handleChange = async (event: any) => {
     // Listen for changes in the CardElement
@@ -73,98 +148,149 @@ const StripeForm = () => {
 
     setError(event.error ? event.error.message : "");
   };
+  const { price } = usePrice({
+    amount: amount,
+  });
+
+  if (fetchingCard) {
+    return (
+      <div className="pt-8">
+        <div className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700 flex space-x-4">
+          <Loader className="h-8 w-8 mr-4" simple={true} text="chargement" />{"Chargment de module de paiement"}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-w-screen min-h-screenflex items-center justify-center px-5 pb-10 pt-16 ">
-      <div
-        className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700"
-        style={{ maxWidth: "600px" }}
-      >
+    <div className="pt-8">
+      <div className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700">
         <div className="w-full pt-1 pb-5">
           <div className="bg-accent text-white overflow-hidden rounded-full w-20 h-20 -mt-16 mx-auto shadow-lg flex justify-center items-center">
-           <Lock width="48" heigth="48"/>
+            <Lock width="48" heigth="48" />
           </div>
         </div>
         <div className="mb-2">
           <h1 className="text-center font-bold text-xl uppercase">
-            Informations de paiement sécurisées
+            {newCard && "Informations de paiement sécurisées"}
           </h1>
         </div>
-
-        <div className="mb-3 text-center flex -mx-2 justify-center">
-          <div className="px-2 ">
-            <label
-              htmlFor="type1"
-              className="flex items-center text-center  cursor-pointer"
-            >
-              <img
-                src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png"
-                className="h-8 ml-3"
-              />
-            </label>
-          </div>
-        </div>
-        <Card
-          name={name}
-          placeholders={{name:'NOM Prénom'}}
-          number="*** **** **** ***"
-          expiry="MM/AA"
-          cvc="***"
-          preview={preview}
-          issuer={issuer}
-          focused={focused}
-        />
-        <div className="mb-3">
-          <Input
-            name="name"
-            label="Titulaire de la carte"
-            value={name}
-            onChange={(e) => setname(e.currentTarget.value)}
-            onFocus={() => setfocused("name")}
-            placeholder="Nom"
-            className="my-2"
-          />
-
-          <label className="font-bold text-gray-500 text-sm mb-2 ml-1">
-            Information de la carte
-          </label>
-          <div>
-            <CardNumberElement
-              className="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
-              onFocus={() => setfocused("number")}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className="mb-3 -mx-2 flex items-end">
-          <div className="px-2 w-1/2">
-            <CardExpiryElement
-              className="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
-              onChange={handleChange}
-              onFocus={() => setfocused("expiry")}
-            />
-          </div>
-          <div className="px-2 w-1/2">
-            <CardCvcElement
-              className="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
-              onChange={handleChange}
-              onFocus={() => setfocused("cvc")}
-            />
-          </div>
-        </div>
-        <div>
-          <Button onClick={handleSubmit} loading={processing} disabled={processing} name="btn_save">
+        {newCard ? (
+          <>
             {" "}
-            Enregistrer
-          </Button>
-        </div>
+            <div className="mb-3 text-center flex -mx-2 justify-center">
+              <div className="px-2 ">
+                <label
+                  htmlFor="type1"
+                  className="flex items-center text-center  cursor-pointer"
+                >
+                  <img
+                    src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png"
+                    className="h-8 ml-3"
+                  />
+                </label>
+              </div>
+            </div>
+            <Card
+              name={name}
+              placeholders={{ name: "NOM Prénom" }}
+              number="*** **** **** ***"
+              expiry="MM/AA"
+              cvc="***"
+              preview={preview}
+              issuer={issuer}
+              focused={focused}
+            />
+            <div className="mb-3">
+              <Input
+                name="name"
+                label="Titulaire de la carte"
+                value={name}
+                variant="outline"
+                onChange={(e) => setname(e.currentTarget.value)}
+                onFocus={() => setfocused("name")}
+                placeholder="Nom"
+                className="my-2 flex-1"
+              />
+
+              <label className="font-bold text-gray-500 text-sm mb-2 ml-1">
+                Information de la carte
+              </label>
+              <div>
+                <CardNumberElement
+                  disabled={true}
+                  className="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
+                  onFocus={() => setfocused("number")}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className="mb-3 -mx-2 flex items-end">
+              <div className="px-2 w-1/2">
+                <CardExpiryElement
+                  className="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors  flex-1"
+                  onChange={handleChange}
+                  onFocus={() => setfocused("expiry")}
+                />
+              </div>
+              <div className="px-2 w-1/2">
+                <CardCvcElement
+                  className="w-full px-3 py-2 mb-1 border-2 border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors  flex-1"
+                  onChange={handleChange}
+                  onFocus={() => setfocused("cvc")}
+                />
+              </div>
+            </div>
+            <Checkbox
+              name="future"
+              value={future_use ? 1 : 0}
+              onChange={() => setFutureUse(!future_use)}
+              label="Enregistrer ma carte pour mes future achats"
+              className="flex-1 my-4"
+            />
+          </>
+        ) : (
+          <>
+            {" "}
+            <PaymentList
+              card_active={card_active}
+              setCardActive={setCardActive}
+              cards={cards}
+            />
+          </>
+        )}
+        {cards?.length && (
+          <Checkbox
+            name="newCard"
+            value={newCard ? 1 : 0}
+            onChange={() => setNewCard(!newCard)}
+            label="Utiliser un noveau carte"
+            className="flex-1 my-4"
+          />
+        )}
+
+        {showButtonPay() && (
+          <div>
+            <Button
+              className="w-full flex-1 mt-4"
+              onClick={handlePay}
+              loading={processing}
+              disabled={processing}
+              name="btn_save"
+            >
+              Payer {price}
+            </Button>
+          </div>
+        )}
+        {error && <p className="text-red-600">{error}</p>}
       </div>
     </div>
   );
 };
 
-const PaymentForm = () => (
+const PaymentForm = (props: Iprops) => (
   <Elements stripe={stripePromise}>
-    <StripeForm />
+    <StripeForm {...props} />
   </Elements>
 );
 

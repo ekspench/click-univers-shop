@@ -7,6 +7,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useModalAction } from "@components/ui/modal/modal.context";
 import ShippingMode from "@components/checkout/shipping-mode";
 import PaymentGroup from "@components/payment/payement-group";
+import PaymentForm from "@components/payment/payement-form";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { loggedIn } from "@utils/is-loggedin";
@@ -45,7 +46,14 @@ export default function CheckoutPage() {
     discount,
     delivery_time,
   } = useCheckout();
-  const { items, total, isEmpty, totalClickCollectActive,totalItems,totalClickCollect} = useCart();
+  const {
+    items,
+    total,
+    isEmpty,
+    totalClickCollectActive,
+    totalItems,
+    totalClickCollect,
+  } = useCart();
   const { isAuthorize } = useUI();
   const { openModal } = useModalAction();
   const { mutate: verifyCheckout, isLoading: loading } =
@@ -86,7 +94,12 @@ export default function CheckoutPage() {
   }
   useEffect(() => {
     handleVerifyCheckout();
-  }, [billing_address, shipping_address, shipping_class,totalClickCollectActive]);
+  }, [
+    billing_address,
+    shipping_address,
+    shipping_class,
+    totalClickCollectActive,
+  ]);
 
   const available_items = items?.filter(
     (item: any) => !checkoutData?.unavailable_products?.includes(item.id)
@@ -137,11 +150,10 @@ export default function CheckoutPage() {
   const onPaySuccess = (data: any) => {
     router.push(`${ROUTES.ORDERS}/${data.orderInput.ref}`);
   };
-  console.log(items);
 
   const showPay = () => {
     if (billing_address && shipping_address && shipping_class) {
-      if(totalClickCollect>0&&totalClickCollectActive===totalItems){
+      if (totalClickCollect > 0 && totalClickCollectActive === totalItems) {
         return true;
       }
       if (shipping_class === 3 && !relay_point) {
@@ -151,76 +163,78 @@ export default function CheckoutPage() {
     }
     return false;
   };
-const isFullClickCollect=(totalItems>0&&totalItems===totalClickCollectActive);
+  const isFullClickCollect =
+    totalItems > 0 && totalItems === totalClickCollectActive;
   return (
     <div className="py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20">
       <div className="flex flex-col lg:flex-row items-center lg:items-start m-auto lg:space-s-8 w-full max-w-5xl">
         <div className="lg:max-w-2xl w-full space-y-6">
-          {(totalItems>0&&totalItems===totalClickCollectActive)?null:
-          <div className="shadow-700 bg-light p-5 md:p-8">
-            {shipping_class === 3 ? (
-              <div>
-                <div className="flex items-center space-s-3 md:space-s-4">
-                  <span className="rounded-full w-8 h-8 bg-accent flex items-center justify-center text-base lg:text-xl text-light">
-                    1
-                  </span>
-                  <p className="text-lg lg:text-xl text-heading capitalize">
-                    Livraison en point relais
-                  </p>
-                </div>
-                <ul className="list-unstyled font-size-sm mt-2 border p-4">
-                  <li className="text-left">
-                    <span className="text-right text-size-md">
-                      Information sur le point de relais
+          {totalItems > 0 && totalItems === totalClickCollectActive ? null : (
+            <div className="shadow-700 bg-light p-5 md:p-8">
+              {shipping_class === 3 ? (
+                <div>
+                  <div className="flex items-center space-s-3 md:space-s-4">
+                    <span className="rounded-full w-8 h-8 bg-accent flex items-center justify-center text-base lg:text-xl text-light">
+                      1
                     </span>
-                  </li>
-
-                  {relay_point && (
-                    <>
-                      <li className="text-left">
-                        <span className="text-right text-gray-700">
-                          Nom du point de relay:&nbsp;{relay_point?.nom}
-                        </span>
-                      </li>
-                      <li className="text-left">
-                        <span className=" text-right text-gray-700">
-                          Adresse:&nbsp;{relay_point?.address}
-                        </span>
-                      </li>
-                      <li className="text-left">
-                        <span className=" text-right text-gray-700">
-                          Code postal:&nbsp;{relay_point?.zip}
-                        </span>
-                      </li>
-                    </>
-                  )}
-                  <div className="flex justify-end -mt-10">
-                    <Button
-                      size="small"
-                      className="mt-2"
-                      onClick={() => {
-                        openModal("DELIVERY_RELAY_POINT");
-                      }}
-                    >
-                      {relay_point ? (
-                        <Edit width="16" height="16" />
-                      ) : (
-                        <PlusIcon width="16" height="16" />
-                      )}
-                    </Button>
+                    <p className="text-lg lg:text-xl text-heading capitalize">
+                      Livraison en point relais
+                    </p>
                   </div>
-                </ul>
-              </div>
-            ) : (
-              <Address
-                id={data?.me?.id!}
-                heading="text-delivery-address"
-                addresses={data?.me?.address}
-                count={1}
-                type="billing"
-              />
-            )}
-          </div>}
+                  <ul className="list-unstyled font-size-sm mt-2 border p-4">
+                    <li className="text-left">
+                      <span className="text-right text-size-md">
+                        Information sur le point de relais
+                      </span>
+                    </li>
+
+                    {relay_point && (
+                      <>
+                        <li className="text-left">
+                          <span className="text-right text-gray-700">
+                            Nom du point de relay:&nbsp;{relay_point?.nom}
+                          </span>
+                        </li>
+                        <li className="text-left">
+                          <span className=" text-right text-gray-700">
+                            Adresse:&nbsp;{relay_point?.address}
+                          </span>
+                        </li>
+                        <li className="text-left">
+                          <span className=" text-right text-gray-700">
+                            Code postal:&nbsp;{relay_point?.zip}
+                          </span>
+                        </li>
+                      </>
+                    )}
+                    <div className="flex justify-end -mt-10">
+                      <Button
+                        size="small"
+                        className="mt-2"
+                        onClick={() => {
+                          openModal("DELIVERY_RELAY_POINT");
+                        }}
+                      >
+                        {relay_point ? (
+                          <Edit width="16" height="16" />
+                        ) : (
+                          <PlusIcon width="16" height="16" />
+                        )}
+                      </Button>
+                    </div>
+                  </ul>
+                </div>
+              ) : (
+                <Address
+                  id={data?.me?.id!}
+                  heading="text-delivery-address"
+                  addresses={data?.me?.address}
+                  count={1}
+                  type="billing"
+                />
+              )}
+            </div>
+          )}
           {/**
            * <Address
               id={data?.me?.id!}
@@ -231,16 +245,31 @@ const isFullClickCollect=(totalItems>0&&totalItems===totalClickCollectActive);
             />
            */}
           <div className="shadow-700 bg-light p-5 md:p-8">
-            {(totalItems>0&&totalItems===totalClickCollectActive)?  <ModeClickCollectCard count={1}/>:<ShippingMode count={2} />}
+            {totalItems > 0 && totalItems === totalClickCollectActive ? (
+              <ModeClickCollectCard count={1} />
+            ) : (
+              <ShippingMode count={2} />
+            )}
           </div>
-          {totalClickCollect>0 && (
-            <div className="shadow-700 bg-light p-5 md:p-8">
-              <OrderProductClickCollectList count={isFullClickCollect?2:3} />
+          {totalClickCollect > 0 && (
+            <div className="shadow-700 bg-light p-5  md:p-8">
+              <OrderProductClickCollectList
+                count={isFullClickCollect ? 2 : 3}
+              />
             </div>
           )}
           {showPay() && (
-            <div className="shadow-700 bg-light p-5 md:p-8">
-              <Elements stripe={stripePromise}>
+            <>
+              <PaymentForm
+                onPaySuccess={onPaySuccess}
+                data={{
+                  action: "create_order_payment",
+                  data: dataCreateOrder(),
+                }}
+                amount={total}
+              />
+              {/**<div className="shadow-700 bg-light p-5 md:p-8">
+           <Elements stripe={stripePromise}>
                 <PaymentGroup
                   onPaySuccess={onPaySuccess}
                   data={{
@@ -249,8 +278,11 @@ const isFullClickCollect=(totalItems>0&&totalItems===totalClickCollectActive);
                   }}
                   amount={total}
                 />
+                
               </Elements>
-            </div>
+            
+            </div>*/}
+            </>
           )}
         </div>
         <div className="w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">

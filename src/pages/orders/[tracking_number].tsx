@@ -135,7 +135,7 @@ export default function OrderPage() {
     return <Spinner showText={false} />;
   }
   let mode="standard";
-  let address=data?.order?.shipping_address;
+  let address=data?.order?.shipping_address?.address;;
   let addressTitle=data?.order?.shipping_address?.title;
   if(data?.order?.relay_point){
     mode="relay_point";

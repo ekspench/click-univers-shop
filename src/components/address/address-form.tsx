@@ -30,7 +30,6 @@ type FormValues = {
 
 const addressSchema = yup.object().shape({
   type: yup.string().required("error-type-required"),
-  title: yup.string().required("error-title-required"),
   address: yup.object().shape({
     country: yup.string().required("error-country-required"),
     city: yup.string().required("error-city-required"),
@@ -45,7 +44,7 @@ const CreateOrUpdateAddressForm = () => {
   const [listAddresses, setListAddresses] = useState([]);
   const [addressSearch, setAddressSearch] = useState<any>();
   const {
-    data: { customerId, address, type },
+    data: { customerId, address, type,name},
   } = useModalState();
   const { closeModal } = useModalAction();
   const { mutate: updateProfile } = useUpdateCustomerMutation();
@@ -129,7 +128,7 @@ const CreateOrUpdateAddressForm = () => {
     const formattedInput = {
       id: address?.id,
       customer_id: customerId,
-      title: values.title,
+      title: name,
       type: values.type,
       address: {
         ...(address?.id ? { id: address.id } : {}),
@@ -146,7 +145,7 @@ const CreateOrUpdateAddressForm = () => {
   return (
     <div className="p-5 sm:p-8 bg-light">
       <h1 className="text-heading font-semibold text-lg text-center mb-4 sm:mb-6">
-        {address ? t("text-update") : t("text-add-new")} {t("text-address")}
+        {address ? t("text-update") : t("text-add-new")} 
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -178,13 +177,13 @@ const CreateOrUpdateAddressForm = () => {
           */}
         </div>
 
-        <Input
+      {/**  <Input
           label={t("text-title")}
           {...register("title")}
           error={t(errors.title?.message!)}
           variant="outline"
           className="col-span-2"
-        />
+        /> */}
         <div className="col-span-2">
           <SelectAutoComplete
           placeholder="Code postal"
@@ -235,7 +234,7 @@ const CreateOrUpdateAddressForm = () => {
         />
 
         <Button className="w-full col-span-2">
-          {address ? t("text-update") : t("text-save")} {t("text-address")}
+          {address ? t("text-update") : t("text-save")} 
         </Button>
       </form>
     </div>

@@ -1,18 +1,20 @@
 import SectionWithCardGroup from "@components/common/section-with-card-group";
 import { useModalAction } from "@components/ui/modal/modal.context";
 import { useCheckout } from "@contexts/checkout.context";
+import { User } from "@ts-types/generated";
 import { loggedIn } from "@utils/is-loggedin";
 import { useEffect } from "react";
 
 interface Props {
   id: string;
+  me:User;
   heading: string;
   addresses: any[] | undefined;
   count?: number;
   type?: "billing" | "shipping";
 }
 
-const Address = ({ id, addresses, heading, count, type }: Props) => {
+const Address = ({ id, addresses, heading, count, type,me}: Props) => {
   const { openModal } = useModalAction();
   const { updateBillingAddress, updateShippingAddress } = useCheckout();
   useEffect(() => {
@@ -23,7 +25,7 @@ const Address = ({ id, addresses, heading, count, type }: Props) => {
   }, [addresses]);
   function handleAdd() {
     if (loggedIn()) {
-      return openModal("ADD_OR_UPDATE_ADDRESS", { customerId: id, type });
+      return openModal("ADD_OR_UPDATE_ADDRESS", { customerId: id, type,name:me.name });
     } else {
       openModal("LOGIN_VIEW");
     }

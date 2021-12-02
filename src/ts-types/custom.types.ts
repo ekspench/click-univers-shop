@@ -95,6 +95,7 @@ export declare type Variation = {
 
 export declare type Notice={
   id:string;
+  pseudo:string;
   star:number;
   comment:string;
 }
