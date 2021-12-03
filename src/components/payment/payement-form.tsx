@@ -244,7 +244,7 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
               name="future"
               value={future_use ? 1 : 0}
               onChange={() => setFutureUse(!future_use)}
-              label="Enregistrer ma carte pour mes future achats"
+              label="Enregistrer ma carte pour mes futurs achats"
               className="flex-1 my-4"
             />
           </>
@@ -263,7 +263,7 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
             name="newCard"
             value={newCard ? 1 : 0}
             onChange={() => setNewCard(!newCard)}
-            label="Utiliser un noveau carte"
+            label="Saisir une nouvelle carte de paiement"
             className="flex-1 my-4"
           />
         )}

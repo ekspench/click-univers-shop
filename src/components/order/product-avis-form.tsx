@@ -103,7 +103,7 @@ const ProductAvisForm = ({ product_id }: { product_id: string }) => {
               name="pseudo"
               label="Pseudo"
               value={me?.pseudo??pseudo}
-              readOnly={notice !== undefined||me?.pseudo!==null}
+              readOnly={notice !== undefined||me?.pseudol}
               onChange={(e) => setPseduo(e.currentTarget.value)}
               required={true}
             />

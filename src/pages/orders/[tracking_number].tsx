@@ -139,12 +139,16 @@ export default function OrderPage() {
   let addressTitle=data?.order?.shipping_address?.title;
   if(data?.order?.relay_point){
     mode="relay_point";
-    address=data?.order?.relay_point?.address;
+    
+    addressTitle=data?.order?.relay_point?.nom;
+    address=data?.order?.relay_point;
+    address={street_address:address?.address,city:address.city}
   }else if(data?.order?.mode_click_collect==="full"){
     mode="click_collect";
     addressTitle=data?.order?.shop?.name;
     address=data?.order?.shop?.address;
   }
+
   return (
     <div className="p-4 sm:p-8">
       <div className="p-6 sm:p-8 lg:p-12 max-w-screen-lg w-full mx-auto bg-light rounded border shadow-sm">
@@ -196,7 +200,7 @@ export default function OrderPage() {
                 : data?.order?.shipping?.name ?? "N/A"}
             </p>
           </div>
-          {data?.order?.relay_point && (
+          {/*data?.order?.relay_point && (
             <div className="py-4 px-5 border border-border-200 rounded shadow-sm">
               <h3 className="mb-2 text-sm  text-heading font-semibold">
                 Point de relais: <span>{data?.order?.relay_point?.nom}</span>
@@ -206,7 +210,7 @@ export default function OrderPage() {
                 {data?.order?.relay_point?.zip}-{data?.order?.relay_point?.city}
               </p>
             </div>
-          )}
+          )*/}
         </div>
         {data?.order?.children.length === 1 ||
           (data?.order?.children.length === 0 && (
