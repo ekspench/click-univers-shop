@@ -213,7 +213,7 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
               />
 
               <label className="font-bold text-gray-500 text-sm mb-2 ml-1">
-                Information de la carte
+                Informations de la carte
               </label>
               <div>
                 <CardNumberElement

@@ -120,9 +120,9 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
               </h1>
               <div className="ml-8">
                 {product.is_used ? (
-                  <Badge text="Occasion" color="bg-yellow-700"></Badge>
+                  <Badge text={t(`text-product-condition-${product.product_condition}`)} color="bg-yellow-700"></Badge>
                 ) : (
-                  <Badge text="Neuf" color="bg-green-700"></Badge>
+                  <Badge text={t(`text-product-condition-${product.product_condition}`)} color="bg-green-700"></Badge>
                 )}
               </div>
             </div>

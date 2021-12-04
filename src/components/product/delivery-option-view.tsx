@@ -6,7 +6,7 @@ const DeliveryOptionView = ({ product }: any) => {
       <div className="max-w-sm">
         {product.click_collect&&
          <div className="flex justify-between">
-         <div>Retrait en mode click&collect</div>
+         <div>Retrait en mode Click&Collect</div>
          <div className="text-green-500 flex align-center items-center">
            <CheckMark width={16} height={16} />{" "}
            <span className="ml-2">Disponible</span>
