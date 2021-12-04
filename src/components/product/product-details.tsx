@@ -209,12 +209,12 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
             </div>
           </div>
 
-          {!!categories?.length && (
+          {!!categories?.length ? (
             <ProductCategories
               categories={categories}
               basePath={`/${type?.slug}`}
             />
-          )}
+          ):null}
 
           {shop?.name && (
             <div className="flex items-center mt-2">
