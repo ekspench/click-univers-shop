@@ -57,18 +57,17 @@ const OrderDetails = ({ order }: Props) => {
     addressTitle=my_order?.shop?.name;
     address=my_order?.shop?.address;
   }
-console.log("my_order",my_order);
   return (
     <div className="flex flex-col w-full lg:w-2/3 border border-border-200">
       {!isEmpty(order) ? (
         <>
           <div className="flex flex-col md:flex-row items-center md:justify-between p-5 border-b border-border-200">
             <h2 className="flex font-semibold text-sm md:text-xl text-heading mb-2">
-              {t("text-order-details")} <span className="px-2">-</span> {ref}
+              {t("text-order-details")} <span className="px-2">-</span> {my_order.ref}
             </h2>
 
             <Link
-              href={`${ROUTES.ORDERS}/${ref}`}
+              href={`${ROUTES.ORDERS}/${my_order.ref}`}
               className="font-semibold text-sm text-accent flex items-center transition duration-200 no-underline hover:text-accent-hover focus:text-accent-hover"
             >
               <Eye width={20} className="me-2" />
@@ -101,11 +100,10 @@ console.log("my_order",my_order);
                 <span className="text-sm text-heading font-bold mb-2 block">
                 Mode de livraison
                 </span>
-
                 <span className="text-sm text-body">
-                {order?.mode_click_collect === "full"
-                ? "CLICK&COLLECT"
-                : relay_point?"Point de relais":order?.shipping?.name ?? "N/A"}
+                {mode==="click_collect"&&"CLICK&COLLECT"}
+                {mode==="relay_point"&&"POINT DE RELAIS"}
+                {mode==="standard"&&order?.shipping?.name}
                 </span>
               </div>
               {/** 

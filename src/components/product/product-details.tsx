@@ -132,7 +132,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
               </span>
             )}
 
-            {description && (
+            {/*description && (
               <div className="mt-3 md:mt-4 text-body text-sm leading-7">
                 <Truncate
                   character={450}
@@ -142,7 +142,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                   {description.replace(/<[^>]*>?/gm, "")}
                 </Truncate>
               </div>
-            )}
+            )*/}
 
             <div className="my-5 md:my-10 flex items-center">
               {!isEmpty(variations) ? (

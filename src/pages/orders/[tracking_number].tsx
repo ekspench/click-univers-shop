@@ -134,19 +134,20 @@ export default function OrderPage() {
   if (loading&&!data) {
     return <Spinner showText={false} />;
   }
+  const my_order=data?.order?.children?.length===1?data?.order?.children[0]:data?.order;
   let mode="standard";
-  let address=data?.order?.shipping_address?.address;;
-  let addressTitle=data?.order?.shipping_address?.title;
-  if(data?.order?.relay_point){
+  let address=my_order?.shipping_address?.address;;
+  let addressTitle=my_order?.shipping_address?.title;
+  if(my_order?.relay_point){
     mode="relay_point";
     
-    addressTitle=data?.order?.relay_point?.nom;
-    address=data?.order?.relay_point;
+    addressTitle=my_order?.relay_point?.nom;
+    address=my_order?.relay_point;
     address={street_address:address?.address,city:address.city}
-  }else if(data?.order?.mode_click_collect==="full"){
+  }else if(my_order?.mode_click_collect==="full"){
     mode="click_collect";
-    addressTitle=data?.order?.shop?.name;
-    address=data?.order?.shop?.address;
+    addressTitle=my_order?.shop?.name;
+    address=my_order?.shop?.address;
   }
 
   return (
@@ -174,7 +175,7 @@ export default function OrderPage() {
             <h3 className="mb-2 text-sm text-heading font-semibold">
               {t("text-order-ref")}
             </h3>
-            <p className="text-sm text-body-dark">{data?.order?.ref}</p>
+            <p className="text-sm text-body-dark">{my_order?.ref}</p>
           </div>
           <div className="py-4 px-5 border border-border-200 rounded shadow-sm">
             <h3 className="mb-2 text-sm  text-heading font-semibold">

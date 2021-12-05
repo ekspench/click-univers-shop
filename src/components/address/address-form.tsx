@@ -17,7 +17,8 @@ import {
 import SelectAutoComplete from "@components/ui/SelectAutoComplete";
 
 type FormValues = {
-  title: string;
+  first_name: string;
+  last_name: string;
   type: string;
   address: {
     country: string;
@@ -30,6 +31,8 @@ type FormValues = {
 
 const addressSchema = yup.object().shape({
   type: yup.string().required("error-type-required"),
+  first_name: yup.string().required("error-name-required"),
+  last_name:yup.string().nullable(),
   address: yup.object().shape({
     country: yup.string().required("error-country-required"),
     city: yup.string().required("error-city-required"),
@@ -57,7 +60,8 @@ const CreateOrUpdateAddressForm = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(addressSchema),
     defaultValues: {
-      title: address?.title ?? name,
+      first_name: address?.first_name ?? null,
+      last_name: address?.last_name ?? null,
 
       type: "standard" /*address?.type ?? type*/,
       /*...(address?.address && address),*/
@@ -77,7 +81,7 @@ const CreateOrUpdateAddressForm = () => {
       )
       .then((response) => {
         const data = response.data;
-        console.log(response.data);
+     
         setValue("address.city", data.nom.toUpperCase());
         setValue("address.zip", data.codesPostaux[0]);
         setValue("address.state", data.departement.nom);
@@ -128,7 +132,8 @@ const CreateOrUpdateAddressForm = () => {
     const formattedInput = {
       id: address?.id,
       customer_id: customerId,
-      title: values.title??name,
+      first_name: values.first_name,
+      last_name: values.last_name,
       type: values.type,
       address: {
         ...(address?.id ? { id: address.id } : {}),
@@ -178,9 +183,16 @@ const CreateOrUpdateAddressForm = () => {
         </div>
 
         <Input
-          label="Nom et Prénom"
-          {...register("title")}
-          error={t(errors.title?.message!)}
+          label="Nom"
+          {...register("first_name")}
+          error={t(errors.first_name?.message!)}
+          variant="outline"
+          className="col-span-2"
+        /> 
+          <Input
+          label="Prénom"
+          {...register("last_name")}
+          error={t(errors.last_name?.message!)}
           variant="outline"
           className="col-span-2"
         /> 
