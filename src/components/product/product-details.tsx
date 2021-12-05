@@ -174,14 +174,15 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
             </div>
             <DeliveryOptionView product={product} />
             <div className="mt-4 md:mt-6 flex flex-col lg:flex-row items-center">
-              <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
+            {quantity > 0&&  <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
                 <AddToCart
+                isCard={false}
                   data={product}
                   variant="big"
                   variation={selectedVariation}
                   disabled={selectedVariation?.is_disable || !isSelected}
                 />
-              </div>
+              </div>}
 
               {quantity > 0 ? (
                 <>
@@ -202,7 +203,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                   )}
                 </>
               ) : (
-                <div className="text-base text-red-500 whitespace-nowrap lg:ms-7">
+                <div className="text-base text-red-500 whitespace-nowrap">
                   {t("text-out-stock")}
                 </div>
               )}

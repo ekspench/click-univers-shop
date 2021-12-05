@@ -108,7 +108,7 @@ export default function HomePage() {
         </main>
       </Element>
       {width > 1023 && <CartCounterButton />}
-      <CookieConsent  buttonText="ok!" style={{ background: "white",color:"black",boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)" }}>Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site web. Si vous continuez à utiliser ce site, nous supposerons que vous en êtes satisfait.</CookieConsent>
+      <CookieConsent  buttonText="ok!" style={{ background: "white",color:"black",boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",textAlign: "center" }}>Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site web. Si vous continuez à utiliser ce site, nous supposerons que vous en êtes satisfait.</CookieConsent>
     </>
   );
 }
