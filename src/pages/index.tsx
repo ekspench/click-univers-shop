@@ -20,6 +20,7 @@ import { fetchTypes } from "@data/type/use-types.query";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { fetchSettings } from "@data/settings/use-settings.query";
 import FooterOne from "@components/layout/footer-one";
+import CookieConsent, { Cookies } from "react-cookie-consent";
 import { NextSeo } from "next-seo";
 import { SEO } from "@components/seo";
 
@@ -107,6 +108,7 @@ export default function HomePage() {
         </main>
       </Element>
       {width > 1023 && <CartCounterButton />}
+      <CookieConsent  buttonText="ok!" style={{ background: "white",color:"black",boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)" }}>Nous utilisonss des cookies pour vous garantir la meilleure sur notre site web. Si vous continuez à utiliser ce site, nous supposerons que vous en êtes satisfait.</CookieConsent>
     </>
   );
 }

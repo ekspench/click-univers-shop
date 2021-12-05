@@ -4323,6 +4323,14 @@ react-content-loader@^6.0.3:
   resolved "https://registry.yarnpkg.com/react-content-loader/-/react-content-loader-6.0.3.tgz#32e28ca7120e0a2552fc26655d0d4448cc1fc0c5"
   integrity sha512-CIRgTHze+ls+jGDIfCitw27YkW2XcaMpsYORTUdBxsMFiKuUYMnlvY76dZE4Lsaa9vFXVw+41ieBEK7SJt0nug==
 
+react-cookie-consent@^6.4.1:
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/react-cookie-consent/-/react-cookie-consent-6.4.1.tgz#256916725d87d8227e1f71d6aa4a18d451dc0d40"
+  integrity sha512-dAgC2uSrUN0eXoNhEKDCHH/dL3RUs/84SPO8hRvJVz7HtPGmF+t/mQwd4V4qsGAvVqhbn0hzMdftEuiJS3iueQ==
+  dependencies:
+    js-cookie "^2.2.1"
+    prop-types "^15.7.2"
+
 react-copy-to-clipboard@^5.0.3:
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.4.tgz#42ec519b03eb9413b118af92d1780c403a5f19bf"

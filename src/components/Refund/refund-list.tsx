@@ -40,7 +40,7 @@ export const RefundList = ({ refunds }: { products: any }) => {
         dataIndex: "order",
         key: "shop",
         align: alignRight,
-        render:(order)=>(order.shop.name)
+        render:(order)=>(order?.shop?.name)
       },
       {
         title: t("text-status"),
