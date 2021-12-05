@@ -18,10 +18,10 @@ const PaymentCard = ({ id,name,cardType,lastFourDigit,color,expire,active,onClic
               (cardType === 'master' && MasterCard) ||
               (cardType === 'visa' && Visa);
   return (
-    <div className="space-y-16 m-2">
-      <div className={`w-52 h-32 m-auto bg-red-100 rounded-xl relative text-white shadow-2xl transition-transform transform  hover:scale-105 cursor-pointer ${active&&"scale-105"}`} >
+    <div className={`space-y-16 rounded-2xl  hover:shadow-2xl hover:border-4 hover:border-indigo-700 hover:scale-105 shadow-xl ${active &&" shadow-2xl border-4 border-indigo-700 scale-105"}`}>
+      <div className={`w-52 h-32 m-auto bg-red-100 rounded-xl  relative text-white overflow-hidden  transition-transform transform  cursor-pointer `} >
         <img
-          className="relative object-cover w-full h-full rounded-xl"
+          className="relative object-cover w-full h-full rounded-xl "
           src="https://i.imgur.com/kGkSg1v.png"
         />
         <div className="w-full px-2 absolute top-2 

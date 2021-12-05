@@ -65,6 +65,7 @@ export const AddToCart = ({
     <AddToCartBtn
       disabled={disabled || outOfStock}
       variant={variant}
+      pre_order={item?.pre_order}
       onClick={handleAddClick}
     />
   ) : (

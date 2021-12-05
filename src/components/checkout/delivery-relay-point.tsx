@@ -14,7 +14,6 @@ const DeliveryRelayPoint = () => {
     setRelayPoint(dataRelayPoint);
     closeModal();
   };
-  console.log(dataRelayPoint);
   const showMap = () => {
     window.$("#Zone_Widget").MR_ParcelShopPicker({
       //
@@ -34,11 +33,13 @@ const DeliveryRelayPoint = () => {
       ColLivMod: "24R",
       NbResults: "7",
       OnParcelShopSelected: (data: any) => {
+        console.log(data);
         setDataRelayPoint({
           nom: data.Nom,
           address: data.Adresse1,
           city: data.Ville,
           zip: data.CP,
+          HoursHtmlTable:data.HoursHtmlTable,
         });
       },
       //

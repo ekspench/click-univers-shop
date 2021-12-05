@@ -49,17 +49,18 @@ const OrderProductClickCollectList = ({ count }: any) => {
                       <div className="relative px-6 py-5 flex items-center space-x-3">
                         <div className="flex-shrink-0">
                           <img
-                            className="h-14 w-14 rounded"
+                            className="h-16 w-16 rounded"
                             src={item.image}
                             alt=""
                           />
                         </div>
-                        <div className="flex-1 min-w-0">
+                        <div className="flex-1 min-w-0 ">
                           <div>
                             <span className="absolute" aria-hidden="true" />
                             <p className="text-sm font-medium text-gray-900">
                               {item.name} x {item.quantity}
                             </p>
+                            <div className="border border-gray-400 p-1 rounded">
                             <p className="text-sm text-gray-500 truncate">
                               Boutique: {item.shop.name}
                             </p>
@@ -69,7 +70,7 @@ const OrderProductClickCollectList = ({ count }: any) => {
                             {item.shop.telephone&& <p className="text-sm text-gray-500 truncate">
                               Teléphone: {item.shop.telephone}
                             </p>}
-                           
+                            </div>
                           </div>
                         </div>
                         <Button

@@ -21,6 +21,7 @@ import DeliveryOptionView from "./delivery-option-view";
 import Badge from "@components/ui/badge";
 import Tab from "@components/common/tab";
 import NoticeList from "./notice-list";
+import dayjs from "dayjs";
 
 type Props = {
   product: any;
@@ -120,9 +121,9 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
               </h1>
               <div className="ml-8">
                 {product.is_used ? (
-                  <Badge text={t(`text-product-condition-${product.product_condition}`)} color="bg-yellow-700"></Badge>
+                  <Badge text={`text-product-condition-${product.product_condition}`} color="bg-yellow-700"></Badge>
                 ) : (
-                  <Badge text={t(`text-product-condition-${product.product_condition}`)} color="bg-green-700"></Badge>
+                  <Badge text={`text-product-condition-${product.product_condition}`} color="bg-green-700"></Badge>
                 )}
               </div>
             </div>
@@ -182,6 +183,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                   variation={selectedVariation}
                   disabled={selectedVariation?.is_disable || !isSelected}
                 />
+                <p>Ce produit sera disponible le {dayjs(product.release_date).format("DD/MM/YYYY")}</p>
               </div>}
 
               {quantity > 0 ? (

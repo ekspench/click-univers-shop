@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import Link from "@components/ui/link";
+import Link from "next/link";
 import Layout from "@components/layout/layout";
 import usePrice from "@utils/use-price";
 import { formatAddress } from "@utils/format-address";
@@ -23,6 +23,7 @@ import { Table } from "@components/ui/table";
 import { OrderItems } from "@components/order/order-items-table";
 import AddNewTicket from "@components/ticket/add-new-ticket";
 import OrderStatus from "@components/order/order-status";
+import { Button } from "@components/";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -131,23 +132,26 @@ export default function OrderPage() {
     },
   ];
 
-  if (loading&&!data) {
+  if (loading && !data) {
     return <Spinner showText={false} />;
   }
-  const my_order=data?.order?.children?.length===1?data?.order?.children[0]:data?.order;
-  let mode="standard";
-  let address=my_order?.shipping_address?.address;;
-  let addressTitle=my_order?.shipping_address?.title;
-  if(my_order?.relay_point){
-    mode="relay_point";
-    
-    addressTitle=my_order?.relay_point?.nom;
-    address=my_order?.relay_point;
-    address={street_address:address?.address,city:address.city}
-  }else if(my_order?.mode_click_collect==="full"){
-    mode="click_collect";
-    addressTitle=my_order?.shop?.name;
-    address=my_order?.shop?.address;
+  const my_order =
+    data?.order?.children?.length === 1
+      ? data?.order?.children[0]
+      : data?.order;
+  let mode = "standard";
+  let address = my_order?.shipping_address?.address;
+  let addressTitle = my_order?.shipping_address?.title;
+  if (my_order?.relay_point) {
+    mode = "relay_point";
+
+    addressTitle = my_order?.relay_point?.nom;
+    address = my_order?.relay_point;
+    address = { street_address: address?.address, city: address.city };
+  } else if (my_order?.mode_click_collect === "full") {
+    mode = "click_collect";
+    addressTitle = my_order?.shop?.name;
+    address = my_order?.shop?.address;
   }
 
   return (
@@ -201,17 +205,33 @@ export default function OrderPage() {
                 : data?.order?.shipping?.name ?? "N/A"}
             </p>
           </div>
-          {/*data?.order?.relay_point && (
+          {my_order?.tracking_number && (
             <div className="py-4 px-5 border border-border-200 rounded shadow-sm">
               <h3 className="mb-2 text-sm  text-heading font-semibold">
-                Point de relais: <span>{data?.order?.relay_point?.nom}</span>
+                Suivi de comande
               </h3>
               <p className="text-sm text-body-dark">
-                {data?.order?.relay_point?.address},{" "}
-                {data?.order?.relay_point?.zip}-{data?.order?.relay_point?.city}
+                N°{my_order?.tracking_number}
+              </p>
+              {data?.order?.tracking_url && (
+                <a target="_new_blank" href={data?.order?.tracking_url}>
+                  <div className="p-1 border-1 text-sm text-center rounded bg-accent text-white mt-1 w-full">
+                    Suivre
+                  </div>
+                </a>
+              )}
+            </div>
+          )}
+          {my_order?.code_click_collect && (
+            <div className="py-4 px-5 border border-border-200 rounded shadow-sm">
+              <h3 className="mb-2 text-sm  text-heading font-semibold">
+                Code de retrait
+              </h3>
+              <p className="text-sm text-body-dark">
+                {my_order?.code_click_collect}
               </p>
             </div>
-          )*/}
+          )}
         </div>
         {data?.order?.children.length === 1 ||
           (data?.order?.children.length === 0 && (
@@ -223,7 +243,13 @@ export default function OrderPage() {
                     ? data?.order.children[0]?.status?.serial
                     : data?.order?.status.serial
                 }
-                mode={data?.order?.relay_point?"relay_point":data?.order?.mode_click_collect === "full"?"click_collect":"standard"}
+                mode={
+                  data?.order?.relay_point
+                    ? "relay_point"
+                    : data?.order?.mode_click_collect === "full"
+                    ? "click_collect"
+                    : "standard"
+                }
               />
             </div>
           ))}
@@ -304,17 +330,33 @@ export default function OrderPage() {
               </p>
               <p className="flex text-body-dark mt-5">
                 <strong className="w-5/12 sm:w-4/12 text-sm  text-heading font-semibold">
-                
-                  {mode==="standard"&&t("text-shipping-address")}
-                  {mode==="relay_point"&&t("Adresse de point de relais")}
-                  {mode==="click_collect"&&"Adresse de retrait"}
+                  {mode === "standard" && t("text-shipping-address")}
+                  {mode === "relay_point" && t("Adresse de point de relais")}
+                  {mode === "click_collect" && "Adresse de retrait"}
                 </strong>
                 :
                 <span className="w-7/12 sm:w-8/12 ps-4 text-sm flex flex-col">
                   <span>{addressTitle},</span>
-                 <span> {formatAddress(address)}</span>
+                  <span> {formatAddress(address)}</span>
+                  {mode==="click_collect"&&<span>{my_order?.shop?.settings.contact}</span>}
+                 {mode === "relay_point"&& <div dangerouslySetInnerHTML={{__html:my_order?.relay_point.HoursHtmlTable}}>
+
+                  </div>}
                 </span>
               </p>
+              {data?.order?.mode_click_collect === "partial" && (
+                <p className="flex text-body-dark mt-5">
+                  <strong className="w-5/12 sm:w-4/12 text-sm  text-heading font-semibold">
+                    Adresse de retrait
+                  </strong>
+                  :
+                  <span className="w-7/12 sm:w-8/12 ps-4 text-sm flex flex-col">
+                    <span>{my_order?.shop?.name},</span>
+                    <span> {formatAddress(my_order?.shop?.address)}</span>
+                    <span>{my_order?.shop?.settings.contact}</span>
+                  </span>
+                </p>
+              )}
             </div>
           </div>
           {/* end of order details */}

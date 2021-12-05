@@ -90,7 +90,8 @@ const OrderDetails = ({ order }: Props) => {
                   ) : (
                     <>
                     <span>{addressTitle},</span>
-                    <span>{formatAddress(shipping_address.address)}</span>
+                    <span>{formatAddress(address)}</span>
+                    {mode==="click_collect"&&<span>{my_order?.shop?.settings.contact}</span>}
                  
                     </>
                   )}

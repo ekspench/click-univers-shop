@@ -7,9 +7,10 @@ type Props = {
   variant?: "helium" | "neon" | "argon" | "oganesson" | "single" | "big";
   onClick(event: React.MouseEvent<HTMLButtonElement | MouseEvent>): void;
   disabled?: boolean;
+  pre_order?:boolean;
 };
 
-const AddToCartBtn: React.FC<Props> = ({ variant, onClick, disabled }) => {
+const AddToCartBtn: React.FC<Props> = ({ variant, onClick, disabled,pre_order }) => {
   const { t } = useTranslation("common");
 
   switch (variant) {
@@ -55,7 +56,7 @@ const AddToCartBtn: React.FC<Props> = ({ variant, onClick, disabled }) => {
           className="order-5 sm:order-4 py-2 px-3 sm:px-5 border-2 border-border-100 flex items-center justify-center sm:justify-start text-sm font-semibold rounded-full text-accent hover:text-light bg-light hover:bg-accent hover:border-accent transition-colors duration-300 focus:outline-none focus:bg-accent focus:border-accent focus:text-light"
         >
           <CartIcon className="w-4 h-4 me-2.5" />
-          <span>{t("text-cart")}</span>
+          <span>{pre_order?"Précommander":t("text-cart")}</span>
         </button>
       );
     case "big":
@@ -71,7 +72,7 @@ const AddToCartBtn: React.FC<Props> = ({ variant, onClick, disabled }) => {
             }
           )}
         >
-          <span>{t("text-add-cart")}</span>
+          <span>{pre_order?"Précommander":t("text-add-cart")}</span>
         </button>
       );
     default:

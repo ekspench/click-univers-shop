@@ -46,11 +46,9 @@ export const OrderItems = ({ products }: { products: any }) => {
             <div className="flex flex-col ms-4 overflow-hidden">
               <div className="flex mb-1">
                 <span className="text-sm text-body truncate inline-block overflow-hidden">
-                  {name} x&nbsp;
+                  {name}
                 </span>
-                <span className="text-sm text-heading font-semibold truncate inline-block overflow-hidden">
-                  {record.unit}
-                </span>
+               
               </div>
               <span className="text-sm text-accent font-semibold mb-1 truncate inline-block overflow-hidden">
                 {price}

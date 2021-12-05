@@ -7,6 +7,7 @@ interface Item {
     thumbnail: string;
     [key: string]: unknown;
   };
+  pre_order:boolean;
   price: number;
   sale_price?: number;
   quantity?: number;
@@ -21,7 +22,7 @@ interface Variation {
   [key: string]: unknown;
 }
 export function generateCartItem(item: Item, variation: Variation) {
-  const { id, name, slug, image, price, sale_price, quantity, unit,click_collect, shop, } = item;
+  const { id, name, slug, image, price, sale_price,pre_order, quantity, unit,click_collect, shop, } = item;
   if (!isEmpty(variation)) {
     return {
       id: `${id}.${variation.id}`,
@@ -29,6 +30,7 @@ export function generateCartItem(item: Item, variation: Variation) {
       name: `${name} - ${variation.title}`,
       active_click_collect:false,
       click_collect,
+      pre_order,
       shop,
       slug,
       unit,
@@ -45,6 +47,7 @@ export function generateCartItem(item: Item, variation: Variation) {
     unit,
     active_click_collect:false,
     click_collect,
+    pre_order,
     shop,
     image: image?.thumbnail,
     stock: quantity,
