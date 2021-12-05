@@ -57,7 +57,7 @@ const CreateOrUpdateAddressForm = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(addressSchema),
     defaultValues: {
-      title: address?.title ?? "",
+      title: address?.title ?? name,
 
       type: "standard" /*address?.type ?? type*/,
       /*...(address?.address && address),*/
@@ -128,7 +128,7 @@ const CreateOrUpdateAddressForm = () => {
     const formattedInput = {
       id: address?.id,
       customer_id: customerId,
-      title: name,
+      title: values.title??name,
       type: values.type,
       address: {
         ...(address?.id ? { id: address.id } : {}),
@@ -143,7 +143,7 @@ const CreateOrUpdateAddressForm = () => {
     return closeModal();
   }
   return (
-    <div className="p-5 sm:p-8 bg-light">
+    <div className="p-5 sm:p-8 bg-light w-96">
       <h1 className="text-heading font-semibold text-lg text-center mb-4 sm:mb-6">
         {address ? t("text-update") : "Ajouter une adresse"}
       </h1>
@@ -177,13 +177,13 @@ const CreateOrUpdateAddressForm = () => {
           */}
         </div>
 
-      {/**  <Input
-          label={t("text-title")}
+        <Input
+          label="Nom et Prénom"
           {...register("title")}
           error={t(errors.title?.message!)}
           variant="outline"
           className="col-span-2"
-        /> */}
+        /> 
         <div className="col-span-2">
           <SelectAutoComplete
           placeholder="Code postal"
