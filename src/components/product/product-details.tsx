@@ -22,6 +22,7 @@ import Badge from "@components/ui/badge";
 import Tab from "@components/common/tab";
 import NoticeList from "./notice-list";
 import dayjs from "dayjs";
+import { BoxImportantIcon } from "@components/icons/box-important-icon";
 
 type Props = {
   product: any;
@@ -120,10 +121,29 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                 {name}
               </h1>
               <div className="ml-8">
-                {product.is_used ? (
-                  <Badge text={`text-product-condition-${product.product_condition}`} color="bg-yellow-700"></Badge>
-                ) : (
-                  <Badge text={`text-product-condition-${product.product_condition}`} color="bg-green-700"></Badge>
+                {product.product_condition === "new" && (
+                  <Badge
+                    text={`text-product-condition-${product.product_condition}`}
+                    color="bg-green-500"
+                  ></Badge>
+                )}
+                  {product.product_condition === "good" && (
+                  <Badge
+                    text={`text-product-condition-${product.product_condition}`}
+                    color="bg-yellow-500"
+                  ></Badge>
+                )}
+                  {product.product_condition === "very-good" && (
+                  <Badge
+                    text={`text-product-condition-${product.product_condition}`}
+                    color="bg-green-500"
+                  ></Badge>
+                )}
+                  {product.product_condition === "recondition" && (
+                  <Badge
+                    text={`text-product-condition-${product.product_condition}`}
+                    color="bg-green-500"
+                  ></Badge>
                 )}
               </div>
             </div>
@@ -175,16 +195,26 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
             </div>
             <DeliveryOptionView product={product} />
             <div className="mt-4 md:mt-6 flex flex-col lg:flex-row items-center">
-            {quantity > 0&&  <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
-                <AddToCart
-                isCard={false}
-                  data={product}
-                  variant="big"
-                  variation={selectedVariation}
-                  disabled={selectedVariation?.is_disable || !isSelected}
-                />
-               {product?.release_date&&<p>Ce produit sera disponible le {dayjs(product.release_date).format("DD/MM/YYYY")}</p>} 
-              </div>}
+              {quantity > 0 && (
+                <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
+                  <AddToCart
+                    isCard={false}
+                    data={product}
+                    variant="big"
+                    variation={selectedVariation}
+                    disabled={selectedVariation?.is_disable || !isSelected}
+                  />
+                  {product?.release_date && (
+                    <div className="border flex space-x-2 rounded p-2 mt-1">
+                      <BoxImportantIcon className="w-6 h-6" />
+                      <span className="">
+                        Ce produit sera disponible le{" "}
+                        {dayjs(product.release_date).format("DD/MM/YYYY")}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {quantity > 0 ? (
                 <>
@@ -217,7 +247,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
               categories={categories}
               basePath={`/${type?.slug}`}
             />
-          ):null}
+          ) : null}
 
           {shop?.name && (
             <div className="flex items-center mt-2">
@@ -235,14 +265,14 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
           )}
           <div>
             <NoticeView product_id={product?.id as string} />
-           {/** <button
+            {/** <button
               className="text-sm text-accent tracking-wider transition underline hover:text-accent-hover hover:no-underline"
               onClick={() =>
                 openModal("NOTICE_LIST", { productId: product.id })
               }
             >
               Voir les avis
-            </button>*/} 
+            </button>*/}
           </div>
         </div>
       </div>
@@ -267,7 +297,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
           </Element>
         </div>
         <div title="Avis" className="container mx-auto">
-              <NoticeList productId={product.id}/>
+          <NoticeList productId={product.id} />
         </div>
       </Tab>
     </article>

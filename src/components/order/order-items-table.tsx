@@ -11,6 +11,7 @@ export const OrderItems = ({ products }: { products: any }) => {
   const { alignLeft, alignRight } = useIsRTL();
   const { openModal } = useModalAction();
 
+
   const orderTableColumns = [
     {
       title: <span className="ps-20">{t("text-item")}</span>,
@@ -54,7 +55,8 @@ export const OrderItems = ({ products }: { products: any }) => {
                 {price}
               </span>
             </div>
-              {record.pivot.click_collect&&  <Badge className="ml-2" text="Click&Collect" />}
+              {!!record.pivot.click_collect&&  <Badge className="ml-2" text="Click&Collect" />}
+              {!!record.pivot.code_click_collect  && record.pivot.status !== "delivered" &&<Badge className="ml-1" text="En attente de retrait" color="bg-yellow-600" />}
             {record.pivot.status === "delivered" && (
               <Badge className="ml-2" text="Delivrée" />
             )}
