@@ -54,7 +54,7 @@ export const OrderItems = ({ products }: { products: any }) => {
                 {price}
               </span>
             </div>
-
+              {record.pivot.click_collect&&  <Badge className="ml-2" text="Click&Collect" />}
             {record.pivot.status === "delivered" && (
               <Badge className="ml-2" text="Delivrée" />
             )}

@@ -22,7 +22,7 @@ const PaymentList = ({ cards,card_active,setCardActive }: Props) => {
           Veuillez sélectionner  une carte pour effectuer le paiement
         </h1>
       </div>
-      <div className="flex justify-center flex-wrap">
+      <div className="flex justify-center space-x-4 flex-wrap">
         {cards &&
           cards.map((card: any) => (
             <PaymentCard
