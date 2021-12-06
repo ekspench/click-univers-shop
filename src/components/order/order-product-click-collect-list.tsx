@@ -26,14 +26,14 @@ const OrderProductClickCollectList = ({ count }: any) => {
             </span>
           )}
           <p className="text-lg lg:text-xl text-heading">
-          Produit(s) disponible en Click&Collect
+          Produit(s) disponible en Click&Collect 
           </p>
         </div>
       </div>
       <p className="text-small text-center text-gray-600">
         {show
-          ? " Veuillez sélectionner les produits à retirer en click collect"
-          : "Certains de vos produits sont disponibles en mode click collect"}
+          ? " Veuillez sélectionner les produits à retirer en Click&Collect"
+          : "Certains des produits de votre panier peuvent être retirés en Click&Collect"}
       </p>{" "}
       <AnimateSharedLayout>
         {show && (

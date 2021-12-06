@@ -9,11 +9,10 @@ const [active,setActive]=useState(0);
 const tabs=children.map((child: any,index:number)=>({name:child.props.title, id: index, current: index===active }));
   return (
     <div>
-      <div className="sm:hidden">
+     {/* <div className="">
         <label htmlFor="tabs" className="sr-only">
           Choisir une menu
         </label>
-        {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
         <select
           id="tabs"
           name="tabs"
@@ -25,8 +24,8 @@ const tabs=children.map((child: any,index:number)=>({name:child.props.title, id:
             <option value={tab.id} key={tab.name}>{tab.name}</option>
           ))}
         </select>
-      </div>
-      <div className="hidden sm:block">
+      </div> */}
+      <div className="">
         <div className="border-b border-gray-200">
           <nav className="-mb-px flex" aria-label="Tabs">
             {tabs.map((tab) => (

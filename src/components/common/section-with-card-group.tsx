@@ -87,6 +87,9 @@ const SectionWithCardGroup = ({
               <p className="text-sm text-heading font-semibold mb-3 capitalize">
                 {item.title}
               </p>
+              <p className="text-sm text-heading font-semibold mb-3 capitalize">
+                {item?.telephone}
+              </p>
               <p className="text-sm text-sub-heading">
                 {item.description
                   ? item.description

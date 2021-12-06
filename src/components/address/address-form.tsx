@@ -19,6 +19,7 @@ import SelectAutoComplete from "@components/ui/SelectAutoComplete";
 type FormValues = {
   first_name: string;
   last_name: string;
+  telephone: string;
   type: string;
   address: {
     country: string;
@@ -33,6 +34,7 @@ const addressSchema = yup.object().shape({
   type: yup.string().required("error-type-required"),
   first_name: yup.string().required("error-name-required"),
   last_name:yup.string().nullable(),
+  telephone:yup.string().nullable(),
   address: yup.object().shape({
     country: yup.string().required("error-country-required"),
     city: yup.string().required("error-city-required"),
@@ -62,7 +64,7 @@ const CreateOrUpdateAddressForm = () => {
     defaultValues: {
       first_name: address?.first_name ?? null,
       last_name: address?.last_name ?? null,
-
+      telephone:address?.telephone??null,
       type: "standard" /*address?.type ?? type*/,
       /*...(address?.address && address),*/
       address: {
@@ -134,6 +136,7 @@ const CreateOrUpdateAddressForm = () => {
       customer_id: customerId,
       first_name: values.first_name,
       last_name: values.last_name,
+      telephone:values.telephone,
       type: values.type,
       address: {
         ...(address?.id ? { id: address.id } : {}),
@@ -193,6 +196,13 @@ const CreateOrUpdateAddressForm = () => {
           label="Prénom"
           {...register("last_name")}
           error={t(errors.last_name?.message!)}
+          variant="outline"
+          className="col-span-2"
+        /> 
+          <Input
+          label="Téléphone"
+          {...register("telephone")}
+          error={t(errors.telephone?.message!)}
           variant="outline"
           className="col-span-2"
         /> 

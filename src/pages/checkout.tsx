@@ -263,6 +263,9 @@ export default function CheckoutPage() {
           )}
           {showPay() && (
             <>
+             <div className=" sm:hidden w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
+          <OrderInformation />
+        </div>
               <PaymentForm
                 onPaySuccess={onPaySuccess}
                 data={{
@@ -288,7 +291,7 @@ export default function CheckoutPage() {
             </>
           )}
         </div>
-        <div className="w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
+        <div className="hidden sm:block w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
           <OrderInformation />
         </div>
       </div>

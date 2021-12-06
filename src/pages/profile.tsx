@@ -10,6 +10,9 @@ import { parseContextCookie } from "@utils/parse-cookie";
 import Spinner from "@components/ui/loaders/spinner/spinner";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { SEO } from "@components/seo";
+import PaymentList from "@components/payment/payment-list";
+import PaymentForm from "@components/payment/payement-form";
+import Payment from "@components/payment/payment";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -47,6 +50,10 @@ export default function ProfilePage() {
                 heading="text-addresses"
                 type="billing"
               />
+            </Card>
+            <Card className="w-full">
+
+            <Payment/>
             </Card>
           </div>
         )}
