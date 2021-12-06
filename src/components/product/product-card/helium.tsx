@@ -72,7 +72,7 @@ const Helium: React.FC<HeliumProps> = ({ product, className }) => {
        {/** <p className="text-muted text-xs">{unit}</p> */}
         {/* End of product info */}
 
-        <div className="flex items-center justify-between min-h-6 mt-7 md:mt-8 relative">
+        <div className="flex items-center flex-wrap justify-between min-h-6 mt-7 md:mt-8 relative">
         {quantity > 0 && <div className="relative">
             {discount && (
               <del className="text-xs text-muted text-opacity-75 absolute -top-4 md:-top-5 italic">
