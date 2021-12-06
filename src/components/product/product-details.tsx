@@ -183,7 +183,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                   variation={selectedVariation}
                   disabled={selectedVariation?.is_disable || !isSelected}
                 />
-                <p>Ce produit sera disponible le {dayjs(product.release_date).format("DD/MM/YYYY")}</p>
+               {product?.release_date&&<p>Ce produit sera disponible le {dayjs(product.release_date).format("DD/MM/YYYY")}</p>} 
               </div>}
 
               {quantity > 0 ? (
