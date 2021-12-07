@@ -155,7 +155,8 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
     return (
       <div className="pt-8">
         <div className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700 flex space-x-4">
-          <Loader className="h-8 w-8 mr-4" simple={true} text="chargement" />{"Chargment de module de paiement"}
+          <Loader className="h-8 w-8 mr-4" simple={true} text="chargement" />
+          {"Chargment de module de paiement"}
         </div>
       </div>
     );
@@ -258,7 +259,7 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
             />
           </>
         )}
-        {cards?.length>0 && (
+        {cards?.length > 0 && (
           <Checkbox
             name="newCard"
             value={newCard ? 1 : 0}
@@ -281,7 +282,7 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
             </Button>
           </div>
         )}
-        {error && <p className="text-red-600">{error}</p>}
+        {error && <p className="text-red-600"> Paiement refusé</p>}
       </div>
     </div>
   );
