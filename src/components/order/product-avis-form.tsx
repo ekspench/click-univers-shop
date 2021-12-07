@@ -100,8 +100,9 @@ const ProductAvisForm = ({ product_id }: { product_id: string }) => {
           </div>
       
             <Input
+              className={me?.pseudo?"hidden":""}
               name="pseudo"
-              label="Pseudo"
+              label="Choisissez votre pseudo"
               value={me?.pseudo??pseudo}
               readOnly={notice !== undefined||me?.pseudol}
               onChange={(e) => setPseduo(e.currentTarget.value)}
