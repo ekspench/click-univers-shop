@@ -28,6 +28,7 @@ module.exports = withPWA({
       "test.api.click-univers.com",
       "click-univers.com",
       "18.141.64.26",
+      "dev.api.click-univers.com",
       "localhost:8000",
       "via.placeholder.com",
       "pickbazarlaravel.s3.ap-southeast-1.amazonaws.com",
