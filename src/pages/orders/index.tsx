@@ -15,6 +15,7 @@ import { useTranslation } from "next-i18next";
 import { useOrdersQuery } from "@data/order/use-orders.query";
 import Button from "@components/ui/button";
 import NotFound from "@components/common/not-found";
+import AccountLayout from "@components/layout/account-layout";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -48,7 +49,7 @@ export default function OrdersPage() {
   return (
     <div className="w-full bg-light">
       <div className="flex flex-col xl:flex-row items-start max-w-1920 w-full mx-auto py-10 px-5 xl:py-14 xl:px-8 2xl:px-14  min-h-screen">
-        <ProfileSidebar className="flex-shrink-0 hidden xl:block xl:w-80 me-8" />
+       
         {/* End of sidebar navigation */}
 
         <div className="w-full hidden overflow-hidden lg:flex">
@@ -186,4 +187,4 @@ export default function OrdersPage() {
   );
 }
 
-OrdersPage.Layout = Layout;
+OrdersPage.Layout = AccountLayout;

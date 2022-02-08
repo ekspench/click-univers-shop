@@ -71,32 +71,44 @@ export const siteSettings = {
   ],
   dashboardSidebarMenu: [
     {
+      href: ROUTES.DASHBOARD,
+      menulabel: "profile-sidebar-dashboard",
+      icon:"DashboardIcon",
+    },
+    {
       href: ROUTES.PROFILE,
       menulabel: "profile-sidebar-profile",
+      icon:"SettingsIcon",
     },
     {
       href: ROUTES.CHANGE_PASSWORD,
       menulabel: "profile-sidebar-password",
+      icon:"PasswordIcon"
     },
     {
       href: ROUTES.ORDERS,
       menulabel: "profile-sidebar-orders",
+      icon:"OrdersIcon"
     },
     {
       href: ROUTES.REFUND,
       menulabel: "profile-sidebar-refund",
+      icon:"RefundIcon"
     },
     {
       href: ROUTES.HELP,
       menulabel: "profile-sidebar-help",
+      icon:"TagIcon"
     },
     {
       href: ROUTES.SUPPORTS,
       menulabel: "auth-menu-support",
+      icon:"SupportIcon"
     },
     {
       href: ROUTES.LOGOUT,
       menulabel: "profile-sidebar-logout",
+      icon:"LogoutIcon"
     },
   ],
   deliverySchedule: [

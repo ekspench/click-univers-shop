@@ -14,6 +14,7 @@ interface CartProviderState extends State {
   isInStock: (id: Item["id"]) => boolean;
   resetCart: () => void;
   setClickCollect:(id: Item["id"]) => void;
+  setClickGamePlus:(payload:boolean)=>void;
   // updateCartMetadata: (metadata: Metadata) => void;
 }
 export const cartContext = React.createContext<CartProviderState | undefined>(
@@ -55,6 +56,7 @@ export const CartProvider: React.FC = (props) => {
   const isInStock = (id: Item["id"]) => inStock(state.items, id);
   const resetCart = () => dispatch({ type: "RESET_CART" });
   const setClickCollect=(id: Item["id"])=>dispatch({type:"SET_CLICK_COLLECT_ITEM",id});
+  const setClickGamePlus=(payload:boolean)=>dispatch({type:"SET_CLICK_GAMES_PLUS",payload});
   const value = React.useMemo(
     () => ({
       ...state,
@@ -65,7 +67,8 @@ export const CartProvider: React.FC = (props) => {
       isInCart,
       isInStock,
       resetCart,
-      setClickCollect
+      setClickCollect,
+      setClickGamePlus,
     }),
     [state]
   );

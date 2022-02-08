@@ -19,7 +19,8 @@ export const selectStyles = {
   control: (_: any, state: any) => ({
     display: "flex",
     alignItems: "center",
-    minHeight: 50,
+    minHeight: 40,
+   
     // backgroundColor: '#F3F4F6',
     backgroundColor: "#ffffff",
     borderRadius: 5,
@@ -34,6 +35,7 @@ export const selectStyles = {
   }),
   dropdownIndicator: (provided: any, state: any) => ({
     ...provided,
+    zIndex:99,
     color: state.isFocused ? "#9CA3AF" : "#cccccc",
     "&:hover": {
       color: "#9CA3AF",

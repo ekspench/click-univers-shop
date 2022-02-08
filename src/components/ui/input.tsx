@@ -6,6 +6,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   inputClassName?: string;
   label?: string;
   name: string;
+  suffix?: string;
   error?: string;
   type?: string;
   shadow?: boolean;
@@ -33,6 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
     {
       className,
       label,
+      suffix = "",
       name,
       error,
       children,
@@ -56,27 +58,30 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
             {label}
           </label>
         )}
-        <input
-          id={name}
-          name={name}
-          type={type}
-          ref={ref}
-          className={cn(
-            "px-4 flex items-center w-full appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0",
-            shadow && "focus:shadow",
-            variantClasses[variant],
-            sizeClasses[dimension],
-            disabled && "bg-gray-100 cursor-not-allowed",
-            inputClassName
-          )}
-          disabled={disabled}
-          autoComplete="off"
-          autoCorrect="off"
-          autoCapitalize="off"
-          spellCheck="false"
-          aria-invalid={error ? "true" : "false"}
-          {...rest}
-        />
+        <div className="mt-1 relative rounded-md shadow-sm">
+          <input
+            id={name}
+            name={name}
+            type={type}
+            ref={ref}
+            className={cn(
+              "px-4 flex items-center w-full appearance-none transition duration-300 ease-in-out text-heading text-sm focus:outline-none focus:ring-0",
+              shadow && "focus:shadow",
+              variantClasses[variant],
+              sizeClasses[dimension],
+              disabled && "bg-gray-100 cursor-not-allowed",
+              inputClassName
+            )}
+            disabled={disabled}
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck="false"
+            aria-invalid={error ? "true" : "false"}
+            {...rest}
+          />
+          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">{suffix}</div>
+        </div>
         {error && <p className="my-2 text-xs text-red-500">{error}</p>}
       </div>
     );

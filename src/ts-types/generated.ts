@@ -191,6 +191,7 @@ export declare type User = {
   last_name: Scalars["String"];
   siret: Scalars["String"];
   email: Scalars["String"];
+  balance:{};
   created_at: Scalars["DateTime"];
   updated_at: Scalars["DateTime"];
   profile?: Maybe<Profile>;

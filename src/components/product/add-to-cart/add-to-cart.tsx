@@ -4,6 +4,7 @@ import { cartAnimation } from "@utils/cart-animation";
 import { useCart } from "@contexts/quick-cart/cart.context";
 import { generateCartItem } from "@contexts/quick-cart/generate-cart-item";
 import { useModalAction } from "@components/ui/modal/modal.context";
+import { useCustomerQuery } from "@data/customer/use-customer.query";
 
 interface Props {
   data: any;
@@ -38,7 +39,12 @@ export const AddToCart = ({
     isInCart,
   } = useCart();
   const { openModal } = useModalAction();
-  const item = generateCartItem(data, variation);
+  const { data: dataMe } = useCustomerQuery();
+  const item = generateCartItem(
+    data,
+    dataMe?.subscription?.status ?? false,
+    variation
+  );
   const handleAddClick = (
     e: React.MouseEvent<HTMLButtonElement | MouseEvent>
   ) => {
@@ -46,10 +52,13 @@ export const AddToCart = ({
     if (isCard && data.product_type !== "simple") {
       openModal("PRODUCT_DETAILS", data.slug);
     } else {
-      const ReactPixel=require("react-facebook-pixel").default;
-      ReactPixel.trackSingle(`${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL}`,'AddToCart',{content_name:item.name,currency:"EUR",value:item.price});
+      const ReactPixel = require("react-facebook-pixel").default;
+      ReactPixel.trackSingle(
+        `${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL}`,
+        "AddToCart",
+        { content_name: item.name, currency: "EUR", value: item.price }
+      );
       addItemToCart(item, 1);
-
 
       if (!isInCart(item.id)) {
         cartAnimation(e);

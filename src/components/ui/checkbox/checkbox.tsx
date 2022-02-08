@@ -3,6 +3,7 @@ import styles from "./checkbox.module.css";
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
+  labelClassName?:string;
   label?: string;
   error?: string;
   name: string;
@@ -10,7 +11,7 @@ export interface Props extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Checkbox = React.forwardRef<HTMLInputElement, Props>(
-  ({ className, label, error, name, onChange, ...rest }, ref) => {
+  ({ className, label, error, name,labelClassName, onChange, ...rest }, ref) => {
     const handleOnChange = (e: any) => {
       if (onChange) {
         onChange(e.target.value);
@@ -31,7 +32,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, Props>(
             {...rest}
           />
 
-          <label htmlFor={name} className="text-body text-sm">
+          <label htmlFor={name} className={labelClassName?labelClassName:"text-body text-sm"}>
             {label}
           </label>
         </div>

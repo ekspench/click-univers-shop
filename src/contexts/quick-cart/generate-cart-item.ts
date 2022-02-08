@@ -21,7 +21,7 @@ interface Variation {
   quantity: number;
   [key: string]: unknown;
 }
-export function generateCartItem(item: Item, variation: Variation) {
+export function generateCartItem(item: Item, variation: Variation,click_game_plus:boolean) {
   const { id, name, slug, image, price, sale_price,pre_order, quantity, unit,click_collect, shop, } = item;
   if (!isEmpty(variation)) {
     return {
@@ -51,6 +51,9 @@ export function generateCartItem(item: Item, variation: Variation) {
     shop,
     image: image?.thumbnail,
     stock: quantity,
-    price: sale_price ? sale_price : price,
+    original_price:price,
+    click_game_plus,
+    sale_price:sale_price,
+    price: sale_price&&click_game_plus ? sale_price : price,
   };
 }

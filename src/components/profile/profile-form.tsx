@@ -42,7 +42,6 @@ const ProfileForm = ({ user }: Props) => {
   const { mutate: updateProfile, isLoading: loading } =
     useUpdateCustomerMutation();
   function onSubmit(values: any) {
-    console.log("values", values);
     updateProfile(
       {
         id: user.id,

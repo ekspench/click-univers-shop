@@ -8,9 +8,10 @@ type Props = {
   onClick(event: React.MouseEvent<HTMLButtonElement | MouseEvent>): void;
   disabled?: boolean;
   pre_order?:boolean;
+  mode?:string;
 };
 
-const AddToCartBtn: React.FC<Props> = ({ variant, onClick, disabled,pre_order }) => {
+const AddToCartBtn: React.FC<Props> = ({ variant, onClick, disabled,pre_order,mode }) => {
   const { t } = useTranslation("common");
 
   switch (variant) {

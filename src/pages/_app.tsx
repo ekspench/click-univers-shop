@@ -28,12 +28,16 @@ import { useSocialLoginMutation } from "@data/auth/use-social-login-mutation";
 import { CUSTOMER } from "@utils/constants";
 import Cookies from "js-cookie";
 import ManagedModal from "@components/ui/modal/managed-modal";
+
 import {
   ModalProvider,
   useModalAction,
 } from "@components/ui/modal/modal.context";
 import { useRouter } from "next/router";
 import { pageview } from "@utils/ga";
+import { SaleGameProvider } from "@contexts/game-sale.context";
+import { useCustomerQuery } from "@data/customer/use-customer.query";
+import { UserProvider } from "@contexts/user.context";
 
 const Noop: React.FC = ({ children }) => <>{children}</>;
 
@@ -44,12 +48,20 @@ const AppSettings: React.FC = (props) => {
   return <SettingsProvider initialValue={data?.settings?.options} {...props} />;
 };
 
+const AppUser: React.FC = (props) => {
+  const { data, isLoading, error } = useCustomerQuery();
+  return <UserProvider initialValue={{ user: data?.me }} {...props} />;
+};
+
 const SocialLoginProvider: React.FC = () => {
   const [session, loading] = useSession();
   const { mutate: socialLogin } = useSocialLoginMutation();
   const { closeModal } = useModalAction();
   const { authorize, isAuthorize } = useUI();
   const [errorMsg, setErrorMsg] = useState("");
+
+
+
 
   useEffect(() => {
     // is true when valid social login access token and provider is available in the session
@@ -90,24 +102,24 @@ const SocialLoginProvider: React.FC = () => {
 };
 
 function CustomApp({ Component, pageProps }: AppProps) {
+  console.log("pageProps",pageProps);
   const queryClientRef = useRef<any>(null);
   if (!queryClientRef.current) {
     queryClientRef.current = new QueryClient();
   }
   const router = useRouter();
   useEffect(() => {
-
     const advancedMatching = { em: "some@email.com" }; // optional, more info: https://developers.facebook.com/docs/facebook-pixel/advanced/advanced-matching
     const options = {
       autoConfig: true, // set pixel's autoConfig. More info: https://developers.facebook.com/docs/facebook-pixel/advanced/
       debug: false, // enable logs
     };
-    const ReactPixel=require("react-facebook-pixel").default;
+    const ReactPixel = require("react-facebook-pixel").default;
     ReactPixel.init(`${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL}`);
     router.events.on("routeChangeComplete", () => {
-      console.log("we are hre",ReactPixel);
+      console.log("we are hre", ReactPixel);
       ReactPixel.pageView();
-    }); 
+    });
   }, [router.events]);
 
   useEffect(() => {
@@ -129,23 +141,27 @@ function CustomApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClientRef.current}>
       <Hydrate state={pageProps.dehydratedState}>
         <AppSettings>
-          <ModalProvider>
-            <CartProvider>
-              <UIProvider>
-                <CheckoutProvider>
-                  <SearchProvider>
-                    <Layout {...pageProps}>
-                      <Component {...pageProps} />
-                    </Layout>
-                    <ToastContainer autoClose={2000} />
-                    <ManagedModal />
-                    <SidebarContainer />
-                  </SearchProvider>
-                </CheckoutProvider>
-                <SocialLoginProvider />
-              </UIProvider>
-            </CartProvider>
-          </ModalProvider>
+          <AppUser>
+            <ModalProvider>
+              <CartProvider>
+                <UIProvider>
+                  <CheckoutProvider>
+                    <SaleGameProvider>
+                      <SearchProvider>
+                        <Layout {...pageProps}>
+                          <Component {...pageProps} />
+                        </Layout>
+                        <ToastContainer autoClose={2000} />
+                        <ManagedModal />
+                        <SidebarContainer />
+                      </SearchProvider>
+                    </SaleGameProvider>
+                  </CheckoutProvider>
+                  <SocialLoginProvider />
+                </UIProvider>
+              </CartProvider>
+            </ModalProvider>
+          </AppUser>
         </AppSettings>
         <ReactQueryDevtools />
       </Hydrate>

@@ -2,7 +2,7 @@ import { Children } from "react";
 import { QueryKey } from "react-query";
 
 export type CategoriesQueryOptionsType = {
-  type: string;
+  types?: string[];
   text?: string;
   category?: string;
   status?: string;
@@ -18,7 +18,9 @@ export type ProductsQueryOptionsType = {
   category?: string;
   status?: string;
   limit?: number;
+  user_id?:number;
   shop_id?: number;
+  page?:number;
 };
 
 export type ShopsQueryOptionsType = {
@@ -75,7 +77,10 @@ export declare type Category = {
   details?: string;
   image?: Attachment;
   icon?: string;
+  champs_required?:string[];
+  type_label?:string;
   type: Type;
+  types:Type[];
   products: Product[];
   created_at: Date;
   updated_at: Date;
@@ -132,7 +137,7 @@ export declare type Product = {
   sku?: string;
   gallery?: Attachment[];
   image?: Attachment;
-  // status?: ProductStatus
+  status?: any;
   height?: string;
   length?: string;
   width?: string;
@@ -202,7 +207,15 @@ export type FaqType = {
   subject:string;
   content:string;
 };
-
+export type ModeleType = {
+  id: number | string;
+  name:string;
+};
+export type BrandType = {
+  id: number | string;
+  name:string;
+  modeles:ModeleType[]
+};
 export type SettingsOptions = {
   siteTitle?: string;
   siteSubtitle?: string;

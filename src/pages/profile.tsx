@@ -13,6 +13,8 @@ import { SEO } from "@components/seo";
 import PaymentList from "@components/payment/payment-list";
 import PaymentForm from "@components/payment/payement-form";
 import Payment from "@components/payment/payment";
+import AccountLayout from "@components/layout/account-layout";
+import PaymentInfo from "@components/bank/payment-info";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -33,7 +35,7 @@ export default function ProfilePage() {
     <>
       <SEO title="Profil" />
       <div className="flex flex-col xl:flex-row items-start max-w-1920 w-full mx-auto py-10 px-8 xl:py-14 xl:px-16 2xl:px-20 bg-gray-100">
-        <ProfileSidebar className="flex-shrink-0 hidden xl:block xl:w-80 me-10" />
+      
         {/* End of sidebar navigation */}
         {loading ? (
           <Spinner showText={false} />
@@ -53,8 +55,9 @@ export default function ProfilePage() {
             </Card>
             <Card className="w-full">
 
-            <Payment/>
+             { <Payment/> }
             </Card>
+            <PaymentInfo user={data?.me} />
           </div>
         )}
       
@@ -63,4 +66,4 @@ export default function ProfilePage() {
   );
 }
 
-ProfilePage.Layout = Layout;
+ProfilePage.Layout = AccountLayout;

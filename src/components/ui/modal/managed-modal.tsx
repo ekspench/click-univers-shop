@@ -23,6 +23,7 @@ const PaymentForm = dynamic(() => import("@components/payment/payement-form"));
 const DeliveryRelayPoint=dynamic(()=>import("@components/checkout/delivery-relay-point"));
 const  NoticeList=dynamic(()=>import("@components/product/notice-list"));
 const PaymentDeleteView=dynamic(()=>import("@components/payment/payment-delete-view"));
+const GameSaleAddForm =dynamic(()=>import("@components/game/game-sale-add-form"));
 const ManagedModal = () => {
   const { isOpen, view, data } = useModalState();
   const { closeModal } = useModalAction();
@@ -50,6 +51,7 @@ const ManagedModal = () => {
       {view=== "DELIVERY_RELAY_POINT" && <DeliveryRelayPoint/>}
       {view==="NOTICE_LIST"&&<NoticeList/>}
       {view==="DELETE_STRIPE_CARD"&&<PaymentDeleteView/>}
+      {view==="GAME_SALE_ADD_FORM"&&<GameSaleAddForm/>}
 
     </Modal>
   );

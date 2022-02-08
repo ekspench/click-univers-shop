@@ -26,6 +26,7 @@ type Action =
   | { type: "UPDATE_ITEM"; id: Item["id"]; item: UpdateItemInput }
   | { type: "REMOVE_ITEM"; id: Item["id"] }
   | { type: "SET_CLICK_COLLECT_ITEM"; id: Item["id"] }
+  | { type: "SET_CLICK_GAMES_PLUS"; payload:Boolean }
   | { type: "RESET_CART" };
 
 
@@ -59,7 +60,7 @@ export function cartReducer(state: State, action: Action): State {
       );
       return generateFinalState(state, items);
     }
-    case "REMOVE_ITEM_OR_QUANTITY": {
+    case "REMOVE_ITEM_OR_QUANTITY":{
       const items = removeItemOrQuantity(
         state.items,
         action.id,
@@ -81,6 +82,13 @@ export function cartReducer(state: State, action: Action): State {
     }
     case "SET_CLICK_COLLECT_ITEM":{
       const items = setClickCollect(state.items, action.id);
+      return generateFinalState(state, items);
+    }
+    case "SET_CLICK_GAMES_PLUS":{
+      const items=[...state.items].map(item=>{
+        item.price=action?.payload?item?.sale_price:item?.original_price;
+        return item;
+      })
       return generateFinalState(state, items);
     }
     case "RESET_CART":

@@ -23,6 +23,8 @@ import Tab from "@components/common/tab";
 import NoticeList from "./notice-list";
 import dayjs from "dayjs";
 import { BoxImportantIcon } from "@components/icons/box-important-icon";
+import { SendMessage } from "./send-message/send-message";
+import { useCustomerQuery } from "@data/customer/use-customer.query";
 
 type Props = {
   product: any;
@@ -40,9 +42,13 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
     gallery,
     type,
     quantity,
+    mode,
+    user,
     shop,
+    updated_at
   } = product ?? {};
-
+  const { dataMe, isLoading: loadingMe } = useCustomerQuery();
+  const subscription = dataMe?.me?.subscription;
   const { openModal } = useModalAction();
   const { t } = useTranslation("common");
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
@@ -85,6 +91,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
    *
    * {size: "Large", color: "Black", weight: "1kg"}
    */
+
   return (
     <article className="rounded-lg bg-light">
       <div className="flex flex-col md:flex-row border-b border-border-200 border-opacity-70">
@@ -127,19 +134,19 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                     color="bg-green-500"
                   ></Badge>
                 )}
-                  {product.product_condition === "good" && (
+                {product.product_condition === "good" && (
                   <Badge
                     text={`text-product-condition-${product.product_condition}`}
                     color="bg-yellow-500"
                   ></Badge>
                 )}
-                  {product.product_condition === "very-good" && (
+                {product.product_condition === "very-good" && (
                   <Badge
                     text={`text-product-condition-${product.product_condition}`}
                     color="bg-green-500"
                   ></Badge>
                 )}
-                  {product.product_condition === "recondition" && (
+                {product.product_condition === "recondition" && (
                   <Badge
                     text={`text-product-condition-${product.product_condition}`}
                     color="bg-green-500"
@@ -147,6 +154,11 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                 )}
               </div>
             </div>
+            {mode==="user-product"&&
+            <span className="text-small text-gray-400">
+              Publier le {
+                dayjs(updated_at).format("DD/MM/YYYY à HH:MM")
+              }</span>}
             {unit && isEmpty(variations) && (
               <span className="text-sm font-normal text-body mt-2 md:mt-3 block">
                 {/*unit*/}
@@ -175,9 +187,9 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
               ) : (
                 <span className="flex items-center">
                   <ins className="text-2xl md:text-3xl font-semibold text-accent no-underline">
-                    {basePrice ? basePrice : price}
+                    {basePrice&&subscription&&subscription.status ? basePrice : price}
                   </ins>
-                  {discount && (
+                  {(discount&&subscription&&subscription.status) && (
                     <del className="text-sm md:text-base font-normal text-muted ms-2">
                       {price}
                     </del>
@@ -196,24 +208,37 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
             <DeliveryOptionView product={product} />
             <div className="mt-4 md:mt-6 flex flex-col lg:flex-row items-center">
               {quantity > 0 && (
-                <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
-                  <AddToCart
-                    isCard={false}
-                    data={product}
-                    variant="big"
-                    variation={selectedVariation}
-                    disabled={selectedVariation?.is_disable || !isSelected}
-                  />
-                  {product?.release_date && (
-                    <div className="border flex space-x-2 rounded p-2 mt-1">
-                      <BoxImportantIcon className="w-6 h-6" />
-                      <span className="">
-                        Ce produit sera disponible le{" "}
-                        {dayjs(product.release_date).format("DD/MM/YYYY")}
-                      </span>
+                <>
+                  {mode === "user-product" && (
+                    <SendMessage
+                      isCard={false}
+                      data={product}
+                      variant="big"
+                      variation={selectedVariation}
+                      disabled={selectedVariation?.is_disable || !isSelected}
+                    />
+                  )}
+                  {mode !== "user-product" && (
+                    <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
+                      <AddToCart
+                        isCard={false}
+                        data={product}
+                        variant="big"
+                        variation={selectedVariation}
+                        disabled={selectedVariation?.is_disable || !isSelected}
+                      />
+                      {product?.release_date && (
+                        <div className="border flex space-x-2 rounded p-2 mt-1">
+                          <BoxImportantIcon className="w-6 h-6" />
+                          <span className="">
+                            Ce produit sera disponible le{" "}
+                            {dayjs(product.release_date).format("DD/MM/YYYY")}
+                          </span>
+                        </div>
+                      )}
                     </div>
                   )}
-                </div>
+                </>
               )}
 
               {quantity > 0 ? (

@@ -8,14 +8,14 @@ const Krypton = dynamic(
 const Xenon = dynamic(() => import("@components/product/product-card/xenon")); // furniture-two
 
 export default function renderProductCard(product: any, className = "") {
-  switch (product?.type?.slug) {
+  switch (product?.mode) {
     case "grocery":
       return <Neon product={product} className={className} />;
     case "bakery":
       return <Argon product={product} className={className} />;
     case "clothing":
       return <Xenon product={product} className={className} />;
-    case "furniture":
+    case "user-product":
       return <Krypton product={product} className={className} />;
     default:
       return <Helium product={product} className={className} />;

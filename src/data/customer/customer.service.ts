@@ -10,6 +10,7 @@ export type ContactType = {
   email: string;
   subject: string;
   description: string;
+  
 };
 
 class Customer extends CoreApi {

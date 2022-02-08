@@ -12,6 +12,7 @@ import { ROUTES } from "@utils/routes";
 import { useTypesQuery } from "@data/type/use-types.query";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import { PlusIcon } from "@components/icons/plus-icon";
 
 const AuthorizedMenu = dynamic(
   () => import("@components/layout/navbar/authorized-menu"),
@@ -72,30 +73,36 @@ const NavbarWithSearch = () => {
                   }
                 )}
               >
+                <Link href={"/announce/create"} className="hidden inline-flex items-center justify-center px-2 bg-yellow-500 rounded mr-2 ">
+                  <span  className='border border-2 border-whhite mr-2'>
+                  <PlusIcon width="32" color="white" />
+                  </span>
+              
+                  <span className="font-bold une annonce text-lg whitespace-nowrap">Deposer une annonce</span>
+                </Link>
                 <Search label={t("text-search-label")} variant="minimal" />
               </div>
             </div>
             <ul className="hidden lg:flex items-center flex-shrink-0 space-s-10">
               {isAuthorize ? (
                 <>
-                <li key="track-orders">
-                  <Link
-                    href={ROUTES.ORDERS}
-                    className="font-semibold text-heading flex items-center transition duration-200 no-underline hover:text-accent focus:text-accent"
-                  >
-                    {t("nav-menu-track-order")}
-                  </Link>
-                </li>
-                <li key="supports">
-                  <Link
-                    href={ROUTES.SUPPORTS}
-                    className="font-semibold text-heading flex items-center transition duration-200 no-underline hover:text-accent focus:text-accent"
-                  >
-                    {t("nav-menu-support")}
-                  </Link>
-                </li>
+                  <li key="track-orders">
+                    <Link
+                      href={ROUTES.ORDERS}
+                      className="font-semibold text-heading flex items-center transition duration-200 no-underline hover:text-accent focus:text-accent"
+                    >
+                      {t("nav-menu-track-order")}
+                    </Link>
+                  </li>
+                  <li key="supports">
+                    <Link
+                      href={ROUTES.SUPPORTS}
+                      className="font-semibold text-heading flex items-center transition duration-200 no-underline hover:text-accent focus:text-accent"
+                    >
+                      {t("nav-menu-support")}
+                    </Link>
+                  </li>
                 </>
-                
               ) : null}
               {siteSettings.headerLinks.map(({ href, label, icon }) => (
                 <li key={`${href}${label}`}>

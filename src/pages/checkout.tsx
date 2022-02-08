@@ -1,15 +1,12 @@
 import Address from "@components/address/address";
 import Layout from "@components/layout/layout";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useUI } from "@contexts/ui.context";
 import { useCustomerQuery } from "@data/customer/use-customer.query";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useModalAction } from "@components/ui/modal/modal.context";
 import ShippingMode from "@components/checkout/shipping-mode";
-import PaymentGroup from "@components/payment/payement-group";
 import PaymentForm from "@components/payment/payement-form";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import { loggedIn } from "@utils/is-loggedin";
 import { useCheckout } from "@contexts/checkout.context";
 import { useVerifyCheckoutMutation } from "@data/order/use-checkout-verify.mutation";
@@ -28,13 +25,13 @@ import Edit from "@components/icons/edit";
 import { PlusIcon } from "@components/icons/plus-icon";
 import OrderProductClickCollectList from "@components/order/order-product-click-collect-list";
 import ModeClickCollectCard from "@components/common/mode-click-collect-card";
+import ClickGamePlus from "@components/checkout/click-game-plus.";
+import { AnimatePresence } from "framer-motion";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC as string
-);
 export default function CheckoutPage() {
   const router = useRouter();
   const { data, refetch } = useCustomerQuery();
+  const [clickGamePlus,setClickGamePlus]=useState(false);
   const {
     billing_address,
     shipping_address,
@@ -148,8 +145,12 @@ export default function CheckoutPage() {
     };
   };
   const onPaySuccess = (data: any) => {
-    const ReactPixel=require("react-facebook-pixel").default;
-    ReactPixel.trackSingle(`${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL}`,'Purchase',{currency:"EUR",value:total});
+    const ReactPixel = require("react-facebook-pixel").default;
+    ReactPixel.trackSingle(
+      `${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL}`,
+      "Purchase",
+      { currency: "EUR", value: total }
+    );
     router.push(`${ROUTES.ORDERS}/${data.orderInput.ref}`);
   };
 
@@ -261,16 +262,20 @@ export default function CheckoutPage() {
               />
             </div>
           )}
+          <AnimatePresence>
+            <ClickGamePlus value={clickGamePlus} setValue={setClickGamePlus} />
+          </AnimatePresence>
           {showPay() && (
             <>
-             <div className=" sm:hidden w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
-          <OrderInformation />
-        </div>
+              <div className=" sm:hidden w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
+                <OrderInformation />
+              </div>
+
               <PaymentForm
                 onPaySuccess={onPaySuccess}
                 data={{
                   action: "create_order_payment",
-                  data: dataCreateOrder(),
+                  data: {...dataCreateOrder(),clickGamePlus},
                 }}
                 amount={totalF}
               />

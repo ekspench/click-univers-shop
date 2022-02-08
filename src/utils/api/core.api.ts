@@ -3,14 +3,17 @@ import Axios from "./http";
 type NumberOrString = number | string;
 export type ParamsType = {
   type?: string;
+  types?: string[];
   text?: string;
   category?: string;
   status?: string;
   is_active?: string;
   shop_id?: string;
-  product_id?:string;
-  user_id?:string;
+  product_id?: string;
+  platform_id?:string;
+  user_id?: string;
   limit?: number;
+  page?:number;
 };
 export class CoreApi {
   http = Axios;
@@ -22,6 +25,9 @@ export class CoreApi {
         if (k === "type") {
           return `${k}.slug:${parsedValues[k]};`;
         }
+        if (k === "types") {
+          return `types.slug:${parsedValues[k]};`;
+        }
         if (k === "category") {
           return `categories.slug:${parsedValues[k]};`;
         }
@@ -32,26 +38,32 @@ export class CoreApi {
   }
   find(params: ParamsType) {
     const {
+      types,
       type,
       text: name,
+      page,
       category,
       status,
       is_active,
       shop_id,
       product_id,
+      platform_id,
       limit = 30,
       user_id,
     } = params;
     const searchString = this.stringifySearchQuery({
+      types,
       type,
       name,
       category,
       status,
+      user_id,
       shop_id,
+      platform_id,
       product_id,
       is_active,
     });
-    const queryString = `?search=${searchString}&searchJoin=and&limit=${limit}&userId=${user_id}`;
+    const queryString = `?search=${searchString}&searchJoin=and&limit=${limit}&userId=${user_id}&page=${page}`;
     return this.http.get(this._base_path + queryString);
   }
   findAll() {

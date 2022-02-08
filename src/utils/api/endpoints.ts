@@ -29,5 +29,9 @@ export const API_ENDPOINTS: Record<string, string> = {
   NOTICE:"notices",
   ARTICLE:"articles",
   REFUND:"refunds",
+  BRAND:"brands",
+  PLATFORM:"platforms",
+  GAME:"games",
+  PURCHASE_GAME:"purchase-games"
   
 };

@@ -63,3 +63,8 @@ export default function usePrice(data?: PriceProps | null) {
     ? { price: value, basePrice: null, discount: null }
     : value;
 }
+export const formatToPrice=(price:number)=>{
+  const { currency } = useSettings();
+  const locale = siteSettings.defaultLanguage;
+  return formatPrice({amount:price,currencyCode:currency,locale});
+}

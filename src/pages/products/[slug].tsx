@@ -11,6 +11,7 @@ import { QueryClient } from "react-query";
 import { fetchSettings } from "@data/settings/use-settings.query";
 import { dehydrate } from "react-query/hydration";
 import { SEO } from "@components/seo";
+import ProductUserDetails from "@components/product/product-user-details";
 const CartCounterButton = dynamic(
   () => import("@components/cart/cart-counter-button"),
   { ssr: false }
@@ -56,7 +57,8 @@ export default function ProductSinglePage({ product }: any) {
     <>
     <SEO title={product.name} image={product.image.thumbnail}/>
       <div className="bg-light min-h-screen">
-        <ProductDetails product={product} />
+        {product.mode==="user-product"?<ProductUserDetails product={product}/>:    <ProductDetails product={product} />}
+    
 
         {product?.related_products?.length > 1 && (
           <div className="p-5 lg:p-14 xl:p-16">
