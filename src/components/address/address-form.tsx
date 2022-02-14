@@ -33,8 +33,8 @@ type FormValues = {
 const addressSchema = yup.object().shape({
   type: yup.string().required("error-type-required"),
   first_name: yup.string().required("error-name-required"),
-  last_name:yup.string().nullable(),
-  telephone:yup.string().nullable(),
+  last_name: yup.string().nullable(),
+  telephone: yup.string().nullable(),
   address: yup.object().shape({
     country: yup.string().required("error-country-required"),
     city: yup.string().required("error-city-required"),
@@ -49,7 +49,7 @@ const CreateOrUpdateAddressForm = () => {
   const [listAddresses, setListAddresses] = useState([]);
   const [addressSearch, setAddressSearch] = useState<any>();
   const {
-    data: { customerId, address, type,name},
+    data: { customerId, address, type, name },
   } = useModalState();
   const { closeModal } = useModalAction();
   const { mutate: updateProfile } = useUpdateCustomerMutation();
@@ -64,7 +64,7 @@ const CreateOrUpdateAddressForm = () => {
     defaultValues: {
       first_name: address?.first_name ?? null,
       last_name: address?.last_name ?? null,
-      telephone:address?.telephone??null,
+      telephone: address?.telephone ?? null,
       type: "standard" /*address?.type ?? type*/,
       /*...(address?.address && address),*/
       address: {
@@ -74,18 +74,17 @@ const CreateOrUpdateAddressForm = () => {
     },
   });
 
-  const selectAddress = (i: { value: string }) => {
+  const selectAddress = (i: { value: string; zip: string; code: string }) => {
     axios
       .get(
         "https://geo.api.gouv.fr/communes/" +
-          i.value +
+          i.code +
           "?fields=nom,code,codesPostaux,centre,codeDepartement,departement,codeRegion,region,population&format=json&geometry=centre"
       )
       .then((response) => {
         const data = response.data;
-     
         setValue("address.city", data.nom.toUpperCase());
-        setValue("address.zip", data.codesPostaux[0]);
+        setValue("address.zip", i.zip);
         setValue("address.state", data.departement.nom);
         /* setFieldValue("lng", data.codesPostaux[0]);
       setFieldValue("lat", data.centre.coordinates[1]);*/
@@ -115,15 +114,37 @@ const CreateOrUpdateAddressForm = () => {
       return axios
         .get("https://geo.api.gouv.fr/communes?" + params + "=" + val)
         .then((response) => {
-          return response.data.map(
+          let res: {}[] = [];
+          response.data.forEach(
             (item: { nom: string; codesPostaux: string[]; code: any }) => {
-              return {
-                label:
-                  item.nom.toUpperCase() + " (" + item.codesPostaux[0] + ")",
-                value: item.code,
-              };
+              let lastCp = "";
+              item.codesPostaux.forEach((cp: string) => {
+                if (lastCp === cp) {
+                  lastCp = cp;
+                  return;
+                }
+                if (params === "codePostal") {
+                  if (val == cp) {
+                    res.push({
+                      label: item.nom.toUpperCase() + " (" + cp + ")",
+                      zip: cp,
+                      code: item.code,
+                      value: cp,
+                    });
+                  }
+                } else {
+                  res.push({
+                    label: item.nom.toUpperCase() + " (" + cp + ")",
+                    zip: cp,
+                    code: item.code,
+                    value: cp,
+                  });
+                }
+                lastCp = cp;
+              });
             }
           );
+          return res;
         })
         .catch((err) => console.log(err));
     }
@@ -136,7 +157,7 @@ const CreateOrUpdateAddressForm = () => {
       customer_id: customerId,
       first_name: values.first_name,
       last_name: values.last_name,
-      telephone:values.telephone,
+      telephone: values.telephone,
       type: values.type,
       address: {
         ...(address?.id ? { id: address.id } : {}),
@@ -191,36 +212,38 @@ const CreateOrUpdateAddressForm = () => {
           error={t(errors.first_name?.message!)}
           variant="outline"
           className="col-span-2"
-        /> 
-          <Input
+        />
+        <Input
           label="Prénom"
           {...register("last_name")}
           error={t(errors.last_name?.message!)}
           variant="outline"
           className="col-span-2"
-        /> 
-          <Input
+        />
+        <Input
           label="Téléphone"
           {...register("telephone")}
           error={t(errors.telephone?.message!)}
           variant="outline"
           className="col-span-2"
-        /> 
+        />
         <div className="col-span-2">
           <SelectAutoComplete
-          placeholder="Code postal"
-          noOptionsMessage={()=>"saisir le code postal "}
+            placeholder="Code postal"
+            noOptionsMessage={() => "saisir le code postal "}
             loadOptions={loadOptions}
             onChange={selectAddress}
           />
         </div>
 
-        {watch("address.city")&& <Input
-          label={t("text-country")}
-          {...register("address.country")}
-          error={t(errors.address?.country?.message!)}
-          variant="outline"
-        />}
+        {watch("address.city") && (
+          <Input
+            label={t("text-country")}
+            {...register("address.country")}
+            error={t(errors.address?.country?.message!)}
+            variant="outline"
+          />
+        )}
         {watch("address.city") && (
           <Input
             label={t("text-city")}
@@ -257,7 +280,7 @@ const CreateOrUpdateAddressForm = () => {
         />
 
         <Button className="w-full col-span-2">
-          {address ? t("text-update") : t("text-save")} 
+          {address ? t("text-update") : t("text-save")}
         </Button>
       </form>
     </div>

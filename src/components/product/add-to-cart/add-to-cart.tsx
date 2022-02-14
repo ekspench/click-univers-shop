@@ -42,8 +42,8 @@ export const AddToCart = ({
   const { data: dataMe } = useCustomerQuery();
   const item = generateCartItem(
     data,
-    dataMe?.subscription?.status ?? false,
-    variation
+    variation,
+    true
   );
   const handleAddClick = (
     e: React.MouseEvent<HTMLButtonElement | MouseEvent>

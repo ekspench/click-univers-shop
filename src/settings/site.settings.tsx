@@ -96,6 +96,11 @@ export const siteSettings = {
       icon:"RefundIcon"
     },
     {
+      href: ROUTES.REPAIR,
+      menulabel: "profile-sidebar-repair",
+      icon:"RepairIcon"
+    },
+    {
       href: ROUTES.HELP,
       menulabel: "profile-sidebar-help",
       icon:"TagIcon"

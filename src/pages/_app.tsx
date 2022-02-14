@@ -38,6 +38,7 @@ import { pageview } from "@utils/ga";
 import { SaleGameProvider } from "@contexts/game-sale.context";
 import { useCustomerQuery } from "@data/customer/use-customer.query";
 import { UserProvider } from "@contexts/user.context";
+import { RepairProvider } from "@contexts/repair.context";
 
 const Noop: React.FC = ({ children }) => <>{children}</>;
 
@@ -59,9 +60,6 @@ const SocialLoginProvider: React.FC = () => {
   const { closeModal } = useModalAction();
   const { authorize, isAuthorize } = useUI();
   const [errorMsg, setErrorMsg] = useState("");
-
-
-
 
   useEffect(() => {
     // is true when valid social login access token and provider is available in the session
@@ -102,7 +100,6 @@ const SocialLoginProvider: React.FC = () => {
 };
 
 function CustomApp({ Component, pageProps }: AppProps) {
-  console.log("pageProps",pageProps);
   const queryClientRef = useRef<any>(null);
   if (!queryClientRef.current) {
     queryClientRef.current = new QueryClient();
@@ -147,14 +144,16 @@ function CustomApp({ Component, pageProps }: AppProps) {
                 <UIProvider>
                   <CheckoutProvider>
                     <SaleGameProvider>
-                      <SearchProvider>
-                        <Layout {...pageProps}>
-                          <Component {...pageProps} />
-                        </Layout>
-                        <ToastContainer autoClose={2000} />
-                        <ManagedModal />
-                        <SidebarContainer />
-                      </SearchProvider>
+                      <RepairProvider>
+                        <SearchProvider>
+                          <Layout {...pageProps}>
+                            <Component {...pageProps} />
+                          </Layout>
+                          <ToastContainer autoClose={2000} />
+                          <ManagedModal />
+                          <SidebarContainer />
+                        </SearchProvider>
+                      </RepairProvider>
                     </SaleGameProvider>
                   </CheckoutProvider>
                   <SocialLoginProvider />

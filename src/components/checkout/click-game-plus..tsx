@@ -34,10 +34,11 @@ const ClickGamePlus = ({value,setValue}:any) => {
       <div className="flex flex-col md:flex-row justify-center md:justify-start ">
         <Checkbox
           className="text-dark"
+          checked={value}
           onChange={() => setValue(!value)}
           labelClassName="text-xs sm:text-sm  md:text-md font-semibold"
           name={"click_game_plus"}
-          label="Profitez du ClickGames+ et des ses nombreux avantage"
+          label="Bénéficier du ClickGames+"
         />
         {!showDetail && (
           <button

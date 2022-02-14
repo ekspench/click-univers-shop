@@ -13,7 +13,6 @@ type DashboardSidebarProps = {
 const AccountSideBar: React.FC<DashboardSidebarProps> = ({ className }) => {
   const { t } = useTranslation();
   const { data } = useCustomerQuery();
-  console.log("data",data);
   return (
     <div className="hidden mt-14 md:mt-16 lg:mt-22 lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">
       {/* Sidebar component, swap this element with another sidebar if you like */}

@@ -187,9 +187,9 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
               ) : (
                 <span className="flex items-center">
                   <ins className="text-2xl md:text-3xl font-semibold text-accent no-underline">
-                    {basePrice&&subscription&&subscription.status ? basePrice : price}
+                    {basePrice ? basePrice : price}
                   </ins>
-                  {(discount&&subscription&&subscription.status) && (
+                  {discount && (
                     <del className="text-sm md:text-base font-normal text-muted ms-2">
                       {price}
                     </del>

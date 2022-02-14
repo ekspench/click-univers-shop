@@ -2,11 +2,12 @@ import Select from "@components/ui/select/select";
 import { Controller } from "react-hook-form";
 
 interface SelectInputProps {
-  control: any;
+  control?: any;
   rules?: any;
   name: string;
   isDisbled?:boolean;
   getOptionLabel?:any;
+  onInputChange?:any;
   getOptionValue?:any;
   options: object[];
   [key: string]: unknown;

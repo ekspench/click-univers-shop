@@ -31,7 +31,7 @@ import { AnimatePresence } from "framer-motion";
 export default function CheckoutPage() {
   const router = useRouter();
   const { data, refetch } = useCustomerQuery();
-  const [clickGamePlus,setClickGamePlus]=useState(false);
+  const [clickGamePlus, setClickGamePlus] = useState(true);
   const {
     billing_address,
     shipping_address,
@@ -275,21 +275,20 @@ export default function CheckoutPage() {
                 onPaySuccess={onPaySuccess}
                 data={{
                   action: "create_order_payment",
-                  data: {...dataCreateOrder(),clickGamePlus},
+                  data: { ...dataCreateOrder(), clickGamePlus },
                 }}
                 amount={totalF}
               />
               {/**<div className="shadow-700 bg-light p-5 md:p-8">
-           <Elements stripe={stripePromise}>
-                <PaymentGroup
-                  onPaySuccess={onPaySuccess}
-                  data={{
-                    action: "create_order_payment",
-                    data: dataCreateOrder(),
-                  }}
-                  amount={total}
-                />
-                
+              <Elements stripe={stripePromise}>
+                  <PaymentGroup
+                    onPaySuccess={onPaySuccess}
+                    data={{
+                      action: "create_order_payment",
+                      data: dataCreateOrder(),
+                    }}
+                    amount={total}
+                  />  
               </Elements>
             
             </div>*/}

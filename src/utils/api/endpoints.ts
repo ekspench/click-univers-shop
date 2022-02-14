@@ -1,4 +1,5 @@
 export const API_ENDPOINTS: Record<string, string> = {
+  ADDRESS:"addresses",
   PRODUCTS: "products",
   SETTINGS: "settings",
   FAQ:"faqs",
@@ -32,6 +33,7 @@ export const API_ENDPOINTS: Record<string, string> = {
   BRAND:"brands",
   PLATFORM:"platforms",
   GAME:"games",
-  PURCHASE_GAME:"purchase-games"
+  PURCHASE_GAME:"purchase-games",
+  REPAIR:"repairs"
   
 };

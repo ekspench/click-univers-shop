@@ -14,7 +14,9 @@ type MODAL_VIEWS =
   |"STRIPE_PAYMENT_FORM"
   |"DELIVERY_RELAY_POINT"
   |"NOTICE_LIST"
-  |"GAME_SALE_ADD_FORM";
+  |"GAME_SALE_ADD_FORM"
+  |"PAYMENT_ERROR"
+  ;
 
 interface State {
   view?: MODAL_VIEWS;

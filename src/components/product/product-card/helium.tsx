@@ -76,7 +76,7 @@ const Helium: React.FC<HeliumProps> = ({ product, className }) => {
         </h3>
         {/** <p className="text-muted text-xs">{unit}</p> */}
         {/* End of product info */}
-        {loadingMe ? (
+        {/*loadingMe ? (
           <div className="animate-pulse  mt-7 ">
             <div className="flex flex-row">
               <div className=" w-8 mr-8  h-1 border rounded-full bg-gray-200 "></div>
@@ -87,18 +87,18 @@ const Helium: React.FC<HeliumProps> = ({ product, className }) => {
               <div className=" mt-1  h-1 w-full  border rounded-full bg-gray-200"></div>
             </div>
           </div>
-        ) : (
+        ) */}
           <div className="flex items-center flex-wrap md:flex-nowrap justify-between min-h-6 mt-7 md:mt-8 relative">
             {quantity > 0 && (
               <div className="">
-                {discount && subscription && subscription.status && (
+                {discount&& (
                   <del className="text-xs text-muted text-opacity-75 absolute -top-4 md:-top-5 italic">
                     {price}
                   </del>
                 )}
                 {product.product_type === "simple" ? (
                   <span className="text-accent text-sm md:text-base font-semibold mr-1 ">
-                    {(basePrice && subscription && subscription.status)? basePrice : price}
+                    {basePrice ? basePrice : price}
                   </span>
                 ) : (
                   <span className="text-accent text-sm md:text-base font-semibold mr-1">
@@ -118,7 +118,6 @@ const Helium: React.FC<HeliumProps> = ({ product, className }) => {
             )}
             {/* End of add to cart */}
           </div>
-        )}
       </header>
     </article>
   );

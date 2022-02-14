@@ -16,5 +16,6 @@ export const ROUTES = {
   CONTACT: "/contact",
   SHOPS: "/shops",
   SUPPORTS:"/supports",
-  REFUND:"/refunds"
+  REFUND:"/refunds",
+  REPAIR:"repair"
 };

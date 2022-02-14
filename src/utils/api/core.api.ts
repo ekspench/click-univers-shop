@@ -22,9 +22,9 @@ export class CoreApi {
     const parsedValues = pickBy(values);
     return Object.keys(parsedValues)
       .map((k) => {
-        if (k === "type") {
+        /*if (k === "type") {
           return `${k}.slug:${parsedValues[k]};`;
-        }
+        }*/
         if (k === "types") {
           return `types.slug:${parsedValues[k]};`;
         }

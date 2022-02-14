@@ -64,3 +64,26 @@ export const champs_required_data = [
   },
 
 ];
+
+export const status_repair:any={
+  "pending":{
+    "label":"En attente",
+    "text":"En attente de colis",
+    "value":1
+  },
+  "fixing":{
+    "label":"En reparation",
+    "text":"En cours de reparation",
+    "value":2
+  },
+  "to_pay":{
+    "label":"A Payer",
+    "text":"En attente de paiement du facture",
+    "value":3
+  },
+  "paid":{
+    "label":"Payée",
+    "text":"Facture payée",
+    "value":4
+  }
+}

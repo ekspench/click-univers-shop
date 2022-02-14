@@ -20,6 +20,7 @@ import Checkbox from "@components/ui/checkbox/checkbox";
 import usePrice from "@utils/use-price";
 import { useStripeCardsQuery } from "@data/stripe/use-stripe-cards.query";
 import PaymentList from "./payment-list";
+import { useModalAction } from "@components/ui/modal/modal.context";
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC as string
 );
@@ -37,6 +38,7 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
   const [name, setname] = useState("");
   const [focused, setfocused] = useState("number");
   const [error, setError] = useState<string | null>(null);
+  const [errorCard, setErrorCard] = useState<string | null>(null);
   const [newCard, setNewCard] = useState<boolean>(true);
   const [card_active, setCardActive] = useState<string | undefined>();
   const {
@@ -52,6 +54,13 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
       setNewCard(!cards.length);
     }
   }, [cards]);
+  const {openModal}=useModalAction();
+  useEffect(()=>{
+    if(error){
+      openModal("PAYMENT_ERROR",{message:error});
+    }
+   
+  },[error])
   const handlePay = () => {
     if (stripe) {
       setProcessing(true);
@@ -105,7 +114,7 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
             });
           }
           if (payload.error) {
-            setError(`Payment failed ${payload.error.message}`);
+            setError(`${payload.error.message}`);
 
             setProcessing(false);
           } else {
@@ -145,7 +154,7 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
       }
     }
 
-    setError(event.error ? event.error.message : "");
+    setErrorCard(event.error ? event.error.message : "");
   };
   const { price } = usePrice({
     amount: amount,
@@ -185,7 +194,7 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
                   className="flex items-center text-center  cursor-pointer"
                 >
                   <img
-                    src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png"
+                     src="/card.png"
                     className="h-8 ml-3"
                   />
                 </label>
@@ -241,6 +250,7 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
                 />
               </div>
             </div>
+            {errorCard && <p className="text-red-600">{errorCard}</p>}
             <Checkbox
               name="future"
               value={future_use ? 1 : 0}
@@ -282,7 +292,7 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
             </Button>
           </div>
         )}
-        {error && <p className="text-red-600"> Paiement refusé</p>}
+        
       </div>
     </div>
   );
