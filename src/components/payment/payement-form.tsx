@@ -28,8 +28,9 @@ type Iprops = {
   amount: number;
   data: any;
   onPaySuccess?: any;
+  click_game_plus?:boolean;
 };
-const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
+const StripeForm = ({ amount, data, onPaySuccess, click_game_plus }: Iprops) => {
   const stripe = useStripe();
   const elements = useElements();
   const [future_use, setFutureUse] = useState(false);
@@ -93,7 +94,7 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
             } else {
               payload = intent;
             }
-          } else if (future_use) {
+          } else if (click_game_plus||future_use) {
             payload = await stripe.confirmCardPayment(intent.client_secret, {
               payment_method: {
                 card: elements.getElement(CardNumberElement),
@@ -101,7 +102,7 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
                   name: name,
                 },
               },
-              setup_future_usage: future_use ? "off_session" : "on_session",
+              setup_future_usage: (click_game_plus||future_use) ? "off_session" : "on_session",
             });
           } else {
             payload = await stripe.confirmCardPayment(intent.client_secret, {
@@ -253,10 +254,11 @@ const StripeForm = ({ amount, data, onPaySuccess }: Iprops) => {
             {errorCard && <p className="text-red-600">{errorCard}</p>}
             <Checkbox
               name="future"
-              value={future_use ? 1 : 0}
+              hidden={click_game_plus}
+              value={click_game_plus?1:future_use ? 1 : 0}
               onChange={() => setFutureUse(!future_use)}
               label="Enregistrer ma carte pour mes futurs achats"
-              className="flex-1 my-4"
+              className={click_game_plus?"hidden":"flex-1 my-4"}
             />
           </>
         ) : (

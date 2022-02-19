@@ -26,7 +26,7 @@ const AccountSideBar: React.FC<DashboardSidebarProps> = ({ className }) => {
               ?.slice(0, -3)
               .map((item: any, idx) => (
                 <NavLink
-                  key={item.name}
+                  key={idx}
                   activeClassName="bg-accent text-white"
                   href={item.href}
                 >
@@ -44,11 +44,9 @@ const AccountSideBar: React.FC<DashboardSidebarProps> = ({ className }) => {
                   </a>
                 </NavLink>
               ))}
-                {data?.me?.subscription && (<>
-                  <NavLink
-                  href={"/games"}
-                  activeClassName="bg-accent text-white"
-                >
+            {data?.me?.subscription && (
+              <>
+                <NavLink href={"/games"} activeClassName="bg-accent text-white">
                   <a
                     href={"/games"}
                     className="text-cyan-100 hover:text-white hover:bg-accent-hover group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md"
@@ -77,7 +75,8 @@ const AccountSideBar: React.FC<DashboardSidebarProps> = ({ className }) => {
                     Abonnement
                   </a>
                 </NavLink>
-                </> )}
+              </>
+            )}
           </div>
           <div className="mt-6 pt-6">
             <div className="px-2 space-y-1">
@@ -101,7 +100,6 @@ const AccountSideBar: React.FC<DashboardSidebarProps> = ({ className }) => {
                   </a>
                 </NavLink>
               ))}
-            
             </div>
           </div>
         </nav>

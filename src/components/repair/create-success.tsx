@@ -1,5 +1,6 @@
 import { CheckMarkCircle } from "@components/icons/checkmark-circle";
 import { useRouter } from "next/router";
+import QRCode from "react-qr-code";
 
 export default function CreateSucucess({ repair }: any) {
   const router=useRouter();
@@ -17,7 +18,8 @@ export default function CreateSucucess({ repair }: any) {
             Reparation de consuel est enregistré avec succès
           </h3>
           <div>sous reference N°{repair.ref}</div>
-
+          <div className="flex my-5 justify-center"> <QRCode value={`${repair.ref}`} /></div>
+         
           <div className="mt-2">
             <p className="text-sm text-gray-500">
               Merci d'envoyer votre console à l'adresse indiqué

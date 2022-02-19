@@ -16,6 +16,10 @@ type MODAL_VIEWS =
   |"NOTICE_LIST"
   |"GAME_SALE_ADD_FORM"
   |"PAYMENT_ERROR"
+  |"REPAIR_TRACK_LABEL"
+  |"DELIVERY_FORM"
+  |"PAYMENT_SUCCESS"
+
   ;
 
 interface State {

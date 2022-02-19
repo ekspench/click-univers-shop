@@ -1,11 +1,7 @@
 import { GetServerSideProps } from "next";
 import { parseContextCookie } from "@utils/parse-cookie";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { SEO } from "@components/seo";
 import AccountLayout from "@components/layout/account-layout";
-import LinkButton from "@components/ui/link-button";
-import { RepairList } from "@components/repair/repair-list";
-import { useRepairsQuery } from "@data/repair/use-repairs.query";
 import DashboardHead from "@components/dashboard/dashboard-head";
 import CardInfo from "@components/dashboard/card-info";
 import { OrderIcon } from "@components/icons/order-icon";
@@ -13,8 +9,9 @@ import TransactionList from "@components/transaction/transaction-list";
 import { DollarIcon, RepairIcon } from "@components/icons/sidebar";
 import { formatToPrice } from "@utils/use-price";
 import { useCustomerQuery } from "@data/subscription/use-customer.query";
-import { CoreApi } from "@utils/api/core.api";
 import { useDashboardInfoQuery } from "@data/dashboard/use-dashboard-info.query";
+import { useTransactionsQuery } from "@data/transaction/use-transactions.query";
+import { ROUTES } from "@utils/routes";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -31,6 +28,11 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 export default function dashboardPage() {
   const { data: dataMe } = useCustomerQuery();
   const { data: info } = useDashboardInfoQuery();
+  const { data: transacations } = useTransactionsQuery({
+    limit: 10,
+    orderBy: "created_at",
+    sortedBy: "DESC",
+  });
   return (
     <>
       <DashboardHead />
@@ -48,19 +50,21 @@ export default function dashboardPage() {
             icon={<OrderIcon className="h-6 w-6 text-gray-400" />}
             text="Commande en cours"
             value={info?.info?.total_order}
+            href={ROUTES.ORDERS}
           />
 
           <CardInfo
             icon={<RepairIcon className="h-6 w-6 text-gray-400" />}
             text="Reparation en cours"
             value={info?.info?.total_repair}
+            href={ROUTES.REPAIR}
           />
         </div>
         <h2 className="text-lg leading-6 font-medium text-gray-900 mt-5">
           Dernière transactions
         </h2>
         <div className="bg-white border rounded-md shadow ">
-          <TransactionList />
+          <TransactionList transactions={transacations} />
         </div>
       </div>
     </>

@@ -2,6 +2,15 @@ import dynamic from "next/dynamic";
 import Modal from "@components/ui/modal/modal";
 import { useModalAction, useModalState } from "./modal.context";
 import ShopProfileCard from "@components/profile/profile-card";
+const PaymentModalSuccess = dynamic(
+  () => import("@components/payment/payment-modal-success")
+);
+const DeliveryForm = dynamic(
+  () => import("@components/delivery/delivery-form")
+);
+const RepairTrackLabel = dynamic(
+  () => import("@components/repair/repair-track-label")
+);
 const Login = dynamic(() => import("@components/auth/login"));
 const Register = dynamic(() => import("@components/auth/register"));
 const ForgotPassword = dynamic(
@@ -18,13 +27,23 @@ const AddressDeleteView = dynamic(
 );
 const AddTicket = dynamic(() => import("@components/ticket/ticket-form"));
 
-const ProductAvis=dynamic(()=>import("@components/order/product-avis-form"));
+const ProductAvis = dynamic(
+  () => import("@components/order/product-avis-form")
+);
 const PaymentForm = dynamic(() => import("@components/payment/payement-form"));
-const DeliveryRelayPoint=dynamic(()=>import("@components/checkout/delivery-relay-point"));
-const  NoticeList=dynamic(()=>import("@components/product/notice-list"));
-const PaymentDeleteView=dynamic(()=>import("@components/payment/payment-delete-view"));
-const GameSaleAddForm =dynamic(()=>import("@components/game/game-sale-add-form"));
-const PayementError=dynamic(()=>import("@components/payment/payement-error"));
+const DeliveryRelayPoint = dynamic(
+  () => import("@components/checkout/delivery-relay-point")
+);
+const NoticeList = dynamic(() => import("@components/product/notice-list"));
+const PaymentDeleteView = dynamic(
+  () => import("@components/payment/payment-delete-view")
+);
+const GameSaleAddForm = dynamic(
+  () => import("@components/game/game-sale-add-form")
+);
+const PayementError = dynamic(
+  () => import("@components/payment/payement-error")
+);
 const ManagedModal = () => {
   const { isOpen, view, data } = useModalState();
   const { closeModal } = useModalAction();
@@ -47,14 +66,16 @@ const ManagedModal = () => {
         />
       )}
       {view === "ADD_TICKET" && <AddTicket />}
-      {view==="PRODUCT_AVIS"&&<ProductAvis/>}
+      {view === "PRODUCT_AVIS" && <ProductAvis />}
       {view === "STRIPE_PAYMENT_FORM" && <PaymentForm />}
-      {view=== "DELIVERY_RELAY_POINT" && <DeliveryRelayPoint/>}
-      {view==="NOTICE_LIST"&&<NoticeList/>}
-      {view==="DELETE_STRIPE_CARD"&&<PaymentDeleteView/>}
-      {view==="GAME_SALE_ADD_FORM"&&<GameSaleAddForm/>}
-      {view==="PAYMENT_ERROR"&&<PayementError/>}
-
+      {view === "DELIVERY_RELAY_POINT" && <DeliveryRelayPoint />}
+      {view === "NOTICE_LIST" && <NoticeList />}
+      {view === "DELETE_STRIPE_CARD" && <PaymentDeleteView />}
+      {view === "GAME_SALE_ADD_FORM" && <GameSaleAddForm />}
+      {view === "PAYMENT_ERROR" && <PayementError />}
+      {view === "REPAIR_TRACK_LABEL" && <RepairTrackLabel />}
+      {view == "DELIVERY_FORM" && <DeliveryForm />}
+      {view == "PAYMENT_SUCCESS" && <PaymentModalSuccess />}
     </Modal>
   );
 };

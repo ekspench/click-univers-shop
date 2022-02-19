@@ -9,16 +9,21 @@ interface Props {
   id: string;
   me:User;
   heading: string;
+  onSelect:any;
   addresses: any[] | undefined;
   count?: number;
   type?: "billing" | "shipping";
 }
 
-const Address = ({ id, addresses, heading, count, type,me}: Props) => {
+const Address = ({ id, addresses, heading, count, type,me,onSelect}: Props) => {
   const { openModal } = useModalAction();
   const { updateBillingAddress, updateShippingAddress } = useCheckout();
   useEffect(() => {
     if (addresses) {
+      if(onSelect){
+        onSelect(addresses[0]);
+      }
+
       updateBillingAddress(addresses[0]);
       updateShippingAddress(addresses[0]);
     }
@@ -46,12 +51,15 @@ const Address = ({ id, addresses, heading, count, type,me}: Props) => {
     } else {
       updateShippingAddress(item);
     }*/
+    if(onSelect){
+      onSelect(item);
+    }
+   
     updateBillingAddress(item);
     updateShippingAddress(item);
   }
   return (
     <SectionWithCardGroup
-      count={count}
       heading={heading}
       addActionText="text-address"
       items={addresses}

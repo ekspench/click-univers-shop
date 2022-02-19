@@ -1,7 +1,9 @@
+import { formatDateComplet } from "@utils/format-date";
 import { useIsRTL } from "@utils/locals";
+import { formatToPrice } from "@utils/use-price";
 import Table from "rc-table";
 
-const TransactionList = () => {
+const TransactionList = ({ transactions }: any) => {
   const { alignLeft, alignRight } = useIsRTL();
   const table_column = [
     {
@@ -17,13 +19,7 @@ const TransactionList = () => {
       width: 250,
       key: "amount",
       align: alignLeft,
-    },
-    {
-      title: "type",
-      dataIndex: "type",
-      width: 100,
-      key: "type",
-      align: "center",
+      render: (amount: number) => formatToPrice(amount),
     },
     {
       title: "Date",
@@ -31,6 +27,7 @@ const TransactionList = () => {
       width: 250,
       key: "created_at",
       align: alignRight,
+      render: (date:any) => <span>{formatDateComplet(date)}</span>,
     },
   ];
   return (
@@ -38,7 +35,7 @@ const TransactionList = () => {
       <Table
         //@ts-ignore
         columns={table_column}
-        data={[]}
+        data={transactions?.pages?.[0]?.data}
         className="orderDetailsTable w-full"
         scroll={{ x: 200, y: 500 }}
       />

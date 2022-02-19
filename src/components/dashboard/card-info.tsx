@@ -1,3 +1,5 @@
+import { Link } from "..";
+
 export default function CardInfo({ text, value,icon,href }: any) {
   return (
     <div className="bg-white overflow-hidden shadow rounded-lg">
@@ -20,9 +22,11 @@ export default function CardInfo({ text, value,icon,href }: any) {
       </div>
       <div className="bg-gray-50 px-5 py-3 ">
         <div className="text-sm">
-          <a href={href} className="font-medium text-cyan-700 hover:text-cyan-900">
+          {href&&
+           <Link href={href} className="font-medium text-cyan-700 hover:text-cyan-900">
            Voir tous
-          </a>
+          </Link>}
+         
         </div>
       </div>
     </div>

@@ -13,7 +13,6 @@ export const champs_required_data = [
   {
     label: "Année",
     value: "year",
-    
   },
   {
     label: "Kilomètrage",
@@ -62,28 +61,54 @@ export const champs_required_data = [
       },
     ],
   },
-
 ];
 
-export const status_repair:any={
-  "pending":{
-    "label":"En attente",
-    "text":"En attente de colis",
-    "value":1
+export const status_repair: any = {
+  pending: {
+    label: "En attente",
+    text: "En attente d'envoie du colis",
+    value: 1,
   },
-  "fixing":{
-    "label":"En reparation",
-    "text":"En cours de reparation",
-    "value":2
+  send_dispached: {
+    label: "Expedié",
+    text: "Colis en cours d'envoie ...",
+    value: 1,
   },
-  "to_pay":{
-    "label":"A Payer",
-    "text":"En attente de paiement du facture",
-    "value":3
+  checking: {
+    label: "Verification",
+    text: "Verification en cours ...",
+    value: 2,
   },
-  "paid":{
-    "label":"Payée",
-    "text":"Facture payée",
-    "value":4
-  }
-}
+  to_pay: {
+    label: "A Payer",
+    text: "En attente de paiement du facture ...",
+    value: 3,
+  },
+  paid: {
+    label: "Payée",
+    text: "Facture payée",
+    value: 4,
+  },
+  fixing: {
+    label: "En reparation",
+    text: "En cours de reparation ...",
+    value: 5,
+  },
+  fixed: {
+    label: "Reparation terminé",
+    text: "Réparation terminé",
+    value: 6,
+  },
+  return_dispached: {
+    label: "Retour colis",
+    text: "Envoie de colis de retour ...",
+    value: 7,
+  },
+  finished: {
+    label: "Terminé",
+    text: "Terminé",
+    value: 7,
+  },
+  total:8
+};
+

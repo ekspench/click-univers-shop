@@ -63,8 +63,8 @@ const ClickGamePlus = ({value,setValue}:any) => {
             </h3>
             <p className="relative grid grid-cols-1">
               <span className="flex flex-col text-center">
-                <span className="text-md font-semibold mt-2">
-                  29,99&nbsp;€/mois
+                <span className="text-lg font-bold mt-2">
+                  39,99&nbsp;€/mois
                 </span>
               </span>
             </p>

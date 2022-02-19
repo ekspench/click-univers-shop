@@ -27,10 +27,11 @@ import OrderProductClickCollectList from "@components/order/order-product-click-
 import ModeClickCollectCard from "@components/common/mode-click-collect-card";
 import ClickGamePlus from "@components/checkout/click-game-plus.";
 import { AnimatePresence } from "framer-motion";
+import Loader from "@components/ui/loader/loader";
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { data, refetch } = useCustomerQuery();
+  const { data, refetch,isLoading } = useCustomerQuery();
   const [clickGamePlus, setClickGamePlus] = useState(true);
   const {
     billing_address,
@@ -56,7 +57,7 @@ export default function CheckoutPage() {
   const { mutate: verifyCheckout, isLoading: loading } =
     useVerifyCheckoutMutation();
   const { data: orderStatusData } = useOrderStatusesQuery();
-
+  console.log("datame", data);
   async function handleVerifyCheckout() {
     if (loggedIn()) {
       if (billing_address && shipping_address) {
@@ -168,6 +169,9 @@ export default function CheckoutPage() {
   };
   const isFullClickCollect =
     totalItems > 0 && totalItems === totalClickCollectActive;
+  if(isLoading){
+    return <Loader/>
+  }
   return (
     <div className="py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20">
       <div className="flex flex-col lg:flex-row items-center lg:items-start m-auto lg:space-s-8 w-full max-w-5xl">
@@ -262,9 +266,15 @@ export default function CheckoutPage() {
               />
             </div>
           )}
-          <AnimatePresence>
-            <ClickGamePlus value={clickGamePlus} setValue={setClickGamePlus} />
-          </AnimatePresence>
+          {!data?.me?.subscription.status && (
+            <AnimatePresence>
+              <ClickGamePlus
+                value={clickGamePlus}
+                setValue={setClickGamePlus}
+              />
+            </AnimatePresence>
+          )}
+
           {showPay() && (
             <>
               <div className=" sm:hidden w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
@@ -272,6 +282,7 @@ export default function CheckoutPage() {
               </div>
 
               <PaymentForm
+                click_game_plus={clickGamePlus&&!data?.me?.subscription?.status}
                 onPaySuccess={onPaySuccess}
                 data={{
                   action: "create_order_payment",

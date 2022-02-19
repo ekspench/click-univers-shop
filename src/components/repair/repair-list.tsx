@@ -57,6 +57,7 @@ export const RepairList = ({ repairs,isLoading }: { repairs: repair[],isLoading:
     return (
       <Table
         //@ts-ignore
+        rowKey="id"
         columns={refundTableColumns}
         data={repairs}
 

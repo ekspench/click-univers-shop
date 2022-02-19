@@ -21,7 +21,7 @@ type FormValue = {
 };
 
 const RepairCreateStep1 = () => {
-  const { control, watch, handleSubmit } = useForm<FormValue>();
+
   const { model_brand, repair_items, deleteRepairItem, total_amount, setStep } =
     useRepair();
 

@@ -88,8 +88,10 @@ function repairReducer(state: State, action: Action) {
     case "SET_SHIPPING": {
       return { ...state, shipping: action.payload };
     }
+    case "SET_SHIPPING_ADDRESS": {
+      return { ...state, shipping: action.payload };
+    }
     case "ADD_REPAIR_ITEM": {
-      console.log("state",state);
       const newState = {
         ...state,
         repair_items: [...state.repair_items, action.payload],

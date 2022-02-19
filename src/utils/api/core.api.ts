@@ -13,6 +13,8 @@ export type ParamsType = {
   platform_id?:string;
   user_id?: string;
   limit?: number;
+  orderBy?:string;
+  sortedBy?:string,
   page?:number;
 };
 export class CoreApi {
@@ -49,6 +51,8 @@ export class CoreApi {
       product_id,
       platform_id,
       limit = 30,
+      orderBy = "updated_at",
+      sortedBy = "DESC",
       user_id,
     } = params;
     const searchString = this.stringifySearchQuery({
@@ -63,7 +67,7 @@ export class CoreApi {
       product_id,
       is_active,
     });
-    const queryString = `?search=${searchString}&searchJoin=and&limit=${limit}&userId=${user_id}&page=${page}`;
+    const queryString = `?search=${searchString}&searchJoin=and&limit=${limit}&userId=${user_id}&page=${page}&orderBy=${orderBy}&sortedBy=${sortedBy}`;
     return this.http.get(this._base_path + queryString);
   }
   findAll() {

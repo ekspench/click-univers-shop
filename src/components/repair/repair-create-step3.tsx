@@ -41,7 +41,7 @@ export default function RepairCreateStep3({ onSuccess }: any) {
       paid_total:0,
       status:"pending",
       ...shipping,
-      shipping_company: shipping?.shipping_company.value,
+      shipping_company: "",
       sender_address_id: shipping?.sender_address?.id,
     };
     mutate(input, {
@@ -56,7 +56,7 @@ export default function RepairCreateStep3({ onSuccess }: any) {
         <h1 className="text-md font-semibold uppercase tracking-wide text-indigo-600">
           Validation de votre paquet
         </h1>
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 hidden">
           <dl className="mt-2 text-sm font-medium">
             <dt className="text-gray-900">Company de livraison:</dt>
             <dd className="text-indigo-600 ml-4">
@@ -87,7 +87,7 @@ export default function RepairCreateStep3({ onSuccess }: any) {
             </dd>
           </div>
           <div>
-            <dt className="font-medium text-gray-900">Expediteur</dt>
+            <dt className="font-medium text-gray-900">Adresse retour colis</dt>
             <dd className="mt-2 text-gray-700">
               <address className="not-italic">
                 <span className="block">{shipping?.sender_address?.title}</span>
@@ -108,7 +108,7 @@ export default function RepairCreateStep3({ onSuccess }: any) {
         <h2 className="sr-only">Vos jeux</h2>
 
         <h3 className="sr-only">Items</h3>
-        <table className="min-w-full divide-y divide-gray-200 mt-5">
+        <table className="min-w-full divide-y divide-gray-200 mt-2">
           <thead className="bg-gray-50">
             <tr>
               <th
