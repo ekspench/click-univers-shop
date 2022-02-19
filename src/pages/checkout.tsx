@@ -266,7 +266,7 @@ export default function CheckoutPage() {
               />
             </div>
           )}
-          {!data?.me?.subscription.status && (
+          {!data?.me?.subscription?.status && (
             <AnimatePresence>
               <ClickGamePlus
                 value={clickGamePlus}
