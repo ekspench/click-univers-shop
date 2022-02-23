@@ -1,28 +1,16 @@
-import { CheckMark } from "@components/icons/checkmark";
-import PaymentForm from "@components/payment/payement-form";
-import PaymentCard from "@components/payment/payment-card";
 import PaymentCardInfo from "@components/payment/payment-card-info";
 import Loader from "@components/ui/loader/loader";
 import { useCustomerQuery } from "@data/customer/use-customer.query";
 import { UseStripeCardQuery } from "@data/stripe/use-stripe-cards.query";
 import { formatDateComplet } from "@utils/format-date";
-import { formatToPrice } from "@utils/use-price";
 import dayjs from "dayjs";
-import { useState } from "react";
 dayjs.locale()
 
-const checklist = [
-  "Commission",
-  "Parrainage",
-  "Prix reduit",
-  "Reparer vos console",
-  "Vendre jeux",
-  "14 jour d'essaie",
-];
+
 const SubscriptionDetail = () => {
 const {data}=useCustomerQuery();
 const subscription=data?.me?.subscription;
-const {data:cardData,isLoading:loadingData}=UseStripeCardQuery("pm_1KPjAQEUJvTca8P5EJbBvc80");
+const {data:cardData,isLoading:loadingData}=UseStripeCardQuery(subscription?.payment_method_id);
   return (
     <div className="w-full bg-light">
       <div className="max-w-7xl mx-auto py-5 px-4 sm:py-5 sm:px-6 lg:px-8">
@@ -44,7 +32,7 @@ const {data:cardData,isLoading:loadingData}=UseStripeCardQuery("pm_1KPjAQEUJvTca
             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
               <dt className="text-sm font-medium text-gray-500">Type</dt>
               <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                <span className="flex-grow">CLICK GAME +</span>
+                <span className="flex-grow">{subscription?.type}</span>
               </dd>
             </div>
             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">

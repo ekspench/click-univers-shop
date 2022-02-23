@@ -34,9 +34,11 @@ const ShippingMode = ({ count }: Props) => {
       count={count}
       defaultChecked={data?.shippings.findIndex((s) => s.id == shipping_class)}
       heading="text-delivery-schedule"
+      
       items={data?.shippings.map((s: any) => ({
         id: s.id,
         title: s.name,
+        sub_description:"2 à 5 jours",
         description:
           (total > 35 && s.id == 2) || s.type === "free_shipping"
             ? "Gratuit"

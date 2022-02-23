@@ -57,7 +57,6 @@ export default function CheckoutPage() {
   const { mutate: verifyCheckout, isLoading: loading } =
     useVerifyCheckoutMutation();
   const { data: orderStatusData } = useOrderStatusesQuery();
-  console.log("datame", data);
   async function handleVerifyCheckout() {
     if (loggedIn()) {
       if (billing_address && shipping_address) {
@@ -65,7 +64,7 @@ export default function CheckoutPage() {
           {
             amount: total,
             shipping_class_id: shipping_class,
-            products: items?.map((item) => formatOrderedProduct(item)),
+            products: items?.map((item) => formatOrderedProduct(item,clickGamePlus)),
             billing_address: {
               ...billing_address,
             },
@@ -142,7 +141,7 @@ export default function CheckoutPage() {
           address: shipping_address?.address && shipping_address.address,
         },
       },
-      products: available_items?.map((item) => formatOrderedProduct(item)),
+      products: available_items?.map((item) => formatOrderedProduct(item,clickGamePlus)),
     };
   };
   const onPaySuccess = (data: any) => {
@@ -256,7 +255,8 @@ export default function CheckoutPage() {
             {totalItems > 0 && totalItems === totalClickCollectActive ? (
               <ModeClickCollectCard count={1} />
             ) : (
-              <ShippingMode count={2} />
+              <ShippingMode count={2} 
+              />
             )}
           </div>
           {totalClickCollect > 0 && (

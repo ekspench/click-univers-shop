@@ -22,8 +22,7 @@ import { appWithTranslation } from "next-i18next";
 import { useEffect, useRef, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { CartProvider } from "@contexts/quick-cart/cart.context";
-import Seo from "@components/ui/seo";
-import { useSession } from "next-auth/client";
+import { SessionProvider, useSession } from "next-auth/react";
 import { useSocialLoginMutation } from "@data/auth/use-social-login-mutation";
 import { CUSTOMER } from "@utils/constants";
 import Cookies from "js-cookie";
@@ -55,12 +54,12 @@ const AppUser: React.FC = (props) => {
 };
 
 const SocialLoginProvider: React.FC = () => {
-  const [session, loading] = useSession();
+  const { data: session, status } = useSession()
   const { mutate: socialLogin } = useSocialLoginMutation();
   const { closeModal } = useModalAction();
   const { authorize, isAuthorize } = useUI();
   const [errorMsg, setErrorMsg] = useState("");
-
+  console.log("session",session);
   useEffect(() => {
     // is true when valid social login access token and provider is available in the session
     // but not authorize/logged in yet
@@ -94,12 +93,12 @@ const SocialLoginProvider: React.FC = () => {
   }, [isAuthorize, session]);
 
   // When rendering client side don't display anything until loading is complete
-  if (typeof window !== "undefined" && loading) return null;
+  if (typeof window !== "undefined" && status==="loading") return null;
 
   return <div>{errorMsg}</div>;
 };
 
-function CustomApp({ Component, pageProps }: AppProps) {
+function CustomApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const queryClientRef = useRef<any>(null);
   if (!queryClientRef.current) {
     queryClientRef.current = new QueryClient();
@@ -142,10 +141,12 @@ function CustomApp({ Component, pageProps }: AppProps) {
             <ModalProvider>
               <CartProvider>
                 <UIProvider>
+                <SessionProvider session={session} refetchInterval={5 * 60}>
                   <CheckoutProvider>
                     <SaleGameProvider>
                       <RepairProvider>
                         <SearchProvider>
+                          
                           <Layout {...pageProps}>
                             <Component {...pageProps} />
                           </Layout>
@@ -156,7 +157,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
                       </RepairProvider>
                     </SaleGameProvider>
                   </CheckoutProvider>
+                  
                   <SocialLoginProvider />
+                  </SessionProvider>
                 </UIProvider>
               </CartProvider>
             </ModalProvider>

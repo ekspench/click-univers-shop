@@ -61,13 +61,6 @@ const ClickGamePlus = ({value,setValue}:any) => {
             <h3 className="mt-2 text-xl font-semibold flex items-center justify-center">
               ClickGames+
             </h3>
-            <p className="relative grid grid-cols-1">
-              <span className="flex flex-col text-center">
-                <span className="text-lg font-bold mt-2">
-                  39,99&nbsp;€/mois
-                </span>
-              </span>
-            </p>
             <div className="relative grid gap-6 bg-white px-5 py-5 sm:gap-8 sm:p-8 lg:grid-cols-1">
               {solutions.map((item) => (
                 <a
@@ -89,6 +82,11 @@ const ClickGamePlus = ({value,setValue}:any) => {
                 </a>
               ))}
             </div>
+            <span className="flex flex-col text-center">
+                <span className="text-xs text-gray-600 font-bold mt-2">
+                  39,99&nbsp;€/mois
+                </span>
+              </span>
           </motion.div>
         )}
       </AnimatePresence>

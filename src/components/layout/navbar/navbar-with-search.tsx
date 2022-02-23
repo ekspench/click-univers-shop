@@ -6,7 +6,6 @@ import { siteSettings } from "@settings/site.settings";
 import Logo from "@components/ui/logo";
 import Search from "@components/common/search";
 import JoinButton from "@components/layout/navbar/join-button";
-import ProductTypeMenu from "@components/layout/navbar/product-type-menu";
 import dynamic from "next/dynamic";
 import { ROUTES } from "@utils/routes";
 import { useTypesQuery } from "@data/type/use-types.query";

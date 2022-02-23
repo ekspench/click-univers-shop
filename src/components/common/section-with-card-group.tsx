@@ -38,7 +38,6 @@ const SectionWithCardGroup = ({
 }: Props) => {
   const { t } = useTranslation("common");
   const [selected, setSelected] = useState(defaultChecked);
-  console.log("default checked",defaultChecked);
   function select(item: any, idx: number) {
     setSelected(idx);
     onSelect(item);
@@ -94,6 +93,9 @@ const SectionWithCardGroup = ({
                 {item.description
                   ? item.description
                   : formatAddress(item.address)}
+              </p>
+              <p className="text-sm text-sub-heading">
+                {item.sub_description}
               </p>
               <div className="absolute top-4 end-4 flex space-s-2 opacity-0 group-hover:opacity-100">
                 {onEdit && (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { signOut as socialLoginSignOut } from "next-auth/client";
+import { signOut as socialLoginSignOut } from "next-auth/react";
 import Cookies from "js-cookie";
 import Spinner from "@components/ui/loaders/spinner/spinner";
 import { useLogoutMutation } from "@data/auth/use-logout.mutation";

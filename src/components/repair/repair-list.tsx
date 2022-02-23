@@ -10,8 +10,7 @@ import { useTranslation } from "react-i18next";
 export const RepairList = ({ repairs,isLoading }: { repairs: repair[],isLoading:boolean}) => {
     const { t } = useTranslation("common");
     const { alignLeft, alignRight } = useIsRTL();
-    const { openModal } = useModalAction();
-  
+    console.log("repairs",repairs);
     const refundTableColumns = [
     
       {
@@ -57,12 +56,12 @@ export const RepairList = ({ repairs,isLoading }: { repairs: repair[],isLoading:
     return (
       <Table
         //@ts-ignore
-        rowKey="id"
+        rowKey="ref"
         columns={refundTableColumns}
         data={repairs}
 
         className="orderDetailsTable w-full"
-        scroll={{ x: 350, y: 500 }}
+        scroll={{ x: 450, y: 500 }}
       />
     );
   };

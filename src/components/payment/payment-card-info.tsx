@@ -6,7 +6,6 @@ const PaymentCardInfo = ({ card }: any) => {
     (card.card.brand === "paypal" && Paypal) ||
     (card.card.brand === "master" && MasterCard) ||
     (card.card.brand === "visa" && Visa);
-console.log("card",card);
   return (
     <div className="sm:flex sm:items-start">
         <img className={`h-6 w-auto sm:flex-shrink-0 sm:h-4`} src={logo.src} />

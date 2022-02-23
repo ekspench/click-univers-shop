@@ -10,23 +10,23 @@ const TransactionList = ({ transactions }: any) => {
       title: "Transaction",
       dataIndex: "object",
       key: "object",
+      width:250,
       align: alignLeft,
-      ellipsis: true,
     },
     {
       title: "Montant",
       dataIndex: "amount",
-      width: 250,
+      width: 150,
       key: "amount",
-      align: alignLeft,
+      align: "center",
       render: (amount: number) => formatToPrice(amount),
     },
     {
       title: "Date",
       dataIndex: "created_at",
-      width: 250,
+      width: 150,
       key: "created_at",
-      align: alignRight,
+      align: "center",
       render: (date:any) => <span>{formatDateComplet(date)}</span>,
     },
   ];
@@ -34,10 +34,11 @@ const TransactionList = ({ transactions }: any) => {
     <div>
       <Table
         //@ts-ignore
+        rowKey={"id"}
         columns={table_column}
         data={transactions?.pages?.[0]?.data}
         className="orderDetailsTable w-full"
-        scroll={{ x: 200, y: 500 }}
+        scroll={{ x: 450, y: 500 }}
       />
     </div>
   );

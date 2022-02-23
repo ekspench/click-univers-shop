@@ -6,7 +6,7 @@ import Document, {
   DocumentContext,
 } from "next/document";
 import { i18n } from "next-i18next";
-require('dayjs/locale/fr');
+require("dayjs/locale/fr");
 export default class CustomDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     return await Document.getInitialProps(ctx);
@@ -41,7 +41,7 @@ export default class CustomDocument extends Document {
           <Main />
           <NextScript />
         </body>
-
+        {/** 
         <script
           type="text/javascript"
           src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
@@ -59,7 +59,7 @@ export default class CustomDocument extends Document {
         <script
           type="text/javascript"
           src="https://widget.mondialrelay.com/parcelshop-picker/jquery.plugin.mondialrelay.parcelshoppicker.min.js"
-        ></script>
+        ></script>*/}
       </Html>
     );
   }

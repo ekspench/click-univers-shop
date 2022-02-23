@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
-import { signIn } from "next-auth/client";
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { useLoginMutation } from "@data/auth/use-login.mutation";
 import Logo from "@components/ui/logo";
@@ -13,7 +13,7 @@ import { useTranslation } from "next-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FacebookIcon } from "@components/icons/facebook";
-import { GoogleIcon } from "@components/icons/google";
+//import { GoogleIcon } from "@components/icons/google";
 import { useModalAction } from "@components/ui/modal/modal.context";
 
 type FormValues = {
