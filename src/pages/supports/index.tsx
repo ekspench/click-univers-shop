@@ -16,6 +16,7 @@ import TicketShow from "@components/ticket/ticket-show";
 import { useState } from "react";
 import { useWindowSize } from "@utils/use-window-size";
 import { SEO } from "@components/seo";
+import AccountLayout from "@components/layout/account-layout";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -48,16 +49,15 @@ const isMobile=useWindowSize().width<860;
           <SEO title="Supports" />
     <div className="w-full ">
       <div className="flex flex-col xl:flex-row items-start max-w-1920 w-full mx-auto py-10 px-5 xl:py-14 xl:px-8 2xl:px-14  min-h-screen">
-        <ProfileSidebar className="flex-shrink-0 hidden xl:block xl:w-80 me-8" />
         {/* End of sidebar navigation */}
 
-        <div className="w-full overflow-hidden flex">
+        <div className="w-full  overflow-hidden flex">
           {(!isMobile||(isMobile&&ticketActive==="NONE"))&&
             <div
-            className={`pe-2 lg:pe-2 w-full flex `}
+            className={`pe-2 lg:pe-2 w-full flex max-w-xl`}
             style={{ height: "calc(100vh - 60px)" }}
           >
-            <div className={`flex w-full flex-col h-full pb-5 md:border md:border-border-200 `}>
+            <div className={`flex flex-col  h-full pb-5 md:border md:border-border-200 `}>
               <h3 className="text-xl font-semibold py-5 text-heading px-5">
                 {t("profile-sidebar-ticket")}
               </h3>
@@ -91,4 +91,4 @@ const isMobile=useWindowSize().width<860;
     </>
   );
 }
-SupportPage.Layout = Layout;
+SupportPage.Layout =AccountLayout;

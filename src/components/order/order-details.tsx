@@ -107,6 +107,23 @@ const OrderDetails = ({ order }: Props) => {
                 {mode==="standard"&&order?.shipping?.name}
                 </span>
               </div>
+              {my_order?.tracking_number && (
+            <div className="py-4 px-5 border border-border-200 rounded shadow-sm">
+              <h3 className="mb-2 text-sm  text-heading font-semibold">
+                Suivi de comande
+              </h3>
+              <p className="text-sm text-body-dark">
+                N°{my_order?.tracking_number}
+              </p>
+              {order?.tracking_url && (
+                <a target="_new_blank" href={my_order?.tracking_url}>
+                  <div className="p-1 border-1 text-sm text-center rounded bg-accent text-white mt-1 w-full">
+                    Suivre
+                  </div>
+                </a>
+              )}
+            </div>
+          )}
               {/** 
               <div>
                 <span className="text-sm text-heading font-bold mb-2 block">

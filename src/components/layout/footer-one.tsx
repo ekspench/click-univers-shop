@@ -25,7 +25,7 @@ const FooterOne = () => {
       Vendre sur Click Univers
       </a>
       <div className="flex  ">
-        <Link href="https://admin.click-univers.com" className="text-white mx-2">
+        <Link href="https://admin.click-univers.com" className="text-white hidden mx-2">
           Portail Vendeur
         </Link>
         <Link href={ROUTES.HELP} className="text-white mx-2">
@@ -41,7 +41,7 @@ const FooterOne = () => {
       <div className="grid grid-cols-8 gap-4 w-max">
         <FooterItems
           title="Garantie de remboursement"
-          description="Nous retournons l'argent dans les 30 jours en cas de non conformité, des frais peuvent vous être appliquer."
+          description="Nous retournons l'argent dans les 15 jours en cas de non conformité, des frais peuvent vous être appliquer."
           Icon={<CurrencyExchange width="32" height="32" />}
         />
         <FooterItems

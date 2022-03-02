@@ -9,6 +9,7 @@
   "user-avatar": "user avatar",
   "auth-menu-profile": "Profil",
   "auth-menu-account":"Compte",
+  "auth-menu-dashboard":"Tableau de bord",
   "auth-menu-checkout": "Payer",
   "auth-menu-my-orders": "Commandes",
   "auth-menu-logout": "Déconnexion",

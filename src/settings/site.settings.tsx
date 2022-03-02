@@ -62,9 +62,9 @@ export const siteSettings = {
     { href: ROUTES.CONTACT, label: "nav-menu-contact" },*/
   ],
   authorizedLinks: [
-    { href: ROUTES.DASHBOARD, label: "auth-menu-account" },
+    { href: ROUTES.DASHBOARD, label: "auth-menu-dashboard" },
    /* { href: ROUTES.CHECKOUT, label: "auth-menu-checkout" },*/
-    { href: ROUTES.ORDERS, label: "auth-menu-my-orders" },
+  /*  { href: ROUTES.ORDERS, label: "auth-menu-my-orders" },*/
    /* { href: ROUTES.SUPPORTS, label: "auth-menu-support" },*/
     { href: ROUTES.LOGOUT, label: "auth-menu-logout" },
 

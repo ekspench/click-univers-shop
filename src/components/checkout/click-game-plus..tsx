@@ -7,35 +7,35 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 const solutions = [
   {
-    name: "Jusqu’à -50% sur les prix produits en devenant membre du ClickGames+",
+    name: "Jusqu’à -50% sur les prix produits en devenant membre du ClickGames+.",
     description:'',
      
     href: "#",
     icon: CheckMark,
   },
   {
-    name: "Prioritaire sur les nouvelles sorties et exclusivité",
+    name: "Prioritaire sur les nouvelles sorties et exclusivité.",
     description:
       "",
     href: "#",
     icon: CheckMark,
   },
   {
-    name: "Aucune obligation d’achat. C’est toujours vous qui décidez",
+    name: "Aucune obligation d’achat. C’est toujours vous qui décidez.",
     description:
       "",
     href: "#",
     icon: CheckMark,
   },
   {
-    name: "Jeu livré le jour de la sortie. ",
+    name: "Jeu livré le jour de la sortie.",
     description:
       "",
     href: "#",
     icon: CheckMark,
   },
   {
-    name: "Prioritaire du les files d’attente",
+    name: "Prioritaire du les files d’attente.",
     description:
       "",
     href: "#",
@@ -74,7 +74,7 @@ const ClickGamePlus = ({value,setValue}:any) => {
         {showDetail && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "32rem" }}
+            animate={{ opacity: 1, height: "24rem" }}
             transition={{ duration: 0.5 }}
             exit={{ opacity: 0, height: 0 }}
             className=" h-[24rem] border mt-2 w-full overflow-hidden"
@@ -89,8 +89,8 @@ const ClickGamePlus = ({value,setValue}:any) => {
                   href={item.href}
                   className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 transition ease-in-out duration-150"
                 >
-                  <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
-                    <item.icon className="h-6 w-6" aria-hidden="true" />
+                  <div className="flex-shrink-0 flex items-center justify-center h-6 w-6 rounded-md bg-accent text-white sm:h-6 sm:w-6">
+                    <item.icon className="h-4 w-4 text-light" aria-hidden="true" />
                   </div>
                   <div className="ml-4">
                     <p className="text-sm font-medium text-gray-900">

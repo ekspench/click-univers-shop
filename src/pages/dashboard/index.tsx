@@ -43,19 +43,19 @@ export default function dashboardPage() {
         <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           <CardInfo
             icon={<DollarIcon className="h-6 w-6 text-gray-400" />}
-            text="Solde"
+            text={dataMe?.me?.balance?.current_balance>1?"Soldes":"Solde"}
             value={formatToPrice(dataMe?.me?.balance?.current_balance)}
           />
           <CardInfo
             icon={<OrderIcon className="h-6 w-6 text-gray-400" />}
-            text="Commande en cours"
+            text={info?.info?.total_order>1?"Commandes en cours":"Commande en cours"}
             value={info?.info?.total_order}
             href={ROUTES.ORDERS}
           />
 
           <CardInfo
             icon={<RepairIcon className="h-6 w-6 text-gray-400" />}
-            text="Reparation en cours"
+            text={info?.info?.total_repair>1?"Reparations en cours":"Reparation en cours"}
             value={info?.info?.total_repair}
             href={ROUTES.REPAIR}
           />

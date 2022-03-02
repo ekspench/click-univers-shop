@@ -5,9 +5,13 @@ import SendMessage from "./send-message";
 type propsInput = {
   messages: Message[];
   user: User;
+  ticket_id?:string;
+  purchase_id?:string;
+  title?:string;
+  description?:string;
 };
 
-export default function Chat({ messages, user }: propsInput) {
+export default function Chat({ messages, user, title="Messenger",description,ticket_id,purchase_id}: propsInput) {
   const ref = useRef(null);
   const messagesFilter = useMemo(() => {
     let messageGrouped: any = [];
@@ -15,7 +19,7 @@ export default function Chat({ messages, user }: propsInput) {
     let currentIdx = 0;
     let next_message = false;
 
-    messages.forEach((m) => {
+    messages?.forEach((m) => {
       if (
         currentMessage &&
         (currentMessage.user?.id != m.user?.id ||
@@ -57,10 +61,8 @@ export default function Chat({ messages, user }: propsInput) {
             <div className="bg-green-500 w-3 h-3 absolute right-0 top-0 rounded-full border-2 border-white" />
           </div>
           <div className="ml-2">
-            <a href="javascript:;" className="text-base font-medium">
-              Messenger
-            </a>
-            <div className="text-gray-600 hidden">Online</div>
+           {title}
+            <div className="text-gray-600 ">{description}</div>
           </div>
         </div>
         <a className="text-gray-600 hover:text-theme-1 hidden">
@@ -107,7 +109,7 @@ export default function Chat({ messages, user }: propsInput) {
         })}
         <div ref={ref}></div>
       </div>
-      <SendMessage purchase_id={28} refChatContainer={ref} />
+      <SendMessage purchase_id={purchase_id} ticket_id={ticket_id} refChatContainer={ref} />
     </div>
   );
 }
