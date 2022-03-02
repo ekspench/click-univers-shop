@@ -7,16 +7,37 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 const solutions = [
   {
-    name: "Des centaines de jeux au meilleur prix",
-    description:
-      "De 5% à 50% sur tout, tout le temps avec des nouveautés chaque mois.",
+    name: "Jusqu’à -50% sur les prix produits en devenant membre du ClickGames+",
+    description:'',
+     
     href: "#",
     icon: CheckMark,
   },
   {
-    name: "Prioritaire ",
+    name: "Prioritaire sur les nouvelles sorties et exclusivité",
     description:
-      "vous êtes prioritaire sur les files d’attente et vous profitez également  l’avantage d’un jeu précommandé livré le jour de la sortie.",
+      "",
+    href: "#",
+    icon: CheckMark,
+  },
+  {
+    name: "Aucune obligation d’achat. C’est toujours vous qui décidez",
+    description:
+      "",
+    href: "#",
+    icon: CheckMark,
+  },
+  {
+    name: "Jeu livré le jour de la sortie. ",
+    description:
+      "",
+    href: "#",
+    icon: CheckMark,
+  },
+  {
+    name: "Prioritaire du les files d’attente",
+    description:
+      "",
     href: "#",
     icon: CheckMark,
   },
@@ -53,8 +74,8 @@ const ClickGamePlus = ({value,setValue}:any) => {
         {showDetail && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "24rem" }}
-            transition={{ duration: 1 }}
+            animate={{ opacity: 1, height: "32rem" }}
+            transition={{ duration: 0.5 }}
             exit={{ opacity: 0, height: 0 }}
             className=" h-[24rem] border mt-2 w-full overflow-hidden"
           >
@@ -84,7 +105,7 @@ const ClickGamePlus = ({value,setValue}:any) => {
             </div>
             <span className="flex flex-col text-center">
                 <span className="text-xs text-gray-600 font-bold mt-2">
-                  39,99&nbsp;€/mois
+                Engagement de 12 mois, 39,99€ par mois
                 </span>
               </span>
           </motion.div>
