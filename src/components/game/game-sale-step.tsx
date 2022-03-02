@@ -4,8 +4,8 @@ import { useGameSale } from "@contexts/game-sale.context";
   
 const SaleGameStep=({step}:any)=>{
     const steps = [
-        { id: 1, name: "Mes jeux", href: '#', status: step===1?'current':'complete' },
-        { id: 2, name: 'Livraion', href: '#', status:step<2?'upcoming':step>2?'complete':'current'},
+        { id: 1, name: "PRODUIT", href: '#', status: step===1?'current':'complete' },
+        { id: 2, name: 'Information bancaire', href: '#', status:step<2?'upcoming':step>2?'complete':'current'},
         { id: 3, name: 'Validation', href: '#', status: step<3?'upcoming':'current' },
       ];
       const {setStep}=useGameSale();

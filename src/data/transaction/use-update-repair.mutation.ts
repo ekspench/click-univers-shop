@@ -1,6 +1,6 @@
 import { Createrepair } from "@ts-types/repairs-type";
 import { useMutation, useQueryClient } from "react-query";
-import { RepairService } from "./repair.service";
+import { RepairService } from "./transaction.service";
 type RepairType = {
   id: string | number;
   input:any;

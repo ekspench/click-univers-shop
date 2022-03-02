@@ -101,6 +101,11 @@ export const siteSettings = {
       icon:"RepairIcon"
     },
     {
+      href: ROUTES.SALE,
+      menulabel: "profile-sidebar-rachat",
+      icon:"SubscriptionIcon"
+    },
+    {
       href: ROUTES.HELP,
       menulabel: "profile-sidebar-help",
       icon:"TagIcon"

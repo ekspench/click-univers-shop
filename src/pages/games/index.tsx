@@ -15,6 +15,7 @@ import { RefundList } from "@components/Refund/refund-list";
 import AccountLayout from "@components/layout/account-layout";
 import { GamePurchaseList } from "@components/game/game-purchase-list";
 import LinkButton from "@components/ui/link-button";
+import { usePurchasesQuery } from "@data/purchase-game/use-purchases.query";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -29,6 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 };
 
 export default function Games() {
+  const {data}=usePurchasesQuery({limit:30});
   return (
     <>
       <SEO title="Jeux video" />
@@ -36,12 +38,12 @@ export default function Games() {
         <div className="w-full overflow-hidden">
           <div className="flex justify-between">
           <h3 className="text-xl font-semibold py-5 text-heading px-5">
-            Vente de jeux
+            Ventes
           </h3>
           <LinkButton href={"/games/sale"}>Nouvelle vente</LinkButton>
           </div>
         
-          <GamePurchaseList gamePurchases={[]} />
+          <GamePurchaseList purchases={data?.pages[0].data} />
         </div>
       </div>
     </>

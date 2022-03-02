@@ -17,5 +17,6 @@ export const ROUTES = {
   SHOPS: "/shops",
   SUPPORTS:"/supports",
   REFUND:"/refunds",
-  REPAIR:"/repair"
+  REPAIR:"/repair",
+  SALE:"/games"
 };

@@ -46,19 +46,7 @@ const AccountSideBar: React.FC<DashboardSidebarProps> = ({ className }) => {
               ))}
             {data?.me?.subscription && (
               <>
-                <NavLink href={"/games"} activeClassName="bg-accent text-white">
-                  <a
-                    href={"/games"}
-                    className="text-cyan-100 hover:text-white hover:bg-accent-hover group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md"
-                  >
-                    {getIcon({
-                      iconList: sidebarIcons,
-                      iconName: "SubscriptionIcon",
-                      className: "w-5 h-5 me-4",
-                    })}
-                    Vente de jeux
-                  </a>
-                </NavLink>
+             
                 <NavLink
                   href={"/subscription"}
                   activeClassName="bg-accent text-white"

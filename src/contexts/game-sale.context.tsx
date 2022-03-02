@@ -1,5 +1,5 @@
 import { Game } from "@ts-types/games-type";
-import { Address } from "@ts-types/generated";
+import { Address, Attachment } from "@ts-types/generated";
 import React, { FC, useMemo } from "react";
 type Shipping = {
   shipping_company: string;
@@ -13,9 +13,19 @@ type purchase_game = {
   quantity: number;
   total_price: number;
 };
+type purchase_product = {
+  id: string|number;
+  name: string;
+  price: number;
+  quantity: number;
+  total_price: number;
+  gallery: Attachment[];
+  description: string;
+};
 export interface State {
   shipping: Shipping | null;
   purchase_games: purchase_game[];
+  purchase_products: purchase_product[];
   amount: number;
   total_amount: number;
   step: number;
@@ -24,6 +34,7 @@ export interface State {
 const defaultState = {
   shipping: null,
   purchase_games: [],
+  purchase_products: [],
   amount: 0,
   total_amount: 0,
   step: 1,
@@ -46,6 +57,10 @@ type Action =
       payload: purchase_game;
     }
   | {
+      type: "ADD_PURCHASE_PRODUCT";
+      payload: purchase_product;
+    }
+  | {
       type: "REMOVE_GAME";
       payload: any;
     }
@@ -59,19 +74,37 @@ type Action =
   | {
       type: "SET_STEP";
       payload: number;
-    }|{
-      type:"CLEAR";
     }
- 
+  | {
+      type: "CLEAR";
+    };
 
 export const SaleGameContext = React.createContext<State | any>(initialState);
 
 SaleGameContext.displayName = "SaleGameContext";
-
+const recalcul = (state: State) => {
+  const newState = { ...state };
+  let amount = 0;
+  newState.purchase_games.map((p) => {
+    amount += p.total_price;
+  });
+  newState.amount = amount;
+  newState.total_amount = amount;
+  return newState;
+};
 function saleGameReducer(state: State, action: Action) {
   switch (action.type) {
     case "SET_SHIPPING": {
       return { ...state, shipping: action.payload };
+    }
+    case "ADD_PURCHASE_PRODUCT": {
+      const newState = {
+        ...state,
+        purchase_products: [...state.purchase_products, action.payload],
+        amount: state.amount + action.payload.total_price,
+      };
+      newState.total_amount = newState.amount;
+      return newState;
     }
     case "ADD_GAME_SALE": {
       if (
@@ -89,16 +122,23 @@ function saleGameReducer(state: State, action: Action) {
       }
     }
     case "UPDATE_QUANTITY": {
-      return recalcul({
-        ...state,
-        purchase_games: [...state.purchase_games].map((p) => {
-          if (p.game.id === action.payload.id) {
-            p.quantity = action.payload.quantity;
-            p.total_price = action.payload.quantity * p.price;
-          }
-          return p;
-        }),
+      const purchase_products = [...state.purchase_products].map((p) => {
+        if (p.id == action.payload.id) {
+          p.quantity = action.payload.quantity;
+          p.total_price = action.payload.quantity * p.price;
+        }
+        return p;
       });
+      let total=0;
+      purchase_products.forEach(p=>{
+        total+=p.total_price;
+      })
+      return {
+        ...state,
+        purchase_products: purchase_products,
+        amount:total,
+        total_amount:total,
+      };
     }
 
     case "REMOVE_GAME": {
@@ -128,17 +168,6 @@ function saleGameReducer(state: State, action: Action) {
       return defaultState;
     }
   }
-
-const recalcul = (state: State) => {
-  const newState = { ...state };
-  let amount = 0;
-  newState.purchase_games.map((p) => {
-    amount += p.total_price;
-  });
-  newState.amount = amount;
-  newState.total_amount = amount;
-  return newState;
-};
 }
 export const SaleGameProvider: FC = (props) => {
   const [state, dispatch] = React.useReducer(saleGameReducer, initialState);
@@ -147,6 +176,8 @@ export const SaleGameProvider: FC = (props) => {
   }, [state]);
   const setShippingAddress = (payload: Address) =>
     dispatch({ type: "SET_SHIPPING_ADDRESS", payload });
+  const addPurchaseProduct = (payload: purchase_product) =>
+    dispatch({ type: "ADD_PURCHASE_PRODUCT", payload });
   const addGameSale = (payload: purchase_game) =>
     dispatch({ type: "ADD_GAME_SALE", payload });
   const deleteGame = (payload: any) => {
@@ -161,17 +192,17 @@ export const SaleGameProvider: FC = (props) => {
   const clear = (payload: number) => {
     dispatch({ type: "CLEAR", payload });
   };
-  
-    const setShipping = (payload: Shipping) => {
-      dispatch({ type: "SET_SHIPPING", payload });
-    };
 
+  const setShipping = (payload: Shipping) => {
+    dispatch({ type: "SET_SHIPPING", payload });
+  };
 
   const value = useMemo(
     () => ({
       ...state,
       setShippingAddress,
       addGameSale,
+      addPurchaseProduct,
       updateQuantity,
       deleteGame,
       setStep,

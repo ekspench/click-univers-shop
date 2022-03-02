@@ -2,6 +2,12 @@ import dynamic from "next/dynamic";
 import Modal from "@components/ui/modal/modal";
 import { useModalAction, useModalState } from "./modal.context";
 import ShopProfileCard from "@components/profile/profile-card";
+const PurchasePurposeViewModal = dynamic(
+  () => import("@components/purchase/purchase-purpose-view-modal")
+);
+const PurchaseProductDetailModal = dynamic(
+  () => import("@components/game/purchase-product-detail-modal")
+);
 const PaymentModalSuccess = dynamic(
   () => import("@components/payment/payment-modal-success")
 );
@@ -76,6 +82,10 @@ const ManagedModal = () => {
       {view === "REPAIR_TRACK_LABEL" && <RepairTrackLabel />}
       {view == "DELIVERY_FORM" && <DeliveryForm />}
       {view == "PAYMENT_SUCCESS" && <PaymentModalSuccess />}
+      {view === "PURCHASE_PRODUCT_DETAIL_MODAL" && (
+        <PurchaseProductDetailModal />
+      )}
+      {view === "PURCHASE_PURPOSE_VIEW" && <PurchasePurposeViewModal />}
     </Modal>
   );
 };

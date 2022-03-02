@@ -1,6 +1,9 @@
 import { CheckMarkCircle } from "@components/icons/checkmark-circle";
+import { ROUTES } from "@utils/routes";
+import { useRouter } from "next/router";
 
 export default function GameSaleSucucess({refPurchase}:any) {
+  const router=useRouter();
   return (
     <div className="mx-auto w-full inline-block align-bottom bg-whit px-4 pt-5 overflow-hidden ">
       <div>
@@ -12,7 +15,7 @@ export default function GameSaleSucucess({refPurchase}:any) {
         </div>
         <div className="mt-3 text-center sm:mt-5">
           <h3 className="text-lg leading-6 font-medium text-green-500">
-            Vente de jeux enregistrer avec succès
+            Vente enregistrer avec succès
           </h3>
           <div>sous reference N°{refPurchase}</div>
           <div className="mt-2">
@@ -22,11 +25,13 @@ export default function GameSaleSucucess({refPurchase}:any) {
           </div>
         </div>
       </div>
-      <div className="mt-5 sm:mt-6">
+      <div className="mt-5 sm:mt-6"> 
         <button
           type="button"
-          className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
-          onClick={() => {}}
+          className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-accent text-base font-medium text-white hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+          onClick={() => {
+            router.push(ROUTES.SALE);
+          }}
         >
             Acceder au liste de vente
         </button>

@@ -1,38 +1,51 @@
+import FileInput from "@components/ui/file-input";
 import { useModalAction } from "@components/ui/modal/modal.context";
-import SelectInput from "@components/ui/select-input";
-import SelectAutoComplete from "@components/ui/SelectAutoComplete";
-import { SaleGameProvider, useGameSale } from "@contexts/game-sale.context";
-import { useGamesQuery } from "@data/game/use-games.query";
-import { usePlatformsQuery } from "@data/platform/use-platforms.query";
-import { Platform } from "@ts-types/platforms-type";
+import { useGameSale } from "@contexts/game-sale.context";
+import { AttachmentInput } from "@ts-types/generated";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button } from "..";
+import { Button, Input, TextArea } from "..";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useTranslation } from "next-i18next";
+import { uniqueId } from "lodash";
 
 type FormValue = {
-  game: any;
-  platform: any;
+  name: string;
+  description: string;
+  price: number;
+  gallery: AttachmentInput[];
 };
 
+const schema = yup.object().shape({
+  name: yup.string().required("error-name-required"),
+  description: yup.string().required("error-description-required"),
+  price: yup
+    .number()
+    .typeError("form:error-price-must-number")
+    .positive("form:error-price-must-positive")
+    .required("form:error-price-required"),
+  gallery: yup.array().min(1),
+});
 const GameSaleAddForm = () => {
-  const { control, watch, handleSubmit } = useForm<FormValue>();
-  const platform = watch("platform");
-  const game = watch("game");
-  const [text, setText] = useState<string | undefined>();
-  const { data, isLoading } = usePlatformsQuery();
-  const { data: gameData, isLoading: loadingGame } = useGamesQuery({
-    text: text,
-    platform_id: platform?.id,
+  const {
+    control,
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+  } = useForm<FormValue>({
+    resolver: yupResolver(schema),
+    mode: "onChange",
   });
   const { closeModal } = useModalAction();
-  const { addGameSale } = useGameSale();
+  const { addPurchaseProduct } = useGameSale();
+  const { t } = useTranslation();
   const onSubmit = (values: FormValue) => {
-    console.log(addGameSale);
-    addGameSale({
-      game: values?.game,
-      price: values?.game?.buy_price,
-      total_price: values?.game?.buy_price,
+    addPurchaseProduct({
+      ...values,
+      total_price: values?.price,
       quantity: 1,
+      id: uniqueId(),
     });
     closeModal();
   };
@@ -40,9 +53,9 @@ const GameSaleAddForm = () => {
     <div className="bg-white max-w-2xl  w-96 mx-auto p-8 md:rounded-md">
       <form onSubmit={handleSubmit(onSubmit)}>
         <h3 className="text-md font-semibold mb-5">
-          Ajouter votre jeux à vendre
+          AJouter votre produit à vendre
         </h3>
-        <div className="mb-5">
+        {/**  <div className="mb-5 hidden">
           <label className="block text-body-dark font-semibold text-sm leading-none mb-3">
             Platform
           </label>
@@ -55,29 +68,42 @@ const GameSaleAddForm = () => {
             name={"platform"}
             options={data?.platforms?.data ?? []}
           />
-        </div>
-        {platform && (
-          <div className="">
-            <label className="block text-body-dark font-semibold text-sm leading-none mb-3">
-              Entrer le nom de votre jeux
-            </label>
+        </div>*/}
 
-            <SelectInput
-              isLoading={loadingGame}
-              label={"game"}
-              control={control}
-              getOptionLabel={(option: Platform) => option?.name}
-              getOptionValue={(option: Platform) => option?.id}
-              name={"game"}
-              onInputChange={(e) => setText(e)}
-              options={gameData?.games?.data?.data ?? []}
-            />
+        <div className="mb-5">
+          <label className="block text-body-dark font-semibold text-sm leading-none mb-3">
+            Quelle le nom de votre produit
+          </label>
+          <Input {...register("name")} error={t(errors.name?.message!)} />
+        </div>
+        <div className="mb-5">
+          <label className="block text-body-dark font-semibold text-sm leading-none mb-3">
+            Dis nous un plus sur votre produit
+          </label>
+          <TextArea
+            {...register("description")}
+            error={t(errors.description?.message!)}
+          />
+        </div>
+        <div className="mb-5">
+          <label className="block text-body-dark font-semibold text-sm leading-none mb-3">
+            Votre prix de vente
+          </label>
+          <Input {...register("price")} error={t(errors.price?.message!)} />
+        </div>
+        <div className="mb-5">
+          <label className="block text-body-dark font-semibold text-sm leading-none mb-3">
+            Ajouter quelque photo de votre produit
+          </label>
+          <FileInput thumb_size={16} name="gallery" control={control} />
+        </div>
+        {isValid && (
+          <div className="flex w-full justify-end">
+            {" "}
+            <Button className="mt-5" type="submit">
+              Ajouter
+            </Button>
           </div>
-        )}
-        {game && (
-          <Button className="mt-5" type="submit">
-            Ajouter
-          </Button>
         )}
       </form>
     </div>

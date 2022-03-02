@@ -166,6 +166,7 @@ export declare type Message = {
   id?: Scalars["ID"];
   text: Scalars["String"];
   user?: Maybe<User>;
+  data?:any;
   created_at?: Scalars["DateTime"];
   updated_at?: Scalars["DateTime"];
 };
