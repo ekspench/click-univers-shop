@@ -108,7 +108,7 @@ const OrderInformation = (props: Props) => {
         )}
         <div className="flex justify-between border-t-4 border-double border-border-200 pt-4">
           <p className="text-base font-semibold text-heading">
-            {t("text-total")}
+            {t("text-total-ttc")}
           </p>
           <span className="text-base font-semibold text-heading">{total}</span>
         </div>

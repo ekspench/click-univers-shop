@@ -29,7 +29,7 @@ const checklist = [
   '14 jour d\'essaie',
 ]
 export default function SubscribePage() {
-  const { t } = useTranslation("common");
+ 
   return (
   <>
   <SubscriptionDetail/></>

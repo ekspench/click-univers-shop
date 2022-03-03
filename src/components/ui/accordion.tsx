@@ -85,7 +85,7 @@ type AccordionProps = {
 };
 
 const Accordion: React.FC<AccordionProps> = ({ items, translatorNS }) => {
-  const [expanded, setExpanded] = useState<number>(0);
+  const [expanded, setExpanded] = useState<number|null>(null);
 
   return (
     <>

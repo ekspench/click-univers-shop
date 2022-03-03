@@ -66,7 +66,7 @@ export default function AuthorizedMenu() {
                 <li key={`${href}${label}`}>
                   <button
                     onClick={() => handleClick(href)}
-                    className="block w-full py-2.5 px-6 text-sm text-start font-semibold capitalize text-heading transition duration-200 hover:text-accent focus:outline-none"
+                    className="block w-full py-2.5 px-6 text-sm text-start font-semibold text-heading transition duration-200 hover:text-accent focus:outline-none"
                   >
                     {t(label)}
                   </button>

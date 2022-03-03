@@ -63,6 +63,7 @@ const Address = ({ id, addresses, heading, count, type,me,onSelect}: Props) => {
       heading={heading}
       addActionText="text-address"
       items={addresses}
+      count={count}
       defaultChecked={0}
       onSelect={handleSelect}
       onAdd={handleAdd}

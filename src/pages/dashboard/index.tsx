@@ -55,7 +55,7 @@ export default function dashboardPage() {
 
           <CardInfo
             icon={<RepairIcon className="h-6 w-6 text-gray-400" />}
-            text={info?.info?.total_repair>1?"Reparations en cours":"Reparation en cours"}
+            text={info?.info?.total_repair>1?"Réparations en cours":"Réparation en cours"}
             value={info?.info?.total_repair}
             href={ROUTES.REPAIR}
           />

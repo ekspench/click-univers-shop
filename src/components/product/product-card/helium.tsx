@@ -58,7 +58,7 @@ const Helium: React.FC<HeliumProps> = ({ product, className }) => {
           objectFit="contain"
           className="product-image"
         />
-        {discount && subscription && subscription.status && (
+        {discount&& (
           <div className="absolute top-3 end-3 md:top-4 md:end-4 rounded-full text-xs leading-6 font-semibold px-1.5 sm:px-2 md:px-2.5 bg-yellow-500 text-light">
             {discount}
           </div>

@@ -77,7 +77,7 @@ const ClickGamePlus = ({value,setValue}:any) => {
             animate={{ opacity: 1, height: "24rem" }}
             transition={{ duration: 0.5 }}
             exit={{ opacity: 0, height: 0 }}
-            className=" h-[24rem] border mt-2 w-full overflow-hidden"
+            className=" h-[24rem]  mt-2 w-full overflow-hidden"
           >
             <h3 className="mt-2 text-xl font-semibold flex items-center justify-center">
               ClickGames+
@@ -114,7 +114,7 @@ const ClickGamePlus = ({value,setValue}:any) => {
       {showDetail && (
         <button
           onClick={() => setShowDetail(false)}
-          className=" w-full mt-1 border flex justify-center ronded-sm"
+          className=" w-full mt-1  flex justify-center ronded-sm"
         >
           <ChevronUp width={"16"} height={"16"} />
         </button>
