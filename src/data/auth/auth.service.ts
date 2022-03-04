@@ -29,8 +29,9 @@ export type VerifyPasswordInputType = {
 	token: string;
 };
 export type SocialLoginInputType = {
-	provider: string;
-	access_token: string;
+	provider?: string;
+	access_token?: string;
+	user:any;
 };
 
 class Auth extends CoreApi {

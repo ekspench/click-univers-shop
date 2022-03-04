@@ -60,14 +60,16 @@ const SocialLoginProvider: React.FC = () => {
   const { authorize, isAuthorize } = useUI();
   const [errorMsg, setErrorMsg] = useState("");
   console.log("session",session);
+  console.log("use session",useSession());
   useEffect(() => {
     // is true when valid social login access token and provider is available in the session
     // but not authorize/logged in yet
-    if (!isAuthorize && session?.accessToken && session?.provider) {
+    if (!isAuthorize && session?.user) {
       socialLogin(
         {
-          provider: session?.provider as string,
-          access_token: session?.accessToken as string,
+          user:session?.user,
+          //provider: session?.provider as string,
+          //access_token: session?.accessToken as string,
         },
         {
           onSuccess: (data) => {
