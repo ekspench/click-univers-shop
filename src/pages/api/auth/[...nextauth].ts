@@ -78,18 +78,17 @@ export default NextAuth({
     // },
     async jwt({ token, user, account, profile, isNewUser }) {
       if (account) {
-        const { accessToken, provider } = account;
+        const { access_token, provider } = account;
         token.provider = provider;
         // reform the `token` object from the access token we appended to the `user` object
-        token.accessToken = accessToken;
+        token.accessToken = access_token;
       }
       return token;
     },
-    async session({ session, user }) {
-      if (user) {
-        const { accessToken, provider } = user;
-        session.provider = provider;
-        session.accessToken = accessToken;
+    async session({ session, token, user }) {
+      if (token) {
+        session.provider = token.provider;
+        session.accessToken = token.accessToken;
       }
       return session;
     },

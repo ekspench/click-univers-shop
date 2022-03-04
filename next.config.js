@@ -23,6 +23,7 @@ module.exports = withPWA({
       "googleusercontent.com",
       "localhost",
       "graph.facebook.com",
+"platform-lookaside.fbsbx.com",
       "res.cloudinary.com",
       "s3.amazonaws.com",
       "test.api.click-univers.com",
