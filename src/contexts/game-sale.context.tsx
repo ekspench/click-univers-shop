@@ -100,7 +100,7 @@ function saleGameReducer(state: State, action: Action) {
     case "ADD_PURCHASE_PRODUCT": {
       const newState = {
         ...state,
-        purchase_products: [...state.purchase_products, action.payload],
+        purchase_products: state?.purchase_products ?[...state?.purchase_products, action.payload]:[action.payload],
         amount: state.amount + action.payload.total_price,
       };
       newState.total_amount = newState.amount;
