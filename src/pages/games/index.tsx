@@ -16,6 +16,7 @@ import AccountLayout from "@components/layout/account-layout";
 import { GamePurchaseList } from "@components/game/game-purchase-list";
 import LinkButton from "@components/ui/link-button";
 import { usePurchasesQuery } from "@data/purchase-game/use-purchases.query";
+import CommingSoon from "@components/comming-soon/comming-soon";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -31,6 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 
 export default function Games() {
   const {data}=usePurchasesQuery({limit:30});
+  return <><CommingSoon title={"Le service de vente"} description={""}/></>
   return (
     <>
       <SEO title="Jeux video" />

@@ -6,6 +6,7 @@ import AccountLayout from "@components/layout/account-layout";
 import LinkButton from "@components/ui/link-button";
 import { RepairList } from "@components/repair/repair-list";
 import { useRepairsQuery } from "@data/repair/use-repairs.query";
+import CommingSoon from "@components/comming-soon/comming-soon";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -23,7 +24,7 @@ export default function Repair() {
   const {data,isLoading}=useRepairsQuery({
 
   });
- 
+  return <><CommingSoon title={"Service de réparation"} description={""}/></>
   return (
     <>
       <SEO title="Jeux video" />
