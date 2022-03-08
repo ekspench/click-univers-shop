@@ -1,3 +1,4 @@
+import PriceView from "@components/common/price-view";
 import Button from "@components/ui/button";
 import { useModalAction } from "@components/ui/modal/modal.context";
 import { useUpdatePurchaseGameMutation } from "@data/purchase-game/use-update-purchase-game.mutation";
@@ -8,10 +9,13 @@ const ChatData = ({ data }: any) => {
     case "PPP":
      
       return (
-        <div className="flex mt-2 justify-center w-full px-4">
+        <div className="flex flex-col mt-2 items-center justify-center w-full px-4 border p-4">
+          <p className="mb-5">Montant de l'offre est de <PriceView amount={data?.total}/></p>
+        
           <Button
           onClick={()=>openModal("PURCHASE_PURPOSE_VIEW",{message:data})}
-          className="bg-green-500 hover:bg-green-600">Voir l'offre</Button>
+          size="small"
+          className="bg-green-500 hover:bg-green-600">Detail</Button>
         </div>
       );
       break;

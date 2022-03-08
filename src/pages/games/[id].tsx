@@ -302,7 +302,7 @@ export default function PageSaleDetail() {
              />
              }
           </div>
-          <Chat messages={data?.purchase?.messages} user={dataMe.me} />
+          <Chat messages={data?.purchase?.messages} purchase_id={data?.purchase?.id} user={dataMe.me} />
         </section>
       </main>
     </>
