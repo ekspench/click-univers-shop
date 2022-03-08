@@ -55,6 +55,7 @@ const Helium: React.FC<HeliumProps> = ({ product, className }) => {
           src={image?.original ?? siteSettings?.product?.placeholderImage}
           alt={name}
           layout="fill"
+          priority={true}
           objectFit="contain"
           className="product-image"
         />

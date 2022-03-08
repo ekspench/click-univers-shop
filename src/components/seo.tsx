@@ -12,7 +12,7 @@ type SeoProps = {
 
 export const SEO: React.FC<SeoProps> = ({
   title,
-  description="Marketplace Français | Achat et vente en ligne parmi des milliers d’articles | Click&Collect et livraison gratuite à partir de 35€ | Click sur ton Univers",
+  description="Click Univers | E-commerce spécialiste du jeux vidéos  | Choisissez votre univers | Des nombreuses promotions jusqu’à -70% | Livraison gratuite à partir de 35€ | Click sur ton Univers.",
   canonical,
   css,
   js,

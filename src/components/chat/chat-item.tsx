@@ -3,30 +3,31 @@ import { formatDateComplet, formatDateFromNow } from "@utils/format-date";
 import ChatData from "./chat-data";
 
 export default function ChatItem({ chat }: any) {
-  
-  if (chat.user==null) {
-    return(
-    <div className="flex flex-col justify-center ">
-      <div className="mt-5 flex   justify-center  ">
-        <div className="space-y-2 flex flex-col items-center   ">
-          {chat.messages.map((m: Message) => (
-            <div
-              key={m.id}
-              className="bg-green-400 border rounded-md  max-w-[80%] "
-            >
-              <div className="text-light font-semibold text-center block"> {m.text}</div>
-              {m.data && <ChatData data={m.data} />}
-            </div>
-          ))}
-           <span className="text-center text-xs text-gray-600">
-          {formatDateComplet(chat.date)}
-        </span>
+  if (chat.user == null) {
+    return (
+      <div className="flex flex-col justify-center ">
+        <div className="mt-5 flex   justify-center  ">
+          <div className="space-y-2 flex flex-col items-center   ">
+            {chat.messages.map((m: Message) => (
+              <div
+                key={m.id}
+                className="bg-green-400 border rounded-md  max-w-[80%] "
+              >
+                <div className="text-light font-semibold text-center block">
+                  {" "}
+                  {m.text}
+                </div>
+                {m.data && <ChatData data={m.data} />}
+              </div>
+            ))}
+            <span className="text-center text-xs text-gray-600">
+              {formatDateComplet(chat.date)}
+            </span>
+          </div>
         </div>
+        <div className="flex justify-center "></div>
       </div>
-      <div className="flex justify-center ">
-       
-      </div>
-    </div>);
+    );
   }
   return (
     <>
@@ -53,21 +54,21 @@ export default function ChatItem({ chat }: any) {
         </div>
       ) : (
         <div className="flex flex-col justify-end mr-2">
-          <div className="flex  mt-5 items-end max-w-[80%]">
-            <div className="">
+          <div className="flex  mt-5 items-start max-w-[80%]">
+            <div className="mt-2">
               <span className="inline-block h-10 w-10 border rounded-full overflow-hidden bg-gray-100">
-                <svg
-                  className="h-full w-full text-gray-300"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
+                <img
+                  src={
+                    chat.user.profile?.avatar?.thumbnail ??
+                    "/avatar-placeholder.svg"
+                  }
+                />
               </span>
             </div>
-            <div className="ml-2 space-y-2 flex flex-col items-start ">
+            <div className="ml-2 space-y-1 flex flex-col items-start">
+              <span className="mb-0 text-xs">{chat.user.name}</span>
               {chat.messages.map((m: Message) => (
-                <div className="bg-white border rounded-md p-4">
+                <div key={m.id} className="bg-white border rounded-md p-2">
                   <div className=" text-gray-700 ">{m.text}</div>
                   {m.data && <ChatData data={m} />}
                 </div>

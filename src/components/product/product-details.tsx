@@ -113,6 +113,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                 <Image
                   src={image?.original ?? "/product-placeholder.svg"}
                   alt={name}
+                  priority={true}
                   width={450}
                   height={450}
                 />
