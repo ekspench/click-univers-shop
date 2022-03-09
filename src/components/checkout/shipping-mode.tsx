@@ -42,7 +42,7 @@ const ShippingMode = ({ count }: Props) => {
         description:
           (total > 35 && s.id == 2) || s.type === "free_shipping"
             ? "Gratuit"
-            : "" //`à partir de ${s.amount} €`,
+            : `${s.amount} € `//`à partir de ${s.amount} €`,
       }))}
       onSelect={handleSelect}
     />
