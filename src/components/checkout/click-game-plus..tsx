@@ -64,7 +64,7 @@ const ClickGamePlus = ({value,setValue}:any) => {
         {!showDetail && (
           <button
             onClick={() => setShowDetail(true)}
-            className="md:ml-2 md:border-0 mt-1 border flex justify-center ronded-sm"
+            className="md:ml-2 md:border-0 mt-1  flex justify-center ronded-sm"
           >
             <ChevronDown width={16} height={16} />
           </button>
@@ -82,6 +82,7 @@ const ClickGamePlus = ({value,setValue}:any) => {
             <h3 className="mt-2 text-xl font-semibold flex items-center justify-center">
               ClickGames+
             </h3>
+
             <div className="relative grid gap-6 bg-white px-5 py-5 sm:gap-8 sm:p-8 lg:grid-cols-1">
               {solutions.map((item) => (
                 <a

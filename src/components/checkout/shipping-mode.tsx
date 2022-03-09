@@ -38,11 +38,11 @@ const ShippingMode = ({ count }: Props) => {
       items={data?.shippings.map((s: any) => ({
         id: s.id,
         title: s.name,
-        sub_description:"2 à 5 jours",
+        sub_description:s.delay,
         description:
           (total > 35 && s.id == 2) || s.type === "free_shipping"
             ? "Gratuit"
-            : `à partir de ${s.amount} €`,
+            : "" //`à partir de ${s.amount} €`,
       }))}
       onSelect={handleSelect}
     />
