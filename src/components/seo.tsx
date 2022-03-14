@@ -16,7 +16,7 @@ export const SEO: React.FC<SeoProps> = ({
   canonical,
   css,
   js,
-  image="http://test.api.click-univers.com/storage/96/60847fa03096e252162228.png",
+  image="https://api.click-univers.com/storage/96/60847fa03096e252162228.png",
 }) => (
   <Head>
     <title>{"Click Univers | "+title}</title>

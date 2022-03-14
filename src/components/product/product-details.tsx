@@ -113,7 +113,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                 <Image
                   src={image?.original ?? "/product-placeholder.svg"}
                   alt={name}
-                  priority={true}
+                  loading="eager"
                   width={450}
                   height={450}
                 />
@@ -219,7 +219,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                       disabled={selectedVariation?.is_disable || !isSelected}
                     />
                   )}
-                  {mode !== "user-product" && (
+                 
                     <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
                       <AddToCart
                         isCard={false}
@@ -238,7 +238,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                         </div>
                       )}
                     </div>
-                  )}
+             
                 </>
               )}
 

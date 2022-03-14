@@ -64,10 +64,11 @@ const Feed = () => {
         <div className="flex justify-center mt-8 lg:mt-12">
           <Button
             loading={loadingMore}
+            size="small"
             onClick={handleLoadMore}
             className="text-sm md:text-base font-semibold h-11"
           >
-            {t("text-load-more")}
+            Découvrir d'autres articles
           </Button>
         </div>
       )}

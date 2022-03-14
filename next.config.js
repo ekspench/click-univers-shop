@@ -27,6 +27,7 @@ module.exports = withPWA({
       "res.cloudinary.com",
       "s3.amazonaws.com",
       "test.api.click-univers.com",
+       "api.click-univers.com",
       "click-univers.com",
       "18.141.64.26",
       "dev.api.click-univers.com",

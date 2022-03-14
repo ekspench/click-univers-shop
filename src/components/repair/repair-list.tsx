@@ -59,7 +59,7 @@ export const RepairList = ({ repairs,isLoading }: { repairs: repair[],isLoading:
         rowKey="ref"
         columns={refundTableColumns}
         data={repairs}
-
+        emptyText={()=>(<div className="flex justify-center"> Aucun donnée </div>)}
         className="orderDetailsTable w-full"
         scroll={{ x: 450, y: 500 }}
       />

@@ -37,6 +37,7 @@ const TransactionList = ({ transactions }: any) => {
         rowKey={"id"}
         columns={table_column}
         data={transactions?.pages?.[0]?.data}
+        emptyText={()=>(<div className="flex justify-center"> Aucune transaction </div>)}
         className="orderDetailsTable w-full"
         scroll={{ x: 450, y: 500 }}
       />

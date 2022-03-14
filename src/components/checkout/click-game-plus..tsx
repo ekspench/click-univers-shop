@@ -105,8 +105,8 @@ const ClickGamePlus = ({value,setValue}:any) => {
               ))}
             </div>
             <span className="flex flex-col text-center">
-                <span className="text-xs text-gray-600 font-bold mt-2">
-                Engagement de 12 mois, 39,99€ par mois
+                <span className="text-[9px] text-gray-400 font-bold mt-1">
+                Sans engagement, 39,99€ par moiss
                 </span>
               </span>
           </motion.div>

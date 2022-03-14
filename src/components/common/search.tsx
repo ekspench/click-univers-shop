@@ -24,11 +24,11 @@ const Search: React.FC<Props> = ({ label, ...props }) => {
     router.push(
       {
         pathname,
-        query: { ...rest, text: searchTerm },
+        query: { /*...rest,*/ text: searchTerm },
       },
       {
         pathname: type ? `/${type}` : pathname,
-        query: { ...rest, text: searchTerm },
+        query: { /*...rest,*/ text: searchTerm },
       },
       {
         scroll: false,

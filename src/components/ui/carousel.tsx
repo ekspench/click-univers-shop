@@ -51,6 +51,7 @@ export const ThumbsCarousel: React.FC<Props> = ({ gallery }) => {
               alt={`Product gallery ${item.id}`}
               layout="fill"
               objectFit="contain"
+              loading="eager"
 
               // className="product-image"
             />
@@ -82,6 +83,7 @@ export const ThumbsCarousel: React.FC<Props> = ({ gallery }) => {
                 src={item?.thumbnail ?? "/product-placeholder.svg"}
                 alt={`Product thumb gallery ${item.id}`}
                 width={80}
+                loading="eager"
                 height={80}
               />
             </SwiperSlide>

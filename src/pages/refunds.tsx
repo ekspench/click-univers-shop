@@ -6,7 +6,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { SEO } from "@components/seo";
 import { useRefundsQuery } from "@data/refund/use-tickets.query";
 import { RefundList } from "@components/Refund/refund-list";
-import AccountSideBar from "@components/layout/account-sidebar";
+import AccountLayout from "@components/layout/account-layout";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -22,7 +22,6 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 
 export default function Refunds() {
   const { isLoading: loading, data, error } = useRefundsQuery();
-  console.log("data",data);
   if (error) return <ErrorMessage message={error.message} />;
   return (
     <>
@@ -46,4 +45,4 @@ export default function Refunds() {
   );
 }
 
-Refunds.Layout = AccountSideBar;
+Refunds.Layout = AccountLayout;
