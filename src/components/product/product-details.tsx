@@ -107,13 +107,13 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
 
           <div className="product-gallery h-full">
             {!!gallery?.length ? (
-              <ThumbsCarousel gallery={gallery} />
+              <ThumbsCarousel gallery={[image,...gallery]} />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
                 <Image
                   src={image?.original ?? "/product-placeholder.svg"}
                   alt={name}
-                  loading="eager"
+                  priority={true}
                   width={450}
                   height={450}
                 />
@@ -219,7 +219,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                       disabled={selectedVariation?.is_disable || !isSelected}
                     />
                   )}
-                 
+                  {mode !== "user-product" && (
                     <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
                       <AddToCart
                         isCard={false}
@@ -238,7 +238,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                         </div>
                       )}
                     </div>
-             
+                  )}
                 </>
               )}
 
