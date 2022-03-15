@@ -33,19 +33,30 @@ export default class CustomDocument extends Document {
             gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
               page_path: window.location.pathname,
             });
-            fonction gtag_report_conversion(url) {
+          `,
+            }}
+          />
+            <script
+            dangerouslySetInnerHTML={{
+              __html: `
               var callback = fonction () {
                 if (typeof(url) != 'undefined') {
                   window.location = url;
                 }
               };
               gtag('event', 'conversion', {
-                  « send_to »: « AW-575028874/D1cLCK3uw-gBEIr9mJIC »,
-                  « event_callback »: rappel
+                  « send_to »: « AW-575028874/D1cLCK3uw-gBEIr9mJIC»,
+                  « event_callback »: rappel
               });
               renvoyer false;
             }
-            gtag('event', 'conversion', {'send_to': 'AW-575028874/D1cLCK3uw-gBEIr9mJIC'});
+          `,
+            }}
+          />
+           <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              gtag('event', 'conversion', {'send_to': 'AW-575028874/D1cLCK3uw-gBEIr9mJIC'});
           `,
             }}
           />
