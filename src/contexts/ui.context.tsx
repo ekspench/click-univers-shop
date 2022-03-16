@@ -23,6 +23,9 @@ type Action =
   | {
       type: "AUTHORIZE";
     }
+    |{
+      type:"UNAUTHORIZE";
+    }
   | {
       type: "OPEN_SIDEBAR";
     }
@@ -67,6 +70,12 @@ function uiReducer(state: State, action: Action) {
         ...state,
         isAuthorize: true,
       };
+    }
+    case "UNAUTHORIZE":{
+      return {
+        ...state,
+        isAuthorize: false,
+      }
     }
     case "OPEN_SIDEBAR": {
       return {
@@ -123,6 +132,7 @@ export const UIProvider: FC = (props) => {
   const [state, dispatch] = React.useReducer(uiReducer, initialState);
 
   const authorize = () => dispatch({ type: "AUTHORIZE" });
+  const unauthorize = () => dispatch({ type: "UNAUTHORIZE" });
   const openSidebar = () => dispatch({ type: "OPEN_SIDEBAR" });
   const closeSidebar = () => dispatch({ type: "CLOSE_SIDEBAR" });
   const toggleSidebar = () =>
@@ -144,6 +154,7 @@ export const UIProvider: FC = (props) => {
     () => ({
       ...state,
       authorize,
+      unauthorize,
       openSidebar,
       closeSidebar,
       toggleSidebar,

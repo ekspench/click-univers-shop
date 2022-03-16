@@ -6,9 +6,12 @@ import Spinner from "@components/ui/loaders/spinner/spinner";
 import { useLogoutMutation } from "@data/auth/use-logout.mutation";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { useUI } from "@contexts/ui.context";
+
 
 export default function SignOut() {
   const { t } = useTranslation("common");
+  const { unauthorize } = useUI();
   const router = useRouter();
   const { mutate,isLoading } = useLogoutMutation();
   const [logout,setLogout]=useState(false);
@@ -17,13 +20,13 @@ export default function SignOut() {
     mutate();
     Cookies.remove("auth_token");
     Cookies.remove("auth_permissions");
+    unauthorize();
    setLogout(true);
   }, []);
   useEffect(()=>{
 
     if(logout&&!isLoading){
       router.push("/"); 
-      router.reload();
     }
   },[logout,isLoading])
   return (
