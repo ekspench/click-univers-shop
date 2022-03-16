@@ -7,28 +7,29 @@ import { useLogoutMutation } from "@data/auth/use-logout.mutation";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useUI } from "@contexts/ui.context";
-
+import { AuthService } from "@data/auth/auth.service";
 
 export default function SignOut() {
   const { t } = useTranslation("common");
   const { unauthorize } = useUI();
   const router = useRouter();
-  const { mutate,isLoading } = useLogoutMutation();
-  const [logout,setLogout]=useState(false);
+  //const { mutate, isLoading } = useLogoutMutation();
+  const [logout, setLogout] = useState(false);
   useEffect(() => {
-    socialLoginSignOut({ redirect: false });
-    mutate();
-    Cookies.remove("auth_token");
-    Cookies.remove("auth_permissions");
-    unauthorize();
-   setLogout(true);
+    AuthService.logout().finally(() => {
+      socialLoginSignOut({ redirect: false }).finally(() => {
+        Cookies.remove("auth_token");
+        Cookies.remove("auth_permissions");
+        unauthorize();
+        setLogout(true);
+      });
+    });
   }, []);
-  useEffect(()=>{
-
-    if(logout&&!isLoading){
-      router.push("/"); 
+  useEffect(() => {
+    if (logout) {
+      router.push("/");
     }
-  },[logout,isLoading])
+  }, [logout]);
   return (
     <div className="min-h-screen grid place-items-center">
       <div className="text-center">
