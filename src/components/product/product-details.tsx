@@ -25,6 +25,13 @@ import dayjs from "dayjs";
 import { BoxImportantIcon } from "@components/icons/box-important-icon";
 import { SendMessage } from "./send-message/send-message";
 import { useCustomerQuery } from "@data/customer/use-customer.query";
+import {
+  formatDateComplet,
+  formatDateCompletWithDay,
+} from "@utils/format-date";
+import { DeliveryIcon } from "@components/icons/delivery-icon";
+import { DeliveryTruckIcon } from "@components/icons/DeliveryTruckIcon";
+import { CheckMark } from "@components/icons/checkmark";
 
 type Props = {
   product: any;
@@ -45,7 +52,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
     mode,
     user,
     shop,
-    updated_at
+    updated_at,
   } = product ?? {};
   const { dataMe, isLoading: loadingMe } = useCustomerQuery();
   const subscription = dataMe?.me?.subscription;
@@ -86,6 +93,24 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
       offset: -80,
     });
   };
+  let dateDelivery = new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000);
+  switch (dateDelivery.getDay()) {
+    case 0:
+      dateDelivery = new Date(dateDelivery.getTime() + 2 * 24 * 60 * 60 * 1000);
+      break;
+    case 1:
+      dateDelivery = new Date(dateDelivery.getTime() + 1 * 24 * 60 * 60 * 1000);
+      break;
+    case 2:
+      dateDelivery = new Date(dateDelivery.getTime() + 1 * 24 * 60 * 60 * 1000);
+      break;
+    case 6:
+      dateDelivery = new Date(dateDelivery.getTime() + 2 * 24 * 60 * 60 * 1000);
+      break;
+
+    default:
+      break;
+  }
 
   /**
    *
@@ -107,7 +132,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
 
           <div className="product-gallery h-full">
             {!!gallery?.length ? (
-              <ThumbsCarousel gallery={[image,...gallery]} />
+              <ThumbsCarousel gallery={[image, ...gallery]} />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
                 <Image
@@ -155,11 +180,11 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                 )}
               </div>
             </div>
-            {mode==="user-product"&&
-            <span className="text-small text-gray-400">
-              Publier le {
-                dayjs(updated_at).format("DD/MM/YYYY à HH:MM")
-              }</span>}
+            {mode === "user-product" && (
+              <span className="text-small text-gray-400">
+                Publier le {dayjs(updated_at).format("DD/MM/YYYY à HH:MM")}
+              </span>
+            )}
             {unit && isEmpty(variations) && (
               <span className="text-sm font-normal text-body mt-2 md:mt-3 block">
                 {/*unit*/}
@@ -207,6 +232,23 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
               />
             </div>
             <DeliveryOptionView product={product} />
+            <div className="flex items-center">
+              <DeliveryIcon height="32" width="32" />
+              <div className="ml-4">
+                Livraison {product.price > 35 && "GRATUITE"}{" "}
+                <span className="font-bold">
+                  {formatDateCompletWithDay(dateDelivery.toDateString())}
+                </span>
+              </div>
+            </div>
+            {quantity > 0 &&
+              <div className="flex items-center text-green-500 mt-2 ml-2">
+              <CheckMark height="24" width="24" />
+              <div className="ml-4 ">
+                En stock
+              </div>
+            </div>
+            }
             <div className="mt-4 md:mt-6 flex flex-col lg:flex-row items-center">
               {quantity > 0 && (
                 <>
@@ -245,8 +287,8 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
               {quantity > 0 ? (
                 <>
                   {isEmpty(variations) && (
-                    <span className="text-base text-body whitespace-nowrap lg:ms-7">
-                      {/*{quantity} t("text-pieces-available")*/}
+                    <span className="text-green-500 text-body whitespace-nowrap lg:ms-7">
+                      {/*t("text-in-stock")*/}
                     </span>
                   )}
                   {!isEmpty(selectedVariation) && (
@@ -254,9 +296,8 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                       {selectedVariation?.is_disable ||
                       selectedVariation.quantity === 0
                         ? t("text-out-stock")
-                        : /*`${selectedVariation.quantity} ${t(
-                            "text-pieces-available"
-                        )}`*/ ""}
+                        :""// t("text-in-stock")
+                      }
                     </span>
                   )}
                 </>

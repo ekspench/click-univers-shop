@@ -11,6 +11,12 @@ export const formatDateComplet=(date:string)=>{
     return dayjs(date).format("DD MMMM YYYY");
 }
 
+export const formatDateCompletWithDay=(date:string)=>{
+  if(date===undefined){
+      return "";
+  }
+  return dayjs(date).format("dddd le DD MMMM YYYY");
+}
 
 export const formatDateFromNow = (date: string) => {
     dayjs.extend(relativeTime);

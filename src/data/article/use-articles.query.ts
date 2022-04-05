@@ -44,7 +44,7 @@ const useArticlesQuery = (
   >
 ) => {
   return useInfiniteQuery<PaginatedArticle, Error>(
-    [API_ENDPOINTS.PRODUCTS, params],
+    [API_ENDPOINTS.ARTICLE, params],
     fetchArticles,
     {
       ...options,
