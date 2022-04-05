@@ -18,5 +18,6 @@ export const ROUTES = {
   SUPPORTS:"/supports",
   REFUND:"/refunds",
   REPAIR:"/repair",
-  SALE:"/games"
+  SALE:"/games",
+  STRIPE_SESSION:"/stripe-session"
 };

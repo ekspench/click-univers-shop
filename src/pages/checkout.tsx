@@ -28,10 +28,11 @@ import ModeClickCollectCard from "@components/common/mode-click-collect-card";
 import ClickGamePlus from "@components/checkout/click-game-plus.";
 import { AnimatePresence } from "framer-motion";
 import Loader from "@components/ui/loader/loader";
+import { Lock } from "@components/icons/lock";
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { data, refetch,isLoading } = useCustomerQuery();
+  const { data, refetch, isLoading } = useCustomerQuery();
   const [clickGamePlus, setClickGamePlus] = useState(true);
   const {
     billing_address,
@@ -64,7 +65,9 @@ export default function CheckoutPage() {
           {
             amount: total,
             shipping_class_id: shipping_class,
-            products: items?.map((item) => formatOrderedProduct(item,clickGamePlus)),
+            products: items?.map((item) =>
+              formatOrderedProduct(item, clickGamePlus)
+            ),
             billing_address: {
               ...billing_address,
             },
@@ -141,7 +144,9 @@ export default function CheckoutPage() {
           address: shipping_address?.address && shipping_address.address,
         },
       },
-      products: available_items?.map((item) => formatOrderedProduct(item,clickGamePlus)),
+      products: available_items?.map((item) =>
+        formatOrderedProduct(item, clickGamePlus)
+      ),
     };
   };
   const onPaySuccess = (data: any) => {
@@ -168,8 +173,8 @@ export default function CheckoutPage() {
   };
   const isFullClickCollect =
     totalItems > 0 && totalItems === totalClickCollectActive;
-  if(isLoading){
-    return <Loader/>
+  if (isLoading) {
+    return <Loader />;
   }
   return (
     <div className="py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20">
@@ -255,8 +260,7 @@ export default function CheckoutPage() {
             {totalItems > 0 && totalItems === totalClickCollectActive ? (
               <ModeClickCollectCard count={1} />
             ) : (
-              <ShippingMode count={2} 
-              />
+              <ShippingMode count={2} />
             )}
           </div>
           {totalClickCollect > 0 && (
@@ -280,7 +284,17 @@ export default function CheckoutPage() {
               <div className=" sm:hidden w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
                 <OrderInformation />
               </div>
-
+              <div className="pt-8">
+                <div className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700">
+                  <div className="w-full pt-1 pb-5">
+                    <div className="bg-accent text-white overflow-hidden rounded-full w-20 h-20 -mt-16 mx-auto shadow-lg flex justify-center items-center">
+                      <Lock width="48" heigth="48" />
+                    </div>
+                  </div>
+                  <div className="m-8 text-xl text-center text-red-500 ">  Les paiements sont temporairement suspendu</div>
+                </div>
+              </div>
+              {/**
               <PaymentForm
                 click_game_plus={clickGamePlus&&!data?.me?.subscription?.status}
                 onPaySuccess={onPaySuccess}
@@ -289,7 +303,7 @@ export default function CheckoutPage() {
                   data: { ...dataCreateOrder(), clickGamePlus },
                 }}
                 amount={totalF}
-              />
+              /> */}
               {/**<div className="shadow-700 bg-light p-5 md:p-8">
               <Elements stripe={stripePromise}>
                   <PaymentGroup
