@@ -284,7 +284,7 @@ export default function CheckoutPage() {
               <div className=" sm:hidden w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
                 <OrderInformation />
               </div>
-              <div className="pt-8">
+              {/**  <div className="pt-8">
                 <div className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700">
                   <div className="w-full pt-1 pb-5">
                     <div className="bg-accent text-white overflow-hidden rounded-full w-20 h-20 -mt-16 mx-auto shadow-lg flex justify-center items-center">
@@ -294,16 +294,18 @@ export default function CheckoutPage() {
                   <div className="m-8 text-xl text-center text-red-500 ">  Les paiements sont temporairement suspendu</div>
                 </div>
               </div>
-              {/**
+          */}
               <PaymentForm
-                click_game_plus={clickGamePlus&&!data?.me?.subscription?.status}
+                click_game_plus={
+                  clickGamePlus && !data?.me?.subscription?.status
+                }
                 onPaySuccess={onPaySuccess}
                 data={{
                   action: "create_order_payment",
                   data: { ...dataCreateOrder(), clickGamePlus },
                 }}
                 amount={totalF}
-              /> */}
+              />
               {/**<div className="shadow-700 bg-light p-5 md:p-8">
               <Elements stripe={stripePromise}>
                   <PaymentGroup
