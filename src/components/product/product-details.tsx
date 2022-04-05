@@ -233,12 +233,13 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
             </div>
             <DeliveryOptionView product={product} />
             <div className="flex items-center">
-              <DeliveryIcon height="32" width="32" />
-              <div className="ml-4">
-                Livraison {product.price - product.discount > 35 && "GRATUITE"}{" "}
-                <span className="font-bold">
+              <DeliveryIcon  height="42" width="42" />
+              <div className="ml-4 flex">
+                <p>
+                Livraison {product.price - product.discount > 35 && "GRATUITE"}{" "}</p>
+                <p className=" ml-2 font-bold first-letter:capitalize">
                   {formatDateCompletWithDay(dateDelivery.toDateString())}
-                </span>
+                </p>
               </div>
             </div>
             {quantity > 0 && (

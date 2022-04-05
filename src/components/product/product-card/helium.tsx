@@ -113,11 +113,11 @@ const Helium: React.FC<HeliumProps> = ({ product, className }) => {
               <div className="text-green-500 rounded text-xs text-light py-1 w-24">
             {t("text-in-stock")}
           </div>
-              <div className="text-[10px]">
-                Livraison {product.price-product.discount > 35 && "GRATUITE"}{" "}
+              <div className="text-[10px] flex">
+              <p>Livraison {product.price-product.discount > 35 && "GRATUITE"}{" "}</p>  
  
-                  {formatDateCompletWithDay(dateDelivery.toDateString())}
-  
+                
+  <p className="first-letter:capitalize ml-1">  {formatDateCompletWithDay(dateDelivery.toDateString())}</p>
               </div>
            </div>
          
