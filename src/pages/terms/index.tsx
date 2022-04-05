@@ -49,17 +49,6 @@ export default function TermsPage() {
 }
 
 TermsPage.Layout = Layout;
-export async function getStaticPaths() {
-  return {
-    paths: [
-      // String variant:
-      "/terms/terms",
-      // Object variant:
-      { params: { terms: "terms" } },
-    ],
-    fallback: true,
-  };
-}
 export const getStaticProps = async ({ locale }: any) => {
   return {
     props: {
