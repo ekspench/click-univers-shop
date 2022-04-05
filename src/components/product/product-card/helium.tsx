@@ -114,7 +114,7 @@ const Helium: React.FC<HeliumProps> = ({ product, className }) => {
             {t("text-in-stock")}
           </div>
               <div className="text-[10px]">
-                Livraison {product.price > 35 && "GRATUITE"}{" "}
+                Livraison {product.price-product.discount > 35 && "GRATUITE"}{" "}
  
                   {formatDateCompletWithDay(dateDelivery.toDateString())}
   

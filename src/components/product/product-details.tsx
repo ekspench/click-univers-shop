@@ -235,20 +235,18 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
             <div className="flex items-center">
               <DeliveryIcon height="32" width="32" />
               <div className="ml-4">
-                Livraison {product.price > 35 && "GRATUITE"}{" "}
+                Livraison {product.price - product.discount > 35 && "GRATUITE"}{" "}
                 <span className="font-bold">
                   {formatDateCompletWithDay(dateDelivery.toDateString())}
                 </span>
               </div>
             </div>
-            {quantity > 0 &&
+            {quantity > 0 && (
               <div className="flex items-center text-green-500 mt-2 ml-2">
-              <CheckMark height="24" width="24" />
-              <div className="ml-4 ">
-                En stock
+                <CheckMark height="24" width="24" />
+                <div className="ml-4 ">En stock</div>
               </div>
-            </div>
-            }
+            )}
             <div className="mt-4 md:mt-6 flex flex-col lg:flex-row items-center">
               {quantity > 0 && (
                 <>
@@ -293,10 +291,11 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                   )}
                   {!isEmpty(selectedVariation) && (
                     <span className="text-base text-body whitespace-nowrap lg:ms-7">
-                      {selectedVariation?.is_disable ||
-                      selectedVariation.quantity === 0
-                        ? t("text-out-stock")
-                        :""// t("text-in-stock")
+                      {
+                        selectedVariation?.is_disable ||
+                        selectedVariation.quantity === 0
+                          ? t("text-out-stock")
+                          : "" // t("text-in-stock")
                       }
                     </span>
                   )}
