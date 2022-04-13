@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 const solutions = [
   {
     name: "Jusqu’à -50% sur les prix produits en devenant membre du ClickGames+.",
-    description:'',
-     
+    description: '',
+
     href: "#",
     icon: CheckMark,
   },
@@ -43,7 +43,7 @@ const solutions = [
   },
 ];
 
-const ClickGamePlus = ({value,setValue}:any) => {
+const ClickGamePlus = ({ value, setValue }: any) => {
   const [showDetail, setShowDetail] = useState(false);
   const { setClickGamePlus } = useCart();
   useEffect(() => {
@@ -74,7 +74,7 @@ const ClickGamePlus = ({value,setValue}:any) => {
         {showDetail && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "24rem" }}
+            animate={{ opacity: 1, height: "26rem" }}
             transition={{ duration: 0.5 }}
             exit={{ opacity: 0, height: 0 }}
             className=" h-[24rem]  mt-2 w-full overflow-hidden"
@@ -104,11 +104,22 @@ const ClickGamePlus = ({value,setValue}:any) => {
                 </a>
               ))}
             </div>
+
             <span className="flex flex-col text-center">
-                <span className="text-[9px] text-gray-400 font-bold mt-1">
-                Sans engagement, 39,99€ par moiss
-                </span>
+              <span className="text-[9px] text-gray-400 font-bold mt-1">
+                Adhésion au ClickGames+
               </span>
+            </span>
+            <span className="flex flex-col text-center">
+              <span className="text-[9px] text-gray-400 font-bold mt-1">
+               14 jours d’essai 
+              </span>
+            </span>
+            <span className="flex flex-col text-center">
+              <span className="text-[9px] text-gray-400 font-bold mt-1">
+                Sans engagement, 39,99€ par mois
+              </span>
+            </span>
           </motion.div>
         )}
       </AnimatePresence>

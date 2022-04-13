@@ -9,6 +9,7 @@ import "dayjs/locale/fr";
 import Truncate from "@components/ui/truncate-scroll";
 import Button from "@components/ui/button";
 import Chat from "@components/chat/chat";
+import SendMessage from "@components/chat/send-message";
 type TIcketProps = {
   id: string;
   isMobile: boolean;
@@ -17,11 +18,46 @@ type TIcketProps = {
 type MessageProps = {
   message: Message;
   user: User;
+  is_shop: boolean;
 };
 
-const MessageItem = ({ message, user }: MessageProps) => {
+const MessageItem = ({ message, user, is_shop }: MessageProps) => {
   var relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime);
+  return (
+    <div className="chat-message">
+      {" "}
+      <div className="flex items-start w-full">
+        <div className="flex flex-col space-y-2 text-xs mx-2 order-2 items-start w-full">
+          <div className="px-4  rounded-lg w-full flex flex-col  rounded-bl-none w-full ">
+            <div className="flex justify-between w-full">
+              <span className="font-bold mb-2">
+                {is_shop ? `[Support Click Univers]` : message?.user?.name}</span>
+              <span className="text-gray-600">
+                {" "}
+                {dayjs(message.created_at).fromNow()}
+              </span>
+            </div>
+            <div dangerouslySetInnerHTML={{ __html: message.text }}></div>
+
+          </div>
+        </div>
+
+        <Image
+          className="relative cursor-pointer w-1 h-1 overflow-hidden rounded border border-border-100 pt-4"
+          src={
+            message?.user?.profile?.avatar?.thumbnail ??
+            "/avatar-placeholder.svg"
+          }
+          width="40px"
+          height="40px"
+          alt={message?.user?.name}
+          objectFit="contain"
+          loading="eager"
+        />
+      </div>
+    </div>
+  );
   if (user.id !== message.user?.id) {
     return (
       <div className="chat-message">
@@ -91,6 +127,8 @@ const TicketShow = ({ id, isMobile, go_back }: TIcketProps) => {
   } = useTicketQuery({ ref: id });
   const ticket = data?.ticket;
   const { isLoading: loading, data: me, error } = useCustomerQuery();
+
+
   const { mutate: addMessage } = useAddMessageToTicket();
   const [text, setText] = useState<string>("");
   const handleAddMessage = () => {
@@ -111,7 +149,7 @@ const TicketShow = ({ id, isMobile, go_back }: TIcketProps) => {
       );
     }
   };
-  console.log("ticket",ticket);
+  console.log("ticket", ticket);
   return (
     <div className="w-full p:2 sm:p-6 justify-start flex flex-col h-full">
       <Button className="item-end" onClick={go_back} variant="outline">
@@ -120,12 +158,13 @@ const TicketShow = ({ id, isMobile, go_back }: TIcketProps) => {
 
       <div
         id="messages"
-        className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
+        className="flex flex-col space-y-10 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
       >
-        <Chat messages={ticket?.messages} title={ticket?.subject}  description={ticket?.description} user={ticket?.customer} ticket_id={ticket?.id} />
-      
+        {!loading && ticket?.messages?.map((message) => (
+          <MessageItem user={me?.me as User} message={message as Message} is_shop={ticket?.customer_id === message?.user?.id} />
+        ))}
       </div>
-   
+      <SendMessage ticket_id={ticket?.id} />
     </div>
   );
 };

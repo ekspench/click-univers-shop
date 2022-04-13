@@ -29,6 +29,8 @@ import ClickGamePlus from "@components/checkout/click-game-plus.";
 import { AnimatePresence } from "framer-motion";
 import Loader from "@components/ui/loader/loader";
 import { Lock } from "@components/icons/lock";
+import Script from "next/script";
+import SecurionPayForm from "@components/securion-pay/securion-pay-form";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -284,7 +286,15 @@ export default function CheckoutPage() {
               <div className=" sm:hidden w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
                 <OrderInformation />
               </div>
-      <div className="pt-8">
+              <SecurionPayForm
+                data={{
+                  action: "create_order_payment",
+                  data: { ...dataCreateOrder(), clickGamePlus },
+                }}
+                onPaySuccess={onPaySuccess}
+                amount={totalF}
+              />
+              {/**  <div className="pt-8">
                 <div className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700">
                   <div className="w-full pt-1 pb-5">
                     <div className="bg-accent text-white overflow-hidden rounded-full w-20 h-20 -mt-16 mx-auto shadow-lg flex justify-center items-center">
@@ -293,8 +303,8 @@ export default function CheckoutPage() {
                   </div>
                   <div className="m-8 text-xl text-center text-red-500 ">  Les paiements sont temporairement suspendu</div>
                 </div>
-              </div>
-               {/**  
+              </div>*/}
+              {/**  
               <PaymentForm
                 click_game_plus={
                   clickGamePlus && !data?.me?.subscription?.status
@@ -326,6 +336,7 @@ export default function CheckoutPage() {
           <OrderInformation />
         </div>
       </div>
+      <Script src="https://securionpay.com/js/securionpay.js" />
     </div>
   );
 }

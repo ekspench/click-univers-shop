@@ -9,12 +9,13 @@ import { useProductsQuery } from "@data/product/use-products.query";
 import { Fragment } from "react";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
+import ProductExchangeCard from "./product-exchange-card";
 
 const ProductFeedLoader = dynamic(
   () => import("@components/ui/loaders/product-feed-loader")
 );
 
-const Feed = () => {
+const ListGamesExchange = () => {
   const { t } = useTranslation("common");
   const { query } = useRouter();
   const {
@@ -43,16 +44,7 @@ const Feed = () => {
     );
   }
   return (
-    <div className="bg-gray-100 min-h-full pt-4 pb-8 px-4 lg:p-2"><Link href={"/click-games-plus"} >
-      <div className="my-2 cursor-pointer border rounded-md w-full bg-white py-8  flex justify-center">
-
-        <img
-          alt={"banner"}
-          src={"banner.png"}
-          className="w-1/2 md:w-2/4 lg:w-1/4  h-full "
-        />
-
-      </div></Link>
+    <div className="bg-gray-100 min-h-full pt-4 pb-8 px-4 lg:p-2">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 gap-3">
         {loading && !data?.pages?.length ? (
           <ProductFeedLoader limit={20} />
@@ -62,7 +54,7 @@ const Feed = () => {
               <Fragment key={_idx}>
                 {products?.data?.map((product) => (
                   <motion.div key={product.id}>
-                    {renderProductCard(product)}
+                    <ProductExchangeCard product={product} />
                   </motion.div>
                 ))}
               </Fragment>
@@ -86,4 +78,4 @@ const Feed = () => {
   );
 };
 
-export default Feed;
+export default ListGamesExchange;
