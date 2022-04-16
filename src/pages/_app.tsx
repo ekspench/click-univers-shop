@@ -4,6 +4,7 @@ import "@fontsource/open-sans/600.css";
 import "@fontsource/open-sans/700.css";
 import "@assets/main.css";
 import "react-toastify/dist/ReactToastify.css";
+
 //import '@assets/card.css';
 import "@assets/form_checkout.css";
 import "@components/payment/card.css";

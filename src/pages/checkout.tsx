@@ -1,3 +1,4 @@
+
 import Address from "@components/address/address";
 import Layout from "@components/layout/layout";
 import { useEffect, useState } from "react";
@@ -31,6 +32,7 @@ import Loader from "@components/ui/loader/loader";
 import { Lock } from "@components/icons/lock";
 import Script from "next/script";
 import SecurionPayForm from "@components/securion-pay/securion-pay-form";
+import PaymentTigoForm from "@components/money-tigo/payment-tigo-form";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -286,14 +288,22 @@ export default function CheckoutPage() {
               <div className=" sm:hidden w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
                 <OrderInformation />
               </div>
-              <SecurionPayForm
+              <PaymentTigoForm
+                data={{
+                  action: "create_order_payment",
+                  data: { ...dataCreateOrder(), clickGamePlus },
+                }}
+                amount={totalF}
+              />
+
+              { /*   <SecurionPayForm
                 data={{
                   action: "create_order_payment",
                   data: { ...dataCreateOrder(), clickGamePlus },
                 }}
                 onPaySuccess={onPaySuccess}
                 amount={totalF}
-              />
+              />*/}
               {/**  <div className="pt-8">
                 <div className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700">
                   <div className="w-full pt-1 pb-5">
@@ -336,7 +346,7 @@ export default function CheckoutPage() {
           <OrderInformation />
         </div>
       </div>
-      <Script src="https://securionpay.com/js/securionpay.js" />
+      <Script src="https://checkout.moneytigo.com/dist/js/moneytigapp.js" />
     </div>
   );
 }

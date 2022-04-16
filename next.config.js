@@ -28,6 +28,7 @@ module.exports = withPWA({
       "s3.amazonaws.com",
       "test.api.click-univers.com",
        "api.click-univers.com",
+       "api.click-univers.local",
       "click-univers.com",
       "18.141.64.26",
       "dev.api.click-univers.com",
@@ -42,7 +43,8 @@ module.exports = withPWA({
     ignoreBuildErrors: true,
   },
   experimental: {
-    urlImports: ['https://widget.mondialrelay.com/parcelshop-picker/jquery.plugin.mondialrelay.parcelshoppicker.min.js'],
+    urlImports: ["https://checkout.moneytigo.com/dist/css"],
+
   },
 
 });

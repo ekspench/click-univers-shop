@@ -20,15 +20,16 @@ export default class CustomDocument extends Document {
     return (
       <Html>
         <Head>
-          <script src="http://localhost/support-board/js/min/jquery.min.js"></script>
-          <script id="sbinit" src="http://localhost/support-board/js/main.js"></script>
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-          />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+          <link href="https://checkout.moneytigo.com/dist/css/app.css" rel="stylesheet"/>
+            <script src="http://localhost/support-board/js/min/jquery.min.js"></script>
+            <script id="sbinit" src="http://localhost/support-board/js/main.js"></script>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
@@ -36,11 +37,11 @@ export default class CustomDocument extends Document {
               page_path: window.location.pathname,
             });
           `,
-            }}
-          />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+              }}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
               var callback = fonction () {
                 if (typeof(url) != 'undefined') {
                   window.location = url;
@@ -53,15 +54,15 @@ export default class CustomDocument extends Document {
               renvoyer false;
             }
           `,
-            }}
-          />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+              }}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
               gtag('event', 'conversion', {'send_to': 'AW-575028874/D1cLCK3uw-gBEIr9mJIC'});
           `,
-            }}
-          />
+              }}
+            />
         </Head>
         <body dir={dir}>
           <Main />
