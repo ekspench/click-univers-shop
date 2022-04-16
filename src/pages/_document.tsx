@@ -21,8 +21,6 @@ export default class CustomDocument extends Document {
       <Html>
         <Head>
           <link href="https://checkout.moneytigo.com/dist/css/app.css" rel="stylesheet"/>
-            <script src="http://localhost/support-board/js/min/jquery.min.js"></script>
-            <script id="sbinit" src="http://localhost/support-board/js/main.js"></script>
             <script
               async
               src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
