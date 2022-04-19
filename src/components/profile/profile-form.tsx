@@ -45,8 +45,8 @@ const ProfileForm = ({ user }: Props) => {
     updateProfile(
       {
         id: user.id,
-        first_name: values.first_name,
-        last_name: values.last_name,
+        //first_name: values.first_name,
+        //last_name: values.last_name,
         profile: {
           id: user?.profile?.id,
           ...values.profile,
@@ -71,12 +71,14 @@ const ProfileForm = ({ user }: Props) => {
           <div className="flex flex-col sm:flex-row sm:space-s-4 mb-6">
             <Input
               className="flex-1"
+              readOnly={true}
               label={t("text-name")}
               {...register("first_name")}
               variant="outline"
             />
             <Input
               className="flex-1"
+              readOnly={true}
               label={t("text-last-name")}
               {...register("last_name")}
               variant="outline"

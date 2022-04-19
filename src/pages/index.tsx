@@ -95,7 +95,7 @@ export default function HomePage() {
       title="Click sur ton Univers"
       />
       <Banner banner={getPageData?.banner} className="miiiin-h-screen" />
-     {/**  <PromotionSlider />*/}
+    {/** <PromotionSlider /> */} 
       <FilterBar />
       <Element
         name="grid"

@@ -19,5 +19,6 @@ export const ROUTES = {
   REFUND:"/refunds",
   REPAIR:"/repair",
   SALE:"/games",
-  STRIPE_SESSION:"/stripe-session"
+  STRIPE_SESSION:"/stripe-session",
+  EXCHANGE:"/exchanges",
 };

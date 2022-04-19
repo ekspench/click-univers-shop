@@ -32,6 +32,8 @@ import {
 import { DeliveryIcon } from "@components/icons/delivery-icon";
 import { DeliveryTruckIcon } from "@components/icons/DeliveryTruckIcon";
 import { CheckMark } from "@components/icons/checkmark";
+import Tooltip from "@components/ui/tool-tips";
+import { InfoIcon } from "@components/icons/info";
 
 type Props = {
   product: any;
@@ -233,6 +235,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
             </div>
             <DeliveryOptionView product={product} />
             <div className="flex items-center">
+            <Tooltip tooltipText={"Les délais de livraison sont indicatifs de ertaines commandes, susceptibles d'avoir des délais de livraison plus longs"} children={<InfoIcon height="16" width="16"  />}/>
               <DeliveryIcon  height="42" width="42" />
               <div className="ml-4 flex">
                 <p>
@@ -241,6 +244,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                   {formatDateCompletWithDay(dateDelivery.toDateString())}
                 </p>
               </div>
+            
             </div>
             {quantity > 0 && (
               <div className="flex items-center text-green-500 mt-2 ml-2">

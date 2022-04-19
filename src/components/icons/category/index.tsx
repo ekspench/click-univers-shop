@@ -60,3 +60,4 @@ export {Maintenance} from "./maintenance";
 export {Rocket} from "./rocket";
 export {Star} from "./star";
 export {Subwoofer} from "./subwoofer";
+export {DataTransferIcon} from "./data-transfer-icon";

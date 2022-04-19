@@ -2,6 +2,7 @@ import { PlusIcon } from "@components/icons/plus-icon";
 import CartIcon from "@components/icons/cart";
 import { useTranslation } from "next-i18next";
 import cn from "classnames";
+import { Lock } from "@components/icons/lock";
 
 type Props = {
   variant?: "helium" | "neon" | "argon" | "oganesson" | "single" | "big";
@@ -62,19 +63,24 @@ const AddToCartBtn: React.FC<Props> = ({ variant, onClick, disabled,pre_order,mo
       );
     case "big":
       return (
+        <div>
         <button
           onClick={onClick}
           disabled={disabled}
           className={cn(
-            "py-4 px-5 w-full break-all flex items-center justify-center text-sm lg:text-base font-light rounded text-light bg-accent hover:bg-accent-hover transition-colors duration-300 focus:outline-none focus:bg-accent-hover",
+            "py-4 px-5 w-full break-all flex items-center justify-center text-sm lg:text-base  font-bold rounded text-light bg-accent hover:bg-accent-hover transition-colors duration-300 focus:outline-none focus:bg-accent-hover",
             {
               "border !bg-gray-300 hover:!bg-gray-300 border-border-400 !text-body cursor-not-allowed":
                 disabled,
             }
           )}
         >
+          <CartIcon className="w-4 h-4 me-2.5" />
           <span >{pre_order?"Précommander":t("text-add-cart")}</span>
         </button>
+        <div className="flex justify-center items-center text-gray-600"><Lock height="16" width="16"/> <span className="ml-2">Paiement 100% sécurisé par CB</span></div>
+       
+        </div>
       );
     default:
       return (

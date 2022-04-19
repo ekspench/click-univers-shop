@@ -8,8 +8,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useUpdateCustomerMutation } from "@data/customer/use-update-customer.mutation";
 import { User } from "@ts-types/generated";
 import { toast } from "react-toastify";
-type Props={
-    user:User;
+import { Lock } from "@components/icons/lock";
+import { LockOpen } from "@components/icons/lock-open";
+import { useState } from "react";
+type Props = {
+  user: User;
 }
 type FormValue = {
   name: string;
@@ -30,35 +33,48 @@ const PaymentInfo = ({ user }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormValue>({ resolver: yupResolver(schemaValidation) ,
-  defaultValues:user?.balance?.payment_info});
+    formState: { errors, touchedFields },
+
+  } = useForm<FormValue>({
+    resolver: yupResolver(schemaValidation),
+    defaultValues: user?.balance?.payment_info
+  });
   const { t } = useTranslation("common");
   const { mutate: updateProfile, isLoading: loading } =
-  useUpdateCustomerMutation();
+    useUpdateCustomerMutation();
+  const [edit, setEdit] = useState(false);
+
   return (
     <>
-      <Card className="w-full mt-5">
-        <div className="flex items-center mb-5 space-s-3 md:space-s-4">
-          <p className="text-lg lg:text-xl text-heading">
-            Coordonnées bancaire
-          </p>
+      <Card className="w-full mt-12">
+        <div className="w-full pt-1 pb-5">
+          <div className="bg-accent text-white overflow-hidden rounded-full w-20 h-20 -mt-16 mx-auto shadow-lg flex justify-center items-center">
+            {!edit ? <Lock onClick={() => setEdit(true)} className="cursor-pointer" width="48" heigth="48" /> : <LockOpen width="48" heigth="48" />}
+          </div>
         </div>
-        <form onSubmit={handleSubmit((values)=>{
-            updateProfile({
-                id: user.id,
-                payment_info:values,
-            },
+        <div className="mb-2">
+          <h1 className="text-center font-bold text-xl uppercase">
+            Coordonnées bancaire
+          </h1>
+        </div>
+
+        <form onSubmit={handleSubmit((values) => {
+          updateProfile({
+            id: user.id,
+            payment_info: values,
+          },
             {
-                onSuccess: () => {
-                  toast.success(t("payment-info-update-successful"));
-                },
-              })
+              onSuccess: () => {
+                toast.success(t("payment-info-update-successful"));
+                setEdit(false)
+              },
+            })
         })}>
           <Input
             label={t("input-label-account-holder-name")}
             {...register("name")}
             variant="outline"
+            disabled={!edit}
             className="mb-5"
             error={t(errors.name?.message!)}
           />
@@ -66,6 +82,7 @@ const PaymentInfo = ({ user }: Props) => {
             label={t("input-label-account-holder-email")}
             {...register("email")}
             variant="outline"
+            disabled={!edit}
             className="mb-5"
             error={t(errors.email?.message!)}
           />
@@ -74,6 +91,7 @@ const PaymentInfo = ({ user }: Props) => {
             {...register("bank")}
             variant="outline"
             className="mb-5"
+            disabled={!edit}
             error={t(errors.bank?.message!)}
           />
           <Input
@@ -82,12 +100,13 @@ const PaymentInfo = ({ user }: Props) => {
               required: true,
               validate: IbanValidation,
             })}
+            disabled={!edit}
             variant="outline"
             error={errors.account?.type && "Numero de compte Invalide"}
           />
-          <div className="flex justify-end mt-5">
+          {edit && <div className="flex justify-end mt-5">
             <Button loading={loading} type="submit">Enregistrer</Button>
-          </div>
+          </div>}
         </form>
       </Card>
     </>

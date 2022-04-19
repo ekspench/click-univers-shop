@@ -12,6 +12,7 @@ import { fetchProducts } from "@data/product/use-products.query";
 import { fetchCategories } from "@data/category/use-categories.query";
 import { fetchTypes } from "@data/type/use-types.query";
 import ListGamesExchange from "@components/click-games-plus/list-games-exchange";
+import ListLogo from "@components/click-games-plus/list-logo";
 
 function makeTitleToDOMId(title: string) {
   return title.toLowerCase().split(" ").join("_");
@@ -56,7 +57,7 @@ export default function ClickGamePlusPage() {
           />
         </div>
       </div>
-     
+      <ListLogo/>
       <Element
         name="grid"
         className="flex flex-1 border-t border-solid border-border-200 border-opacity-70"

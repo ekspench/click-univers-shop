@@ -57,7 +57,7 @@ export default function ProfilePage() {
 
              { <Payment/> }
             </Card>
-            <PaymentInfo user={data?.me} />
+         
           </div>
         )}
       

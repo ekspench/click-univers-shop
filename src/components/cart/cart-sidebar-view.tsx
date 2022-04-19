@@ -18,7 +18,8 @@ const CartSidebarView = () => {
   const { closeSidebar } = useUI();
   const router = useRouter();
   function handleCheckout() {
-    router.push(ROUTES.CHECKOUT);
+    if (total > 0) { router.push(ROUTES.CHECKOUT); }
+
     return closeSidebar();
   }
 
@@ -31,7 +32,7 @@ const CartSidebarView = () => {
         <div className="flex text-accent font-semibold">
           <CartCheckBagIcon className="flex-shrink-0" width={24} height={22} />
           <span className="flex ms-2">
-    {totalUniqueItems}
+            {totalUniqueItems}
           </span>
         </div>
         <button

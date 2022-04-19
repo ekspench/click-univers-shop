@@ -28,3 +28,4 @@ export {LogoutIcon} from "@components/icons/sidebar/logout";
 export {SubscriptionIcon} from "@components/icons/sidebar/subscription";
 export {StartIcon} from "@components/icons/sidebar/start";
 export {RepairIcon} from "@components/icons/sidebar/repair";
+export {DataTransferIcon} from "./data-transfer-icon";

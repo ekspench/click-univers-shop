@@ -33,7 +33,6 @@ import { Lock } from "@components/icons/lock";
 import Script from "next/script";
 import SecurionPayForm from "@components/securion-pay/securion-pay-form";
 import PaymentTigoForm from "@components/money-tigo/payment-tigo-form";
-import VerifyCheckout from "@components/checkout/verify-checkout";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -346,7 +345,6 @@ export default function CheckoutPage() {
         <div className="hidden sm:block w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
           <OrderInformation />
         </div>
-       
       </div>
       <Script src="https://checkout.moneytigo.com/dist/js/moneytigapp.js" />
     </div>

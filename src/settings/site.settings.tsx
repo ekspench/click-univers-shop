@@ -96,6 +96,11 @@ export const siteSettings = {
       icon:"RefundIcon"
     },
     {
+      href: ROUTES.EXCHANGE,
+      menulabel: "profile-sidebar-exchange",
+      icon:"DataTransferIcon"
+    },
+    {
       href: ROUTES.REPAIR,
       menulabel: "profile-sidebar-repair",
       icon:"RepairIcon"

@@ -12,6 +12,8 @@ import * as yup from "yup";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import AccountLayout from "@components/layout/account-layout";
+import PaymentInfo from "@components/bank/payment-info";
+import { useCustomerQuery } from "@data/customer/use-customer.query";
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
@@ -56,6 +58,7 @@ const ChangePasswordPage = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(changeSchema),
   });
+  const {  data } = useCustomerQuery();
   function onSubmit(values: FormValues) {
     changePassword(
       {
@@ -88,7 +91,7 @@ const ChangePasswordPage = () => {
     );
   }
   return (
-    <div className="flex flex-col xl:flex-row items-start max-w-1920 w-full mx-auto py-10 px-8 xl:py-14 xl:px-16 2xl:px-20 bg-gray-100">
+    <div className="flex flex-col  items-start max-w-1920 w-full mx-auto py-10 px-8 xl:py-14 xl:px-16 2xl:px-20 bg-gray-100">
      
       {/* End of sidebar navigation */}
       <Card className="w-full">
@@ -127,6 +130,7 @@ const ChangePasswordPage = () => {
           </Button>
         </form>
       </Card>
+      <PaymentInfo user={data?.me} />
     </div>
   );
 };

@@ -43,16 +43,27 @@ const Feed = () => {
     );
   }
   return (
-    <div className="bg-gray-100 min-h-full pt-4 pb-8 px-4 lg:p-2"><Link href={"/click-games-plus"} >
-      <div className="my-2 cursor-pointer border rounded-md w-full bg-white py-8  flex justify-center">
+    <div className="bg-gray-100 min-h-full pt-4 pb-8 px-4 lg:p-2">
+      <div className="my-2 cursor-pointer border flexrounded-md w-full bg-white p-2  rounded-md flex justify-between">
+        <Link href={"/click-games-plus"} >
+          <div className="border p-4 flex items-center justify-center flex-1 mr-1">
+            <img
+              alt={"banner"}
+              src={"click-games-plus.png"}
 
-        <img
-          alt={"banner"}
-          src={"banner.png"}
-          className="w-1/2 md:w-2/4 lg:w-1/4  h-full "
-        />
+            />
+          </div></Link>
+        <div className="border p-4 flex items-center justify-center flex-1 ml-1">
+          <img
+            alt={"banner"}
+            src={"click-cards-plus.png"}
 
-      </div></Link>
+          />
+        </div>
+
+
+
+      </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6 gap-3">
         {loading && !data?.pages?.length ? (
           <ProductFeedLoader limit={20} />
