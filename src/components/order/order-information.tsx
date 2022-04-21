@@ -102,7 +102,7 @@ const OrderInformation = (props: Props) => {
             <span className="text-sm text-body">{discountPrice}</span>
           </div>
         ) : (
-          <div className="flex justify-between mt-5 mb-4">
+          <div className="flex justify-between mt-5 hidden mb-4">
             <Coupon />
           </div>
         )}

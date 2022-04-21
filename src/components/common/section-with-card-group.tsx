@@ -22,6 +22,7 @@ interface Props {
   onAdd?: () => void;
   onEdit?: (item: any) => void;
   onDelete?: (item: any) => void;
+  disabled?:boolean;
   defaultChecked?:number;
 }
 
@@ -34,13 +35,17 @@ const SectionWithCardGroup = ({
   onEdit,
   onDelete,
   onSelect,
-  defaultChecked
+  defaultChecked,
+  disabled=false,
 }: Props) => {
   const { t } = useTranslation("common");
   const [selected, setSelected] = useState(defaultChecked);
   function select(item: any, idx: number) {
-    setSelected(idx);
-    onSelect(item);
+    if(!disabled){
+      setSelected(idx);
+      onSelect(item);
+    }
+    
   }
 
   return (
@@ -75,12 +80,15 @@ const SectionWithCardGroup = ({
             <div
               key={item.id}
               className={cn(
-                "relative p-4 rounded border cursor-pointer group hover:border-accent",
+                "relative p-4 rounded border cursor-pointer group  ",
                 {
                   "border-accent shadow-sm": selected === idx,
                   "bg-gray-100 border-transparent": selected !== idx,
+                  "hover:border-accent":!disabled,
+                  "bg-gray-100":disabled
                 }
               )}
+              
               onClick={() => select(item, idx)}
             >
               <p className="text-sm text-heading font-semibold mb-3 capitalize">
@@ -98,7 +106,7 @@ const SectionWithCardGroup = ({
                 {item.sub_description}
               </p>
               <div className="absolute top-4 end-4 flex space-s-2 opacity-0 group-hover:opacity-100">
-                {onEdit && (
+                {onEdit && !disabled&&(
                   <button
                     className="flex items-center justify-center w-5 h-5 rounded-full bg-accent text-light"
                     onClick={() => onEdit(item)}
@@ -107,7 +115,7 @@ const SectionWithCardGroup = ({
                     <PencilIcon className="w-3 h-3" />
                   </button>
                 )}
-                {onDelete && (
+                {onDelete &&!disabled&& (
                   <button
                     className="flex items-center justify-center w-5 h-5 rounded-full bg-red-600 text-light"
                     onClick={() => onDelete(item)}

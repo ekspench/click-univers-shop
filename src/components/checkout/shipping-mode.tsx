@@ -7,9 +7,10 @@ import { useEffect } from "react";
 
 interface Props {
   count: number;
+  disabled?:boolean;
 }
 
-const ShippingMode = ({ count }: Props) => {
+const ShippingMode = ({ count,disabled }: Props) => {
   const { updateDeliveryTime, setShippingClass, shipping_class } =
     useCheckout();
     const { data, isFetching: loading } = useShippingQuery();
@@ -34,7 +35,7 @@ const ShippingMode = ({ count }: Props) => {
       count={count}
       defaultChecked={data?.shippings.findIndex((s) => s.id == shipping_class)}
       heading="text-delivery-schedule"
-      
+      disabled={disabled}
       items={data?.shippings.map((s: any) => ({
         id: s.id,
         title: s.name,

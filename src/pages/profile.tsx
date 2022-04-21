@@ -53,10 +53,10 @@ export default function ProfilePage() {
                 type="billing"
               />
             </Card>
-            <Card className="w-full">
+         {/**  <Card className="w-full">
 
              { <Payment/> }
-            </Card>
+            </Card>*/}  
          
           </div>
         )}

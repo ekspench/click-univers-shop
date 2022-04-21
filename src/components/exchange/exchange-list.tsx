@@ -79,7 +79,7 @@ export const ExchangeList = ({ exchanges, isLoading }: { exchanges: Exchange[], 
       data={exchanges}
       emptyText={() => (<div className="flex justify-center"> Vous avez auccun échange en cours</div>)}
       className="orderDetailsTable w-full"
-      scroll={{ x: 450, y: 500 }}
+      scroll={{ x: 700, y: 500 }}
     />
   );
 };

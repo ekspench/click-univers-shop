@@ -13,6 +13,8 @@ import AddNewTicket from "@components/ticket/add-new-ticket";
 import { CheckMark } from "@components/icons/checkmark";
 import RelayPointCard from "@components/common/relay-point-card";
 import { Children } from "react";
+import { InfoIcon } from "@components/icons/info";
+import Tooltip from "@components/ui/tool-tips";
 
 interface Props {
   order: any;
@@ -106,6 +108,7 @@ const OrderDetails = ({ order }: Props) => {
                 {mode==="relay_point"&&"POINT DE RELAIS"}
                 {mode==="standard"&&order?.shipping?.name}
                 </span>
+              
               </div>
               {my_order?.tracking_number && (
             <div className="py-4 px-5 border border-border-200 rounded shadow-sm">
@@ -122,6 +125,7 @@ const OrderDetails = ({ order }: Props) => {
                   </div>
                 </a>
               )}
+              
             </div>
           )}
               {/** 
@@ -135,6 +139,7 @@ const OrderDetails = ({ order }: Props) => {
                 </span>
               </div>*/}
             </div>
+
 
             <div className="w-full md:w-2/5 flex flex-col px-5 py-4">
               <div className="flex justify-between mb-3">

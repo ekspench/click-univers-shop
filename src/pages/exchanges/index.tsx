@@ -29,10 +29,10 @@ export default function Exchange() {
   return (
     <>
       <SEO title="Jeux video" />
-      <div className="flex flex-col xl:flex-row items-start max-w-1920 w-full mx-auto py-10 px-8 xl:py-14 xl:px-16 2xl:px-20 bg-gray-100">
+      <div className="flex flex-col xl:flex-row items-start max-w-1920 w-full mx-auto py-10 md:px-8 xl:py-14 xl:px-16 2xl:px-20 bg-gray-100">
         <div className="w-full overflow-hidden bg-white rounded-sm">
           <div className="flex justify-between">
-            <h3 className="text-xl font-semibold py-5 text-heading px-5">
+            <h3 className="text-xl font-semibold md:py-5 text-heading px-5">
               Echange de jeux
             </h3>
           </div>

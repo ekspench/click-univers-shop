@@ -1,4 +1,5 @@
 import { Message } from "@ts-types/generated";
+import { API_ENDPOINTS } from "@utils/api/endpoints";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import { TicketService, TicketType } from "./ticket.service";
@@ -9,10 +10,12 @@ export const useCreateTicket = () => {
     (input: TicketType) => TicketService.createTicket(input),
     {
       onSuccess: () => {
+        
         toast.success("Votre ticket est envoyé");
+
       },
       onSettled: () => {
-       
+        queryClient.invalidateQueries(API_ENDPOINTS.TICKET);
       },
     }
   );

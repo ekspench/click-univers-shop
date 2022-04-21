@@ -68,7 +68,7 @@ const ProfileForm = ({ user }: Props) => {
             <FileInput control={control} name="profile.avatar" />
           </div>*/}
 
-          <div className="flex flex-col sm:flex-row sm:space-s-4 mb-6">
+          <div className="flex flex-col sm:space-y-0 space-y-5 sm:flex-row sm:space-s-4 mb-6">
             <Input
               className="flex-1"
               readOnly={true}

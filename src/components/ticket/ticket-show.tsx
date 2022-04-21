@@ -155,13 +155,15 @@ const TicketShow = ({ id, isMobile, go_back }: TIcketProps) => {
       <Button className="item-end" onClick={go_back} variant="outline">
         Fermer
       </Button>
-
+      <div className="border mt-2 p-4">
+        <p>{ticket?.description}</p>
+      </div>
       <div
         id="messages"
         className="flex flex-col space-y-10 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch"
       >
         {!loading && ticket?.messages?.map((message) => (
-          <MessageItem user={me?.me as User} message={message as Message} is_shop={ticket?.customer_id === message?.user?.id} />
+          <MessageItem user={me?.me as User} message={message as Message} is_shop={ticket?.customer_id !== message?.user?.id} />
         ))}
       </div>
       <SendMessage ticket_id={ticket?.id} />

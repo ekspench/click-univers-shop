@@ -12,10 +12,11 @@ interface Props {
   onSelect:any;
   addresses: any[] | undefined;
   count?: number;
+  disabled?:boolean;
   type?: "billing" | "shipping";
 }
 
-const Address = ({ id, addresses, heading, count, type,me,onSelect}: Props) => {
+const Address = ({ id, addresses, heading, count, type,me,onSelect,disabled}: Props) => {
   const { openModal } = useModalAction();
   const { updateBillingAddress, updateShippingAddress } = useCheckout();
   useEffect(() => {
@@ -64,6 +65,7 @@ const Address = ({ id, addresses, heading, count, type,me,onSelect}: Props) => {
       addActionText="text-address"
       items={addresses}
       count={count}
+      disabled={disabled}
       defaultChecked={0}
       onSelect={handleSelect}
       onAdd={handleAdd}

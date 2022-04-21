@@ -29,7 +29,8 @@ const TicketForm = () => {
   } = useForm({ resolver: yupResolver(TicketFormSchema) });
   const {mutate:addTicket}=useCreateTicket();
   const onSubmit = (values:any) => {
-      addTicket({subject:values.subject.value+"#"+data.data?.order?.ref,description:values.description,shop_id:data?.data?.order?.shop_id,order_id:data.data?.order?.id},{
+    const s=data?.order?values.subject.value+"#"+data.data?.order?.ref:values.subject.value
+      addTicket({subject:s,description:values.description,shop_id:data?.data?.order?.shop_id,order_id:data.data?.order?.id},{
         onSuccess:()=>{
             closeModal();
         }
@@ -41,16 +42,16 @@ const TicketForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
-      <div className="flex flex-col mb-8" >
+     {data&&<div className="flex flex-col mb-8" >
         <div className="flex">
           <span className="text-sm">Boutique: </span>
-          <span  className="ml-4 text-sm text-gray-500">{data.data?.order?.shop?.name}</span>
+          <span  className="ml-4 text-sm text-gray-500">{data?.data?.order?.shop?.name}</span>
         </div>
         <div className="flex">
           <span className="text-sm">Réference: </span>
-          <span  className="ml-4 text-sm text-gray-500">{data.data?.order?.ref}</span>
+          <span  className="ml-4 text-sm text-gray-500">{data?.data?.order?.ref}</span>
         </div>
-      </div>
+      </div>} 
       <SelectInput
         name="subject"
         control={control}

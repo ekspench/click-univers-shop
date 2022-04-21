@@ -24,6 +24,8 @@ import { OrderItems } from "@components/order/order-items-table";
 import AddNewTicket from "@components/ticket/add-new-ticket";
 import OrderStatus from "@components/order/order-status";
 import { Button } from "@components/";
+import { InfoIcon } from "@components/icons/info";
+import Tooltip from "@components/ui/tool-tips";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -324,8 +326,9 @@ export default function OrderPage() {
                   {t("text-deliver-time")}
                 </strong>
                 :
-                <span className="w-7/12 sm:w-8/12 ps-4 text-sm">
-                  {data?.order?.delivery_time}
+                <span className="w-7/12 sm:w-8/12 ps-4 text-sm flex">
+                 
+                 <span className="mr-2">{data?.order?.delivery_time}  </span>  <Tooltip tooltipText={"Les délais de livraison sont indicatifs de certaines commandes, susceptibles d'avoir des délais de livraison plus longs"} children={<InfoIcon height="16" width="16"  />}/>
                 </span>
               </p>
               <p className="flex text-body-dark mt-5">

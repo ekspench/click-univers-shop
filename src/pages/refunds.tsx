@@ -27,20 +27,20 @@ export default function Refunds() {
     <>
       <SEO title="Refund" />
       <div className="flex flex-col xl:flex-row items-start max-w-1920 w-full mx-auto py-10 px-8 xl:py-14 xl:px-16 2xl:px-20 bg-gray-100">
-
-        {/* End of sidebar navigation */}
-        {loading ? (
-          <Spinner showText={false} />
-        ) : (
-          <div className="w-full overflow-hidden">
-              <h3 className="text-xl font-semibold py-5 text-heading px-5">
-                  Remboursement
-              </h3>
-           <RefundList refunds={data?.pages[0].data}/>
+        <div className="w-full overflow-hidden bg-white rounded-sm">
+          <div className="flex justify-between">
+            <h3 className="text-xl font-semibold py-5 text-heading px-5">
+            Remboursement
+            </h3>
           </div>
-        )}
-       
+          {loading ? (
+          <Spinner showText={false} />
+        ) : <div className="bg-white rounded-md p-4">  <RefundList refunds={data?.pages[0].data}/></div>
+          }
+         
+        </div>
       </div>
+
     </>
   );
 }

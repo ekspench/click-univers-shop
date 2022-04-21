@@ -1,8 +1,8 @@
 import usePrice from "@utils/use-price";
 
-const PriceView = ({ amount }: any) => {
+const PriceView = ({ amount ,...props}: any) => {
   const { price } = usePrice({ amount: amount });
-  return <span>{price}</span>;
+  return <span {...props}>{price}</span>;
 };
 
 export default PriceView;

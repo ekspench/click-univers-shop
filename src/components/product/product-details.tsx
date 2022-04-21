@@ -235,7 +235,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
             </div>
             <DeliveryOptionView product={product} />
             <div className="flex items-center">
-            <Tooltip tooltipText={"Les délais de livraison sont indicatifs de ertaines commandes, susceptibles d'avoir des délais de livraison plus longs"} children={<InfoIcon height="16" width="16"  />}/>
+            <Tooltip tooltipText={"Les délais de livraison sont indicatifs de certaines commandes, susceptibles d'avoir des délais de livraison plus longs"} children={<InfoIcon height="16" width="16"  />}/>
               <DeliveryIcon  height="42" width="42" />
               <div className="ml-4 flex">
                 <p>

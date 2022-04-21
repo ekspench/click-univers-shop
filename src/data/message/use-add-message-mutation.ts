@@ -12,7 +12,7 @@ export const useAddMessageMutation = () => {
   const queryClient = useQueryClient();
   return useMutation((input: inputType) => MessageService.create(input), {
     onSettled: () => {
-      queryClient.invalidateQueries("purchase");
+      queryClient.invalidateQueries(API_ENDPOINTS.ticket);
     },
   });
 };

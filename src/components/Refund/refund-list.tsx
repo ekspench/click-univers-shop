@@ -15,7 +15,6 @@ export const RefundList = ({ refunds }: { products: any }) => {
         title: "Commande ref",
         dataIndex: "order",
         key: "order",
-        width: 250,
         align: alignLeft,
         ellipsis: true,
         render:(order)=>(order.ref)
@@ -33,20 +32,20 @@ export const RefundList = ({ refunds }: { products: any }) => {
         title: t("text-amount"),
         dataIndex: "amount",
         key: "amount",
-        align: "center",
+        align: alignLeft,
       },
       {
         title: "Boutique",
         dataIndex: "order",
         key: "shop",
-        align: alignRight,
+        align: alignLeft,
         render:(order)=>(order?.shop?.name)
       },
       {
         title: t("text-status"),
         dataIndex: "status",
         key: "status",
-        align: alignRight,
+        align: alignLeft,
         render: (status: string) => <span>{t(`text-${status}`)}</span>,
       },
     ];
@@ -57,7 +56,7 @@ export const RefundList = ({ refunds }: { products: any }) => {
         columns={refundTableColumns}
         data={refunds}
         className="orderDetailsTable w-full"
-        scroll={{ x: 350, y: 500 }}
+        scroll={{ x: 680 }}
       />
     );
   };

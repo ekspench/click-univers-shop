@@ -1,13 +1,12 @@
 
 import Address from "@components/address/address";
 import Layout from "@components/layout/layout";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useUI } from "@contexts/ui.context";
 import { useCustomerQuery } from "@data/customer/use-customer.query";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useModalAction } from "@components/ui/modal/modal.context";
 import ShippingMode from "@components/checkout/shipping-mode";
-import PaymentForm from "@components/payment/payement-form";
 import { loggedIn } from "@utils/is-loggedin";
 import { useCheckout } from "@contexts/checkout.context";
 import { useVerifyCheckoutMutation } from "@data/order/use-checkout-verify.mutation";
@@ -24,19 +23,16 @@ import { useRouter } from "next/router";
 import { ROUTES } from "@utils/routes";
 import Edit from "@components/icons/edit";
 import { PlusIcon } from "@components/icons/plus-icon";
-import OrderProductClickCollectList from "@components/order/order-product-click-collect-list";
-import ModeClickCollectCard from "@components/common/mode-click-collect-card";
 import ClickGamePlus from "@components/checkout/click-game-plus.";
 import { AnimatePresence } from "framer-motion";
 import Loader from "@components/ui/loader/loader";
-import { Lock } from "@components/icons/lock";
 import Script from "next/script";
-import SecurionPayForm from "@components/securion-pay/securion-pay-form";
 import PaymentTigoForm from "@components/money-tigo/payment-tigo-form";
-import VerifyCheckout from "@components/checkout/verify-checkout";
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const [processToPay, setProcessToPay] = useState(false);
+  const ref = useRef(null);
   const { data, refetch, isLoading } = useCustomerQuery();
   const [clickGamePlus, setClickGamePlus] = useState(true);
   const {
@@ -176,17 +172,31 @@ export default function CheckoutPage() {
     }
     return false;
   };
+  useEffect(() => {
+    if(window){
+      if (processToPay) {
+        window.scrollTo(0,document.body.scrollHeight);
+      } else {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth' // for smoothly scrolling
+        });
+      }
+    }
+   
+  }, [processToPay])
   const isFullClickCollect =
     totalItems > 0 && totalItems === totalClickCollectActive;
   if (isLoading) {
     return <Loader />;
   }
+
   return (
-    <div className="py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20">
+    <div className="py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20" >
       <div className="flex flex-col lg:flex-row items-center lg:items-start m-auto lg:space-s-8 w-full max-w-5xl">
         <div className="lg:max-w-2xl w-full space-y-6">
           {totalItems > 0 && totalItems === totalClickCollectActive ? null : (
-            <div className="shadow-700 bg-light p-5 md:p-8">
+            <div className="shadow-700 bg-light p-5 md:p-8" ref={ref}>
               {shipping_class === 3 ? (
                 <div>
                   <div className="flex items-center space-s-3 md:space-s-4">
@@ -244,8 +254,10 @@ export default function CheckoutPage() {
                 <Address
                   id={data?.me?.id!}
                   me={data?.me}
+
                   heading="text-delivery-address"
                   addresses={data?.me?.address}
+                  disabled={processToPay}
                   count={1}
                   type="billing"
                 />
@@ -263,18 +275,18 @@ export default function CheckoutPage() {
            */}
           <div className="shadow-700 bg-light p-5 md:p-8">
             {totalItems > 0 && totalItems === totalClickCollectActive ? (
-              <ModeClickCollectCard count={1} />
+              {/** <ModeClickCollectCard count={1} /> */ }
             ) : (
-              <ShippingMode count={2} />
+              <ShippingMode disabled={processToPay} count={2} />
             )}
           </div>
-          {totalClickCollect > 0 && (
+          {/*totalClickCollect > 0 && (
             <div className="shadow-700 bg-light p-5  md:p-8">
               <OrderProductClickCollectList
                 count={isFullClickCollect ? 2 : 3}
               />
             </div>
-          )}
+          )*/}
           {!data?.me?.subscription?.status && (
             <AnimatePresence>
               <ClickGamePlus
@@ -283,13 +295,19 @@ export default function CheckoutPage() {
               />
             </AnimatePresence>
           )}
-
-          {showPay() && (
-            <>
-              <div className=" sm:hidden w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
+            <div className=" sm:hidden w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
                 <OrderInformation />
               </div>
+          {showPay() && !processToPay && <Button className="w-full" onClick={() => setProcessToPay(true)}>
+            Proccéder au paiement
+          </Button>}
+          {processToPay && (
+            <>
+            
               <PaymentTigoForm
+                goBack={() => {
+                  setProcessToPay(false);
+                }}
                 data={{
                   action: "create_order_payment",
                   data: { ...dataCreateOrder(), clickGamePlus },
@@ -346,7 +364,7 @@ export default function CheckoutPage() {
         <div className="hidden sm:block w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
           <OrderInformation />
         </div>
-       
+
       </div>
       <Script src="https://checkout.moneytigo.com/dist/js/moneytigapp.js" />
     </div>

@@ -48,10 +48,10 @@ export default function ClickGamePlusPage() {
 
   return (
     <div className="flex  justify-beetwen flex-col h-screen">
-      <div className=" bg-gray-900 mt md:mt-20">
-        <div aria-hidden="true" className="inset-0 overflow-hidden">
+      <div className=" bg-white mt md:mt-20 flex justify-center">
+        <div aria-hidden="true" className="inset-0 overflow-hidden lg:w-1/4 w-1/2 mt-10">
           <img
-            src="5905469.jpg"
+            src="click-games-plus.png"
             alt=""
             className="w-full h-full object-center object-cover"
           />
