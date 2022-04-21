@@ -49,7 +49,7 @@ const PaymentTigoForm = ({ data, amount,goBack }) => {
                     <moneytigo-app embedded="true" actuatorid="submit-credit-card-button" token={`${token}`}>
 
                     </moneytigo-app>
-                    <Button className="w-full" id="submit-credit-card-button">Payer  <PriceView className="ml-2" amount={amount}/></Button>
+                    <Button className="w-full" id="submit-credit-card-button">Payer </Button>
                  
                 </form>
             </div>

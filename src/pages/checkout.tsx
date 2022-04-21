@@ -299,7 +299,7 @@ export default function CheckoutPage() {
                 <OrderInformation />
               </div>
           {showPay() && !processToPay && <Button className="w-full" onClick={() => setProcessToPay(true)}>
-            Proccéder au paiement
+          Procéder au paiement
           </Button>}
           {processToPay && (
             <>

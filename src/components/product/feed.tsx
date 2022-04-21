@@ -44,7 +44,7 @@ const Feed = () => {
   }
   return (
     <div className="bg-gray-100 min-h-full pt-4 pb-8 px-4 lg:p-2">
-      <div className="my-2 cursor-pointer border flexrounded-md w-full bg-white p-2  rounded-md flex justify-between">
+      <div className="my-2 hidden cursor-pointer border flexrounded-md w-full bg-white p-2  rounded-md flex justify-between">
         <Link href={"/click-games-plus"} >
           <div className="p-4 flex items-center justify-center flex-1 mr-1">
             <img
