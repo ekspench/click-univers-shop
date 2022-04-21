@@ -117,7 +117,7 @@ const ClickGamePlus = ({ value, setValue }: any) => {
             </span>
             <span className="flex flex-col text-center">
               <span className="text-[9px] text-gray-400 font-bold mt-1">
-                Sans engagement, 39,99€ par mois
+                Sans engagement, 59,99€ par mois
               </span>
             </span>
           </motion.div>
