@@ -43,7 +43,7 @@ const solutions = [
   },
 ];
 
-const ClickGamePlus = ({ value, setValue }: any) => {
+const ClickGamePlus = ({ value, setValue,disabled }: any) => {
   const [showDetail, setShowDetail] = useState(false);
   const { setClickGamePlus } = useCart();
   useEffect(() => {
@@ -56,7 +56,8 @@ const ClickGamePlus = ({ value, setValue }: any) => {
         <Checkbox
           className="text-dark"
           checked={value}
-          onChange={() => setValue(!value)}
+          disabled={disabled}
+          onChange={() => setValue(disabled?value:!value)}
           labelClassName="text-xs sm:text-sm  md:text-md font-semibold"
           name={"click_game_plus"}
           label="Bénéficier du ClickGames+"

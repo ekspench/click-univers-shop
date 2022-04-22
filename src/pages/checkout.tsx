@@ -290,6 +290,7 @@ export default function CheckoutPage() {
           {!data?.me?.subscription?.status && (
             <AnimatePresence>
               <ClickGamePlus
+                disabled={processToPay}
                 value={clickGamePlus}
                 setValue={setClickGamePlus}
               />
