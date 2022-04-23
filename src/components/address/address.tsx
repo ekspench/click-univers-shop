@@ -24,7 +24,7 @@ const Address = ({ id, addresses, heading, count, type,me,onSelect,disabled}: Pr
       if(onSelect){
         onSelect(addresses[0]);
       }
-
+      
       updateBillingAddress(addresses[0]);
       updateShippingAddress(addresses[0]);
     }

@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { OrderService, VerifyCheckoutInputType } from "./repair.service";
+import { OrderService, VerifyCheckoutInputType } from "./exchange.service";
 
 export const useVerifyCheckoutMutation = () => {
   return useMutation((input: VerifyCheckoutInputType) =>

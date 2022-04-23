@@ -29,12 +29,12 @@ type FormValues = {
     street_address: string;
   };
 };
-
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 const addressSchema = yup.object().shape({
   type: yup.string().required("error-type-required"),
   first_name: yup.string().required("error-name-required"),
   last_name: yup.string().nullable(),
-  telephone: yup.string().nullable(),
+  telephone: yup.string().matches(phoneRegExp, 'Le numéro de téléphone n\'est pas valide').min(10, 'Le numéro de téléphone n\'est pas valide').max(10, 'Le numéro de téléphone n\'est pas valide'),
   address: yup.object().shape({
     country: yup.string().required("error-country-required"),
     city: yup.string().required("error-city-required"),

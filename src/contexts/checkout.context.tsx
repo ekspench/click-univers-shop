@@ -26,7 +26,7 @@ const defaultState = {
   billing_address: null,
   shipping_address: null,
   checkoutData: null,
-  relay_point:null,
+  relay_point: null,
   delivery_time: "",
   discount: 0,
   coupon: null,
@@ -37,40 +37,40 @@ const initialState =
     : defaultState;
 type Action =
   | {
-      type: "UPDATE_BILLING_ADDRESS";
-      payload: UserAddress;
-    }
+    type: "UPDATE_BILLING_ADDRESS";
+    payload: UserAddress;
+  }
   | {
-      type: "UPDATE_SHIPPING_ADDRESS";
-      payload: UserAddress;
-    }
+    type: "UPDATE_SHIPPING_ADDRESS";
+    payload: UserAddress;
+  }
   | {
-      type: "UPDATE_DELIVERY_TIME";
-      payload: any;
-    }
+    type: "UPDATE_DELIVERY_TIME";
+    payload: any;
+  }
   | {
-      type: "SET_SHIPPING_CLASS";
-      payload: any;
-    }
+    type: "SET_SHIPPING_CLASS";
+    payload: any;
+  }
   | {
-      type: "SET_CHECKOUT_DATA";
-      payload: any;
-    }
+    type: "SET_CHECKOUT_DATA";
+    payload: any;
+  }
   | {
-      type: "CLEAR_CHECKOUT";
-    }
+    type: "CLEAR_CHECKOUT";
+  }
   | {
-      type: "APPLY_COUPON";
-      payload: any;
-    }
+    type: "APPLY_COUPON";
+    payload: any;
+  }
   | {
-      type: "REMOVE_COUPON";
-    }
-    | {
-      type: "SET_RELAY_POINT";
-      payload: any;
-    } 
-    ;
+    type: "REMOVE_COUPON";
+  }
+  | {
+    type: "SET_RELAY_POINT";
+    payload: any;
+  }
+  ;
 
 export const CheckoutContext = React.createContext<State | any>(initialState);
 
@@ -88,6 +88,7 @@ function checkoutReducer(state: State, action: Action) {
       return {
         ...state,
         shipping_address: action.payload,
+        customer_contact: action?.payload?.telephone,
       };
     }
     case "SET_SHIPPING_CLASS": {
@@ -158,7 +159,7 @@ export const CheckoutProvider: FC = (props) => {
     dispatch({ type: "SET_SHIPPING_CLASS", payload });
   const updateDeliveryTime = (payload: any) =>
     dispatch({ type: "UPDATE_DELIVERY_TIME", payload });
-    const setRelayPoint = (payload: any) =>
+  const setRelayPoint = (payload: any) =>
     dispatch({ type: "SET_RELAY_POINT", payload });
   const setCheckoutData = (payload: any) =>
     dispatch({ type: "SET_CHECKOUT_DATA", payload });

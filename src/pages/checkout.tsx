@@ -136,12 +136,19 @@ export default function CheckoutPage() {
         delivery_time: delivery_time?.description,
         shipping_class_id: shipping_class,
         relay_point: relay_point,
+        customer_contact:billing_address?.telephone,
         billing_address: {
           title: billing_address?.title,
+          first_name:billing_address?.first_name,
+          last_name:billing_address?.last_name,
+          telephone:billing_address?.telephone,
           address: billing_address?.address && billing_address.address,
         },
         shipping_address: {
           title: shipping_address?.title,
+          first_name:billing_address?.first_name,
+          last_name:billing_address?.last_name,
+          telephone:billing_address?.telephone,
           address: shipping_address?.address && shipping_address.address,
         },
       },
@@ -190,7 +197,6 @@ export default function CheckoutPage() {
   if (isLoading) {
     return <Loader />;
   }
-
   return (
     <div className="py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20" >
       <div className="flex flex-col lg:flex-row items-center lg:items-start m-auto lg:space-s-8 w-full max-w-5xl">
