@@ -28,6 +28,7 @@ import { AnimatePresence } from "framer-motion";
 import Loader from "@components/ui/loader/loader";
 import Script from "next/script";
 import PaymentTigoForm from "@components/money-tigo/payment-tigo-form";
+import PaymentForm from "@components/payment/payement-form";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -310,7 +311,7 @@ export default function CheckoutPage() {
           </Button>}
           {processToPay && (
             <>
-            
+            {/**
               <PaymentTigoForm
                 goBack={() => {
                   setProcessToPay(false);
@@ -320,7 +321,7 @@ export default function CheckoutPage() {
                   data: { ...dataCreateOrder(), clickGamePlus },
                 }}
                 amount={totalF}
-              />
+              /> */}
 
               { /*   <SecurionPayForm
                 data={{
@@ -330,7 +331,7 @@ export default function CheckoutPage() {
                 onPaySuccess={onPaySuccess}
                 amount={totalF}
               />*/}
-              {/**  <div className="pt-8">
+            <div className="pt-8">
                 <div className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700">
                   <div className="w-full pt-1 pb-5">
                     <div className="bg-accent text-white overflow-hidden rounded-full w-20 h-20 -mt-16 mx-auto shadow-lg flex justify-center items-center">
@@ -339,9 +340,9 @@ export default function CheckoutPage() {
                   </div>
                   <div className="m-8 text-xl text-center text-red-500 ">  Les paiements sont temporairement suspendu</div>
                 </div>
-              </div>*/}
-              {/**  
-              <PaymentForm
+              </div>
+              
+             {/** X <PaymentForm
                 click_game_plus={
                   clickGamePlus && !data?.me?.subscription?.status
                 }
@@ -351,7 +352,7 @@ export default function CheckoutPage() {
                   data: { ...dataCreateOrder(), clickGamePlus },
                 }}
                 amount={totalF}
-              />   */}
+              /> }4972039790650505910
               {/**<div className="shadow-700 bg-light p-5 md:p-8">
               <Elements stripe={stripePromise}>
                   <PaymentGroup

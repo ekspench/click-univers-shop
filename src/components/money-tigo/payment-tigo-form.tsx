@@ -21,7 +21,7 @@ const PaymentTigoForm = ({ data, amount, goBack }) => {
             raw: cardNumberRaw
         }
         http.post("/tigo/eks", { data}).then(() => {
-
+            
         }).catch(() => {
 
         })
