@@ -7,9 +7,11 @@ import { getIcon } from "@utils/get-icon";
 import * as CategoryIcons from "@components/icons/category";
 import { useUI } from "@contexts/ui.context";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 function SidebarMenuItem({ className, item, depth = 0 }: any) {
   const router = useRouter();
+  console.log(item);
   const active = router?.query?.category;
   const isActive =
     active === item.slug ||
@@ -58,74 +60,46 @@ function SidebarMenuItem({ className, item, depth = 0 }: any) {
 
   return (
     <>
-      <motion.li
+      <motion.div
         initial={false}
         animate={{ backgroundColor: "#ffffff" }}
         onClick={onClick}
-        className="py-1 rounded-md"
+        className={cn("text-center rounded h-30 w-full py-2 bg-light  flex flex-col items-center justify-start relative  cursor-pointer border-2 hover:border-accent-hover",
+          isOpen ? "border-accent" : ""
+        )}
       >
-        <button
-          className={cn(
-            "flex items-center w-full py-2 text-start outline-none text-body-dark font-semibold  focus:outline-none focus:ring-0 focus:text-accent",
-            isOpen ? "text-accent" : "text-body-dark",
-            className ? className : "text-sm"
-          )}
-        >
-          {icon && (
-            <span className="flex w-5 h-5 me-4 items-center justify-center">
-              {getIcon({
-                iconList: CategoryIcons,
-                iconName: icon,
-                className: "max-h-full max-w-full",
-              })}
-            </span>
-          )}
-          <span>{name}</span>
-          <span className="ms-auto">{expandIcon}</span>
-        </button>
-      </motion.li>
-      <AnimatePresence initial={false}>
-        {Array.isArray(items) && isOpen ? (
-          <li>
-            <motion.ul
-              key="content"
-              initial="collapsed"
-              animate="open"
-              exit="collapsed"
-              variants={{
-                open: { opacity: 1, height: "auto" },
-                collapsed: { opacity: 0, height: 0 },
-              }}
-              transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
-              className="ms-4 text-xs"
-            >
-              {items?.map((currentItem) => {
-                const childDepth = depth + 1;
-                return (
-                  <SidebarMenuItem
-                    key={`${currentItem.name}${currentItem.slug}`}
-                    item={currentItem}
-                    depth={childDepth}
-                    className={cn("text-sm text-body ms-5")}
-                  />
-                );
-              })}
-            </motion.ul>
-          </li>
-        ) : null}
-      </AnimatePresence>
+
+        <div className="w-full flex items-center flex-col justify-center">
+          <span className=" h-10 w-10">
+            <Image
+              src={item?.image?.thumbnail ?? "http://api.click-univers.local/1258.jpg"}
+              alt={item?.slug}
+            
+              priority={true}
+             height={250}
+             width={250}
+            />
+          </span>
+          <div className="text-xs z-99 block  font-semibold  text-center px-1 block">{name}</div>
+        </div>
+     
+
+
+
+      </motion.div>
+
     </>
   );
 }
 
-function SidebarMenu({ items, className }: any) {
+function SidebarMenu2({ items, className }: any) {
   return (
-    <ul className={cn("text-xs", className)}>
+    <div className={cn("text-xs grid grid-cols-2 gap-4", className)}>
       {items?.map((item: any) => (
         <SidebarMenuItem key={`${item.name}${item.slug}`} item={item} />
       ))}
-    </ul>
+    </div>
   );
 }
 
-export default SidebarMenu;
+export default SidebarMenu2;

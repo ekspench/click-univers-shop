@@ -5,6 +5,7 @@ import Scrollbar from "@components/ui/scrollbar";
 import CategoryListLoader from "@components/ui/loaders/category-loader";
 import NotFound from "@components/common/not-found";
 import { useCategoriesQuery } from "@data/category/use-categories.query";
+import SidebarMenu2 from "@components/ui/sidebar-menu";
 
 const CategoryDropdownSidebar = () => {
   const { query } = useRouter();
@@ -29,12 +30,12 @@ const CategoryDropdownSidebar = () => {
   if (error) return <ErrorMessage message={error.message} />;
 
   return (
-    <aside className="sticky top-22 h-full lg:w-72 hidden xl:block bg-light">
+    <aside className="sticky top-22 h-full lg:w-72 hidden xl:block  bg-gray-100">
       <div className="max-h-full overflow-hidden">
         <Scrollbar className="w-full h-full max-h-screen">
           {data?.categories?.data?.length ? (
             <div className="px-5">
-              <SidebarMenu items={data?.categories?.data} className="py-8" />
+              <SidebarMenu2 items={data?.categories?.data} className="py-8" />
             </div>
           ) : (
             <div className="min-h-full pt-6 pb-8 px-9 lg:p-8">

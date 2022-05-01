@@ -9,10 +9,10 @@ dayjs.locale()
 
 
 const SubscriptionDetail = () => {
-const {data}=useCustomerQuery();
-const subscription=data?.me?.subscription;
-const {data:cardData,isLoading:loadingData}=UseStripeCardQuery(subscription?.payment_method_id);
-const { t } = useTranslation("common");
+  const { data } = useCustomerQuery();
+  const subscription = data?.me?.subscription;
+  const { data: cardData, isLoading: loadingData } = UseStripeCardQuery(subscription?.payment_method_id);
+  const { t } = useTranslation("common");
   return (
     <div className="w-full bg-light">
       <div className="max-w-7xl mx-auto py-5 px-4 sm:py-5 sm:px-6 lg:px-8">
@@ -46,15 +46,16 @@ const { t } = useTranslation("common");
             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
               <dt className="text-sm font-medium text-gray-500">Statut</dt>
               <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                <span className="flex-grow">{subscription?.status?"Active":"Desactive"}</span>
+                <span className="flex-grow">{subscription?.status ? "Active" : "Desactive"}</span>
               </dd>
             </div>
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+            {subscription?.type == "CLICK_GAMES_PLUS" && <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
               <dt className="text-sm font-medium text-gray-500">Moyen de paiement</dt>
               <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                {loadingData?<Loader simple className="h-6 w-6"/>:<PaymentCardInfo card={cardData}/>}
+                {loadingData ? <Loader simple className="h-6 w-6" /> : <PaymentCardInfo card={cardData} />}
               </dd>
-            </div>
+            </div>}
+
           </dl>
         </div>
       </div>

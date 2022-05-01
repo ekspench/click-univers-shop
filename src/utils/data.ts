@@ -109,51 +109,19 @@ export const status_repair: any = {
     text: "Terminé",
     value: 7,
   },
-  total:8
+  total: 8,
 };
 
-export const status_purchase:any={
-  pending:{
-    label:"En attente",
-    text:"En attente de validation ",
-    value:1,
+export const status_purchase: any = {
+  pending: {
+    label: "En attente",
+    text: "En attente de validation ",
+    value: 1,
   },
-  confirmed:{
-    label:"Offre validée",
-    text:"En attente d'éxpedition ",
-    value:2,
-  },
-  dispatched: {
-    label: "Expedié",
-    text: "Colis en cours d'envoie ...",
-    value: 3,
-  },
-  received: {
-    label: "colis réçu",
-    text: "En atttente de verification",
-    value: 4,
-  },
-  checked:{
-    label:"produit validée",
-    text:"En attente de paiement",
-    value:5
-  }
-  ,total:6
-}
-
-
-
-
-export const status_exchange:any={
-  pending:{
-    label:"En attente",
-    text:"En attente de validation ",
-    value:1,
-  },
-  confirmed:{
-    label:"Echange validée",
-    text:"En attente d'éxpedition ",
-    value:2,
+  confirmed: {
+    label: "Offre validée",
+    text: "En attente d'éxpedition ",
+    value: 2,
   },
   dispatched: {
     label: "Expedié",
@@ -165,10 +133,46 @@ export const status_exchange:any={
     text: "En atttente de verification",
     value: 4,
   },
-  checked:{
-    label:"produit validée",
-    text:"En attente de paiement",
-    value:5
-  }
-  ,total:6
-}
+  checked: {
+    label: "produit validée",
+    text: "En attente de paiement",
+    value: 5,
+  },
+  total: 6,
+};
+
+export const status_exchange: any = {
+  pending: {
+    label: "En attente",
+    text: "En attente de validation ",
+    value: 1,
+  },
+  confirmed: {
+    label: "Echange validée",
+    text: "En attente d'éxpedition ",
+    value: 2,
+  },
+  dispatched: {
+    label: "Expedié",
+    text: "Colis en cours d'envoie ...",
+    value: 3,
+  },
+  received: {
+    label: "colis réçu",
+    text: "En atttente de verification",
+    value: 4,
+  },
+  checked: {
+    label: "produit validée",
+    text: "En attente de paiement",
+    value: 5,
+  },
+  total: 6,
+};
+
+export const priority_data = [
+  { label: "Haut", color: "red" },
+  { label: "Haut", color: "red" },
+  { label: "Moyenne", color: "yellow" },
+  { label: "Bas", color: "green" },
+];

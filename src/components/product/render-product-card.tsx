@@ -16,8 +16,9 @@ export default function renderProductCard(product: any, className = "") {
     case "clothing":
       return <Xenon product={product} className={className} />;
     case "user-product":
-      return <Krypton product={product} className={className} />;
+      return <Neon product={product} className={className} />;
     default:
+   
       return <Helium product={product} className={className} />;
   }
 }

@@ -41,7 +41,7 @@ const NavbarWithSearch = () => {
   return (
     <header
       ref={navbarRef}
-      className="site-header-with-search h-14 md:h-16 lg:h-auto"
+      className="site-header-with-search h-14 md:h-16 lg:h-22"
     >
       <nav
         className={cn(
@@ -93,16 +93,16 @@ const NavbarWithSearch = () => {
                       {t("nav-menu-track-order")}
                     </Link>
                   </li>
-                  <li key="supports">
-                    <Link
-                      href={ROUTES.SUPPORTS}
-                      className="font-semibold text-heading flex items-center transition duration-200 no-underline hover:text-accent focus:text-accent"
-                    >
-                      {t("nav-menu-support")}
-                    </Link>
-                  </li>
+                  
                 </>
-              ) : null}
+              ) : <li key="supports">
+              <Link
+                href={"/support"}
+                className="font-semibold text-heading flex items-center transition duration-200 no-underline hover:text-accent focus:text-accent"
+              >
+                {t("nav-menu-support")}
+              </Link>
+            </li>}
               {siteSettings.headerLinks.map(({ href, label, icon }) => (
                 <li key={`${href}${label}`}>
                   <Link

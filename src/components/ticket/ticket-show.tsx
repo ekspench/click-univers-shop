@@ -11,7 +11,7 @@ import Button from "@components/ui/button";
 import Chat from "@components/chat/chat";
 import SendMessage from "@components/chat/send-message";
 type TIcketProps = {
-  id: string;
+  id?: string|undefined;
   isMobile: boolean;
   go_back: any;
 };
@@ -152,9 +152,7 @@ const TicketShow = ({ id, isMobile, go_back }: TIcketProps) => {
   console.log("ticket", ticket);
   return (
     <div className="w-full p:2 sm:p-6 justify-start flex flex-col h-full">
-      <Button className="item-end" onClick={go_back} variant="outline">
-        Fermer
-      </Button>
+      <h3 className="text-leading font-bold">{ticket?.subject}</h3>
       <div className="border mt-2 p-4">
         <p>{ticket?.description}</p>
       </div>

@@ -92,24 +92,30 @@ export default function HomePage() {
   return (
     <>
       <SEO
-      title="Click sur ton Univers"
+        title="Click sur ton Univers"
       />
-      <Banner banner={getPageData?.banner} className="miiiin-h-screen" />
-    {/** <PromotionSlider /> */} 
+      {/**   <Banner banner={getPageData?.banner} className="miiiin-h-screen" />*/}
+      {/** <PromotionSlider /> */}
       <FilterBar />
+      <div className="min-h-screen">
+        <div className="flex flex-1 bg-gray-100">
+          <CategoryDropdownSidebar />
+          <main className="block w-full lg:mt-6 xl:overflow-hidden ltr:xl:pl-0 ltr:xl:pr-5 rtl:xl:pr-0 rtl:xl:pl-5">
+
+            <ProductFeed />
+
+          </main>
+        </div>
+      </div>
       <Element
         name="grid"
         className="flex flex-1 border-t border-solid border-border-200 border-opacity-70"
       >
-        <CategoryDropdownSidebar />
-        <main className="flex-1">
-           
-          <ProductFeed />
-          <FooterOne />
-        </main>
+
+
       </Element>
       {width > 1023 && <CartCounterButton />}
-      <CookieConsent  buttonText="ok!" style={{ background: "white",color:"black",boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",textAlign: "center" }}>Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site web. Si vous continuez à utiliser ce site, nous supposerons que vous en êtes satisfait.</CookieConsent>
+      <CookieConsent buttonText="ok!" style={{ background: "white", color: "black", boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)", textAlign: "center" }}>Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site web. Si vous continuez à utiliser ce site, nous supposerons que vous en êtes satisfait.</CookieConsent>
     </>
   );
 }
