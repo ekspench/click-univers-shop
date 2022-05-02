@@ -315,19 +315,7 @@ const StripeForm = ({ amount, data, onPaySuccess, click_game_plus }: Iprops) => 
             >
               Payer {price}
             </Button>
-            <Button className="w-full flex-1 mt-4" onClick={() => {
-              var node = document.getElementById('my-node');
-
-              htmlToImage.toPng(window.document.getElementById("stripe-paiement"))
-                .then(function (dataUrl) {
-                  var img = new Image();
-                  img.src = dataUrl;
-                  window.document.getElementById("stripe-paiement")?.appendChild(img);
-                })
-                .catch(function (error) {
-                  console.error('oops, something went wrong!', error);
-                });
-            }}>okioki</Button>
+         
 
           </div>
         )}
