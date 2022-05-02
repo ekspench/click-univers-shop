@@ -120,8 +120,8 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
    */
 
   return (
-    <article className="rounded-lg bg-light">
-      <div className="flex flex-col md:flex-row border-b border-border-200 border-opacity-70">
+    <article className="rounded-lg bg-light lg:mx-24">
+      <div className="flex flex-col bg-light md:flex-row lg:mx-16 border-b border-border-200 border-opacity-70">
         <div className="md:w-1/2 p-6 pt-8 lg:p-14 xl:p-16">
           <div className="flex items-center justify-between mb-8 lg:mb-10">
             <BackButton />
@@ -155,7 +155,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
               <h1 className="font-semibold text-lg md:text-xl xl:text-2xl tracking-tight text-heading">
                 {name}
               </h1>
-              <div className="ml-8">
+              <div className="ml-8 hidden">
                 {product.product_condition === "new" && (
                   <Badge
                     text={`text-product-condition-${product.product_condition}`}
@@ -192,19 +192,6 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                 {/*unit*/}
               </span>
             )}
-
-            {/*description && (
-              <div className="mt-3 md:mt-4 text-body text-sm leading-7">
-                <Truncate
-                  character={450}
-                  onClick={scrollDetails}
-                  buttonText="En savoir plus"
-                >
-                  {description.replace(/<[^>]*>?/gm, "")}
-                </Truncate>
-              </div>
-            )*/}
-
             <div className="my-5 md:my-10 flex items-center">
               {!isEmpty(variations) ? (
                 <VariationPrice
@@ -218,9 +205,13 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                     {basePrice ? basePrice : price}
                   </ins>
                   {discount && (
-                    <del className="text-sm md:text-base font-normal text-muted ms-2">
+                    <div>
+                      <span className="text-md  font-normal text-muted ms-2">au lieu de </span>
+                       <del className="text-md  font-normal text-muted ms-2">
                       {price}
                     </del>
+                    </div>
+                   
                   )}
                 </span>
               )}
@@ -321,7 +312,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
           ) : null}
 
           {shop?.name && (
-            <div className="flex items-center mt-2">
+            <div className="flex items-center mt-2 hidden">
               <span className="text-sm font-semibold text-heading capitalize me-6 py-1">
                 {t("common:text-sellers")}
               </span>

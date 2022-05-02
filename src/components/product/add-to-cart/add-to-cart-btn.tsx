@@ -23,9 +23,9 @@ const AddToCartBtn: React.FC<Props> = ({ variant, onClick, disabled,pre_order,mo
           disabled={disabled}
           className="group w-full h-7 md:h-9 flex items-center justify-between text-xs md:text-sm text-body-dark rounded bg-gray-100 transition-colors hover:bg-accent hover:border-accent hover:text-light focus:outline-none focus:bg-accent focus:border-accent focus:text-light"
         >
-          <span className="flex-1">{t("text-add")}</span>
+          <span className="flex-1">Achetez maintenant</span>
           <span className="w-7 h-7 md:w-9 md:h-9 bg-gray-200 grid place-items-center rounded-te rounded-be transition-colors duration-200 group-hover:bg-accent-600 group-focus:bg-accent-600">
-            <PlusIcon className="w-4 h-4 stroke-2" />
+            <PlusIcon className="w-4 h-4 hidden stroke-2" />
           </span>
         </button>
       );
@@ -76,7 +76,7 @@ const AddToCartBtn: React.FC<Props> = ({ variant, onClick, disabled,pre_order,mo
           )}
         >
           <CartIcon className="w-4 h-4 me-2.5" />
-          <span >{pre_order?"Précommander":t("text-add-cart")}</span>
+          <span >{pre_order?"Précommander":t("Achetez maintenant")}</span>
         </button>
         <div className="flex justify-center items-center text-gray-600"><Lock height="16" width="16"/> <span className="ml-2">Paiement 100% sécurisé par CB</span></div>
        

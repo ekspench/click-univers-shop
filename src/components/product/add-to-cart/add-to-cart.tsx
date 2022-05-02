@@ -48,6 +48,7 @@ export const AddToCart = ({
   const handleAddClick = (
     e: React.MouseEvent<HTMLButtonElement | MouseEvent>
   ) => {
+    /*
     e.stopPropagation();
     if (isCard && data.product_type !== "simple") {
       openModal("PRODUCT_DETAILS", data.slug);
@@ -63,7 +64,7 @@ export const AddToCart = ({
       if (!isInCart(item.id)) {
         cartAnimation(e);
       }
-    }
+    }*/
   };
   const handleRemoveClick = (e: any) => {
     e.stopPropagation();
