@@ -35,11 +35,11 @@ const WidgetSubscription: React.FC<Props> = ({ className }) => {
   return (
     <div className={cn('flex flex-col', className)}>
       <Heading variant="mediumHeading" className="mb-4 lg:mb-6 lg:pb-0.5">
-        {t('footer:widget-title-subscribe')}
+        {t('widget-title-subscribe')}
       </Heading>
 
       <Text className="lg:-mt-1 max-w-[400px]">
-        {t('footer:text-subscribe')}
+        {t('text-subscribe')}
       </Text>
       <form
         className="relative mt-5 max-w-[400px]"
@@ -49,7 +49,7 @@ const WidgetSubscription: React.FC<Props> = ({ className }) => {
           <EmailIcon className="w-4 2xl:w-[18px] h-4 2xl:h-[18px]" />
         </span>
         <Input
-          placeholder={t('forms:placeholder-email-subscribe')}
+          placeholder={t('placeholder-email-subscribe')}
           type="email"
           id="subscription-email"
           variant="solid"
