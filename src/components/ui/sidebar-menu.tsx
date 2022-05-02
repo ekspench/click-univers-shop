@@ -11,7 +11,6 @@ import Image from "next/image";
 
 function SidebarMenuItem({ className, item, depth = 0 }: any) {
   const router = useRouter();
-  console.log(item);
   const active = router?.query?.category;
   const isActive =
     active === item.slug ||

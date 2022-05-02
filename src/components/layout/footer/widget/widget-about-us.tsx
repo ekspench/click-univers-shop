@@ -18,7 +18,7 @@ interface AboutProps {
   }[];
 }
 const WidgetAbout: React.FC<AboutProps> = ({ social, className }) => {
-  const { t } = useTranslation('footer');
+  const { t } = useTranslation();
 
   return (
     <div className={`pb-10 sm:pb-0 ${className}`}>

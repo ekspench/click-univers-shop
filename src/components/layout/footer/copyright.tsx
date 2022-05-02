@@ -15,7 +15,7 @@ interface CopyrightProps {
 }
 const year = new Date().getFullYear();
 const Copyright: React.FC<CopyrightProps> = ({ payment }) => {
-  const { t } = useTranslation('footer');
+  const { t } = useTranslation();
   return (
     <div className="pb-20 lg:pb-7">
       <Container>
