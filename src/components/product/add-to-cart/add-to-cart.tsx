@@ -10,12 +10,12 @@ interface Props {
   data: any;
   variant?: "helium" | "neon" | "argon" | "oganesson" | "single" | "big";
   counterVariant?:
-    | "helium"
-    | "neon"
-    | "argon"
-    | "oganesson"
-    | "single"
-    | "details";
+  | "helium"
+  | "neon"
+  | "argon"
+  | "oganesson"
+  | "single"
+  | "details";
   counterClass?: string;
   variation?: any;
   disabled?: boolean;
@@ -48,7 +48,7 @@ export const AddToCart = ({
   const handleAddClick = (
     e: React.MouseEvent<HTMLButtonElement | MouseEvent>
   ) => {
-    /*
+
     e.stopPropagation();
     if (isCard && data.product_type !== "simple") {
       openModal("PRODUCT_DETAILS", data.slug);
@@ -64,7 +64,7 @@ export const AddToCart = ({
       if (!isInCart(item.id)) {
         cartAnimation(e);
       }
-    }*/
+    }
   };
   const handleRemoveClick = (e: any) => {
     e.stopPropagation();

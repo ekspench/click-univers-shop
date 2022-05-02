@@ -23,6 +23,46 @@ import FooterOne from "@components/layout/footer-one";
 import CookieConsent, { Cookies } from "react-cookie-consent";
 import { NextSeo } from "next-seo";
 import { SEO } from "@components/seo";
+import Container from "@components/ui/container";
+import BannerGridTwo from "@components/common/banner-grid-two";
+import FeatureGrid from "@components/common/featured-grid";
+const banners = [
+  {
+    id: 1,
+    title: 'Free delivery from your store',
+    slug: '/search',
+    image: {
+      mobile: {
+        url: '/assets/images/banner/banner-mobile-1.png',
+        width: 450,
+        height: 222,
+      },
+      desktop: {
+        url: '/assets/images/banner/banner-1.png',
+        width: 910,
+        height: 450,
+      },
+    },
+  },
+  {
+    id: 2,
+    title: 'Fresh Healthy Breakfast food',
+    slug: '/search',
+    image: {
+      mobile: {
+        url: '/assets/images/banner/banner-mobile-2.png',
+        width: 450,
+        height: 222,
+      },
+      desktop: {
+        url: '/assets/images/banner/banner-2.png',
+        width: 910,
+        height: 450,
+      },
+    },
+  },
+];
+
 
 const CartCounterButton = dynamic(
   () => import("@components/cart/cart-counter-button"),
@@ -96,7 +136,16 @@ export default function HomePage() {
       />
       {/**   <Banner banner={getPageData?.banner} className="miiiin-h-screen" />*/}
       {/** <PromotionSlider /> */}
+      <Container >
+        <BannerGridTwo
+          data={banners}
+          className="my-3 md:my-4 lg:mt-0 lg:mb-5 xl:mb-6"
+        />
+        <FeatureGrid />
+      </Container>
+
       <FilterBar />
+
       <div className="min-h-screen">
         <div className="flex flex-1 bg-gray-100">
           <CategoryDropdownSidebar />
