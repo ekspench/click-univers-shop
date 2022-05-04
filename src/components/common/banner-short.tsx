@@ -22,7 +22,7 @@ const BannerShort: React.FC<BannerProps> = ({ banner, className }) => {
     currentPosition,
   }: Waypoint.CallbackArgs) => {
     if (!currentPosition || currentPosition === "above") {
-      stickMobileFilter();
+     // stickMobileFilter();
     }
   };
   return (
@@ -32,6 +32,7 @@ const BannerShort: React.FC<BannerProps> = ({ banner, className }) => {
           <Swiper
             id="banner"
             loop={true}
+            autoplay={true}
             resizeObserver={true}
             slidesPerView={1}
             navigation={{

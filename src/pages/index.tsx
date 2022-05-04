@@ -26,6 +26,10 @@ import { SEO } from "@components/seo";
 import Container from "@components/ui/container";
 import BannerGridTwo from "@components/common/banner-grid-two";
 import FeatureGrid from "@components/common/featured-grid";
+import BannerShort from "@components/common/banner-short";
+import BoxCategory from "@components/category/box-category";
+import FilterBarLayoutTwo from "@components/common/filter-bar-layout-two";
+import FeedLayoutTwo from "@components/product/feed-layout-two";
 const banners = [
   {
     id: 1,
@@ -33,7 +37,7 @@ const banners = [
     slug: '/search',
     image: {
       mobile: {
-        url: '/assets/images/banner/banner-mobile-1.png',
+        url: '/banner/images/banner/banner-mobile-1.png',
         width: 450,
         height: 222,
       },
@@ -126,27 +130,34 @@ export default function HomePage() {
   }, [query.text, query.category]);
 
   const { width } = useWindowSize();
-  const PAGE_TYPE = query.type?.toString();
-  const getPageData = getKeyValue(sitePages, PAGE_TYPE as PageName);
+  const getPageData = getKeyValue(sitePages, "grocery");
 
   return (
     <>
+
       <SEO
         title="Click sur ton Univers"
       />
-      {/**   <Banner banner={getPageData?.banner} className="miiiin-h-screen" />*/}
-      {/** <PromotionSlider /> */}
-      <Container >
-        <BannerGridTwo
-          data={banners}
-          className="my-3 md:my-4 lg:mt-0 lg:mb-5 xl:mb-6"
-        />
-        <FeatureGrid />
-      </Container>
+      <div className="flex flex-1 lg:pt-[80px] bg-gray-100">
+        <div className="sticky top-22 h-full lg:w-[380px] hidden xl:block bg-gray-100">
+          <BoxCategory />
+        </div>
 
+        <main className="w-full overflow-hidden block lg:mt-6">
+          <BannerShort  banner={getPageData.banner} className="max-h-140" />
+          <Element name="grid">
+            <ProductFeed />
+          </Element>
+        </main>
+      </div>
+      {width > 1023 && <CartCounterButton />}
+
+      {/**   <Banner banner={getPageData?.banner} className="miiiin-h-screen" />
+  
       <FilterBar />
-
+      <BannerShort banner={getPageData.banner} className="max-h-140" />
       <div className="min-h-screen">
+    
         <div className="flex flex-1 bg-gray-100">
           <CategoryDropdownSidebar />
           <main className="block w-full lg:mt-6 xl:overflow-hidden ltr:xl:pl-0 ltr:xl:pr-5 rtl:xl:pr-0 rtl:xl:pl-5">
@@ -161,7 +172,7 @@ export default function HomePage() {
         className="flex flex-1 border-t border-solid border-border-200 border-opacity-70"
       >
       </Element>
-      {width > 1023 && <CartCounterButton />}
+      {width > 1023 && <CartCounterButton />}*/}
       <CookieConsent buttonText="ok!" style={{ background: "white", color: "black", boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)", textAlign: "center" }}>Nous utilisons des cookies pour vous garantir la meilleure expérience sur notre site web. Si vous continuez à utiliser ce site, nous supposerons que vous en êtes satisfait.</CookieConsent>
     </>
   );

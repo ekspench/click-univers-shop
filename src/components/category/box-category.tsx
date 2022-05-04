@@ -7,6 +7,7 @@ import Scrollbar from "@components/ui/scrollbar";
 import * as CategoryIcons from "@components/icons/category";
 import { getIcon } from "@utils/get-icon";
 import ProductFeedLoaderTwo from "@components/ui/loaders/product-feed-loader-two";
+import Image from "next/image";
 
 const BoxCategory = () => {
   const router = useRouter();
@@ -85,11 +86,14 @@ const BoxCategory = () => {
               >
                 <div className="w-full h-20 flex items-center justify-center">
                   <span className="w-10 h-10 inline-block">
-                    {getIcon({
-                      iconList: CategoryIcons,
-                      iconName: category?.icon!,
-                      className: "w-10 h-10",
-                    })}
+                    <Image
+                      src={category?.image?.thumbnail ?? "http://api.click-univers.local/1258.jpg"}
+                      alt={category?.slug}
+
+                      priority={true}
+                      height={250}
+                      width={250} />
+
                   </span>
                 </div>
 

@@ -34,6 +34,9 @@ import { DeliveryTruckIcon } from "@components/icons/DeliveryTruckIcon";
 import { CheckMark } from "@components/icons/checkmark";
 import Tooltip from "@components/ui/tool-tips";
 import { InfoIcon } from "@components/icons/info";
+import { Button } from "..";
+import { DataTransferIcon } from "@components/icons/category";
+import LinkButton from "@components/ui/link-button";
 
 type Props = {
   product: any;
@@ -56,7 +59,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
     shop,
     updated_at,
   } = product ?? {};
-  const { dataMe, isLoading: loadingMe } = useCustomerQuery();
+  const { data:dataMe, isLoading: loadingMe } = useCustomerQuery();
   const subscription = dataMe?.me?.subscription;
   const { openModal } = useModalAction();
   const { t } = useTranslation("common");
@@ -74,9 +77,9 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
 
   const isSelected = !isEmpty(variations)
     ? !isEmpty(attributes) &&
-      Object.keys(variations).every((variation) =>
-        attributes.hasOwnProperty(variation)
-      )
+    Object.keys(variations).every((variation) =>
+      attributes.hasOwnProperty(variation)
+    )
     : true;
 
   let selectedVariation = {};
@@ -207,11 +210,11 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                   {discount && (
                     <div>
                       <span className="text-md  font-normal text-muted ms-2">au lieu de </span>
-                       <del className="text-md  font-normal text-muted ms-2">
-                      {price}
-                    </del>
+                      <del className="text-md  font-normal text-muted ms-2">
+                        {price}
+                      </del>
                     </div>
-                   
+
                   )}
                 </span>
               )}
@@ -226,16 +229,16 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
             </div>
             <DeliveryOptionView product={product} />
             <div className="flex items-center">
-            <Tooltip tooltipText={"Les délais de livraison sont indicatifs de certaines commandes, susceptibles d'avoir des délais de livraison plus longs"} children={<InfoIcon height="16" width="16"  />}/>
-              <DeliveryIcon  height="42" width="42" />
+              <Tooltip tooltipText={"Les délais de livraison sont indicatifs de certaines commandes, susceptibles d'avoir des délais de livraison plus longs"} children={<InfoIcon height="16" width="16" />} />
+              <DeliveryIcon height="42" width="42" />
               <div className="ml-4 flex">
                 <p>
-                Livraison {product.price - product.discount > 35 && "GRATUITE"}{" "}</p>
+                  Livraison {product.price - product.discount > 35 && "GRATUITE"}{" "}</p>
                 <p className=" ml-2 font-bold first-letter:capitalize">
                   {formatDateCompletWithDay(dateDelivery.toDateString())}
                 </p>
               </div>
-            
+
             </div>
             {quantity > 0 && (
               <div className="flex items-center text-green-500 mt-2 ml-2">
@@ -257,6 +260,8 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                   )}
                   {mode !== "user-product" && (
                     <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
+                      {dataMe?.me?.subscription?.status&&     <LinkButton href={"/click-games-plus/exchange/" + product?.slug} className="py-4 bg-green-500 hover:bg-green-800 px-5 mb-3 h-12 w-full break-all flex items-center justify-center text-sm lg:text-base  font-bold rounded text-light bg-accent hover:bg-accent-hover transition-colors duration-300 focus:outline-none focus:bg-accent-hover"> <DataTransferIcon className="mr-2" height={20} width={20} /> <span className="ml-2"> Echanger avec click games +</span></LinkButton>}
+                 
                       <AddToCart
                         isCard={false}
                         data={product}
@@ -289,7 +294,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                     <span className="text-base text-body whitespace-nowrap lg:ms-7">
                       {
                         selectedVariation?.is_disable ||
-                        selectedVariation.quantity === 0
+                          selectedVariation.quantity === 0
                           ? t("text-out-stock")
                           : "" // t("text-in-stock")
                       }

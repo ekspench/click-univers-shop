@@ -152,12 +152,12 @@ export const status_exchange: any = {
     text: "En attente d'éxpedition ",
     value: 2,
   },
-  dispatched: {
+  send_dispached: {
     label: "Expedié",
     text: "Colis en cours d'envoie ...",
     value: 3,
   },
-  received: {
+  checking: {
     label: "colis réçu",
     text: "En atttente de verification",
     value: 4,
@@ -167,7 +167,12 @@ export const status_exchange: any = {
     text: "En attente de paiement",
     value: 5,
   },
-  total: 6,
+  paid: {
+    label: "Produit payée",
+    text: "Colis en preparation d'envoie",
+    value: 6,
+  },
+  total: 8,
 };
 
 export const priority_data = [

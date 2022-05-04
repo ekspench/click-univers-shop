@@ -19,6 +19,10 @@ import { formatAddress } from "@utils/format-address";
 import PaymentCardInfo from "@components/payment/payment-card-info";
 import { useExchangeQuery } from "@data/exchange/use-exchange.query";
 import ProductCardPlus from "@components/click-games-plus/product-card-plus";
+import { useUpdateExchangeMutation } from "@data/exchange/use-update-exchange.mutation";
+import PriceView from "@components/common/price-view";
+import PaymentForm from "@components/checkout/checkout-form";
+import ExchangePayForm from "@components/exchange/exchange-pay-form";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -37,7 +41,7 @@ export default function ExchangeShow() {
   const { data, isLoading } = useExchangeQuery({
     ref: router.query.id as string,
   });
-  const { mutate: updateRepair } = useUpdateRepairMutation();
+  const { mutate: updateExchange } = useUpdateExchangeMutation();
   const exchange = data?.exchange;
   const step = exchange ? status_repair[exchange.status]?.value : 0;
   const delivery: delivery = exchange?.return_delivery ? exchange?.return_delivery : exchange?.send_delivery;
@@ -77,59 +81,59 @@ export default function ExchangeShow() {
           <div className="space-y-8">
             <div className="bg-white border-t border-b border-gray-200 shadow-sm sm:border sm:rounded-lg">
               <div className="w-full flex justify-end px-4 space-x-2">
-                {exchange?.status === "valid" && (
+                {exchange?.status === "confirmed" && (
                   <>                 <Button
-                  className=" mb-2  mt-2"
-                  size="small"
-                  onClick={() =>
-                    openModal("DELIVERY_FORM", {
-                      onValide: (e: any) => {
-                        if (repair) {
-                          updateRepair({
-                            id: repair.id,
-                            input: {
-                              action: "shipping_packet",
-                              shipping_data: e,
-                            },
-                          });
-                        }
-                      },
-                    })
-                  }
-                >
-                  Expedier le colis
-                </Button> <Button
-                  className="bg-green-500 hover:bg-red-600 mb-2  mt-2"
-                  size="small"
-                  onClick={() =>
-                    openModal("REPAIR_TRACK_LABEL", { repair: exchange })
-                  }
-                >
-                  Etiquette
-                </Button></>
- 
+                    className=" mb-2  mt-2"
+                    size="small"
+                    onClick={() =>
+                      openModal("DELIVERY_FORM", {
+                        onValide: (e: any) => {
+                          if (exchange) {
+                            updateExchange({
+                              id: exchange.id,
+                              input: {
+                                action: "shipping_packet",
+                                shipping_data: e,
+                              },
+                            });
+                          }
+                        },
+                      })
+                    }
+                  >
+                    Expedier le colis
+                  </Button> <Button
+                    className="bg-green-500 hover:bg-red-600 mb-2  mt-2"
+                    size="small"
+                    onClick={() =>
+                      openModal("REPAIR_TRACK_LABEL", { repair: exchange })
+                    }
+                  >
+                      Etiquette
+                    </Button></>
+
                 )}
 
-               
+
               </div>
 
               <div className="py-6 px-4 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8">
                 <div className="sm:flex-col lg:col-span-7">
                   <div className="flex justify-center border p-5 bg-white rounded-md">
                     <ProductCardPlus product={exchange?.shop_product} />
-                    <div className="my-auto justify mx-4 h-48"
-                      style={{ backgroundImage: `url(/vs.png)`, backgroundSize: "contain", backgroundRepeat: "no-repeat" }}
+                    <div className="flex  justify-center items-center mx-4 h-48"
+
                     >
 
-                      <h4 className="text-xl font-bold mt-20 text-dark">Contre</h4>
+                      <img className="w-16 h-16" src="/icons/exchange.png" />
                     </div>
                     <ProductCardPlus product={exchange?.customer_product} />
 
                   </div>
-                  <h3 className="my-2 font-semibold">Montant d'échange: {formatToPrice(exchange?.amount)}</h3>
+                  <h3 className="my-2 font-semibold">Montant d'échange: <PriceView amount={exchange?.amount} /> </h3>
 
                 </div>
-                {delivery&&   <div className="mt-6 lg:mt-0 lg:col-span-5">
+                {delivery && <div className="mt-6 lg:mt-0 lg:col-span-5">
                   <dl className="grid grid-cols-2 gap-x-6 text-sm">
                     <div>
                       <dt className="font-medium text-gray-900">
@@ -161,7 +165,7 @@ export default function ExchangeShow() {
                     </div>
                   </dl>
                 </div>}
-             
+
               </div>
 
               <div className="border-t border-gray-200 py-6 px-4 sm:px-6 lg:p-8">
@@ -226,7 +230,8 @@ export default function ExchangeShow() {
             </div>
           </div>
         </section>
-
+        {exchange?.status == "checked" &&
+          <ExchangePayForm exchange={data?.exchange} />}
         {/* Billing */}
         {exchange?.paid_at &&
           <section aria-labelledby="summary-heading" className="mt-16">

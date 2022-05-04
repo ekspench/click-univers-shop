@@ -1,7 +1,7 @@
 import BannerCard from "@components/cards/banner-card";
 import Carousel from "@components/ui/carousel/carousel";
-import useWindowSize from "@utils/use-window-size copy";
-import { SwiperSlide } from '@components/ui/carousel/slider';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useWindowSize } from "react-use";
 
 interface BannerProps {
   data: any;
@@ -19,12 +19,12 @@ const BannerGridTwo: React.FC<BannerProps> = ({
     <div className={className}>
       {width! < 768 ? (
         <Carousel
-          prevActivateId="banner-carousel-button-prev"
-          nextActivateId="banner-carousel-button-next"
+          id={"banner-two-grid"}
+
         >
           {data?.map((banner: any) => (
             <SwiperSlide key={`banner-key-${banner.id}`}>
-              <BannerCard banner={banner} effectActive={true} />
+              <div className="w-48 h-48 border"></div>
             </SwiperSlide>
           ))}
         </Carousel>

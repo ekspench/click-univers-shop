@@ -1,122 +1,92 @@
-import { useRef } from 'react';
-import 'swiper/swiper-bundle.min.css'
-import 'swiper/swiper.min.css'
-import {
-  Swiper,
-  Navigation,
-  Autoplay,
-  Pagination,
-  Grid,
-} from '@components/ui/carousel/slider';
-import { useRouter } from 'next/router';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { getDirection } from '@utils/get-direction';
-import cn from 'classnames';
+import { ArrowNext, ArrowPrev } from "@components/icons";
+import SwiperCore, { Navigation } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useTranslation } from "next-i18next";
+import "swiper/swiper-bundle.css";
+import { Children } from "react";
+// dummy data
+const data = [
+  {
+    id: 1,
+    title: "banner:promotion-slide-one",
+    bannerUrl: "/promotion/offer-1.png",
+  },
+  {
+    id: 2,
+    title: "banner:promotion-slide-two",
+    bannerUrl: "/promotion/offer-2.png",
+  },
+  {
+    id: 3,
+    title: "banner:promotion-slide-three",
+    bannerUrl: "/promotion/offer-3.png",
+  },
+  /*{
+    id: 4,
+    title: "banner:promotion-slide-four",
+    bannerUrl: "/promotion/offer-4.png",
+  },
+  {
+    id: 5,
+    title: "banner:promotion-slide-five",
+    bannerUrl: "/promotion/offer-5.png",
+  },*/
+];
 
-type CarouselPropsType = {
-  className?: string;
-  buttonGroupClassName?: string;
-  prevActivateId?: string;
-  nextActivateId?: string;
-  prevButtonClassName?: string;
-  nextButtonClassName?: string;
-  buttonSize?: 'default' | 'small';
-  centeredSlides?: boolean;
-  loop?: boolean;
-  slidesPerColumn?: number;
-  breakpoints?: {} | any;
-  pagination?: {} | any;
-  navigation?: {} | any;
-  autoplay?: {} | any;
-  grid?: {} | any;
+const offerSliderBreakpoints = {
+  320: {
+    slidesPerView: 1,
+    spaceBetween: 0,
+  },
+  580: {
+    slidesPerView: 2,
+    spaceBetween: 16,
+  },
+  1024: {
+    slidesPerView: 3,
+    spaceBetween: 16,
+  },
+  1920: {
+    slidesPerView: 4,
+    spaceBetween: 24,
+  },
 };
+SwiperCore.use([Navigation]);
 
-const Carousel: React.FunctionComponent<CarouselPropsType> = ({
-  children,
-  className = '',
-  buttonGroupClassName = '',
-  prevActivateId = '',
-  nextActivateId = '',
-  prevButtonClassName = '-start-3.5 lg:-start-4 xl:-start-5',
-  nextButtonClassName = '-end-3.5 lg:-end-4 xl:-end-5',
-  buttonSize = 'default',
-  breakpoints,
-  navigation = true,
-  pagination = false,
-  loop = false,
-  grid,
-  autoplay,
-  ...props
-}) => {
-  const { locale } = useRouter();
-  const dir = getDirection(locale);
-  const prevRef = useRef<HTMLDivElement>(null);
-  const nextRef = useRef<HTMLDivElement>(null);
-  let nextButtonClasses = cn(
-    'w-7 h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 text-base lg:text-lg xl:text-xl cursor-pointer flex items-center justify-center rounded-full bg-skin-fill absolute transition duration-300 hover:bg-skin-primary hover:text-skin-inverted focus:outline-none transform shadow-navigation',
-    { '3xl:text-2xl': buttonSize === 'default' },
-    nextButtonClassName
-  );
-  let prevButtonClasses = cn(
-    'w-7 h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 text-base lg:text-lg xl:text-xl cursor-pointer flex items-center justify-center rounded-full bg-skin-fill absolute transition duration-300 hover:bg-skin-primary hover:text-skin-inverted focus:outline-none transform shadow-navigation',
-    { '3xl:text-2xl': buttonSize === 'default' },
-    prevButtonClassName
-  );
+export default function Carousel({children,id}) {
+  const { t } = useTranslation();
   return (
-    <div
-      className={`carouselWrapper relative ${className} ${pagination ? 'dotsCircle' : 'dotsCircleNone'
-        }`}
-    >
-      <Swiper
-        modules={[Navigation, Autoplay, Pagination, Grid]}
-        autoplay={autoplay}
-        breakpoints={breakpoints}
-        dir={dir}
-        pagination={pagination}
-        grid={grid}
-        navigation={
-          navigation
-            ? {
-              prevEl: prevActivateId.length
-                ? `#${prevActivateId}`
-                : prevRef.current!, // Assert non-null
-              nextEl: nextActivateId.length
-                ? `#${nextActivateId}`
-                : nextRef.current!, // Assert non-null
-            }
-            : {}
-        }
-        {...props}
-      >
-        {children}
-      </Swiper>
-      {Boolean(navigation) && (
-        <div
-          className={`flex items-center w-full absolute top-2/4 z-10 ${buttonGroupClassName}`}
+    <div className="px-6 py-5 md:px-8 xl:px-12  md:py-10 border-t border-border-200">
+      <div className="relative" style={{ margin: "0 auto" }}>
+        <Swiper
+          id={id}
+          slidesPerView={'auto'}
+          centeredSlides={true}
+          initialSlide={1}
+          loop={false}
+          breakpoints={offerSliderBreakpoints}
+          navigation={{
+            nextEl: ".next",
+            prevEl: ".prev",
+          }}
         >
-          {prevActivateId.length > 0 ? (
-            <div className={prevButtonClasses} id={prevActivateId}>
-              {dir === 'rtl' ? <IoIosArrowForward /> : <IoIosArrowBack />}
-            </div>
-          ) : (
-            <div ref={prevRef} className={prevButtonClasses}>
-              {dir === 'rtl' ? <IoIosArrowForward /> : <IoIosArrowBack />}
-            </div>
-          )}
-
-          {nextActivateId.length > 0 ? (
-            <div className={nextButtonClasses} id={nextActivateId}>
-              {dir === 'rtl' ? <IoIosArrowBack /> : <IoIosArrowForward />}
-            </div>
-          ) : (
-            <div ref={nextRef} className={nextButtonClasses}>
-              {dir === 'rtl' ? <IoIosArrowBack /> : <IoIosArrowForward />}
-            </div>
-          )}
+          {children}
+        </Swiper>
+        <div
+          className="prev cursor-pointer absolute top-2/4 -start-4 md:-start-5 z-10 -mt-4 md:-mt-5 w-8 h-8 md:w-9 md:h-9 rounded-full bg-light shadow-xl border border-border-200 border-opacity-70 flex items-center justify-center text-heading transition-all duration-200 hover:bg-accent hover:text-light hover:border-accent"
+          role="button"
+        >
+          <span className="sr-only">{t("common:text-previous")}</span>
+          <ArrowPrev width={18} height={18} />
         </div>
-      )}
+        <div
+          className="next cursor-pointer absolute top-2/4 -end-4 md:-end-5 z-10 -mt-4 md:-mt-5 w-8 h-8 md:w-9 md:h-9 rounded-full bg-light shadow-xl border border-border-200 border-opacity-70 flex items-center justify-center text-heading transition-all duration-200 hover:bg-accent hover:text-light hover:border-accent"
+          role="button"
+        >
+          <span className="sr-only">{t("common:text-next")}</span>
+          <ArrowNext width={18} height={18} />
+        </div>
+      </div>
     </div>
   );
-};
-
-export default Carousel;
+}

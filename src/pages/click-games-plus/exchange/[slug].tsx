@@ -25,6 +25,7 @@ import Button from "@components/ui/button";
 import { formatToPrice } from "@utils/use-price";
 import ChoiceGameSku from "@components/click-games-plus/choice-games-sku";
 import { useCreateExchangeMutation } from "@data/exchange/use-create-exchange.mutation";
+import { useRouter } from "next/router";
 // This function gets called at build time
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
     const products = await fetchProducts({
@@ -96,15 +97,21 @@ const ProductCard = ({ product }: { product: Product }) => {
 
 export default function CreateExchangeProduct({ product }: Iprops) {
     const [myProduct, setMyProduct] = useState<Product>();
+    const {push}=useRouter();
     let price = (myProduct && product) ? product.price - myProduct.price : 0;
     price = price < 10 ? 10 : price;
     const { mutate, isLoading } = useCreateExchangeMutation();
-    const { data:dataMe } = useCustomerQuery();
-    const me=dataMe?.me;
+    const { data: dataMe } = useCustomerQuery();
+    const me = dataMe?.me;
     const exchange = () => {
         mutate({
             customer_product_id: myProduct?.id,
             shop_product_id: product?.id,
+        },{
+            onSuccess:(response)=>{
+                console.log("reponse",response);
+               push("/exchanges/"+response?.id);
+            }
         });
     }
     return (
@@ -114,11 +121,11 @@ export default function CreateExchangeProduct({ product }: Iprops) {
             </div>
             <div className="flex justify-center mt-5 border p-5 bg-white rounded-md">
                 <ProductCard product={product} />
-                <div className="my-auto justify mx-4 h-48"
-                    style={{ backgroundImage: `url(/vs.png)`, backgroundSize: "contain", backgroundRepeat: "no-repeat" }}
-                >
+                <div className="flex justify-center items-center mx-4 h-48"
 
-                    <h4 className="text-xl font-bold mt-20 text-dark">Contre</h4>
+                >
+                    <img className="h-16 w-16" src="/icons/exchange.png" />
+
                 </div>
                 {myProduct ? <ProductCard product={myProduct} /> : <div className="w-48 h-48 border bg-white">
                     <div className="flex align-center justify-center">
@@ -127,6 +134,8 @@ export default function CreateExchangeProduct({ product }: Iprops) {
                 </div>}
 
             </div>
+           
+
             {me && me?.subscription?.status ?
                 <div>
                     {!myProduct ? <div className="mt-10 flex justify-center">
@@ -134,18 +143,18 @@ export default function CreateExchangeProduct({ product }: Iprops) {
                             <ChoiceGameSku setProduct={setMyProduct} />
                         </div>
                     </div> :
-                     <>
-                        <div className="mt-10 flex flex-col w-full items-center justify-center rounded-md">
+                        <>
+                            <div className="mt-10 flex flex-col w-full items-center justify-center rounded-md">
 
-                            <Button className="w-96" onClick={() => setMyProduct(null)} size="small">Choisir une autre jeux</Button>
-                            <div className="mt-5 bg-white flex justify-center">
-                                Estimation du prix d'échage: {formatToPrice(price)}
+                                <Button className="w-96" onClick={() => setMyProduct(null)} size="small">Choisir une autre jeux</Button>
+                                <div className="mt-5 bg-white flex justify-center">
+                                    Estimation du prix d'échage: {formatToPrice(price)}
+                                </div>
+                                {me && me?.subscription?.status && <Button loading={isLoading} disabled={isLoading} className="w-96 bg-green-500 hover:bg-green-600" onClick={exchange} size="small">Demande l'échange de ce jeux</Button>}
+
                             </div>
-                            {me && me?.subscription?.status && <Button className="w-96 bg-green-500 hover:bg-green-600" onClick={exchange} size="small">Demande l'échange de ce jeux</Button>}
-
-                        </div>
-                    </>}
-                </div> : 
+                        </>}
+                </div> :
                 <div className="mt-5 p-5 flex justify-center border rounded-md bg-white">
 
                     <h3 className="text-red-500 text-lg font-semibold">Abonnez vous pour béneficier de l'échanger de jeux</h3>
