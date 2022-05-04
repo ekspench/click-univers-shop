@@ -138,13 +138,18 @@ export default function HomePage() {
       <SEO
         title="Click sur ton Univers"
       />
-      <div className="flex flex-1 lg:pt-[80px] bg-gray-100">
+      <div className="w-full overflow-hidden block lg:mt-6">
+      <BannerShort  banner={getPageData.banner} className="max-h-140" />
+        <FeatureGrid />
+      </div>
+    
+      <div className="flex flex-1 bg-gray-100">
         <div className="sticky top-22 h-full lg:w-[380px] hidden xl:block bg-gray-100">
           <BoxCategory />
         </div>
 
         <main className="w-full overflow-hidden block lg:mt-6">
-          <BannerShort  banner={getPageData.banner} className="max-h-140" />
+        
           <Element name="grid">
             <ProductFeed />
           </Element>

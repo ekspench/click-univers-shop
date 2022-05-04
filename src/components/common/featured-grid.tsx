@@ -83,7 +83,7 @@ const breakpoints = {
 };
 
 const FeatureGrid: React.FC<Props> = ({
-  className = 'mb-12 md:mb-14 xl:mb-16',
+  className = ' mt-5',
 }) => {
   const { width } = useWindowSize();
   return (
