@@ -30,17 +30,17 @@ export const sitePages: Record<PageName, PageInfo> = {
     banner: {
       heading: "heading-grocery",
       subheading: "subheading-grocery",
-      image: "/banner/click-games-1.jpeg",
+      image: "/banner/click-games-light-1.jpeg",
       gallery: [
         {
           id: 1,
           title: "Buy One Get One Free",
-          image: "/banner/click-games-1.jpeg",
+          image: "/banner/click-games-light-1.jpeg",
         },
         {
           id: 2,
           title: "Buy One Get One Free",
-          image: "/banner/click-games-2.jpg",
+          image: "/banner/click-games-light-2.jpeg",
         },
       ],
     },

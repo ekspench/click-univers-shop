@@ -15,6 +15,18 @@ type BannerProps = {
 
 SwiperCore.use([Navigation]);
 
+const breakpoints = {
+  '768': {
+    slidesPerView: 2,
+    spaceBetween: 16,
+  },
+  '640 ': {
+    slidesPerView: 1,
+    spaceBetween: 12,
+  },
+  '0': {
+    slidesPerView: 1,
+  },};
 const BannerShort: React.FC<BannerProps> = ({ banner, className }) => {
   const { t } = useTranslation("common");
   const { stickMobileFilter, unstickMobileFilter } = useUI();
@@ -31,17 +43,18 @@ const BannerShort: React.FC<BannerProps> = ({ banner, className }) => {
         <div className="relative">
           <Swiper
             id="banner"
-            loop={true}
+            loop={false}
+            breakpoints={breakpoints}
             autoplay={true}
             resizeObserver={true}
-            slidesPerView={1}
+            slidesPerView={2}
             navigation={{
               nextEl: ".next",
               prevEl: ".prev",
             }}
           >
             {banner?.gallery?.map((item) => (
-              <SwiperSlide key={item.id}>
+              <SwiperSlide className="mx-2" key={item.id}>
                 <img
                   className="w-full h-auto"
                   src={item.image ?? "/banner/grocery.png"}
@@ -51,14 +64,14 @@ const BannerShort: React.FC<BannerProps> = ({ banner, className }) => {
             ))}
           </Swiper>
           <div
-            className="prev cursor-pointer absolute top-2/4 start-4 md:start-5 z-10 -mt-4 md:-mt-5 w-8 h-8 rounded-full bg-light shadow-200 border border-border-200 border-opacity-70 flex items-center justify-center text-heading transition-all duration-200"
+            className="prev md:hidden cursor-pointer absolute top-2/4 start-4 md:start-5 z-10 -mt-4 md:-mt-5 w-8 h-8 rounded-full bg-light shadow-200 border border-border-200 border-opacity-70 flex items-center justify-center text-heading transition-all duration-200"
             role="button"
           >
             <span className="sr-only">{t("text-previous")}</span>
             <ArrowPrev width={18} height={18} />
           </div>
           <div
-            className="next cursor-pointer absolute top-2/4 end-4 md:end-5 z-10 -mt-4 md:-mt-5 w-8 h-8 rounded-full bg-light shadow-200 border border-border-200 border-opacity-70 flex items-center justify-center text-heading transition-all duration-200"
+            className="next md:hidden cursor-pointer absolute top-2/4 end-4 md:end-5 z-10 -mt-4 md:-mt-5 w-8 h-8 rounded-full bg-light shadow-200 border border-border-200 border-opacity-70 flex items-center justify-center text-heading transition-all duration-200"
             role="button"
           >
             <span className="sr-only">{t("text-next")}</span>
