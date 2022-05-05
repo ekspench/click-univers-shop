@@ -4,7 +4,7 @@ import { Link, Element } from "react-scroll";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import HomeLayout from "@components/layout/home-layout";
-import Button  from "@components/ui/button";
+import Button from "@components/ui/button";
 import { GetStaticProps } from "next";
 import { dehydrate, QueryClient } from "react-query";
 import { fetchSettings } from "@data/settings/use-settings.query";
@@ -13,6 +13,7 @@ import { fetchCategories } from "@data/category/use-categories.query";
 import { fetchTypes } from "@data/type/use-types.query";
 import ListGamesExchange from "@components/click-games-plus/list-games-exchange";
 import ListLogo from "@components/click-games-plus/list-logo";
+import { SEO } from "@components/seo";
 
 function makeTitleToDOMId(title: string) {
   return title.toLowerCase().split(" ").join("_");
@@ -43,28 +44,28 @@ const products = [
   // More products...
 ];
 export default function ClickGamePlusPage() {
-  const { t } = useTranslation("policy");
-  const { title, date, content } = privacyPolicy;
 
   return (
-    <div className="flex  justify-beetwen flex-col h-screen">
-      <div className=" bg-white mt md:mt-20 flex justify-center">
-        <div aria-hidden="true" className="inset-0 overflow-hidden lg:w-1/4 w-1/2 mt-10">
+    <>
+      <SEO title="Click sur ton Univers"/>
+      <div className="w-full  overflow-hidden block lg:mt-6">
+        <div className="flex justify-center py-8">
           <img
             src="click-games-plus.png"
             alt=""
-            className="w-full h-full object-center object-cover"
+            className=" h-full object-center object-cover w-96"
           />
         </div>
+        <ListLogo />
       </div>
-      <ListLogo/>
-      <Element
-        name="grid"
-        className="flex flex-1 border-t border-solid border-border-200 border-opacity-70"
-      >
-        <ListGamesExchange/>
-      </Element>
-    </div>
+      <div className="flex flex-1 bg-gray-100">
+        <main className="w-full overflow-hidden block lg:mt-6">
+          <Element name="grid">
+            <ListGamesExchange />
+          </Element>
+        </main>
+      </div>
+    </>
   );
 }
 

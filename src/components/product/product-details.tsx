@@ -260,7 +260,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                   )}
                   {mode !== "user-product" && (
                     <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
-                      {dataMe?.me?.subscription?.status&&     <LinkButton href={"/click-games-plus/exchange/" + product?.slug} className="py-4 bg-green-500 hover:bg-green-800 px-5 mb-3 h-12 w-full break-all flex items-center justify-center text-sm lg:text-base  font-bold rounded text-light bg-accent hover:bg-accent-hover transition-colors duration-300 focus:outline-none focus:bg-accent-hover"> <DataTransferIcon className="mr-2" height={20} width={20} /> <span className="ml-2"> Echanger avec click games +</span></LinkButton>}
+                      {dataMe?.me?.subscription?.status&&product?.exchangeable&&     <LinkButton href={"/click-games-plus/exchange/" + product?.slug} className="py-4 bg-green-500 hover:bg-green-800 px-5 mb-3 h-12 w-full break-all flex items-center justify-center text-sm lg:text-base  font-bold rounded text-light bg-accent hover:bg-accent-hover transition-colors duration-300 focus:outline-none focus:bg-accent-hover"> <DataTransferIcon className="mr-2" height={20} width={20} /> <span className="ml-2"> Echanger avec click games +</span></LinkButton>}
                  
                       <AddToCart
                         isCard={false}

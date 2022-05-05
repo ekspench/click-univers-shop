@@ -41,7 +41,7 @@ export default function ExchangeShow() {
   const { data, isLoading } = useExchangeQuery({
     ref: router.query.id as string,
   });
-  const { mutate: updateExchange } = useUpdateExchangeMutation();
+  const { mutate: updateExchange, isLoading: updateLoading } = useUpdateExchangeMutation();
   const exchange = data?.exchange;
   const step = exchange ? status_repair[exchange.status]?.value : 0;
   const delivery: delivery = exchange?.return_delivery ? exchange?.return_delivery : exchange?.send_delivery;
@@ -83,6 +83,7 @@ export default function ExchangeShow() {
               <div className="w-full flex justify-end px-4 space-x-2">
                 {exchange?.status === "confirmed" && (
                   <>                 <Button
+                    disabled={updateLoading}
                     className=" mb-2  mt-2"
                     size="small"
                     onClick={() =>
@@ -102,15 +103,38 @@ export default function ExchangeShow() {
                     }
                   >
                     Expedier le colis
-                  </Button> <Button
-                    className="bg-green-500 hover:bg-red-600 mb-2  mt-2"
-                    size="small"
-                    onClick={() =>
-                      openModal("REPAIR_TRACK_LABEL", { repair: exchange })
-                    }
-                  >
+                  </Button>
+
+                    <Button
+                      className="bg-green-500 hover:bg-red-600 mb-2  mt-2"
+                      size="small"
+                      disabled={updateLoading}
+                      onClick={() =>
+                        openModal("REPAIR_TRACK_LABEL", { repair: exchange })
+                      }
+                    >
                       Etiquette
-                    </Button></>
+                    </Button>
+                    <Button
+                      disabled={updateLoading}
+                      className=" mb-2  bg-red-600 hover:bg-red-800 mt-2"
+                      size="small"
+                      onClick={() => {
+                        if (exchange) {
+                          updateExchange({
+                            id: exchange.id,
+                            input: {
+                              action: "cancelled",
+                            },
+                          });
+                        }
+                      }
+
+                      }
+                    >
+                      Annuler l'échange
+                    </Button>
+                  </>
 
                 )}
 
@@ -127,7 +151,7 @@ export default function ExchangeShow() {
 
                       <img className="w-16 h-16" src="/icons/exchange.png" />
                     </div>
-                    <ProductCardPlus product={exchange?.customer_product} />
+                    <ProductCardPlus product={exchange?.customer_product?.product} />
 
                   </div>
                   <h3 className="my-2 font-semibold">Montant d'échange: <PriceView amount={exchange?.amount} /> </h3>
@@ -230,7 +254,7 @@ export default function ExchangeShow() {
             </div>
           </div>
         </section>
-        {exchange?.status == "checked" &&
+        {/*exchange?.status == "checked" &&
           <ExchangePayForm exchange={data?.exchange} />}
         {/* Billing */}
         {exchange?.paid_at &&

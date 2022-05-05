@@ -37,4 +37,5 @@ export const API_ENDPOINTS: Record<string, string> = {
   REPAIR: "repairs",
   TRANSACTION: "transactions",
   EXCHANGE:"exchanges",
+  CUSTOMER_PRODUCT:"customer-product"
 };

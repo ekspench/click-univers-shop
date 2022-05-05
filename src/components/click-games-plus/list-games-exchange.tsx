@@ -27,6 +27,7 @@ const ListGamesExchange = () => {
     data,
     error,
   } = useProductsQuery({
+    exchangeable:1,
     type: query.type as string,
     text: query?.text as string,
     category: query?.category as string,

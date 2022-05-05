@@ -23,9 +23,10 @@ import { Table } from "@components/ui/table";
 import { OrderItems } from "@components/order/order-items-table";
 import AddNewTicket from "@components/ticket/add-new-ticket";
 import OrderStatus from "@components/order/order-status";
-import { Button } from "@components/";
+import Button from "@components/ui/button";
 import { InfoIcon } from "@components/icons/info";
 import Tooltip from "@components/ui/tool-tips";
+import { useUpdateOrderMutation } from "@data/order/use-mutation-order.mutation";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const cookies = parseContextCookie(context?.req?.headers?.cookie);
@@ -46,6 +47,7 @@ export default function OrderPage() {
   const { clearCheckoutData } = useCheckout();
   const { updateSearchTerm } = useSearch();
   const { alignLeft, alignRight } = useIsRTL();
+  const { mutate: updateOrder, isLoading } = useUpdateOrderMutation();
 
   useEffect(() => {
     resetCart();
@@ -175,6 +177,12 @@ export default function OrderPage() {
             {t("text-back-to-home")}
           </Link>
         </h2>
+        <div className="mb-5">
+
+          {my_order?.status?.serial == 3 && <Button loading={isLoading} onClick={() => {
+            updateOrder({ id: my_order?.id, input: { action: "packet_received",status:4 } })
+          }}>Confirmer la reception de colis</Button>}
+        </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-12">
           <div className="py-4 px-5 border border-border-200 rounded shadow-sm">
@@ -249,8 +257,8 @@ export default function OrderPage() {
                   data?.order?.relay_point
                     ? "relay_point"
                     : data?.order?.mode_click_collect === "full"
-                    ? "click_collect"
-                    : "standard"
+                      ? "click_collect"
+                      : "standard"
                 }
               />
             </div>
@@ -327,8 +335,8 @@ export default function OrderPage() {
                 </strong>
                 :
                 <span className="w-7/12 sm:w-8/12 ps-4 text-sm flex">
-                 
-                 <span className="mr-2">{data?.order?.delivery_time}  </span>  <Tooltip tooltipText={"Les délais de livraison sont indicatifs de certaines commandes, susceptibles d'avoir des délais de livraison plus longs"} children={<InfoIcon height="16" width="16"  />}/>
+
+                  <span className="mr-2">{data?.order?.delivery_time}  </span>  <Tooltip tooltipText={"Les délais de livraison sont indicatifs de certaines commandes, susceptibles d'avoir des délais de livraison plus longs"} children={<InfoIcon height="16" width="16" />} />
                 </span>
               </p>
               <p className="flex text-body-dark mt-5">
@@ -341,8 +349,8 @@ export default function OrderPage() {
                 <span className="w-7/12 sm:w-8/12 ps-4 text-sm flex flex-col">
                   <span>{addressTitle},</span>
                   <span> {formatAddress(address)}</span>
-                  {mode==="click_collect"&&<span>{my_order?.shop?.settings.contact}</span>}
-                 {mode === "relay_point"&& <div dangerouslySetInnerHTML={{__html:my_order?.relay_point.HoursHtmlTable}}>
+                  {mode === "click_collect" && <span>{my_order?.shop?.settings.contact}</span>}
+                  {mode === "relay_point" && <div dangerouslySetInnerHTML={{ __html: my_order?.relay_point.HoursHtmlTable }}>
 
                   </div>}
                 </span>
@@ -370,14 +378,14 @@ export default function OrderPage() {
         </div>
         {(data?.order?.children?.length === 1 ||
           data?.order?.children.length === 0) && (
-          <AddNewTicket
-            order={
-              data?.order?.children?.length === 1
-                ? data?.order?.children[0]
-                : data?.order
-            }
-          />
-        )}
+            <AddNewTicket
+              order={
+                data?.order?.children?.length === 1
+                  ? data?.order?.children[0]
+                  : data?.order
+              }
+            />
+          )}
         {data?.order?.children?.length ? (
           <div>
             {data?.order?.children.length > 1 && (

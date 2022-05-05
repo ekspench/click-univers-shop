@@ -15,6 +15,7 @@ export type NoticesQueryOptionsType={
 export type ProductsQueryOptionsType = {
   type?: string;
   text?: string;
+  exchangeable?:Boolean|number;
   category?: string;
   status?: string;
   limit?: number;

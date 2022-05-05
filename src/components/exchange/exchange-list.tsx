@@ -24,19 +24,14 @@ export const ExchangeList = ({ exchanges, isLoading }: { exchanges: Exchange[], 
       render: (e: string) => (<a href={`exchange/${e}`}>{e}</a>)
     },
     {
-      title: t("Jeux "),
+      title: t("Echange "),
       dataIndex: "shop_product",
-      key: "customer_product",
+      key: "shop_product",
       align: alignLeft,
-      render: (e: any) => (<span>{e?.name}</span>)
+      width:450,
+      render: (e: any,record:any) => (<span>{e?.name+"<=>"+record?.customer_product?.product?.name}</span>)
     },
-    {
-      title: t("Jeux "),
-      dataIndex: "customer_product",
-      key: "customer_product",
-      align: alignLeft,
-      render: (e: any) => (<span>{e?.name}</span>)
-    },
+
     {
       title: t("text-amount"),
       dataIndex: "amount",

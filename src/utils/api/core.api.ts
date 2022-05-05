@@ -53,12 +53,14 @@ export class CoreApi {
       limit = 30,
       orderBy = "updated_at",
       sortedBy = "DESC",
+      exchangeable,
       user_id,
     } = params;
     const searchString = this.stringifySearchQuery({
       types,
       type,
       name,
+      exchangeable,
       category,
       status,
       user_id,

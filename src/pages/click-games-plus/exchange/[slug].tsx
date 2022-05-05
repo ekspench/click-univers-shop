@@ -26,6 +26,10 @@ import { formatToPrice } from "@utils/use-price";
 import ChoiceGameSku from "@components/click-games-plus/choice-games-sku";
 import { useCreateExchangeMutation } from "@data/exchange/use-create-exchange.mutation";
 import { useRouter } from "next/router";
+import { useCustomerProductQuery } from "@data/customer-poduct/use-customers-products.query";
+import MyGameListChoice from "@components/click-games-plus/my-games-list-choice";
+import Loader from "@components/ui/loader/loader";
+import { CustomerProduct } from "@ts-types/customer-products-type";
 // This function gets called at build time
 export async function getStaticPaths({ locales }: GetStaticPathsContext) {
     const products = await fetchProducts({
@@ -96,24 +100,29 @@ const ProductCard = ({ product }: { product: Product }) => {
 }
 
 export default function CreateExchangeProduct({ product }: Iprops) {
-    const [myProduct, setMyProduct] = useState<Product>();
-    const {push}=useRouter();
-    let price = (myProduct && product) ? product.price - myProduct.price : 0;
+    const [customerProduct, setMyCustomerProduct] = useState<CustomerProduct>();
+    const { push } = useRouter();
+    let price = (customerProduct && product) ? product.price - customerProduct?.product.price : 0;
     price = price < 10 ? 10 : price;
     const { mutate, isLoading } = useCreateExchangeMutation();
-    const { data: dataMe } = useCustomerQuery();
+    const { data: dataMe, isLoading: loadingMe } = useCustomerQuery();
+
     const me = dataMe?.me;
     const exchange = () => {
         mutate({
-            customer_product_id: myProduct?.id,
+            customer_product_id: customerProduct?.id,
             shop_product_id: product?.id,
-        },{
-            onSuccess:(response)=>{
-                console.log("reponse",response);
-               push("/exchanges/"+response?.id);
+        }, {
+            onSuccess: (response) => {
+              
+                push("/exchanges/" + response?.id);
             }
         });
     }
+    if (loadingMe)
+        return (
+            <Loader />
+        )
     return (
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-screen " >
             <div className="flex justify-center mt-5 border bg-white rounded-md">
@@ -127,26 +136,26 @@ export default function CreateExchangeProduct({ product }: Iprops) {
                     <img className="h-16 w-16" src="/icons/exchange.png" />
 
                 </div>
-                {myProduct ? <ProductCard product={myProduct} /> : <div className="w-48 h-48 border bg-white">
+                {customerProduct ? <ProductCard product={customerProduct?.product} /> : <div className="w-48 h-48 border bg-white">
                     <div className="flex align-center justify-center">
                         <h3 className="mt-20">Choisir votre jeux</h3>
                     </div>
                 </div>}
 
             </div>
-           
+
 
             {me && me?.subscription?.status ?
                 <div>
-                    {!myProduct ? <div className="mt-10 flex justify-center">
+                    {!customerProduct ? <div className="mt-10 flex justify-center">
                         <div className=" w-full mx-auto p-4 sm:px-6 lg:px-8 bg-white rounded-md">
-                            <ChoiceGameSku setProduct={setMyProduct} />
+                            <MyGameListChoice setMyProduct={setMyCustomerProduct} />
                         </div>
                     </div> :
                         <>
                             <div className="mt-10 flex flex-col w-full items-center justify-center rounded-md">
 
-                                <Button className="w-96" onClick={() => setMyProduct(null)} size="small">Choisir une autre jeux</Button>
+                                <Button className="w-96" onClick={() => setMyCustomerProduct(null)} size="small">Choisir une autre jeux</Button>
                                 <div className="mt-5 bg-white flex justify-center">
                                     Estimation du prix d'échage: {formatToPrice(price)}
                                 </div>

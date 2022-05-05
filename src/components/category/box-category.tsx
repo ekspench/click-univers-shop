@@ -9,6 +9,16 @@ import { getIcon } from "@utils/get-icon";
 import ProductFeedLoaderTwo from "@components/ui/loaders/product-feed-loader-two";
 import Image from "next/image";
 
+const menus = [
+{
+  slug:"click-games-plus",
+  name:"Click Games Plus",
+  image:{
+    thumbnail:"/icons/exchange.png"
+  },
+  url:"/click-games-plus"
+}
+]
 const BoxCategory = () => {
   const router = useRouter();
 
@@ -102,12 +112,43 @@ const BoxCategory = () => {
                 </span>
               </div>
             ))}
+            {menus?.map((category,index) => (
+          <div
+            className={cn(
+              "text-center rounded bg-light py-4 flex flex-col items-center justify-start relative overflow-hidden cursor-pointer border-2",
+              selectedQueries === category.slug
+                ? "border-gray-800"
+                : "border-border-100 xl:border-transparent"
+            )}
+            role="button"
+            onClick={() => router.push(category?.url)}
+            key={index}
+          >
+            <div className="w-full h-20 flex items-center justify-center">
+              <span className="w-10 h-10 inline-block">
+                <img
+                  src={category?.image?.thumbnail ?? "http://api.click-univers.local/1258.jpg"}
+                  alt={category?.slug}
+
+                 
+                  height={250}
+                  width={250} />
+
+              </span>
+            </div>
+
+            <span className="text-sm font-semibold text-heading text-center px-2.5 block">
+              {category.name}
+            </span>
+          </div>
+        ))}
           </div>
         ) : (
           <div className="min-h-full pt-6 pb-8 px-4 lg:p-8">
             <NotFound text="text-no-category" className="h-96" />
           </div>
         )}
+        
       </div>
     </Scrollbar>
   );

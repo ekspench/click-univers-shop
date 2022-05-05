@@ -169,7 +169,7 @@ function CustomApp({ Component, pageProps: { session, ...pageProps } }: AppProps
             </ModalProvider>
           </AppUser>
         </AppSettings>
-        <ReactQueryDevtools />
+      {/*  <ReactQueryDevtools />*/}
       </Hydrate>
     </QueryClientProvider>
   );

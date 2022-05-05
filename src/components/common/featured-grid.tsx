@@ -18,7 +18,7 @@ const data = [
         className="transform scale-75 xl:scale-90 3xl:scale-100"
       />
     ),
-    title: 'feature-title-one',
+    title: 'Parrainez des amis et obtenez des coupons de réductions sur tous les articles.',
     href: ROUTES.HOME,
     bgColor: '#FFEED6',
   },
@@ -30,7 +30,7 @@ const data = [
         className="transform scale-75 xl:scale-90 3xl:scale-100"
       />
     ),
-    title: 'feature-title-two',
+    title: 'Un système de livraison rapide Recevez vos produits le jour de la sortie.',
     href: ROUTES.HOME,
     bgColor: '#CCEDFF',
   },
@@ -42,7 +42,7 @@ const data = [
         className="transform scale-75 xl:scale-90 3xl:scale-100"
       />
     ),
-    title: 'feature-title-three',
+    title: 'La communauté de joueur s’agrandit  obtenez des conseils et de d’autres joueurs solutions, et astuce ',
     href: ROUTES.HOME,
     bgColor: '#D7F1EC',
   },
@@ -54,7 +54,7 @@ const data = [
         className="transform scale-75 xl:scale-90 3xl:scale-100"
       />
     ),
-    title: 'feature-title-four',
+    title: 'La garantie d’un service fiable et authentique   ',
     href: ROUTES.HOME,
     bgColor: '#FFE1E1',
   },
@@ -99,7 +99,7 @@ const FeatureGrid: React.FC<Props> = ({
             <SwiperSlide key={`featured-key-${item.id}`}>
               <FeaturedCard item={item} />
             </SwiperSlide>
-          ))}
+          ))}²
         </Carousel>
       ) : (
         <div className="2xl:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">

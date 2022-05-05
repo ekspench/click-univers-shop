@@ -23,7 +23,7 @@ const FeaturedCard: React.FC<Props> = ({ item, className }) => {
   return (
     <Link href={href}>
       <div
-        className={cn('group p-5 xl:p-6 3xl:p-7 flex items-center', className)}
+        className={cn('group p-5 xl:p-6 3xl:p-7 h-full flex items-center', className)}
         style={{ backgroundColor: bgColor }}
       >
         <div className="flex flex-shrink-0 items-center justify-center bg-skin-fill rounded-full w-[65px] md:w-[70px] xl:w-20 3xl:w-[90px] h-[65px] md:h-[70px] xl:h-20 3xl:h-[90px] shadow-featured">
@@ -33,7 +33,7 @@ const FeaturedCard: React.FC<Props> = ({ item, className }) => {
           <Heading variant="title" className="mb-2 md:mb-3 -mt-0.5">
             {t(title)}
           </Heading>
-          <div className="uppercase text-xs xl:text-13px font-manrope font-semibold tracking-[0.6px] flex items-center text-skin-base text-opacity-60 transition duration-200 ease-in-out group-hover:text-opacity-100">
+          <div className="uppercase hidden text-xs xl:text-13px font-manrope font-semibold tracking-[0.6px] flex items-center text-skin-base text-opacity-60 transition duration-200 ease-in-out group-hover:text-opacity-100">
             {t('text-learn-more')}
             <IoCaretForward className="text-sm xl:text-base transition duration-200 ease-in-out ms-1 lg:ms-1.5 opacity-60 group-hover:ms-1.5 lg:group-hover:ms-2" />
           </div>

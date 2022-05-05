@@ -149,7 +149,7 @@ export default function HomePage() {
         </div>
 
         <main className="w-full overflow-hidden block lg:mt-6">
-        
+     {width<768&&width>684&&<FilterBarLayoutTwo />}  
           <Element name="grid">
             <ProductFeed />
           </Element>

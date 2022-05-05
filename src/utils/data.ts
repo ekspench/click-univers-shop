@@ -172,6 +172,11 @@ export const status_exchange: any = {
     text: "Colis en preparation d'envoie",
     value: 6,
   },
+  cancelled: {
+    label: "Annuler",
+    text: "Echanger annuler par l'utilisateur",
+    value: 8,
+  },
   total: 8,
 };
 
