@@ -99,7 +99,7 @@ const FeatureGrid: React.FC<Props> = ({
             <SwiperSlide key={`featured-key-${item.id}`}>
               <FeaturedCard item={item} />
             </SwiperSlide>
-          ))}²
+          ))}
         </Carousel>
       ) : (
         <div className="2xl:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">

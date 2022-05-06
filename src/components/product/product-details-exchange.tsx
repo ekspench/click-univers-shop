@@ -43,7 +43,7 @@ type Props = {
   variant?: "defaultView" | "modalView";
 };
 
-const ProductDetails: React.FC<Props> = ({ product }) => {
+const ProductDetailsExchange: React.FC<Props> = ({ product }) => {
   const router = useRouter();
   const {
     name,
@@ -195,31 +195,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                 {/*unit*/}
               </span>
             )}
-            <div className="my-5 md:my-10 flex items-center">
-              {!isEmpty(variations) ? (
-                <VariationPrice
-                  selectedVariation={selectedVariation}
-                  minPrice={product.min_price}
-                  maxPrice={product.max_price}
-                />
-              ) : (
-                <span className="flex items-center">
-                  <ins className="text-2xl md:text-3xl font-semibold text-accent no-underline">
-                    {basePrice ? basePrice : price}
-                  </ins>
-                  {discount && (
-                    <div>
-                      <span className="text-md  font-normal text-muted ms-2">au lieu de </span>
-                      <del className="text-md  font-normal text-muted ms-2">
-                        {price}
-                      </del>
-                    </div>
-
-                  )}
-                </span>
-              )}
-            </div>
-
+            
             <div>
               <ProductAttributes
                 variations={variations}
@@ -260,23 +236,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                   )}
                   {mode !== "user-product" && (
                     <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
-                  
-                      <AddToCart
-                        isCard={false}
-                        data={product}
-                        variant="big"
-                        variation={selectedVariation}
-                        disabled={selectedVariation?.is_disable || !isSelected}
-                      />
-                      {product?.release_date && (
-                        <div className="border flex space-x-2 rounded p-2 mt-1">
-                          <BoxImportantIcon className="w-6 h-6" />
-                          <span className="">
-                            Ce produit sera disponible le{" "}
-                            {dayjs(product.release_date).format("DD/MM/YYYY")}
-                          </span>
-                        </div>
-                      )}
+                      {dataMe?.me?.subscription?.status&&product?.exchangeable&&     <LinkButton href={"/click-games-plus/exchange/" + product?.slug} className="py-4 bg-green-500 hover:bg-green-800 px-5 mb-3 h-12 w-full break-all flex items-center justify-center text-sm lg:text-base  font-bold rounded text-light bg-accent hover:bg-accent-hover transition-colors duration-300 focus:outline-none focus:bg-accent-hover"> <DataTransferIcon className="mr-2" height={20} width={20} /> <span className="ml-2"> Echanger avec click games +</span></LinkButton>}
                     </div>
                   )}
                 </>
@@ -370,4 +330,4 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
   );
 };
 
-export default ProductDetails;
+export default ProductDetailsExchange;

@@ -56,7 +56,7 @@ SwiperCore.use([Navigation]);
 export default function Carousel({children,id}) {
   const { t } = useTranslation();
   return (
-    <div className="px-6 py-5 md:px-8 xl:px-12  md:py-10 border-t border-border-200">
+    <div className="px-6 py-2 md:px-8 xl:px-12  md:py-10 border-t border-border-200">
       <div className="relative" style={{ margin: "0 auto" }}>
         <Swiper
           id={id}

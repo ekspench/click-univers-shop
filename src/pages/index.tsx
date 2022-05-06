@@ -139,17 +139,17 @@ export default function HomePage() {
         title="Click sur ton Univers"
       />
       <div className="w-full overflow-hidden block lg:mt-6">
-      <BannerShort  banner={getPageData.banner} className="max-h-140" />
+        <BannerShort banner={getPageData.banner} className="max-h-140" />
         <FeatureGrid />
       </div>
-    
+
       <div className="flex flex-1 bg-gray-100">
         <div className="sticky top-22 h-full lg:w-[380px] hidden xl:block bg-gray-100">
           <BoxCategory />
         </div>
 
         <main className="w-full overflow-hidden block lg:mt-6">
-     {width<768&&width>684&&<FilterBarLayoutTwo />}  
+          {width < 1280 && width > 684 && <FilterBarLayoutTwo />}
           <Element name="grid">
             <ProductFeed />
           </Element>

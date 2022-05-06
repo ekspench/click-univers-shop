@@ -36,7 +36,7 @@ const MobileNavigation: React.FC<MobileNavigationProps> = ({
       <nav className="h-12 md:h-14 w-full py-1.5 px-2 flex justify-between fixed start-0 bottom-0 z-10 bg-light shadow-400">
         <motion.button
           whileTap={{ scale: 0.88 }}
-          onClick={() => handleSidebar("FILTER_VIEW")}
+          onClick={() => handleSidebar("FILTER_LAYOUT_TWO_VIEW")}
           className="flex p-2 h-full items-center justify-center focus:outline-none focus:text-accent"
         >
           <span className="sr-only">{t("text-burger-menu")}</span>

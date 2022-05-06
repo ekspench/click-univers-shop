@@ -8,9 +8,7 @@ const Footer: React.FC = () => (
     <Widgets widgets={widgets} />
     <Copyright payment={payment} />
     <div className="px-2 pb-4">
-      <p className='text-center'>
-    Click Games | E-commerce spécialiste du jeux vidéos | Choisissez votre univers | Des nombreuses promotions jusqu’à -70% | Livraison gratuite à partir de 35€ | Click sur ton jeu    
-    </p>
+     
     </div>
   </footer>
 );

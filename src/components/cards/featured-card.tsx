@@ -23,7 +23,7 @@ const FeaturedCard: React.FC<Props> = ({ item, className }) => {
   return (
     <Link href={href}>
       <div
-        className={cn('group p-5 xl:p-6 3xl:p-7 h-full flex items-center', className)}
+        className={cn('group p-2 xl:p-6 3xl:p-7 h-48 flex items-center', className)}
         style={{ backgroundColor: bgColor }}
       >
         <div className="flex flex-shrink-0 items-center justify-center bg-skin-fill rounded-full w-[65px] md:w-[70px] xl:w-20 3xl:w-[90px] h-[65px] md:h-[70px] xl:h-20 3xl:h-[90px] shadow-featured">

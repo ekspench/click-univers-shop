@@ -39,7 +39,7 @@ const ProductExchangeCard: React.FC<ProductExchangeCardProps> = ({ product, clas
     const router = useRouter();
     function handleProductQuickView() {
         // return openModal("PRODUCT_DETAILS", product.slug);
-        router.push(`/products/${product.slug}`);
+        router.push(`/click-games-plus/product/${product.slug}`);
     }
     let dateDelivery = new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000);
     switch (dateDelivery.getDay()) {
