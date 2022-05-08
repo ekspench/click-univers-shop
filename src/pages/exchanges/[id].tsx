@@ -45,6 +45,7 @@ export default function ExchangeShow() {
   const exchange = data?.exchange;
   const step = exchange ? status_repair[exchange.status]?.value : 0;
   const delivery: delivery = exchange?.return_delivery ? exchange?.return_delivery : exchange?.send_delivery;
+  console.log("exchange",exchange);
   if (isLoading && !exchange) {
     return <Loader />;
   }
@@ -80,66 +81,7 @@ export default function ExchangeShow() {
 
           <div className="space-y-8">
             <div className="bg-white border-t border-b border-gray-200 shadow-sm sm:border sm:rounded-lg">
-              <div className="w-full flex justify-end px-4 space-x-2">
-                {exchange?.status === "confirmed" && (
-                  <>                 <Button
-                    disabled={updateLoading}
-                    className=" mb-2  mt-2"
-                    size="small"
-                    onClick={() =>
-                      openModal("DELIVERY_FORM", {
-                        onValide: (e: any) => {
-                          if (exchange) {
-                            updateExchange({
-                              id: exchange.id,
-                              input: {
-                                action: "shipping_packet",
-                                shipping_data: e,
-                              },
-                            });
-                          }
-                        },
-                      })
-                    }
-                  >
-                    Expedier le colis
-                  </Button>
 
-                    <Button
-                      className="bg-green-500 hover:bg-red-600 mb-2  mt-2"
-                      size="small"
-                      disabled={updateLoading}
-                      onClick={() =>
-                        openModal("REPAIR_TRACK_LABEL", { repair: exchange })
-                      }
-                    >
-                      Etiquette
-                    </Button>
-                    <Button
-                      disabled={updateLoading}
-                      className=" mb-2  bg-red-600 hover:bg-red-800 mt-2"
-                      size="small"
-                      onClick={() => {
-                        if (exchange) {
-                          updateExchange({
-                            id: exchange.id,
-                            input: {
-                              action: "cancelled",
-                            },
-                          });
-                        }
-                      }
-
-                      }
-                    >
-                      Annuler l'échange
-                    </Button>
-                  </>
-
-                )}
-
-
-              </div>
 
               <div className="py-6 px-4 sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8">
                 <div className="sm:flex-col lg:col-span-7">
@@ -155,7 +97,67 @@ export default function ExchangeShow() {
 
                   </div>
                   <h3 className="my-2 font-semibold">Montant d'échange: <PriceView amount={exchange?.amount} /> </h3>
+                  <div className="w-full flex justify-end px-4 space-x-2">
+                    {exchange?.status === "confirmed" && (
+                      <>
+                      <Button
+                        disabled={updateLoading}
+                        className=" mb-2  mt-2"
+                        size="small"
+                        onClick={() =>
+                          openModal("DELIVERY_FORM", {
+                            onValide: (e: any) => {
+                              if (exchange) {
+                                updateExchange({
+                                  id: exchange.id,
+                                  input: {
+                                    action: "shipping_packet",
+                                    shipping_data: e,
+                                  },
+                                });
+                              }
+                            },
+                          })
+                        }
+                      >
+                        Expedier le colis
+                      </Button>
 
+                        <Button
+                          className="bg-green-500 hover:bg-red-600 mb-2  mt-2"
+                          size="small"
+                          disabled={updateLoading}
+                          onClick={() =>
+                            openModal("REPAIR_TRACK_LABEL", { repair: exchange })
+                          }
+                        >
+                          Etiquette
+                        </Button>
+                        <Button
+                          disabled={updateLoading}
+                          className=" mb-2  bg-red-600 hover:bg-red-800 mt-2"
+                          size="small"
+                          onClick={() => {
+                            if (exchange) {
+                              updateExchange({
+                                id: exchange.id,
+                                input: {
+                                  action: "cancelled",
+                                },
+                              });
+                            }
+                          }
+
+                          }
+                        >
+                          Annuler l'échange
+                        </Button>
+                      </>
+
+                    )}
+
+
+                  </div>
                 </div>
                 {delivery && <div className="mt-6 lg:mt-0 lg:col-span-5">
                   <dl className="grid grid-cols-2 gap-x-6 text-sm">

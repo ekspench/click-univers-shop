@@ -102,12 +102,13 @@ const ProductCard = ({ product }: { product: Product }) => {
 export default function CreateExchangeProduct({ product }: Iprops) {
     const [customerProduct, setMyCustomerProduct] = useState<CustomerProduct>();
     const { push } = useRouter();
-    let price = (customerProduct && product) ? product.price - customerProduct?.product.price : 0;
-    price = price < 10 ? 10 : price;
+  
+  
     const { mutate, isLoading } = useCreateExchangeMutation();
     const { data: dataMe, isLoading: loadingMe } = useCustomerQuery();
 
     const me = dataMe?.me;
+    let price = (customerProduct && product) ?  me?.subscription&&me?.subscription?.credit>0?0:10: 0;
     const exchange = () => {
         mutate({
             customer_product_id: customerProduct?.id,
