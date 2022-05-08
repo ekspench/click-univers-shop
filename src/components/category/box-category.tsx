@@ -78,7 +78,7 @@ const BoxCategory = () => {
   };
 
   return (
-    <Scrollbar className="w-full h-full max-h-screen">
+    <Scrollbar style={{maxHeight:"400px"}}>
       <div className="p-5">
         {data?.categories?.data?.length ? (
           <div className="grid grid-cols-2 gap-4">

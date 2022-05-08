@@ -68,7 +68,7 @@ function SidebarMenuItem({ className, item, depth = 0 }: any) {
         )}
       >
 
-        <div className="w-full flex items-center flex-col justify-center">
+        -<div className="w-full flex items-center flex-col justify-center">
           <span className=" h-10 w-10">
             <Image
               src={item?.image?.thumbnail ?? "http://api.click-univers.local/1258.jpg"}
