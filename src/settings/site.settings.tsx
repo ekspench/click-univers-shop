@@ -4,11 +4,11 @@ import { TwitterIcon } from "@components/icons/twitter";
 import { YouTubeIcon } from "@components/icons/youtube";
 import { ROUTES } from "@utils/routes";
 export const siteSettings = {
-  name: "Click-Univers",
+  name: "Click-Games",
   description: "",
   logo: {
     url: "/logo.png",
-    alt: "Click Univers",
+    alt: "Click Games",
     href: "/",
     width: 128,
     height: 40,
@@ -28,8 +28,8 @@ export const siteSettings = {
     },
   },
   author: {
-    name: "Click-Univers",
-    websiteUrl: "https://www.click-univers.com",
+    name: "Click Games",
+    websiteUrl: "https://www.click-games.fr",
     address: "",
     phone: "",
     social: [
