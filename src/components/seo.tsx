@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import { useSettings } from '@contexts/settings.context';
 
 type SeoProps = {
   title: string;
@@ -12,44 +13,47 @@ type SeoProps = {
 
 export const SEO: React.FC<SeoProps> = ({
   title,
-  description="Click Univers | E-commerce spécialiste du jeux vidéos  | Choisissez votre univers | Des nombreuses promotions jusqu’à -70% | Livraison gratuite à partir de 35€ | Click sur ton Univers.",
+  description = "Click Univers | E-commerce spécialiste du jeux vidéos  | Choisissez votre univers | Des nombreuses promotions jusqu’à -70% | Livraison gratuite à partir de 35€ | Click sur ton Univers.",
   canonical,
   css,
   js,
-  image="https://api.click-univers.com/storage/96/60847fa03096e252162228.png",
-}) => (
-  <Head>
-    <title>{"Click Univers | "+title}</title>
-    <meta name="description" content={description} />
-    <meta
-      name="viewport"
-      content="width=device-width,minimum-scale=1,initial-scale=1"
-    />
-    <meta property="og:type" content="website" />
-    <meta name="og:title" property="og:title" content={"Click Univers | "+title} />
-    <meta
-      name="og:description"
-      property="og:description"
-      content={description}
-    />
-    <meta property="og:site_name" content="Click Univers" />
-    <meta property="og:url" content={`${canonical}`} />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content={"Click Univers | "+title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:site" content="@propernounco" />
-    <meta name="twitter:creator" content="@propernounco" />
-    {css && <link rel="stylesheet" href={`${css}`} />}
-    {image ? (
-      <meta property="og:image" content={`${image}`} />
-    ) : (
+  image = "https://api.click-univers.com/storage/96/60847fa03096e252162228.png",
+}) => {
+  const settings = useSettings();  
+  return (
+    <Head>
+      <title>{settings?.siteTitle ?? "Click GAMES"}</title>
+      <meta name="description" content={`%s | ${settings?.seo?.metaTitle ?? "E-Commerce"}`} />
       <meta
-        property="og:image"
-        content="https://www.propernoun.co/static/images/proper-noun-social.png"
+        name="viewport"
+        content="width=device-width,minimum-scale=1,initial-scale=1"
       />
-    )}
-    {image && <meta name="twitter:image" content={`${image}`} />}
-    {canonical && <link rel="canonical" href={`${canonical}`} />}
-    {js && <script type="text/javascript" src={`${js}`}></script>}
-  </Head>
-);
+      <meta property="og:type" content="website" />
+      <meta name="og:title" property="og:title" content={settings?.siteTitle ?? "Click GAMES"+"| " + title} />
+      <meta
+        name="og:description"
+        property="og:description"
+        content={description}
+      />
+      <meta property="og:site_name" content="Click Univers" />
+      <meta property="og:url" content={`${canonical}`} />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content={"Click Games | " + title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:site" content="@propernounco" />
+      <meta name="twitter:creator" content="@propernounco" />
+      {css && <link rel="stylesheet" href={`${css}`} />}
+      {image ? (
+        <meta property="og:image" content={`${image}`} />
+      ) : (
+        <meta
+          property="og:image"
+          content="https://www.propernoun.co/static/images/proper-noun-social.png"
+        />
+      )}
+      {image && <meta name="twitter:image" content={`${image}`} />}
+      {canonical && <link rel="canonical" href={`${canonical}`} />}
+      {js && <script type="text/javascript" src={`${js}`}></script>}
+    </Head>
+  );
+}
