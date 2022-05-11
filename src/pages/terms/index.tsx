@@ -16,6 +16,7 @@ import FooterOne from "@components/layout/footer-one";
 import { useRouter } from "next/router";
 import { useArticleQuery } from "@data/article/use-article.query";
 import Link from "next/link";
+import HomeLayout from "@components/layout/home-layout";
 
 function makeTitleToDOMId(title: string) {
   return title.toLowerCase().split(" ").join("_");
@@ -43,12 +44,12 @@ export default function TermsPage() {
 
      
       </section>
-      <FooterOne />
+    
     </>
   );
 }
 
-TermsPage.Layout = Layout;
+TermsPage.Layout = HomeLayout;
 export const getStaticProps = async ({ locale }: any) => {
   return {
     props: {

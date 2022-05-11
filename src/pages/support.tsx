@@ -53,8 +53,6 @@ export default function HelpPage() {
             <HelpCenterList />
           </div>
         </div>
-
-        <Footer />
       </div>
     </>
   );

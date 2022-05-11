@@ -16,6 +16,7 @@ import FooterOne from "@components/layout/footer-one";
 import { useRouter } from "next/router";
 import { useArticleQuery } from "@data/article/use-article.query";
 import Link from "next/link";
+import HomeLayout from "@components/layout/home-layout";
 
 function makeTitleToDOMId(title: string) {
   return title.toLowerCase().split(" ").join("_");
@@ -55,12 +56,12 @@ export default function TermsPage() {
         {/* End of page header */}
         {terms && <ArticleDetail id={terms?.id} />}
       </section>
-      <FooterOne />
+     
     </>
   );
 }
 
-TermsPage.Layout = Layout;
+TermsPage.Layout = HomeLayout
 export async function getStaticPaths() {
   return {
     paths: [

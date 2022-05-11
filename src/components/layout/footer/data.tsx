@@ -14,16 +14,16 @@ export const footer = {
           title: 'link-contact-us',
           path: '/contact-us',
         },
-        {
+       /* {
           id: 3,
           title: 'link-about-team',
           path: '/about-us',
-        },
-        {
+        },*/
+       /* {
           id: 4,
           title: 'link-customer-support',
           path: '/contact-us',
-        },
+        },*/
       ],
     },
     {
@@ -38,21 +38,21 @@ export const footer = {
         {
           id: 2,
           title: 'link-terms',
-          path: '/terms',
+          path: '/terms/conditions-generales-dutilisation',
         },
         {
           id: 3,
           title: 'link-return-policy',
-          path: '/privacy',
+          path: '/terms/politique-de-confidentialité'
         },
-        {
+       /* {
           id: 4,
           title: 'link-site-map',
           path: '/',
-        },
+        },*/
       ],
     },
-    {
+    /*{
       id: 3,
       widgetTitle: 'widget-title-community',
       lists: [
@@ -77,7 +77,7 @@ export const footer = {
           path: '/',
         },
       ],
-    },
+    },*/
   ],
   payment: [
     {
