@@ -13,7 +13,7 @@ type SeoProps = {
 
 export const SEO: React.FC<SeoProps> = ({
   title,
-  description = "Click Univers | E-commerce spécialiste du jeux vidéos  | Choisissez votre univers | Des nombreuses promotions jusqu’à -70% | Livraison gratuite à partir de 35€ | Click sur ton Univers.",
+  description = "Click Games | E-commerce spécialiste du jeux vidéos  | Choisissez votre univers | Des nombreuses promotions jusqu’à -70% | Livraison gratuite à partir de 35€ | Click sur ton Univers.",
   canonical,
   css,
   js,
@@ -33,9 +33,9 @@ export const SEO: React.FC<SeoProps> = ({
       <meta
         name="og:description"
         property="og:description"
-        content={description}
+        content={settings?.seo?.metaDescription??description}
       />
-      <meta property="og:site_name" content="Click Univers" />
+      <meta property="og:site_name" content="Click Game" />
       <meta property="og:url" content={`${canonical}`} />
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:title" content={"Click Games | " + title} />
