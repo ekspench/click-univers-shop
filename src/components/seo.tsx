@@ -28,6 +28,7 @@ export const SEO: React.FC<SeoProps> = ({
         name="viewport"
         content="width=device-width,minimum-scale=1,initial-scale=1"
       />
+      <meta name="google-site-verification" content="GmRBmFDag8po0_SqBMt-kxbmjspnodXCo0P15SgE5Z8" />
       <meta property="og:type" content="website" />
       <meta name="og:title" property="og:title" content={settings?.siteTitle ?? "Click GAMES"+"| " + title} />
       <meta
