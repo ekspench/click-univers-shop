@@ -26,7 +26,7 @@ export default function TermsPage() {
   const { t } = useTranslation("terms");
   const { query, push } = useRouter();
   const [terms, setTerms] = useState<Article | undefined>();
-  const { data: articleData } = useArticlesQuery({ limit: 50 });
+  const { data: articleData } = useArticlesQuery({ limit: 50,type:"rules" });
   const articles = articleData?.pages[0]?.data;
   useEffect(() => {
     if (articles) {
