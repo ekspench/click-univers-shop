@@ -12,7 +12,7 @@ function makeTitleToDOMId(title: string) {
 
 export default function PrivacyPage() {
   const { t } = useTranslation("policy");
-  const {data,isLoading}=useArticleQuery("politique-de-confidentialité");
+  const {data,isLoading}=useArticleQuery("politique-de-remboursement");
   if(isLoading){
     return (<Loader/>);
   }
