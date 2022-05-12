@@ -140,7 +140,7 @@ export default function HomePage() {
       />
       <div className="w-full overflow-hidden block lg:mt-6">
         <BannerShort banner={getPageData.banner} className="max-h-140" />
-        <FeatureGrid />
+        <FeatureGrid className="hidden" />
       </div>
 
       <div className="flex flex-1 bg-gray-100">
