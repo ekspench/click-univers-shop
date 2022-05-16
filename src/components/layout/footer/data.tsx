@@ -4,11 +4,11 @@ export const footer = {
       id: 1,
       widgetTitle: 'widget-title-about',
       lists: [
-        {
+      /*  {
           id: 1,
           title: 'link-about-us',
           path: '/about-us',
-        },
+        },*/
         {
           id: 2,
           title: 'link-contact-us',

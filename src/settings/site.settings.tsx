@@ -34,7 +34,7 @@ export const siteSettings = {
     phone: "",
     social: [
       {
-        link: "'https://www.instagram.com/ClickGamesFr/',",
+        link: "https://www.facebook.com/ClickGamesFr",
         icon: <FacebookIcon width="16px" height="16px" />,
         hoverClass: "text-social-facebook",
       },
