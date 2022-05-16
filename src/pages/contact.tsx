@@ -135,7 +135,6 @@ export const ContactPage = () => {
         </div>
       </div>
     </div>
-    <FooterOne/>
     </>
   );
 };

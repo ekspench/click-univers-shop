@@ -30,21 +30,21 @@ export const siteSettings = {
   author: {
     name: "Click Games",
     websiteUrl: "https://www.click-games.fr",
-    address: "",
+    address: "support@click-games.fr",
     phone: "",
     social: [
       {
-        link: "https://www.facebook.com",
+        link: "'https://www.instagram.com/ClickGamesFr/',",
         icon: <FacebookIcon width="16px" height="16px" />,
         hoverClass: "text-social-facebook",
       },
       {
-        link: "https://www.instagram.com",
+        link: "https://www.instagram.com/ClickGamesFr",
         icon: <InstagramIcon width="16px" height="16px" />,
         hoverClass: "text-social-instagram",
       },
       {
-        link: "https://www.twitter.com",
+        link: "https://www.twitter.com/ClickGamesFr",
         icon: <TwitterIcon width="16px" height="16px" />,
         hoverClass: "text-social-twitter",
       },

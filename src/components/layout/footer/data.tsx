@@ -12,7 +12,7 @@ export const footer = {
         {
           id: 2,
           title: 'link-contact-us',
-          path: '/contact-us',
+          path: '/contact',
         },
        /* {
           id: 3,
@@ -124,7 +124,7 @@ export const footer = {
   social: [
     {
       id: 1,
-      path: 'https://www.facebook.com/clickgames/',
+      path: 'https://www.facebook.com/ClickUniversFR',
       image: '/assets/images/social/facebook.svg',
       name: 'facebook',
       width: 20,
@@ -132,7 +132,7 @@ export const footer = {
     },
     {
       id: 2,
-      path: 'https://twitter.com/clickgames',
+      path: 'https://twitter.com/ClickGamesFr',
       image: '/assets/images/social/twitter.svg',
       name: 'twitter',
       width: 20,
@@ -140,7 +140,7 @@ export const footer = {
     },
     {
       id: 3,
-      path: 'https://www.instagram.com/clickgames/',
+      path: 'https://www.instagram.com/clickgamesfr/',
       image: '/assets/images/social/instagram.svg',
       name: 'instagram',
       width: 20,

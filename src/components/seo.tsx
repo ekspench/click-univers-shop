@@ -17,7 +17,7 @@ export const SEO: React.FC<SeoProps> = ({
   canonical,
   css,
   js,
-  image = "https://api.click-univers.com/storage/96/60847fa03096e252162228.png",
+  image = "https://api.click-games.com/storage/96/60847fa03096e252162228.png",
 }) => {
   const settings = useSettings();  
   return (
