@@ -66,7 +66,7 @@ export const ContactPage = () => {
           </div>
           <div className="flex flex-col mb-8">
             <span className="font-semibold text-heading mb-3">
-             Pour nous contacter pour courrier
+             Contact par courrier
             </span>
             <div className="flex items-center justify-between">
               <span className="text-sm text-body">
