@@ -30,8 +30,7 @@ export default function TermsPage() {
   const articles = articleData?.pages[0]?.data;
   useEffect(() => {
     if (articles) {
-      const a=articles.find(ar=>ar.slug==query.terms);
-      console.log("a",a,);
+      const a=articles.find(ar=>ar.slug==query.terms);;
       if(a){
         setTerms(a);
       }
@@ -42,7 +41,7 @@ export default function TermsPage() {
       <SEO title={"Mentions légale - " +terms?.title} />
       <section className="max-w-1920 w-full mx-auto py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20">
         <div className="flex">
-          {articles &&
+          {/*articles &&
             articles.map((article) => (
               <Link key={article.id} href={"/terms/" + article.slug}>
                 <a className="mx-2 p-2 pl-5 pr-5 bg-transparent border-2 border-gray-500 text-gray-500 text-lg rounded-lg hover:bg-gray-500 hover:text-gray-100 focus:border-4 focus:border-gray-300">
@@ -50,7 +49,7 @@ export default function TermsPage() {
                   {article.title}
                 </a>
               </Link>
-            ))}
+            ))*/}
         </div>
 
         {/* End of page header */}

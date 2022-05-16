@@ -4,26 +4,26 @@ export const footer = {
       id: 1,
       widgetTitle: 'widget-title-about',
       lists: [
-      /*  {
+        {
           id: 1,
-          title: 'link-about-us',
-          path: '/about-us',
-        },*/
+          title: 'Supports',
+          path: '/support',
+        },
         {
           id: 2,
           title: 'link-contact-us',
           path: '/contact',
         },
-       /* {
-          id: 3,
-          title: 'link-about-team',
-          path: '/about-us',
-        },*/
-       /* {
-          id: 4,
-          title: 'link-customer-support',
-          path: '/contact-us',
-        },*/
+        /* {
+           id: 3,
+           title: 'link-about-team',
+           path: '/about-us',
+         },*/
+        /* {
+           id: 4,
+           title: 'link-customer-support',
+           path: '/contact-us',
+         },*/
       ],
     },
     {
@@ -38,18 +38,18 @@ export const footer = {
         {
           id: 2,
           title: 'link-terms',
-          path: '/terms/conditions-generales-dutilisation',
+          path: '/terms',
         },
         {
           id: 3,
           title: 'link-return-policy',
           path: '/privacy'
         },
-       /* {
-          id: 4,
-          title: 'link-site-map',
-          path: '/',
-        },*/
+        /* {
+           id: 4,
+           title: 'link-site-map',
+           path: '/',
+         },*/
       ],
     },
     /*{

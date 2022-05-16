@@ -24,8 +24,38 @@ function makeTitleToDOMId(title: string) {
 
 export default function TermsPage() {
   const { t } = useTranslation("terms");
-  const { data: articleData } = useArticlesQuery({ limit: 50,type:"rules" });
+  const { data: articleData } = useArticlesQuery({ limit: 50, type: "rules" });
   const articles = articleData?.pages[0]?.data;
+  const people = [
+    {
+      name: 'Leslie Alexander',
+      email: 'lesliealexander@example.com',
+      role: 'Co-Founder / CEO',
+      imageUrl:
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },
+    // More people...
+  ]
+  return (
+    <>
+    <div className="h-screen  p-2 md:p-16">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {articles && articles.map((article) => (
+          <Link key={article.id}    href={"/terms/" + article.slug}>
+          <div
+           
+            className="relative cursor-pointer text-center text-2xl rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+          >
+            
+                {article.title}
+             
+          
+          </div></Link>
+        ))}
+      </div>
+      </div>
+    </>
+  )
   return (
     <>
       <SEO title={"Mentions légale"} />
@@ -42,9 +72,9 @@ export default function TermsPage() {
             ))}
         </div>
 
-     
+
       </section>
-    
+
     </>
   );
 }
