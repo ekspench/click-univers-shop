@@ -2,7 +2,7 @@ export const footer = {
   widgets: [
     {
       id: 1,
-      widgetTitle: 'widget-title-about',
+      widgetTitle: 'widget-title-link-utils',
       lists: [
         {
           id: 1,
@@ -146,13 +146,13 @@ export const footer = {
       width: 20,
       height: 20,
     },
-    {
+   /* {
       id: 4,
       path: 'https://www.youtube.com/channel/UCjld1tyVHRNy_pe3ROLiLhw',
       image: '/assets/images/social/youtube.svg',
       name: 'youtube',
       width: 20,
       height: 20,
-    },
+    },*/
   ],
 };

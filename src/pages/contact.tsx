@@ -62,16 +62,18 @@ export const ContactPage = () => {
               <span className="text-sm text-body">
                 {siteSettings.author.websiteUrl}
               </span>
-              <a
-                href={siteSettings.author.websiteUrl}
-                target="_blank"
-                className="text-sm text-accent font-semibold hover:text-accent-hover focus:outline-none focus:text-blue-500"
-              >
-                {t("text-visit-site")}
-              </a>
             </div>
           </div>
-
+          <div className="flex flex-col mb-8">
+            <span className="font-semibold text-heading mb-3">
+             Pour nous contacter pour courrier
+            </span>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-body">
+               Click INC, 70 rue Pierre Marti, 25462 Étupes
+              </span>
+            </div>
+          </div>
           <div className="flex flex-col mb-8">
             <span className="font-semibold text-heading mb-4">
               {t("text-follow-us")}

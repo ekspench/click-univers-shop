@@ -562,5 +562,6 @@
   "text-copyright": "copyright",
   "text-all-rights-reserved": "tous les droits sont réservés",
   "placeholder-email-subscribe": "Ecrivez votre e-mail ici",
-  "text-about-us":"A propos de nous"
+  "text-about-us":"A propos de nous",
+  "widget-title-link-utils":"Liens utiles"
 }
