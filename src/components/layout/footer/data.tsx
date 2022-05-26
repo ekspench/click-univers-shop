@@ -26,7 +26,7 @@ export const footer = {
          },*/
       ],
     },
-    {
+   /* {
       id: 2,
       widgetTitle: 'widget-title-our-information',
       lists: [
@@ -49,7 +49,7 @@ export const footer = {
            id: 4,
            title: 'link-site-map',
            path: '/',
-         },*/
+         },
       ],
     },
     /*{

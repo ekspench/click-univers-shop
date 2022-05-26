@@ -9,16 +9,16 @@ import { getIcon } from "@utils/get-icon";
 import ProductFeedLoaderTwo from "@components/ui/loaders/product-feed-loader-two";
 import Image from "next/image";
 
-const menus = [
-{
+const menus:any = [
+/*{
   slug:"click-games-plus",
   name:"Click Games Plus",
   image:{
     thumbnail:"/icons/exchange.png"
   },
   url:"/click-games-plus"
-}
-]
+}*/
+];
 const BoxCategory = () => {
   const router = useRouter();
 

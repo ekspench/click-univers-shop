@@ -30,6 +30,7 @@ import Script from "next/script";
 import PaymentTigoForm from "@components/money-tigo/payment-tigo-form";
 import PaymentForm from "@components/payment/payement-form";
 import { Lock } from "@components/icons/lock";
+import { formatDateCompletWithDay } from "@utils/format-date";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -138,19 +139,19 @@ export default function CheckoutPage() {
         delivery_time: delivery_time?.description,
         shipping_class_id: shipping_class,
         relay_point: relay_point,
-        customer_contact:billing_address?.telephone,
+        customer_contact: billing_address?.telephone,
         billing_address: {
           title: billing_address?.title,
-          first_name:billing_address?.first_name,
-          last_name:billing_address?.last_name,
-          telephone:billing_address?.telephone,
+          first_name: billing_address?.first_name,
+          last_name: billing_address?.last_name,
+          telephone: billing_address?.telephone,
           address: billing_address?.address && billing_address.address,
         },
         shipping_address: {
           title: shipping_address?.title,
-          first_name:billing_address?.first_name,
-          last_name:billing_address?.last_name,
-          telephone:billing_address?.telephone,
+          first_name: billing_address?.first_name,
+          last_name: billing_address?.last_name,
+          telephone: billing_address?.telephone,
           address: shipping_address?.address && shipping_address.address,
         },
       },
@@ -181,10 +182,28 @@ export default function CheckoutPage() {
     }
     return false;
   };
+  let dateDelivery = new Date(new Date().getTime() + shipping_class * 24 * 60 * 60 * 1000);
+  switch (dateDelivery.getDay()) {
+    case 0:
+      dateDelivery = new Date(dateDelivery.getTime() + 2 * 24 * 60 * 60 * 1000);
+      break;
+    case 1:
+      dateDelivery = new Date(dateDelivery.getTime() + 1 * 24 * 60 * 60 * 1000);
+      break;
+    case 2:
+      dateDelivery = new Date(dateDelivery.getTime() + 1 * 24 * 60 * 60 * 1000);
+      break;
+    case 6:
+      dateDelivery = new Date(dateDelivery.getTime() + 2 * 24 * 60 * 60 * 1000);
+      break;
+
+    default:
+      break;
+  }
   useEffect(() => {
-    if(window){
+    if (window) {
       if (processToPay) {
-        window.scrollTo(0,document.body.scrollHeight);
+        window.scrollTo(0, document.body.scrollHeight);
       } else {
         window.scrollTo({
           top: 0,
@@ -192,7 +211,7 @@ export default function CheckoutPage() {
         });
       }
     }
-   
+
   }, [processToPay])
   const isFullClickCollect =
     totalItems > 0 && totalItems === totalClickCollectActive;
@@ -285,8 +304,19 @@ export default function CheckoutPage() {
             {totalItems > 0 && totalItems === totalClickCollectActive ? (
               {/** <ModeClickCollectCard count={1} /> */ }
             ) : (
-              <ShippingMode disabled={processToPay} count={2} />
+              <div>
+                <ShippingMode disabled={processToPay} count={2} />
+                <div className=" flex mt-2">
+                  <p>
+                    Livraison </p>
+                  <p className=" ml-2 font-bold first-letter:capitalize">
+                    {formatDateCompletWithDay(dateDelivery.toDateString())}
+                  </p>
+                </div>
+
+              </div>
             )}
+
           </div>
           {/*totalClickCollect > 0 && (
             <div className="shadow-700 bg-light p-5  md:p-8">
@@ -304,15 +334,15 @@ export default function CheckoutPage() {
               />
             </AnimatePresence>
           )}
-            <div className=" sm:hidden w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
-                <OrderInformation />
-              </div>
+          <div className=" sm:hidden w-full lg:w-96 mb-10 sm:mb-12 lg:mb-0 mt-10">
+            <OrderInformation />
+          </div>
           {showPay() && !processToPay && <Button className="w-full" onClick={() => setProcessToPay(true)}>
-          Procéder au paiement
+            Procéder au paiement
           </Button>}
           {processToPay && (
             <>
-            {/**
+              {/**
               <PaymentTigoForm
                 goBack={() => {
                   setProcessToPay(false);
@@ -332,7 +362,7 @@ export default function CheckoutPage() {
                 onPaySuccess={onPaySuccess}
                 amount={totalF}
               />*/}
-           {/**  <div className="pt-8">
+              {/**  <div className="pt-8">
                 <div className="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-700">
                   <div className="w-full pt-1 pb-5">
                     <div className="bg-accent text-white overflow-hidden rounded-full w-20 h-20 -mt-16 mx-auto shadow-lg flex justify-center items-center">
@@ -342,8 +372,8 @@ export default function CheckoutPage() {
                   <div className="m-8 text-xl text-center text-red-500 ">  Les paiements sont temporairement suspendu</div>
                 </div>
               </div>*/}
-              
-             { <PaymentForm
+
+              {<PaymentForm
                 click_game_plus={
                   clickGamePlus && !data?.me?.subscription?.status
                 }
@@ -353,7 +383,7 @@ export default function CheckoutPage() {
                   data: { ...dataCreateOrder(), clickGamePlus },
                 }}
                 amount={totalF}
-              /> }
+              />}
               {/**<div className="shadow-700 bg-light p-5 md:p-8">
               <Elements stripe={stripePromise}>
                   <PaymentGroup

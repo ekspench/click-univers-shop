@@ -37,6 +37,7 @@ import { InfoIcon } from "@components/icons/info";
 import { Button } from "..";
 import { DataTransferIcon } from "@components/icons/category";
 import LinkButton from "@components/ui/link-button";
+import { Lock } from "@components/icons/lock";
 
 type Props = {
   product: any;
@@ -59,7 +60,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
     shop,
     updated_at,
   } = product ?? {};
-  const { data:dataMe, isLoading: loadingMe } = useCustomerQuery();
+  const { data: dataMe, isLoading: loadingMe } = useCustomerQuery();
   const subscription = dataMe?.me?.subscription;
   const { openModal } = useModalAction();
   const { t } = useTranslation("common");
@@ -260,7 +261,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                   )}
                   {mode !== "user-product" && (
                     <div className="mb-3 lg:mb-0 w-full lg:max-w-[400px]">
-                  
+
                       <AddToCart
                         isCard={false}
                         data={product}
@@ -277,6 +278,10 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                           </span>
                         </div>
                       )}
+                      <div className="flex justify-center items-center flex-col">
+                        <div className="flex justify-center items-center text-gray-600"><Lock height="16" width="16" /> <span className="ml-2">Paiement 100% sécurisé par CB</span></div>
+                        <img className="w-24" src="/card.png" />
+                      </div>
                     </div>
                   )}
                 </>
