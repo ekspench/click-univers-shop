@@ -23,9 +23,8 @@ import usePrice from "@utils/use-price";
 import { useStripeCardsQuery } from "@data/stripe/use-stripe-cards.query";
 import PaymentList from "./payment-list";
 import { useModalAction } from "@components/ui/modal/modal.context";
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC as string
-);
+import { useSettingsQuery } from "@data/settings/use-settings.query";
+
 var cardNumberRaw = "";
 type Iprops = {
   amount: number;
@@ -315,19 +314,7 @@ const StripeForm = ({ amount, data, onPaySuccess, click_game_plus }: Iprops) => 
             >
               Payer {price}
             </Button>
-            <Button className="w-full flex-1 mt-4" onClick={() => {
-              var node = document.getElementById('my-node');
 
-              htmlToImage.toPng(window.document.getElementById("stripe-paiement"))
-                .then(function (dataUrl) {
-                  var img = new Image();
-                  img.src = dataUrl;
-                  window.document.getElementById("stripe-paiement")?.appendChild(img);
-                })
-                .catch(function (error) {
-                  console.error('oops, something went wrong!', error);
-                });
-            }}>okioki</Button>
 
           </div>
         )}
@@ -338,10 +325,18 @@ const StripeForm = ({ amount, data, onPaySuccess, click_game_plus }: Iprops) => 
   );
 };
 
-const PaymentForm = (props: Iprops) => (
-  <Elements stripe={stripePromise}>
-    <StripeForm {...props} />
-  </Elements>
-);
-
+const PaymentForm = (props: Iprops) => {
+  const { data, isLoading } = useSettingsQuery();
+  if (isLoading) {
+    return <Loader className="h-5 w-5" simple />
+  }
+  const stripePromise = loadStripe(
+    data?.settings?.options?.stripe?.public_key
+  );
+  return (
+    <Elements stripe={stripePromise}>
+      <StripeForm {...props} />
+    </Elements>
+  );
+}
 export default PaymentForm;

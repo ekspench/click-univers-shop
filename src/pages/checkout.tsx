@@ -309,7 +309,7 @@ export default function CheckoutPage() {
             ) : (
               <div>
                 <ShippingMode disabled={processToPay} count={2} />
-                <div className="flex items-center">
+                <div className="flex justify-center mt-4 items-center">
                  
                   <DeliveryIcon height="42" width="42" />
                   <div className="ml-4 flex">
