@@ -31,6 +31,9 @@ import PaymentTigoForm from "@components/money-tigo/payment-tigo-form";
 import PaymentForm from "@components/payment/payement-form";
 import { Lock } from "@components/icons/lock";
 import { formatDateCompletWithDay } from "@utils/format-date";
+import { DeliveryIcon } from "@components/icons/DeliveryIcon";
+import Tooltip from "@components/ui/tool-tips";
+import { InfoIcon } from "@components/icons/info";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -306,13 +309,19 @@ export default function CheckoutPage() {
             ) : (
               <div>
                 <ShippingMode disabled={processToPay} count={2} />
-                <div className=" flex mt-2">
-                  <p>
-                    Livraison </p>
-                  <p className=" ml-2 font-bold first-letter:capitalize">
-                    {formatDateCompletWithDay(dateDelivery.toDateString())}
-                  </p>
+                <div className="flex items-center">
+                 
+                  <DeliveryIcon height="42" width="42" />
+                  <div className="ml-4 flex">
+                    <p>
+                      Livraison </p>
+                    <p className=" ml-2 font-bold first-letter:capitalize">
+                      {formatDateCompletWithDay(dateDelivery.toDateString())}
+                    </p>
+                  </div>
+                  <Tooltip tooltipText={"Les délais de livraison sont indicatifs de certaines commandes, susceptibles d'avoir des délais de livraison plus longs"} children={<InfoIcon height="16" width="16" />} />
                 </div>
+
 
               </div>
             )}

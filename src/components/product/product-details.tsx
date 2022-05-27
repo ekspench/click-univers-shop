@@ -280,7 +280,7 @@ const ProductDetails: React.FC<Props> = ({ product }) => {
                       )}
                       <div className="flex justify-center items-center flex-col">
                         <div className="flex justify-center items-center text-gray-600"><Lock height="16" width="16" /> <span className="ml-2">Paiement 100% sécurisé par CB</span></div>
-                        <img className="w-24" src="/card.png" />
+                       
                       </div>
                     </div>
                   )}
